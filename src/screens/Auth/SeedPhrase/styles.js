@@ -27,4 +27,11 @@ export const styles = StyleSheet.create({
         borderRadius: 12,
         justifyContent: 'center',
     },
+    errorMessage: {
+        fontSize: 12,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.red,
+        textAlign: 'center',
+        marginTop: hp(1)
+    }
 })

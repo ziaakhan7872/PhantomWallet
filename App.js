@@ -4,6 +4,11 @@
  *
  * @format
  */
+import './shim';
+import './globals';
+import 'react-native-get-random-values';
+import '@ethersproject/shims';
+import 'whatwg-fetch';
 
 import React, { useEffect, useState } from 'react';
 import { StatusBar, ActivityIndicator, View, LogBox } from 'react-native';
@@ -14,35 +19,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import Navigation from './src/navigation/index';
 import { store, persistor } from './src/redux/store';
-import database from './src/services/database';
 
 function App() {
-  const [isDbReady, setIsDbReady] = useState(false);
-
-  useEffect(() => {
-    // Initialize database on app start
-    LogBox.ignoreAllLogs();
-    const initDb = async () => {
-      try {
-        await database.initDatabase();
-        console.log('Database initialized successfully in App');
-        setIsDbReady(true);
-      } catch (error) {
-        console.error('Failed to initialize database:', error);
-        setIsDbReady(true); // Continue anyway to show error screen
-      }
-    };
-
-    initDb();
-  }, []);
-
-  if (!isDbReady) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000' }}>
-        <ActivityIndicator size="large" color="#fff" />
-      </View>
-    );
-  }
 
   return (
     <Provider store={store}>

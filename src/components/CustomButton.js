@@ -1,5 +1,5 @@
 
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { Fonts } from '../constants/fonts'
 import { colors } from '../constants/colors'
@@ -23,7 +23,11 @@ export const CustomButton = ({ title, leftImage, rightImage, leftImageStyle, rig
                         tintColor={tintColor ? tintColor : null}
                     />
                 }
-                <PoppinsText style={[styles.title, titleStyles]}>{title}</PoppinsText>
+                {loading ?
+                    <ActivityIndicator size="small" color={colors.white} />
+                    :
+                    <PoppinsText style={[styles.title, titleStyles]}>{title}</PoppinsText>
+                }
                 {rightImage &&
                     <Image
                         source={rightImage}

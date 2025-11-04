@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 const AuthNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={routes.onBoarding}
+      initialRouteName={routes.splashScreen}
       screenOptions={{
         headerShown: false,
         cardStyle: { backgroundColor: colors.bgColor },
@@ -31,7 +31,9 @@ const AuthNavigator = () => {
       }}
     >
 
-      <Stack.Screen name={routes.pinVerificationScreen} component={PinVerificationScreen} />
+      <Stack.Screen name={routes.splashScreen} component={SplashScreen} />
+      <Stack.Screen name={routes.onBoarding} component={OnboardingScreen} />
+      {/* <Stack.Screen name={routes.pinVerificationScreen} component={PinVerificationScreen} /> */}
       <Stack.Screen name={routes.importWallet} component={ImportWalletScreen} />
       <Stack.Screen name={routes.biometricPopup} component={BiometricPopup} />
       <Stack.Screen name={routes.congratulationScreen} component={CongratulationScreen} />
@@ -40,8 +42,6 @@ const AuthNavigator = () => {
       <Stack.Screen name={routes.faceIdEnable} component={FaceIdEnable} />
 
       {/* New */}
-      <Stack.Screen name={routes.splashScreen} component={SplashScreen} />
-      <Stack.Screen name={routes.onBoarding} component={OnboardingScreen} />
       <Stack.Screen name={routes.createWallet} component={CreateWallet} />
       <Stack.Screen name={routes.pinScreen} component={PinScreen} />
       <Stack.Screen name={routes.protectWallet} component={ProtectWallet} />

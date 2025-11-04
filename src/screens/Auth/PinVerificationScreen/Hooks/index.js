@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { verifyPin, loadAuthSettings } from '../../../../store/actions/authActions';
-import { loadWalletData } from '../../../../store/actions/walletActions';
 import { routes } from '../../../../constants/routes';
 import ReactNativeBiometrics from 'react-native-biometrics';
 
@@ -10,24 +8,12 @@ const usePinVerificationScreen = (props) => {
   const dispatch = useDispatch();
 
   const storedPin = useSelector(state => state?.auth?.pin);
-  const oldReduxPin = useSelector(state => state?.userdataReducer?.getPin); // Fallback to old Redux
+  const oldReduxPin = useSelector(state => state?.userdataReducer?.pin); // Fallback to simplified Redux
   const isFaceIdEnabled = useSelector(state => state?.auth?.isFaceIdEnabled);
 
   const [newPin, setNewPin] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  // Load auth settings on mount
-  useEffect(() => {
-    const loadSettings = async () => {
-      try {
-        await dispatch(loadAuthSettings()).unwrap();
-      } catch (error) {
-        console.error('Error loading auth settings:', error);
-      }
-    };
-    loadSettings();
-  }, [dispatch]);
 
   // Verify PIN when 6 digits are entered
   useEffect(() => {
@@ -63,9 +49,6 @@ const usePinVerificationScreen = (props) => {
       // Direct comparison as fallback
       if (newPin === pinToVerify) {
         console.log('✅ PIN verified successfully (direct comparison)');
-
-        // Load wallet data
-        await dispatch(loadWalletData()).unwrap();
 
         // Navigate to main app
         props?.navigation?.replace(routes.appStack);
@@ -103,9 +86,6 @@ const usePinVerificationScreen = (props) => {
       if (success) {
         setIsLoading(true);
         setError('');
-
-        // Load wallet data
-        await dispatch(loadWalletData()).unwrap();
 
         // Navigate to main app
         props?.navigation?.replace(routes.appStack);

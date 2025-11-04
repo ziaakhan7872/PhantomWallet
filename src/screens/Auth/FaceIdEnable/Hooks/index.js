@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Alert } from 'react-native';
-import { importWallet } from '../../../../store/actions/walletActions';
-import { setupPin } from '../../../../store/actions/authActions';
-import { SaveFingerPrint } from '../../../../redux/actions/WalletActions';
 import { routes } from '../../../../constants/routes';
 
 const useFaceIdEnable = (props) => {
@@ -27,27 +24,6 @@ const useFaceIdEnable = (props) => {
                 throw new Error('PIN not found. Please set up PIN first.');
             }
 
-            // Join seed phrase array into string
-            const seedPhraseString = seedPhrase.join(' ');
-            console.log('📝 Seed phrase prepared for wallet creation');
-
-            // Create both Solana and EVM wallets from the seed phrase
-            // Note: We use importWallet because we already have the seed phrase
-            const result = await dispatch(importWallet(seedPhraseString)).unwrap();
-            console.log('✅ Wallets created successfully');
-            console.log('Solana Address:', result.address);
-            console.log('EVM Address:', result.evmAddress);
-
-            // Save PIN to database with Face ID setting
-            await dispatch(setupPin({ 
-                pin: storedPin, 
-                isFaceIdEnabled: isFaceIdEnabled 
-            })).unwrap();
-            console.log('✅ PIN and settings saved');
-
-            // Save Face ID preference to Redux
-            dispatch(SaveFingerPrint(isFaceIdEnabled));
-
             setIsLoading(false);
 
             // Navigate to congratulation screen
@@ -61,7 +37,7 @@ const useFaceIdEnable = (props) => {
     };
 
     return {
-        isFaceIdEnabled, 
+        isFaceIdEnabled,
         setIsFaceIdEnabled,
         handleWalletCreation,
         isLoading

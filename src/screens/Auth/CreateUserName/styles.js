@@ -44,5 +44,24 @@ export const styles = StyleSheet.create({
         fontWeight: Fonts.Poppins.SemiBold,
         color: colors.green17,
         textAlign: 'center'
+    },
+    usernameTaken: {
+        fontSize: 12,
+        fontWeight: Fonts.Poppins.SemiBold,
+        color: colors.red || '#FF3B30',
+        textAlign: 'center'
+    },
+    usernameChecking: {
+        fontSize: 12,
+        fontWeight: Fonts.Poppins.SemiBold,
+        color: colors.gray78,
+        textAlign: 'center'
+    },
+    errorText: {
+        fontSize: 12,
+        fontWeight: Fonts.Poppins.SemiBold,
+        color: colors.red,
+        textAlign: 'center',
+        flex: 1
     }
 })

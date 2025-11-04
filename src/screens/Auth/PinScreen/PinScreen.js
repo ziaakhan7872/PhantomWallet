@@ -15,7 +15,7 @@ import { colors } from '../../../constants/colors';
 
 const PinScreen = (props) => {
 
-  const { confirm, errorTitle, newPin, setNewPin, handleRemove, HandleKeyPress } = usePinScreen(props)
+  const { step, errorTitle, newPin, setNewPin, handleRemove, HandleKeyPress } = usePinScreen(props)
   const inputRef = useRef(null);
 
   return (
@@ -29,7 +29,9 @@ const PinScreen = (props) => {
           <View style={styles.mainView}>
             <MainHeader leftImage={Images.goBackArrow} centerImage={Images.slider2} onPressLeftImage={() => props?.navigation.goBack()} />
             <Spacer customHeight={hp(3)} />
-            <PoppinsText style={styles.pinTitle}>{confirm ? 'Confirm PIN' : 'Create a PIN'}</PoppinsText>
+            <PoppinsText style={styles.pinTitle}>
+              {step === 'create' ? 'Create a PIN' : step === 'confirm1' ? 'Confirm PIN' : 'Confirm PIN again'}
+            </PoppinsText>
             <Spacer customHeight={hp(0.5)} />
             <PoppinsText style={styles.pinDesc}>This is used to secure your wallet on all your devices.
               <PoppinsText style={styles.pinDesc1}>This cannot be recovered.</PoppinsText>
@@ -41,14 +43,15 @@ const PinScreen = (props) => {
               inputStyle={styles.input} containerStyle={styles.inputContainer} caretHidden={true} keyboardType='decimal-pad'
             />
 
-          </View>
-          <View style={styles.btnView}>
             {errorTitle && (
               <>
-                <Spacer customHeight={hp(2)} />
+                <Spacer customHeight={hp(1)} />
                 <PoppinsText style={styles.errorText}>{errorTitle}</PoppinsText>
               </>
             )}
+
+          </View>
+          {/* <View style={styles.btnView}>
             <CustomButton
               title={'Create PIN'}
               titleStyles={styles.btnTitleStyles}
@@ -59,7 +62,7 @@ const PinScreen = (props) => {
             // }}
             />
 
-          </View>
+          </View> */}
         </View>
       </TouchableWithoutFeedback>
     </MainContainer>

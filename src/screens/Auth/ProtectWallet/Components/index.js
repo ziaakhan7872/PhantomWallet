@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image, Platform, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { appStyles } from '../../../../utilities/appStyles'
 import { Images } from '../../../../Images'
@@ -7,17 +7,17 @@ import { wp } from '../../../../components/ResponsiveComponent'
 import { colors } from '../../../../constants/colors'
 import { Fonts } from '../../../../constants/fonts'
 
-export const FaceIDCard = ({ isFaceIdEnabled, setIsFaceIdEnabled }) => {
+export const FaceIDCard = ({ isFaceIdEnabled, setIsFaceIdEnabled, onSetToggle }) => {
     return (
         <View style={[appStyles.row, styles.faceIDCard]}>
             <View style={appStyles.rowBasic}>
                 <Image source={Images.face} resizeMode='contain' style={styles.face} />
                 <View>
-                    <PoppinsText style={styles.faceText}>Face ID</PoppinsText>
-                    <PoppinsText style={styles.faceDesct}>Use Face ID Authentication</PoppinsText>
+                    <PoppinsText style={styles.faceText}>{Platform.OS === 'ios' ? 'Face ID' : 'Biometric'}</PoppinsText>
+                    <PoppinsText style={styles.faceDesct}>Use {Platform.OS === 'ios' ? 'Face ID' : 'Biometric'} Authentication</PoppinsText>
                 </View>
             </View>
-            <TouchableOpacity activeOpacity={0.8} onPress={() => setIsFaceIdEnabled(!isFaceIdEnabled)}>
+            <TouchableOpacity activeOpacity={0.8} onPress={onSetToggle}>
                 <Image source={isFaceIdEnabled ? Images.toggleOn : Images.toggleOff} resizeMode='contain' style={styles.toggle} />
             </TouchableOpacity>
         </View>

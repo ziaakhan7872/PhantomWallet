@@ -15,47 +15,47 @@ import { routes } from '../../../constants/routes'
 import { AppHeader } from '../../../components/AppHeader'
 
 const SeedPhrase = (props) => {
-    const { showSeed, mnemonic, setMnemonic, isLoading, isAddAccountFlow } = useSeedPhrase(props)
-
-    console.log('SeedPhrase Screen - showSeed:', showSeed, 'mnemonic length:', mnemonic?.length);
+    const { showSeed, mnemonic, setMnemonic, loading, errorMessage, isSeedPhrase, handleContinuePress } = useSeedPhrase(props)
 
     return (
         <MainContainer>
             <Spacer customHeight={hp(6)} />
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.mainView}>
-                    {isAddAccountFlow ?
-                        <AppHeader leftImage={Images.goBackArrow} title={isAddAccountFlow ? 'Import Recovery Phrase' : 'Import Private Key'} rightImage={Images.questionMark} onPressBack={() => props?.navigation.goBack()} />
+                    {isSeedPhrase == true || isSeedPhrase == false ?
+                        <AppHeader leftImage={Images.goBackArrow} title={isSeedPhrase ? 'Import Recovery Phrase' : 'Import Private Key'} rightImage={Images.questionMark} onPressBack={() => props?.navigation.goBack()} />
                         :
                         <SeedPhraseCustomHeader leftImage={Images.goBackArrow} centerImage={Images.slideLine1} rightText={'Next'} onPressLeftImage={() => props?.navigation.goBack()} />
                     }
                     <View style={{ flex: 1, justifyContent: 'center' }}>
-                        <PoppinsText style={styles.recoveryPhraseText}>Recovery Phrase</PoppinsText>
+                        <PoppinsText style={styles.recoveryPhraseText}>{isSeedPhrase ? 'Recovery Phrase' : 'Private Key'}</PoppinsText>
                         <Spacer customHeight={hp(1)} />
-                        <PoppinsText style={styles.recoveryPhraseDsec}>Restore an existing wallet with your{"\n"}12 or 24-word recovery phrase</PoppinsText>
+                        <PoppinsText style={styles.recoveryPhraseDsec}>{isSeedPhrase ? 'Restore an existing wallet with your \n 12 or 24-word recovery phrase' : 'Restore an existing wallet with your private key'}</PoppinsText>
                         <Spacer />
                         <View style={{ alignSelf: 'center' }}>
                             <CustomTextInput1
-                                placeholder='Recovery Phrase'
+                                placeholder={isSeedPhrase ? 'Enter Recovery Phrase' : 'Enter Private Key'}
                                 placeholderTextColor={colors.gray101}
                                 value={mnemonic}
                                 onChangeText={(text) => setMnemonic(text)}
                                 secureTextEntry={false}
                                 editable={true}
-                                containerStyle={{ width: wp(92), borderWidth: isAddAccountFlow ? 1 : 0, borderColor: colors.gray73, backgroundColor: isAddAccountFlow ? colors.gray55 : colors.bottomSheetBgColor }}
+                                containerStyle={{ width: wp(92), borderWidth: isSeedPhrase ? 1 : 0, borderColor: colors.gray73, backgroundColor: isSeedPhrase ? colors.gray55 : colors.bottomSheetBgColor }}
                             />
+
+                            {errorMessage != '' && <PoppinsText style={styles.errorMessage}>{errorMessage}</PoppinsText>}
                         </View>
                         <Spacer />
                         <CustomButton
-                            loading={isLoading}
-                            title={isAddAccountFlow ? 'Import' : 'Import Recovery Phrase'}
+                            loading={loading}
+                            title={isSeedPhrase ? 'Import Recovery Phrase' : 'Import Private Key'}
                             disabled={mnemonic.length <= 0}
                             titleStyles={{ ...styles.btnTitleStyles, color: colors.gray18 }}
                             btnSyles={{
                                 ...styles.btnSyles,
                                 backgroundColor: mnemonic <= 0 ? colors.lightPurple : colors.btnColor
                             }}
-                            onPressBtn={() => props?.navigation?.navigate(routes.importAccounts)}
+                            onPressBtn={() => handleContinuePress()}
                         />
                     </View>
                 </View>

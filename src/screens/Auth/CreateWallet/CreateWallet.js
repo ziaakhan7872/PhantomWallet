@@ -15,7 +15,7 @@ import { colors } from '../../../constants/colors'
 
 const CreateWallet = (props) => {
 
-    const { emailBottomSheet, isImportFlow, importOptionsBottomSheet } = useCreateWallet(props);
+    const { emailBottomSheet, isImportFlow, importOptionsBottomSheet, onPressCreate, loading } = useCreateWallet(props);
 
     return (
         <MainContainer>
@@ -33,14 +33,17 @@ const CreateWallet = (props) => {
                 <CreateWalletSetupList />
             </View>
             <View style={styles.btnView}>
-                <CustomButton title={'Continue with Email'} onPressBtn={() => emailBottomSheet.current?.open()} />
-                <Spacer customHeight={hp(1)} />
+                {/* <CustomButton title={'Continue with Email'} onPressBtn={() => emailBottomSheet.current?.open()} />
+                <Spacer customHeight={hp(1)} /> */}
                 {/* <TouchableOpacity activeOpacity={0.8} style={{ alignSelf: 'center' }} onPress={() => importOptionsBottomSheet.current?.open()}>
                     <PoppinsText style={styles.bottomText}>{isImportFlow ? 'Other Import Options' : "Create a seed phrase wallet"}</PoppinsText>
                 </TouchableOpacity> */}
-                <CustomButton title={isImportFlow ? 'Other Import Options' : 'Create a seed phrase wallet'} onPressBtn={() => importOptionsBottomSheet.current?.open()}
+                <CustomButton title={isImportFlow ? 'Other Import Options' : 'Create a seed phrase wallet'}
+                    onPressBtn={() => isImportFlow ? importOptionsBottomSheet.current?.open() : onPressCreate()}
                     btnSyles={{ ...styles.btnSyles, backgroundColor: colors.btnDisableColor }}
                     titleStyles={{ ...styles.btnTitleStyles, color: colors.white }}
+                    loading={loading}
+                    disabled={loading}
                 />
 
             </View>
@@ -64,13 +67,13 @@ const CreateWallet = (props) => {
                 onPressBtn1={() => {
                     importOptionsBottomSheet?.current?.close()
                     setTimeout(() => {
-                        props?.navigation.navigate(routes.seedPhrase)
+                        props?.navigation.navigate(routes.seedPhrase, { isSeedPhrase: true })
                     }, 500);
                 }}
                 onPressBtn2={() => {
                     importOptionsBottomSheet?.current?.close()
                     setTimeout(() => {
-                        props?.navigation.navigate(routes.importPrivateKey)
+                        props?.navigation.navigate(routes.seedPhrase, { isSeedPhrase: false })
                     }, 500);
                 }}
                 onPressBtn3={() => {

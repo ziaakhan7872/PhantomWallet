@@ -1,18 +1,15 @@
 import { Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SaveTempSeedPhrase, SaveFingerPrint } from '../../../../redux/actions/WalletActions'
-import { importWallet } from '../../../../store/actions/walletActions'
-import { setupPin } from '../../../../store/actions/authActions'
+import { SaveFingerPrint } from '../../../../redux/actions/WalletActions'
 import { routes } from '../../../../constants/routes'
 
 const useImportWalletScreen = (props) => {
 
     const dispatch = useDispatch()
-    
+
     const pinCreation = props?.route?.params?.newPin;
-    const storedPin = useSelector(state => state?.userdataReducer?.getPin);
-    const tempSeedPhraseFromRedux = useSelector(state => state?.userdataReducer?.getTempSeedPhrase);
+    const storedPin = useSelector(state => state?.userdataReducer?.pin);
 
     const [pin, setPin] = useState('');
     const [seedPhrase, setSeedPhrase] = useState('');
@@ -23,23 +20,14 @@ const useImportWalletScreen = (props) => {
     const [isSeedPhraseVisible, setIsSeedPhraseVisible] = useState(false);
     const [isContinueLoading, setIsContinueLoading] = useState(false);
 
-    // Load seed phrase from Redux if available
-    useEffect(() => {
-        if (tempSeedPhraseFromRedux) {
-            setSeedPhrase(tempSeedPhraseFromRedux);
-        }
-    }, [tempSeedPhraseFromRedux]);
-
-    // Save seed phrase to Redux when user types/pastes
     const handleSeedPhraseChange = (text) => {
         setSeedPhrase(text);
-        dispatch(SaveTempSeedPhrase(text));
     };
 
     const handleContinue = async () => {
         // Start loading immediately
         setIsLoading(true);
-        
+
         // Validation
         if (!seedPhrase.trim()) {
             setIsLoading(false);
@@ -62,19 +50,18 @@ const useImportWalletScreen = (props) => {
         try {
 
             // Import wallet from seed phrase
-            const result = await dispatch(importWallet(seedPhrase.trim())).unwrap();
-            
+            // const result = await dispatch(importWallet(seedPhrase.trim())).unwrap();
+
             // Save PIN to database with Face ID setting
-            await dispatch(setupPin({ 
-                pin: storedPin, 
-                isFaceIdEnabled: isFaceIdEnabled 
-            })).unwrap();
+            // await dispatch(setupPin({ 
+            //     pin: storedPin, 
+            //     isFaceIdEnabled: isFaceIdEnabled 
+            // })).unwrap();
 
             // Save Face ID preference
             dispatch(SaveFingerPrint(isFaceIdEnabled));
 
-            // Clear seed phrase from Redux and local state
-            dispatch(SaveTempSeedPhrase(''));
+            // Clear local seed phrase
             setSeedPhrase('');
 
             setIsLoading(false);
@@ -105,13 +92,13 @@ const useImportWalletScreen = (props) => {
     return {
         pinCreation,
         pin, setPin,
-        seedPhrase, 
+        seedPhrase,
         handleSeedPhraseChange,
         isFaceIdEnabled, setIsFaceIdEnabled,
-        isTermsAccepted, 
+        isTermsAccepted,
         toggleTermsAccepted,
         isPinSheetVisible, setIsPinSheetVisible,
-        handleContinue, 
+        handleContinue,
         handlePinCreated,
         isLoading,
         isSeedPhraseVisible,

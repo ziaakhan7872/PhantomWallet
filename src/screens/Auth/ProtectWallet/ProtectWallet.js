@@ -13,12 +13,12 @@ import { FaceIDCard } from './Components'
 import { routes } from '../../../constants/routes'
 
 const ProtectWallet = (props) => {
-    const { isFaceIdEnabled, setIsFaceIdEnabled } = useProtectWallet();
+    const { isFaceIdEnabled, setIsFaceIdEnabled, onSetToggle } = useProtectWallet();
     return (
         <MainContainer>
             <Spacer customHeight={hp(6)} />
             <View style={styles.mainView}>
-                <CustomHeader leftImage={Images.goBackArrow} rightText={'Next'} onPressLeftImage={() => props?.navigation.goBack()} />
+                <CustomHeader leftImage={Images.goBackArrow} rightText={''} onPressLeftImage={() => props?.navigation.goBack()} />
                 <View style={{ flex: 1, justifyContent: 'center' }}>
                     <Image source={Images.purpleLock} resizeMode='contain' style={styles.purpleLock} />
                     <Spacer />
@@ -26,7 +26,7 @@ const ProtectWallet = (props) => {
                     <Spacer />
                     <PoppinsText style={styles.desc}>Adding biometric security will ensure that you are the only one that can access your wallet.</PoppinsText>
                     <Spacer />
-                    <FaceIDCard isFaceIdEnabled={isFaceIdEnabled} setIsFaceIdEnabled={setIsFaceIdEnabled} />
+                    <FaceIDCard isFaceIdEnabled={isFaceIdEnabled} setIsFaceIdEnabled={setIsFaceIdEnabled} onSetToggle={onSetToggle} />
                 </View>
             </View>
             <View style={{ paddingBottom: hp(4) }}>

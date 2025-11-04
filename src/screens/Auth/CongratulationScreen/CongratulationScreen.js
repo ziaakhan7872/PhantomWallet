@@ -5,7 +5,6 @@ import { MainContainer } from '../../../components/MainContainer'
 import { Images } from '../../../Images'
 import { hp } from '../../../components/ResponsiveComponent'
 import PoppinsText from '../../../components/PoppinsText'
-import { loadWalletData } from '../../../store/actions/walletActions'
 import { routes } from '../../../constants/routes'
 import { styles } from './styles'
 import { CustomButton } from '../../../components/CustomButton'
@@ -31,12 +30,8 @@ const CongratulationScreen = (props) => {
         );
 
         setIsImportFlow(hasImportWallet);
-        console.log('🎯 Flow detection - hasImportWallet:', hasImportWallet);
     }, [props?.navigation]);
 
-    useEffect(() => {
-        dispatch(loadWalletData());
-    }, [dispatch]);
 
 
     return (

@@ -1,36 +1,24 @@
-import { USER, PIN, ISFIGERPRINT, TEMP_SEED_PHRASE } from '../types';
+import { PIN, ISFIGERPRINT } from '../types';
 
 
 const initState = {
-    getUser: {},
-    getPin: '',
-    getPingetPin: '',
-    getTempSeedPhrase: '',
+    pin: '',
+    isBiometric: false,
 };
 
 
 const userdataReducer = (state = initState, action) => {
     switch (action.type) {
 
-        case USER:
-            return {
-                ...state,
-                getUser: action.payload,
-            };
         case PIN:
             return {
                 ...state,
-                getPin: action.payload,
+                pin: action.payload,
             };
         case ISFIGERPRINT:
             return {
                 ...state,
-                getIsFingerPrint: action.payload,
-            };
-        case TEMP_SEED_PHRASE:
-            return {
-                ...state,
-                getTempSeedPhrase: action.payload,
+                isBiometric: action.payload,
             };
 
         default:

@@ -4,9 +4,7 @@ import { useDispatch } from 'react-redux';
 import { MainContainer } from '../../../components/MainContainer';
 import { colors } from '../../../constants/colors';
 import { routes } from '../../../constants/routes';
-import { loadAuthSettings } from '../../../store/actions/authActions';
-import { SavePin, SaveFingerPrint } from '../../../redux/actions/WalletActions';
-import database from '../../../services/database';
+import database, { getAllWallets } from '../../../services/database';
 import { hp, wp } from '../../../components/ResponsiveComponent';
 
 const SplashScreen = ({ navigation }) => {
@@ -15,39 +13,27 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        // Check if wallet exists in SQLite
-        const wallet = await database.getWallet();
-
-        // Load authentication settings (PIN) from database
-        const authSettings = await dispatch(loadAuthSettings()).unwrap();
-
-        // If auth settings exist, also save to old Redux for compatibility
-        if (authSettings && authSettings.pin) {
-          dispatch(SavePin(authSettings.pin));
-          dispatch(SaveFingerPrint(authSettings.isFaceIdEnabled));
-        }
+        // Get all wallets from SQLite
+        const wallets = await getAllWallets();
 
         // Wait for minimum splash time
         await new Promise(resolve => setTimeout(resolve, 3000));
 
-        // Check if BOTH wallet address AND PIN exist
-        if (wallet && wallet.solanaAddress && authSettings && authSettings.pin && authSettings.isWalletCreated) {
-          console.log('Existing user found - wallet and PIN exist');
-          // User exists with wallet and PIN, navigate to PIN verification screen
-          // navigation.replace(routes.pinVerificationScreen);
-          navigation.replace(routes.authStack);
+        // Check if wallets exist
+        if (wallets && wallets.length > 0) {
+          console.log('Existing wallets found - navigating to PIN screen');
+          navigation.replace(routes.appStack);
         } else {
-          console.log('New user - wallet or PIN missing');
-          // New user, navigate to onboarding
-          navigation.replace(routes.authStack);
+          console.log('No wallets found - navigating to onboarding');
+          navigation.replace(routes.onBoarding);
         }
       } catch (error) {
-        // No wallet or auth settings found, treat as new user
-        console.log('No existing user found:', error);
+        // No wallets found, treat as new user
+        console.log('Error checking wallets:', error);
 
         // Wait for minimum splash time
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        navigation.replace(routes.authStack);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        navigation.replace(routes.onBoarding);
       }
     };
 
