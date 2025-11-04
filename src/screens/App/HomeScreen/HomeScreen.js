@@ -13,19 +13,9 @@ import { appStyles } from '../../../utilities/appStyles'
 
 const HomeScreen = (props) => {
 
-    const { selectedTab, setSelectedTab } = useHomeScreen();
-
-    const [tokenData, setTokenData] = useState([]);
-    const [totalBalance, setTotalBalance] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-
-    // Format total balance for display
-    const formattedTotalBalance = `$${totalBalance.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    })}`;
+    const {
+        activeWalletWithTokens
+    } = useHomeScreen(props);
 
     return (
         <MainContainerApp style={{ paddingHorizontal: wp(4) }}>
@@ -73,12 +63,11 @@ const HomeScreen = (props) => {
             <PrepView />
 
             <Spacer customHeight={hp(3)} />
-            <TokensTabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+            <TokensTabs />
 
             <Spacer customHeight={hp(0.8)} />
             <TokensCard
-                tokenData={tokenData}
-                isLoading={isLoading}
+                tokenData={activeWalletWithTokens?.tokens}
                 onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
             />
 

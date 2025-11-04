@@ -161,7 +161,7 @@ export const InsertAllChains = async (waletid, chainsarray) => {
                     item.decimals,
                     item.rpcUrlname,
                     item.rpcUrl,
-                    item.logoURI,
+                    item.tokenImage,
                     item.isActive,
                     item.isEvm,
                     waletid,
@@ -187,24 +187,47 @@ export const getAllWallets = async () => {
         const wallets = [];
         for (let i = 0; i < results.rows.length; i++) {
             const wallet = results.rows.item(i);
-            wallets.push({
-                id: wallet.id,
-                name: wallet.name,
-                walletAddress: wallet.walletAddress,
-                evmAddress: wallet.walletAddress,
-                solanaAddress: wallet.solanaWalletAddress,
-                privateKey: wallet.privateKey,
-                seedPhrase: wallet.seedPhrase,
-                btcWalletAddress: wallet.btcWalletAddress,
-                btcPrivateKey: wallet.btcPrivateKey,
-                solanaPrivateKey: wallet.solanaPrivateKey,
-                account: wallet.account,
-                isActive: wallet.isActive
-            });
+            wallets.push(wallet);
         }
         return wallets;
     } catch (error) {
         console.log('Error fetching all wallets:', error);
+        throw error;
+    }
+};
+
+export const getActiveWalletsWithTokenData = async () => {
+    const db = await getDb();
+    try {
+        const [walletResult] = await db.executeSql(
+            'SELECT * FROM WalletTbl WHERE isActive = 1',
+            []
+        );
+
+        if (walletResult.rows.length === 0) return [];
+
+        for (let i = 0; i < walletResult.rows.length; i++) {
+            const wallet = walletResult.rows.item(i);
+
+            // Fetch tokens for this wallet
+            const [tokenResult] = await db.executeSql(
+                'SELECT * FROM ChainsTbl WHERE walletId = ? AND isActive = 1',
+                [wallet.id]
+            );
+
+            const tokens = [];
+            for (let j = 0; j < tokenResult.rows.length; j++) {
+                tokens.push(tokenResult.rows.item(j));
+            }
+
+            return {
+                ...wallet,
+                tokens,
+            }
+        }
+
+    } catch (error) {
+        console.log('Error fetching active wallets with token data:', error);
         throw error;
     }
 };
@@ -290,6 +313,7 @@ const database = {
     InsertAllChains,
     checkUsernameExists,
     updateWalletName,
+    getActiveWalletsWithTokenData,
 };
 
 export default database;

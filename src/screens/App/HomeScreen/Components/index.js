@@ -103,31 +103,31 @@ export const PrepView = ({ }) => {
     )
 }
 
-export const TokensCard = ({ tokenData, isLoading, onPressToken }) => {
-
-    const dataToShow = tokenData && tokenData.length > 0 ? tokenData : tokensData;
+export const TokensCard = ({ tokenData, onPressToken }) => {
 
     return (
         <FlatList
-            data={dataToShow}
+            data={tokenData}
             showsVerticalScrollIndicator={false}
             removeClippedSubviews={false}
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
             contentContainerStyle={{ paddingBottom: hp(5) }}
             renderItem={({ item, index }) => {
-
-                console.log(item, 'iitemitemitemtem');
-
-
                 return (
                     <TouchableOpacity activeOpacity={0.8} onPress={() => onPressToken(item)} style={{ ...styles.tokenCardBgView, }}>
                         <View style={appStyles.row}>
                             <View style={appStyles.rowBasic}>
                                 {/* <Image source={{ uri: String(item?.tokenLogo) }} resizeMode='contain' style={styles.tokenLogo} /> */}
-                                <Image source={item?.tokenLogo} resizeMode='contain' style={styles.tokenLogo} />
+                                {item?.logoURI ?
+                                    <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                    :
+                                    <View style={styles.tokenLogo1}>
+                                        <PoppinsText style={styles.tokenName}>{item?.symbol?.slice(0, 1)?.toUpperCase()}</PoppinsText>
+                                    </View>
+                                }
                                 <View>
                                     <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
-                                    <PoppinsText style={styles.tokenSymbol}>{item?.tokenSymbol ?? 'ETH'}</PoppinsText>
+                                    <PoppinsText style={styles.tokenSymbol}>{item?.balance}{item?.symbol?.toUpperCase()}</PoppinsText>
                                 </View>
                             </View>
                             <View>
@@ -143,17 +143,15 @@ export const TokensCard = ({ tokenData, isLoading, onPressToken }) => {
     )
 }
 
-export const TokensTabs = ({ selectedTab, setSelectedTab }) => {
+export const TokensTabs = () => {
     return (
         <View style={appStyles.row}>
-            <TouchableOpacity activeOpacity={0.8} style={appStyles.rowBasic} onPress={() => setSelectedTab('tokens')}>
-                <PoppinsText style={{
-                    ...styles.tabTitle,
-                    color: colors.gray137
-                }}>Tokens
-                </PoppinsText>
-                <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(3), marginLeft: wp(2) }} />
-            </TouchableOpacity>
+            <PoppinsText style={{
+                ...styles.tabTitle,
+                color: colors.gray137
+            }}>Tokens
+            </PoppinsText>
+            {/* <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(3), marginLeft: wp(2) }} /> */}
         </View>
     )
 }
@@ -235,6 +233,15 @@ const styles = StyleSheet.create({
         height: wp(10),
         marginRight: wp(3),
         borderRadius: 100
+    },
+    tokenLogo1: {
+        width: wp(10),
+        height: wp(10),
+        marginRight: wp(3),
+        borderRadius: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colors.gray136,
     },
     tokenName: {
         fontSize: 14,

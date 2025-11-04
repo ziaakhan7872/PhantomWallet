@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import database from "../../../../services/database";
 
-const useHomeScreen = () => {
+const useHomeScreen = (props) => {
 
-    const [selectedTab, setSelectedTab] = useState('tokens');
+    const [activeWalletWithTokens, setActiveWalletWithTokens] = useState([]);
 
     useEffect(() => {
         const getWallet = async () => {
-            const wallet = await database.getActiveWallet();
+            const wallet = await database.getActiveWalletsWithTokenData();
             console.log('walletwalletwallet', wallet);
+            setActiveWalletWithTokens(wallet);
         }
         getWallet();
     }, []);
 
     return {
-        selectedTab, setSelectedTab
+        activeWalletWithTokens
     }
 }
 
