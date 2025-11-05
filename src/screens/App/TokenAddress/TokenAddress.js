@@ -42,7 +42,9 @@ const TokenAddress = (props) => {
 
     return (
         <AppContainer>
-            <AppHeader leftImage={Images.backArrow} title={'Your Solana Address'} onPressBack={() => props?.navigation.goBack()} />
+            <AppHeader leftImage={Images.backArrow} title={`Your ${previousSelectedReceiveTokenData?.chainName ? previousSelectedReceiveTokenData.chainName.charAt(0).toUpperCase() + previousSelectedReceiveTokenData.chainName.slice(1)
+                : ''} Address`}
+                onPressBack={() => props?.navigation.goBack()} />
             <View style={styles.mainView}>
                 <View style={styles.scannerView}>
                     <View style={styles.qrview}>
