@@ -200,5 +200,13 @@ export const Images = {
     colorFullArrowWithRound: require('./colorFullArrowWithRound.png'),
     deleteWithRedRound: require('./deleteWithRedRound.png'),
     threeDotsWithCircle: require('./threeDotsWithCircle.png'),
+    bitcoinYellowLogo: require('./bitcoinYellowLogo.png'),
+    solanaColorFullLogo: require('./solanaColorFullLogo.png'),
+    polygonColorFullLogo: require('./polygonColorFullLogo.png'),
+    ethColorFullLogo: require('./ethColorFullLogo.png'),
+    baseColorFullLogo: require('./baseColorFullLogo.png'),
+    bnbColorFullLogo: require('./bnbColorFullLogo.png'),
+    avalancheColorFullLogo: require('./avalancheColorFullLogo.png'),
+    arbitrumColorFullLogo: require('./arbitrumColorFullLogo.png'),
 
 }

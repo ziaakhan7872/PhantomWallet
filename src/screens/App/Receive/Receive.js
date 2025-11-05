@@ -1,5 +1,4 @@
 import { View } from 'react-native'
-import React from 'react'
 import { AppContainer } from '../../../components/MainContainer'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
@@ -11,8 +10,6 @@ import useReceive from './Hooks'
 
 const Receive = (props) => {
     const { activeTokensData } = useReceive(props)
-    console.log(activeTokensData, ':::::::::::::activeTokensData::::::::::');
-
     return (
         <AppContainer>
             <View style={styles.mainView}>
@@ -20,7 +17,7 @@ const Receive = (props) => {
                 <Spacer />
                 <ReceiveTokensList
                     activeTokensData={activeTokensData}
-                    onPressToken={() => props?.navigation.navigate('')}
+                    onPressToken={() => { }}
                     onPressScanner={() => props?.navigation.navigate(routes.tokenAddress)}
                     onPressCopy={() => { }}
                 />
