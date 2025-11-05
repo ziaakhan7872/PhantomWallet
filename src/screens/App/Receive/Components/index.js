@@ -46,7 +46,7 @@ export const ReceiveTokensList = ({ activeTokensData, onPressToken, onPressScann
 
 
                         {evmTokens ?
-                            <View style={appStyles.RowView}>
+                            <View style={{ ...appStyles.rowBasic, width: wp(75) }}>
                                 <FlatList
                                     data={evmCounts?.length > 8 ? evmCounts?.slice(0, 8) : evmCounts}
                                     horizontal
@@ -72,7 +72,7 @@ export const ReceiveTokensList = ({ activeTokensData, onPressToken, onPressScann
                                         )
                                     }}
                                 />
-                                <TouchableOpacity activeOpacity={0.8} onPress={() => { }} style={appStyles.RowView}>
+                                <TouchableOpacity activeOpacity={0.8} onPress={() => { }} style={appStyles.rowBasic}>
                                     <PoppinsText style={styles.chainText}>{evmCounts?.length} {'Chains'}</PoppinsText>
                                     <Image source={Images.arrowRight} resizeMode='contain' style={styles.rightArrow} />
                                 </TouchableOpacity>
@@ -84,20 +84,24 @@ export const ReceiveTokensList = ({ activeTokensData, onPressToken, onPressScann
 
 
                         <View style={appStyles.row}>
-                            <View style={appStyles.rowBasic}>
-                                <Image source={item?.tokenLogo} resizeMode='contain' style={styles.tokenLogo} />
-                                <View>
-                                    <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
-                                    <View style={appStyles.rowBasic}>
-                                        <PoppinsText style={styles.tokenAddress}>{activeTokensData?.walletAddress
-                                            ? `${activeTokensData.walletAddress.slice(0, 6)}...${activeTokensData.walletAddress.slice(-4)}`
-                                            : '—'}</PoppinsText>
-                                        <View style={styles.tokenTypeBgView}>
-                                            <PoppinsText style={styles.evmText}>{'EVM'}</PoppinsText>
+
+                            {evmTokens ?
+
+                                <View style={appStyles.rowBasic}>
+                                    <Image source={item?.tokenLogo} resizeMode='contain' style={styles.tokenLogo} />
+                                    <View>
+                                        <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
+                                        <View style={appStyles.rowBasic}>
+                                            <PoppinsText style={styles.tokenAddress}>{activeTokensData?.walletAddress
+                                                ? `${activeTokensData.walletAddress.slice(0, 6)}...${activeTokensData.walletAddress.slice(-4)}`
+                                                : '—'}</PoppinsText>
+                                            <View style={styles.tokenTypeBgView}>
+                                                <PoppinsText style={styles.evmText}>{'EVM'}</PoppinsText>
+                                            </View>
                                         </View>
                                     </View>
                                 </View>
-                            </View>
+                                : null}
                             <View style={appStyles.rowBasic}>
                                 <TouchableOpacity activeOpacity={0.8} onPress={() => onPressScanner(item)}>
                                     <Image source={Images.scannerLogo} resizeMode='contain' style={styles.scanner} />
@@ -172,8 +176,8 @@ const styles = StyleSheet.create({
         color: colors.gray138,
     },
     rightArrow: {
-        width: wp(4),
-        height: wp(4),
+        width: wp(3),
+        height: wp(3),
         marginLeft: wp(3)
     },
     logo: {
