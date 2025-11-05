@@ -7,9 +7,11 @@ import { ReceiveTokensList } from './Components'
 import { routes } from '../../../constants/routes'
 import { AppHeader } from '../../../components/AppHeader'
 import useReceive from './Hooks'
+import { copyPaste } from '../../../utilities/helperFunction'
 
 const Receive = (props) => {
     const { activeTokensData } = useReceive(props)
+
     return (
         <AppContainer>
             <View style={styles.mainView}>
@@ -19,7 +21,17 @@ const Receive = (props) => {
                     activeTokensData={activeTokensData}
                     onPressToken={() => { }}
                     onPressScanner={(item) => props?.navigation.navigate(routes.tokenAddress, { item, activeTokensData })}
-                    onPressCopy={() => { }}
+                    onPressCopy={(item) => {
+                        let address = '';
+                        if (item?.chainName?.toLowerCase() === 'bitcoin') {
+                            address = activeTokensData?.btcWalletAddress;
+                        } else if (item?.chainName?.toLowerCase() === 'solana') {
+                            address = activeTokensData?.solanaWalletAddress;
+                        } else {
+                            address = activeTokensData?.walletAddress;
+                        }
+                        copyPaste.copy(address);
+                    }}
                 />
             </View>
         </AppContainer>

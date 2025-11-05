@@ -1,5 +1,4 @@
 import { View, Share, Platform } from 'react-native'
-import React from 'react'
 import { AppContainer } from '../../../components/MainContainer'
 import Spacer from '../../../components/Spacer'
 import { hp } from '../../../components/ResponsiveComponent'
@@ -16,11 +15,6 @@ import useTokenAddress from './Hooks'
 const TokenAddress = (props) => {
 
     const { previousSelectedReceiveTokenData, activeTokensData } = useTokenAddress(props)
-
-    console.log(activeTokensData, 'activeTokensDataactiveTokensData');
-
-
-    const address = 'TTBJhV6Db8jl2B...P8tPkG1p5';
 
     const shareAddress = async () => {
         try {
