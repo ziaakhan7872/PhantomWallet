@@ -38,7 +38,7 @@ const HomeScreen = (props) => {
                 <RowTabs onPressTab={(item) => {
                     console.log('RowTabs item:', item);
                     if (item?.id === 1) {
-                        props?.navigation.navigate(routes.receive)
+                        props?.navigation.navigate(routes.receive, { activeWalletWithTokens })
                     } else if (item?.id === 2) {
                         props?.navigation.navigate(routes.sendTokens)
                     }

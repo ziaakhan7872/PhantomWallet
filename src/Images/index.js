@@ -199,5 +199,6 @@ export const Images = {
     phantomWhiteLogo: require('./phantomWhiteLogo.png'),
     colorFullArrowWithRound: require('./colorFullArrowWithRound.png'),
     deleteWithRedRound: require('./deleteWithRedRound.png'),
+    threeDotsWithCircle: require('./threeDotsWithCircle.png'),
 
 }

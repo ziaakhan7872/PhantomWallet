@@ -1,5 +1,4 @@
 import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
-import React from 'react'
 import { hp, wp } from '../../../../components/ResponsiveComponent'
 import { appStyles } from '../../../../utilities/appStyles'
 import { Images } from '../../../../Images'
@@ -7,25 +6,96 @@ import Spacer from '../../../../components/Spacer'
 import PoppinsText from '../../../../components/PoppinsText'
 import { colors } from '../../../../constants/colors'
 import { Fonts } from '../../../../constants/fonts'
-import { tokensData } from '../../../../components/dummyData'
 
-export const ReceiveTokensList = ({ onPressToken, onPressScanner, onPressCopy }) => {
+export const ReceiveTokensList = ({ activeTokensData, onPressToken, onPressScanner, onPressCopy }) => {
+
+    const evmTokens = activeTokensData?.tokens?.filter(t => t.isEvm === 1);
+    const nonEvmTokens = activeTokensData?.tokens?.filter(
+        t => t.isEvm === 0 && (t.symbol === 'BTC' || t.symbol === 'SOL')
+    );
+
+    console.log(evmTokens, 'evmTokensevmTokensevmTokensevmTokensevmTokensevmTokens');
+
+
     return (
         <FlatList
-            data={tokensData}
+            data={activeTokensData?.tokens}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
             removeClippedSubviews={false}
             contentContainerStyle={{ paddingBottom: hp(70) }}
             renderItem={({ item, index }) => {
+                console.log(item, 'itemitemitemitem');
+
+
+
+
+                let evmCounts = []
+                if (index == 0) {
+                    let res = activeTokensData?.tokens?.filter(res => res?.isEvm == 1)
+                    evmCounts = res
+                }
+
+                if (item?.type == 'token' || (item?.chainName != 'Ethereum' && item?.isEvm == 1))
+                    return null
+
+
                 return (
                     <TouchableOpacity activeOpacity={0.8} onPress={() => onPressToken(item)} style={styles.tokenCardBgView}>
+
+
+
+                        {evmTokens ?
+                            <View style={appStyles.RowView}>
+                                <FlatList
+                                    data={evmCounts?.length > 8 ? evmCounts?.slice(0, 8) : evmCounts}
+                                    horizontal
+                                    contentContainerStyle={{}}
+                                    showsHorizontalScrollIndicator={false}
+                                    ListFooterComponent={() => {
+                                        return (
+                                            <View>
+                                                {evmCounts?.length > 8 ?
+                                                    <View style={{ marginLeft: wp(-2), borderWidth: 2, borderColor: colors.grey34, borderRadius: 100 }}>
+                                                        <Image source={Images.threeDotsWithCircle} resizeMode='contain' style={styles.flimage} />
+                                                    </View>
+                                                    : null}
+                                            </View>
+                                        )
+                                    }
+                                    }
+                                    renderItem={({ item, index }) => {
+                                        return (
+                                            <View style={{ marginLeft: wp(index == 0 ? 0 : -2), borderWidth: 2, borderColor: colors.grey34, borderRadius: 100 }}>
+                                                <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.flimage} />
+                                            </View>
+                                        )
+                                    }}
+                                />
+                                <TouchableOpacity activeOpacity={0.8} onPress={() => { }} style={appStyles.RowView}>
+                                    <PoppinsText style={styles.chainText}>{evmCounts?.length} {'Chains'}</PoppinsText>
+                                    <Image source={Images.arrowRight} resizeMode='contain' style={styles.rightArrow} />
+                                </TouchableOpacity>
+                            </View>
+                            :
+                            <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.logo} />
+                        }
+
+
+
                         <View style={appStyles.row}>
                             <View style={appStyles.rowBasic}>
                                 <Image source={item?.tokenLogo} resizeMode='contain' style={styles.tokenLogo} />
                                 <View>
                                     <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
-                                    <PoppinsText style={styles.tokenAddress}>{item?.tokenAddress}</PoppinsText>
+                                    <View style={appStyles.rowBasic}>
+                                        <PoppinsText style={styles.tokenAddress}>{activeTokensData?.walletAddress
+                                            ? `${activeTokensData.walletAddress.slice(0, 6)}...${activeTokensData.walletAddress.slice(-4)}`
+                                            : '—'}</PoppinsText>
+                                        <View style={styles.tokenTypeBgView}>
+                                            <PoppinsText style={styles.evmText}>{'EVM'}</PoppinsText>
+                                        </View>
+                                    </View>
                                 </View>
                             </View>
                             <View style={appStyles.rowBasic}>
@@ -70,6 +140,18 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.Poppins.Regular,
         color: colors.gray24
     },
+    tokenTypeBgView: {
+        borderRadius: 6,
+        paddingVertical: wp(0.4),
+        paddingHorizontal: wp(2),
+        backgroundColor: colors.gray35,
+        marginLeft: wp(3)
+    },
+    evmText: {
+        fontSize: 10,
+        fontFamily: Fonts.Poppins.Medium,
+        color: colors.white
+    },
     scanner: {
         width: wp(9),
         height: wp(9)
@@ -78,5 +160,25 @@ const styles = StyleSheet.create({
         width: wp(9),
         height: wp(9),
         marginLeft: wp(3)
-    }
+    },
+    flimage: {
+        width: wp(7),
+        height: wp(7),
+        borderRadius: 100
+    },
+    chainText: {
+        fontSize: 14,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.gray138,
+    },
+    rightArrow: {
+        width: wp(4),
+        height: wp(4),
+        marginLeft: wp(3)
+    },
+    logo: {
+        width: wp(6),
+        height: wp(6),
+        borderRadius: 100
+    },
 })

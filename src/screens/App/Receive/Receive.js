@@ -7,14 +7,23 @@ import { Images } from '../../../Images'
 import { ReceiveTokensList } from './Components'
 import { routes } from '../../../constants/routes'
 import { AppHeader } from '../../../components/AppHeader'
+import useReceive from './Hooks'
 
 const Receive = (props) => {
+    const { activeTokensData } = useReceive(props)
+    console.log(activeTokensData, ':::::::::::::activeTokensData::::::::::');
+
     return (
         <AppContainer>
             <View style={styles.mainView}>
                 <AppHeader leftImage={Images.cross} title={'Receive'} onPressBack={() => props?.navigation.goBack()} />
                 <Spacer />
-                <ReceiveTokensList onPressToken={() => props?.navigation.navigate('')} onPressScanner={() => props?.navigation.navigate(routes.tokenAddress)} onPressCopy={() => { }} />
+                <ReceiveTokensList
+                    activeTokensData={activeTokensData}
+                    onPressToken={() => props?.navigation.navigate('')}
+                    onPressScanner={() => props?.navigation.navigate(routes.tokenAddress)}
+                    onPressCopy={() => { }}
+                />
             </View>
         </AppContainer>
     )
