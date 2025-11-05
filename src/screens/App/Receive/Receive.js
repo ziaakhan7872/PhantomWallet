@@ -18,7 +18,7 @@ const Receive = (props) => {
                 <ReceiveTokensList
                     activeTokensData={activeTokensData}
                     onPressToken={() => { }}
-                    onPressScanner={() => props?.navigation.navigate(routes.tokenAddress)}
+                    onPressScanner={(item) => props?.navigation.navigate(routes.tokenAddress, { item, activeTokensData })}
                     onPressCopy={() => { }}
                 />
             </View>
