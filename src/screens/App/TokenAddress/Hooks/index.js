@@ -2,12 +2,12 @@
 
 const useTokenAddress = (props) => {
 
-    const previousSelectedReceiveTokenData = props?.route?.params?.item
-    const activeTokensData = props?.route?.params?.activeTokensData
+    const address = props?.route?.params?.address
+    const name = props?.route?.params?.name
 
     return {
-        previousSelectedReceiveTokenData,
-        activeTokensData
+        address,
+        name
     }
 }
 

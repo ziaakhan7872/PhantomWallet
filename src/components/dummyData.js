@@ -6,7 +6,7 @@ export const mainnetRpcETH = 'https://eth-mainnet.g.alchemy.com/v2/5_he8efi85HYZ
 export const mainnetRpcPolygon = 'https://polygon-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9'
 export const mainnetRpcBase = 'https://base-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9'
 export const mainnetRpcSolana = "https://solana-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9"
-export const mainnetRpcArbitrum = 'https://arbitrum-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9'
+export const mainnetRpcArbitrum = 'https://thrumming-cosmological-silence.arbitrum-mainnet.quiknode.pro/cc9ba52fdd9f3c469c7743dfc2642f89af41bba0/'
 export const mainnetRpcAvalanche = 'https://attentive-polished-spree.avalanche-mainnet.quiknode.pro/bbddf9f846a859c27850faf301dc3e48bdca77f0/ext/bc/C/rpc/'
 
 

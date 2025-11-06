@@ -19,19 +19,8 @@ const Receive = (props) => {
                 <Spacer />
                 <ReceiveTokensList
                     activeTokensData={activeTokensData}
-                    onPressToken={() => { }}
-                    onPressScanner={(item) => props?.navigation.navigate(routes.tokenAddress, { item, activeTokensData })}
-                    onPressCopy={(item) => {
-                        let address = '';
-                        if (item?.chainName?.toLowerCase() === 'bitcoin') {
-                            address = activeTokensData?.btcWalletAddress;
-                        } else if (item?.chainName?.toLowerCase() === 'solana') {
-                            address = activeTokensData?.solanaWalletAddress;
-                        } else {
-                            address = activeTokensData?.walletAddress;
-                        }
-                        copyPaste.copy(address);
-                    }}
+                    onPressScanner={(address, name) => props?.navigation.navigate(routes.tokenAddress, { address, name })}
+                    onPressCopy={(address) => copyPaste.copy(address)}
                 />
             </View>
         </AppContainer>

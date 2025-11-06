@@ -304,6 +304,57 @@ export const updateWalletName = async (walletId, newName) => {
     }
 };
 
+// update token and coin balance
+export const UpdateTokenAndCoinBalance = async (newBalance, id) => {
+    const db = await getDb();
+    try {
+        const [results] = await db.executeSql(
+            'UPDATE ChainsTbl SET balance = ? WHERE id = ?',
+            [newBalance, id]
+        );
+        if (results.rowsAffected > 0) {
+            return true;
+        }
+        return false;
+    } catch (error) {
+        console.error('Error in UpdateTokenAndCoinBalance:', error);
+        throw error;
+    }
+};
+
+const UpdateCoinCurrentPrices = tokendata => {
+    try {
+        return new Promise((resolve, reject) => {
+            db.transaction(tx => {
+                tx.executeSql(
+                    `UPDATE ChainsTbl SET change24h =?,currentPriceUsd=? WHERE  rpcUrlname=? AND type=?;`,
+                    [
+                        tokendata?.change24hr ?? 0,
+                        tokendata?.curentprice ?? 0,
+                        tokendata?.platformName,
+                        'chain',
+                    ],
+                    (_, result) => {
+                        if (result.rowsAffected > 0) {
+                            // console.log('coin price updated', tokendata);
+                            resolve(true);
+                        } else {
+                            // console.log('coin not found or price not updated.', tokendata);
+                            resolve(false);
+                        }
+                    },
+                    (_, error) => {
+                        console.log('Error updating coin proce:', error);
+                        reject(error);
+                    },
+                );
+            });
+        });
+    } catch (error) {
+        console.log('errorerror', error);
+    }
+};
+
 // Default export with all methods
 const database = {
     getWallet,

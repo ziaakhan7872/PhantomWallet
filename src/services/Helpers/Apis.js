@@ -8,9 +8,8 @@ export const GetcurentPrices = async id => {
         let curentprice = 0;
         let tokenLogo = '';
         if (id) {
-            let tokenapikey = await get_ApiKeys();
 
-            const apikey = tokenapikey?.data?.keys?.ApiKeysforTokens;
+            const apikey = 'CG-Tx5BdBytyD3ev6XJqsjQvKeb';
             let res = await axios.get(
                 `${CoingekoBaseURL}/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false&x_cg_pro_api_key=${apikey}`,
             );

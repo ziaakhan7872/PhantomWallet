@@ -8,6 +8,7 @@ import { colors } from '../../../../constants/colors'
 import { appStyles } from '../../../../utilities/appStyles/index'
 import { HomeTabs, HorizontalSrcollList, tokensData } from '../../../../components/dummyData'
 import Spacer, { HorizontalSpacer } from '../../../../components/Spacer'
+import { formatBalancetwoDigit, NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
 
 
 export const AccountCard = ({ profile, accountName, accountNumber, rightImage1, rightImage2, onPressRightImage1, onPressRightImage2, onPressAccount }) => {
@@ -127,12 +128,17 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
                                 }
                                 <View>
                                     <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
-                                    <PoppinsText style={styles.tokenSymbol}>{item?.balance}{item?.symbol?.toUpperCase()}</PoppinsText>
+                                    <PoppinsText style={styles.tokenSymbol}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
                                 </View>
                             </View>
                             <View>
-                                <PoppinsText style={styles.tokenPrice}>{item?.currentPrice ?? '$2.46'}</PoppinsText>
-                                <PoppinsText style={styles.dollarPrice}>{item?.dollarPrice ?? '+0.10%'}</PoppinsText>
+                                <PoppinsText style={styles.tokenPrice}>{NumberRoundFunction(
+                                    Number(item?.currentPriceUsd) * Number(item?.balance),
+                                ).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</PoppinsText>
+                                <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? colors.red : colors.green13 }]}>{formatBalancetwoDigit(item?.change24h)}%</PoppinsText>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -262,7 +268,6 @@ const styles = StyleSheet.create({
     dollarPrice: {
         fontSize: 11,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.green13,
         textAlign: 'right'
     },
     // HorizontalSrcoll

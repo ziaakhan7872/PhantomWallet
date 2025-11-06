@@ -31,7 +31,8 @@ export const styles = StyleSheet.create({
     },
     qrview: {
         alignSelf: 'center',
-        backgroundColor: colors.white,
+        backgroundColor: colors.gray39,
+        borderRadius: 10
     },
     scannerView: {
         width: wp(62.5),
@@ -40,6 +41,7 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
+        borderRadius: 10
     },
     customeBtn1: {
         width: wp(92),

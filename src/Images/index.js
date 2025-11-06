@@ -208,5 +208,8 @@ export const Images = {
     bnbColorFullLogo: require('./bnbColorFullLogo.png'),
     avalancheColorFullLogo: require('./avalancheColorFullLogo.png'),
     arbitrumColorFullLogo: require('./arbitrumColorFullLogo.png'),
+    ethLogo: require('./ethLogo.png'),
+    btcLogo: require('./btcLogo.png'),
+    solLogo: require('./solLogo.png'),
 
 }
