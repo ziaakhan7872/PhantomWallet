@@ -12,7 +12,10 @@ import { appStyles } from '../../../utilities/appStyles'
 import useSendTokens from './Hooks'
 
 const SendTokens = (props) => {
-    const { searchText, setSearchText } = useSendTokens()
+    const {
+        searchText, setSearchText,
+        activeWalletWithTokens,
+    } = useSendTokens(props)
     return (
         <AppContainer>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -31,7 +34,12 @@ const SendTokens = (props) => {
                 </View>
             </TouchableWithoutFeedback>
             <Spacer />
-            <SendTokensList onPressToken={() => props?.navigation.navigate(routes.sendTokensAddress)} searchText={searchText} />
+            <SendTokensList
+                data={activeWalletWithTokens?.tokens}
+                searchText={searchText}
+                onPressToken={(item) => props?.navigation.navigate(routes.sendTokensAddress, { item })}
+            />
+
         </AppContainer>
     )
 }

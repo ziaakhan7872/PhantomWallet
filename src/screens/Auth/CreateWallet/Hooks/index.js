@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { routes } from "../../../../constants/routes";
 import { generateUniqueMnemonic } from "../../../../services/Helpers/EVMHelper";
-import { generateAllWallets } from "../../../../services/Helpers/CreateWallet";
+import { generateAllWallets } from "../../../../services/Helpers/CreateWalletHelper";
 import { InsertAllChains, insertWallet } from "../../../../services/database";
 import { MultiChainChainsArray } from "../../../../components/dummyData";
 

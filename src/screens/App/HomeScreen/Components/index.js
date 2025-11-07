@@ -33,10 +33,10 @@ export const AccountCard = ({ profile, accountName, accountNumber, rightImage1, 
     )
 }
 
-export const BalanceCard = ({ }) => {
+export const BalanceCard = ({ totalBalance }) => {
     return (
         <View>
-            <PoppinsText style={styles.balanceText}>$2.46</PoppinsText>
+            <PoppinsText style={styles.balanceText}>${NumberRoundFunction(totalBalance)}</PoppinsText>
             <View style={{ ...appStyles.rowBasic }}>
                 <PoppinsText style={styles.amount}>{"+$0.00242559"}</PoppinsText>
                 <View style={styles.dollarAmountBox}>
@@ -114,6 +114,8 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
             contentContainerStyle={{ paddingBottom: hp(5) }}
             renderItem={({ item, index }) => {
+                console.log('item::::item:::item', item);
+
                 return (
                     <TouchableOpacity activeOpacity={0.8} onPress={() => onPressToken(item)} style={{ ...styles.tokenCardBgView, }}>
                         <View style={appStyles.row}>
@@ -132,7 +134,7 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
                                 </View>
                             </View>
                             <View>
-                                <PoppinsText style={styles.tokenPrice}>{NumberRoundFunction(
+                                <PoppinsText style={styles.tokenPrice}>${NumberRoundFunction(
                                     Number(item?.currentPriceUsd) * Number(item?.balance),
                                 ).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,

@@ -14,7 +14,8 @@ import { appStyles } from '../../../utilities/appStyles'
 const HomeScreen = (props) => {
 
     const {
-        activeWalletWithTokens
+        activeWalletWithTokens,
+        totalBalance
     } = useHomeScreen(props);
 
     return (
@@ -22,16 +23,17 @@ const HomeScreen = (props) => {
             <Spacer customHeight={hp(7)} />
             <AccountCard
                 profile={Images.profile1}
-                accountName="@FreshWallet7" accountNumber={'Account 1'}
+                accountName={`@${activeWalletWithTokens?.name}`} accountNumber={activeWalletWithTokens?.name ?? 'Account 1'}
                 rightImage1={Images.clock} rightImage2={Images.searchWhite}
                 onPressRightImage1={() => { }}
                 onPressRightImage2={() => { }}
                 onPressAccount={() => props?.navigation.navigate(routes.accountDetails)}
+
             />
 
             <View>
                 <Spacer customHeight={hp(1)} />
-                <BalanceCard />
+                <BalanceCard totalBalance={totalBalance} />
 
 
                 <Spacer customHeight={hp(1)} />
@@ -40,7 +42,7 @@ const HomeScreen = (props) => {
                     if (item?.id === 1) {
                         props?.navigation.navigate(routes.receive, { activeWalletWithTokens })
                     } else if (item?.id === 2) {
-                        props?.navigation.navigate(routes.sendTokens)
+                        props?.navigation.navigate(routes.sendTokens, { activeWalletWithTokens })
                     }
                     else if (item?.id === 3) {
                         props?.navigation.navigate(routes.swapMain)

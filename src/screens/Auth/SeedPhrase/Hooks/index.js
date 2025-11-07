@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createMnemonic } from "../../../../utils/mnemonic"
 import { seedValidation } from "../../../../services/Helpers/EVMHelper";
-import { generaEvmWalletUsingPrivatekey, generateAllWallets } from "../../../../services/Helpers/CreateWallet";
+import { generaEvmWalletUsingPrivatekey, generateAllWallets } from "../../../../services/Helpers/CreateWalletHelper";
 import { getWalletByAddress, InsertAllChains, insertWallet } from "../../../../services/database";
 import { EvmChainsArray, MultiChainChainsArray } from "../../../../components/dummyData";
 import { routes } from "../../../../constants/routes";
