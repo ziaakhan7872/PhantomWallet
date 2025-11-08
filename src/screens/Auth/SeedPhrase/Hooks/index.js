@@ -9,6 +9,9 @@ import { routes } from "../../../../constants/routes";
 const useSeedPhrase = (props) => {
 
     const isSeedPhrase = props?.route?.params?.isSeedPhrase;
+    const isAddAccountFlow = props?.route?.params?.isAddAccountFlow;
+
+    console.log(isAddAccountFlow, 'isAddAccountFlowisAddAccountFlow');
 
     const [showSeed, setShowSeed] = useState(false);
     const [mnemonic, setMnemonic] = useState([]);
@@ -144,7 +147,7 @@ const useSeedPhrase = (props) => {
         showSeed, setShowSeed,
         mnemonic, setMnemonic,
         loading, errorMessage,
-        isSeedPhrase,
+        isSeedPhrase, isAddAccountFlow,
         handleContinuePress
     }
 }

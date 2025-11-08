@@ -1,5 +1,5 @@
 import { View, Share, Platform } from 'react-native'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import Spacer from '../../../components/Spacer'
 import { hp } from '../../../components/ResponsiveComponent'
 import { Images } from '../../../Images'
@@ -7,10 +7,10 @@ import { styles } from './styles'
 import PoppinsText from '../../../components/PoppinsText'
 import QRCodeStyled from 'react-native-qrcode-styled'
 import { copyPaste } from '../../../utilities/helperFunction'
-import { AppHeader } from '../../../components/AppHeader'
 import { CustomButton } from '../../../components/CustomButton'
 import useTokenAddress from './Hooks'
 import { colors } from '../../../constants/colors'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const TokenAddress = (props) => {
 
@@ -28,9 +28,9 @@ const TokenAddress = (props) => {
     };
 
     return (
-        <AppContainer>
-            <AppHeader leftImage={Images.backArrow} title={`Your ${name} Address`}
-                onPressBack={() => props?.navigation.goBack()} />
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
+            <NewCustomHeader leftImage={Images.backArrow} title={`Your ${name} Address`} onPressBack={() => props?.navigation.goBack()} />
             <View style={styles.mainView}>
                 <View style={styles.scannerView}>
                     <View style={styles.qrview}>
@@ -59,7 +59,7 @@ const TokenAddress = (props) => {
                 <Spacer customHeight={hp(1)} />
                 <CustomButton title={'Share'} onPressBtn={() => shareAddress()} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

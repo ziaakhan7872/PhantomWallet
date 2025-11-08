@@ -1,21 +1,21 @@
 import { View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
 import { hp, wp } from '../../../components/ResponsiveComponent'
 import { Images } from '../../../Images'
 import PoppinsText from '../../../components/PoppinsText'
-import { AppHeader } from '../../../components/AppHeader'
 import useNotifications from './Hooks'
 import { BalanceAndTradingCard, NotificationPreferencesCard } from './Components'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const Notifications = (props) => {
     const { allowNotificationToggle, setAllowNotificationToggle, socialTradesToggle, setSocialTradesToggle, sentTokensToggle, setSentTokensToggle, receivedTokensToggle, setReceivedTokensToggle, swapToggle, setSwapToggle, balanceChangesToggle, setBalanceChangesToggle, generalUpdateToggle, setGeneralUpdateToggle } = useNotifications()
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.backArrow} title={'Notification Preferences'} onPressBack={() => props?.navigation.goBack()} />
+                <NewCustomHeader title={'Notification Preferences'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer />
                 <View style={{ paddingHorizontal: wp(4) }}>
                     <NotificationPreferencesCard
@@ -69,7 +69,7 @@ const Notifications = (props) => {
 
 
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

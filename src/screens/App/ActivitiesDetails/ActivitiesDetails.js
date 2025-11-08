@@ -1,8 +1,6 @@
 import { Image, Platform, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
-import { AppHeader } from '../../../components/AppHeader'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
 import { hp } from '../../../components/ResponsiveComponent'
@@ -10,12 +8,14 @@ import PoppinsText from '../../../components/PoppinsText'
 import { ActivityDetailsCard } from './Components'
 import { copyPaste } from '../../../utilities/helperFunction'
 import { CustomButton } from '../../../components/CustomButton'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const ActivitiesDetails = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.cross} title={'Activities Details'} onPressBack={() => props?.navigation.goBack()} />
+                <Spacer customHeight={hp(6)} />
+                <NewCustomHeader title={'Received'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer customHeight={hp(3)} />
                 <Image source={Images.solanaLogo} resizeMode='contain' style={styles.tokenLogo} />
                 <Spacer />
@@ -31,7 +31,7 @@ const ActivitiesDetails = (props) => {
             <View style={{ paddingBottom: Platform.OS === 'ios' ? hp(4) : hp(3) }}>
                 <CustomButton title={'View on Solscan'} onPressBtn={() => { }} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

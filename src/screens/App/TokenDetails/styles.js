@@ -178,7 +178,7 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         color: colors.green13,
-        textAlign: 'right'
+        textAlign: 'left'
     },
     resText1: {
         fontSize: 10,

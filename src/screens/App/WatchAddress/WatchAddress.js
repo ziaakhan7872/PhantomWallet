@@ -1,7 +1,5 @@
 import { Image, Keyboard, TouchableWithoutFeedback, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
-import { AppHeader } from '../../../components/AppHeader'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
 import { hp } from '../../../components/ResponsiveComponent'
@@ -12,14 +10,16 @@ import useWatchAddress from './Hooks'
 import { styles } from './styles'
 import { colors } from '../../../constants/colors'
 import PoppinsText from '../../../components/PoppinsText'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const WatchAddress = (props) => {
     const { name, setName, privateKey, setPrivateKey, showModal, setShowModal, selectedNetwork, setSelectedNetwork } = useWatchAddress(props)
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.mainView}>
-                    <AppHeader leftImage={Images.goBackArrow} title={'Watch Address'} rightImage={Images.questionMark} onPressBack={() => props?.navigation.goBack()} />
+                    <NewCustomHeader title={'Watch Address'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                     <Spacer customHeight={hp(3)} />
                     <Image source={Images.eyeWithBlackRound} resizeMode='contain' style={styles.arrowDownWithRound} />
                     <Spacer />
@@ -43,7 +43,7 @@ const WatchAddress = (props) => {
                 />
             </View>
             <NetworkModal showModal={showModal} setShowModal={setShowModal} selectedNetwork={selectedNetwork} setSelectedNetwork={setSelectedNetwork} />
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

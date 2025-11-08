@@ -1,20 +1,21 @@
 import { Platform, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { Images } from '../../../Images'
 import { hp } from '../../../components/ResponsiveComponent'
 import { CustomButton } from '../../../components/CustomButton'
 import Spacer from '../../../components/Spacer'
-import { AppHeader } from '../../../components/AppHeader'
 import PoppinsText from '../../../components/PoppinsText'
 import { routes } from '../../../constants/routes'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const ScanQrCode = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
+
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.cross} title={'Scan QR Code'} onPressBack={() => props?.navigation.goBack()} />
+                <NewCustomHeader title={'Scan QR Code'} leftImage={Images.cross} onPressLeftImage={() => props?.navigation.goBack()} />
                 <View style={{ flex: 1, justifyContent: 'center' }}>
                     <PoppinsText style={styles.title}>Scan QR Code</PoppinsText>
                     <Spacer customHeight={hp(1)} />
@@ -27,7 +28,7 @@ const ScanQrCode = (props) => {
                 <Spacer customHeight={hp(1)} />
                 <CustomButton title={'Open Settings'} titleStyles={styles.btnTitleStyles2} btnSyles={styles.btnStyles2} onPressBtn={() => { }} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

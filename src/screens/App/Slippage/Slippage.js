@@ -1,6 +1,5 @@
 import { Image, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { appStyles } from '../../../utilities/appStyles'
 import { Images } from '../../../Images'
@@ -14,9 +13,9 @@ import { CustomButton } from '../../../components/CustomButton'
 const Slippage = (props) => {
     const { halfPercentSlipppage, setHalfPercentSlipppage, onePercentSlipppage, setOnePercentSlipppage, twoPercentSlipppage, setTwoPercentSlipppage, customPercentSlipppage, setCustomePercentSlipppage } = useSlippage()
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer customHeight={hp(1)} />
+                <Spacer customHeight={hp(6)} />
                 <View style={appStyles.rowBasic}>
                     <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.goBack()}>
                         <Image source={Images.backArrow} resizeMode='contain' style={styles.backArrow} />
@@ -40,7 +39,7 @@ const Slippage = (props) => {
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title='Done' onPressBtn={() => { }} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

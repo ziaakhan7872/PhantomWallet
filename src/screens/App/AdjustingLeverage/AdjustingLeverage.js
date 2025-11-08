@@ -1,6 +1,5 @@
 import { Image, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
 import { Images } from '../../../Images'
@@ -11,9 +10,9 @@ import { routes } from '../../../constants/routes'
 
 const AdjustingLeverage = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer />
+                <Spacer customHeight={hp(8)} />
                 <Image source={Images.horizontallySlider3} style={styles.horizontallySlider2} />
                 <Spacer customHeight={hp(3)} />
                 <PoppinsText style={styles.adjustingLeverageText}>Adjusting Leverage</PoppinsText>
@@ -28,7 +27,7 @@ const AdjustingLeverage = (props) => {
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Next'} onPressBtn={() => props.navigation.navigate(routes.liquidation)} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

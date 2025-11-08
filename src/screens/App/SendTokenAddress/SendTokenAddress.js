@@ -1,6 +1,5 @@
-import { Image, Keyboard, Platform, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { Keyboard, Platform, TouchableWithoutFeedback, View } from 'react-native'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
@@ -12,14 +11,16 @@ import { appStyles } from '../../../utilities/appStyles'
 import PoppinsText from '../../../components/PoppinsText'
 import LineBreak from '../../../components/LineBreak'
 import { CustomButton } from '../../../components/CustomButton'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const SendTokenAddress = (props) => {
     const { tokenAddress, setTokenAddress } = useSendTokenAddress(props)
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.mainView}>
-                    <View style={styles.container}>
+                    {/* <View style={styles.container}>
                         <View style={[appStyles.row,]}>
                             <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.goBack()}>
                                 <Image source={Images.backArrow} resizeMode='contain' style={styles.goBackArrow} />
@@ -29,7 +30,9 @@ const SendTokenAddress = (props) => {
                                 <PoppinsText style={styles.nextText}>{'Next'}</PoppinsText>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </View> */}
+                    <NewCustomHeader title={'SOL'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
+
                     <Spacer customHeight={hp(1)} />
                     <View style={{ ...appStyles.rowBasic, paddingHorizontal: wp(3) }}>
                         <PoppinsText style={styles.toText}>To:</PoppinsText>
@@ -48,7 +51,7 @@ const SendTokenAddress = (props) => {
             <View style={{ paddingBottom: Platform.OS === 'ios' ? hp(4) : hp(4) }}>
                 <CustomButton title={'Next'} onPressBtn={() => { }} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

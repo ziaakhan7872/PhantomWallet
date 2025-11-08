@@ -1,6 +1,5 @@
 import { Image, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
 import { Images } from '../../../Images'
@@ -12,9 +11,9 @@ import { routes } from '../../../constants/routes'
 
 const RiskTolerance = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer />
+                <Spacer customHeight={hp(8)} />
                 <Image source={Images.horizontallySlider6} style={styles.horizontallySlider6} />
                 <Spacer customHeight={hp(3)} />
                 <PoppinsText style={styles.riskToleranceText}>What Is Your Risk Tolerance?</PoppinsText>
@@ -28,7 +27,7 @@ const RiskTolerance = (props) => {
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Start Trading'} onPressBtn={() => props?.navigation.navigate(routes.MainTabs)} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

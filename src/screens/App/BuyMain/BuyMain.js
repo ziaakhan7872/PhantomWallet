@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { AppContainer, MainContainerApp } from '../../../components/MainContainer'
 import { BuyAndSellHeader } from '../../../components/BuyAndSellHeader'
 import { Images } from '../../../Images'
 import { styles } from './styles'
@@ -14,9 +14,9 @@ import { routes } from '../../../constants/routes'
 const BuyMain = (props) => {
     const { sellTokenFlow, buyTokenDetailsBottomSheetRef } = useBuyMain(props)
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer customHeight={hp(1)} />
+                <Spacer customHeight={hp(6)} />
                 <BuyAndSellHeader leftImage={Images.backArrow} tokenLogo={Images.tokenLogo} tokenName={sellTokenFlow ? 'Sell Solana' : 'Buy Solana'} status={'421 people here'} rightImage={Images.slippage} onPressBackArrow={() => props?.navigation.goBack()} onPressRightImage={() => props?.navigation.navigate(routes.tokenDetailSettings)} />
                 <Spacer />
                 <EnterAmount
@@ -32,7 +32,7 @@ const BuyMain = (props) => {
                 />
             </View>
             <BuyTokenDetailsBottomSheet buyTokenDetailsBottomSheetRef={buyTokenDetailsBottomSheetRef} />
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 
