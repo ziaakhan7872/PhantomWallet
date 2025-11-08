@@ -23,7 +23,7 @@ export const MainHeader = ({ onPressLeftImage, leftImage, title, centerImage }) 
 
 export const CustomHeader = ({ leftImage, rightImage, rightText, onPressLeftImage, onPressRightImage }) => {
     return (
-        <View style={{ ...appStyles.row, width: wp(92) }}>
+        <View style={{ ...appStyles.row, width: wp(92), alignSelf:'center' }}>
             <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
                 <Image source={leftImage} resizeMode='contain' style={styles.leftCustomImage} />
             </TouchableOpacity>
@@ -34,6 +34,17 @@ export const CustomHeader = ({ leftImage, rightImage, rightText, onPressLeftImag
                     <PoppinsText style={styles.rightText}>{rightText}</PoppinsText>
                 }
             </TouchableOpacity>
+        </View>
+    )
+}
+
+export const NewCustomHeader = ({ leftImage, rightImage, rightText, onPressLeftImage, onPressRightImage }) => {
+    return (
+        <View style={{ ...appStyles.row, width: wp(92), alignSelf:'center' }}>
+            <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
+                <Image source={leftImage} resizeMode='contain' style={styles.leftCustomImage} />
+            </TouchableOpacity>
+                    <PoppinsText style={styles.rightText}>{rightText}</PoppinsText>
         </View>
     )
 }

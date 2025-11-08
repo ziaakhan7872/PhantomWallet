@@ -8,12 +8,15 @@ import Spacer from '../../../components/Spacer'
 import { hp } from '../../../components/ResponsiveComponent'
 import { AddAccountsList } from './Components'
 import { routes } from '../../../constants/routes'
+import { CustomHeader } from '../../../components/MainHeader'
+import { MainContainerApp } from '../../../components/MainContainer'
 
 const AddAccounts = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.backArrow} title={'Add Account'} onPressBack={() => props?.navigation.goBack()} />
+                <CustomHeader rightText={'Add Account'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer customHeight={hp(3)} />
                 <AddAccountsList leftImage={Images.plusWithRound} title={'Create New Account'} description={'Add a new multi-chain account'} onPress={() => props?.navigation.navigate(routes.createAccount)} />
                 <Spacer customHeight={hp(1)} />
@@ -29,7 +32,7 @@ const AddAccounts = (props) => {
 
                 <AddAccountsList leftImage={Images.eyeWithRound} title={'Watch Address'} description={'Track any public wallet address'} onPress={() => props?.navigation.navigate(routes.watchAddress)} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 
