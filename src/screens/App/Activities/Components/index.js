@@ -7,52 +7,79 @@ import { Fonts } from '../../../../constants/fonts'
 import { colors } from '../../../../constants/colors'
 import { appStyles } from '../../../../utilities/appStyles'
 import PoppinsText from '../../../../components/PoppinsText'
+import { NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
+import { formatAddress } from '../../../../services/Helpers/CommonHelper'
 
-export const ActivitiesList = ({ onPress }) => {
+const checkSendOrReceive = (item, activeWallet) => {
+    let status
+    if (item?.chain == 'bitcoin') {
+        if (item?.from?.toLowerCase() == activeWallet?.btcWalletAddress?.toLowerCase()) {
+            status = 'Sent'
+        } else {
+            status = 'Received'
+        }
+    } else if (item?.chain == 'Solana') {
+        if (item?.from?.toLowerCase() == activeWallet?.solanaWalletAddress?.toLowerCase()) {
+            status = 'Sent'
+        } else {
+            status = 'Received'
+        }
+    } else {
+        if (item?.from?.toLowerCase() == activeWallet?.walletAddress?.toLowerCase()) {
+            status = 'Sent'
+        } else {
+            status = 'Received'
+        }
+    }
 
-    const flatData = transactionData.flatMap(section =>
-        section.data.map(item => ({ ...item, date: section.date }))
-    );
+    return status
+}
+
+export const ActivitiesList = ({ data, activeWallet, onPress }) => {
 
     return (
         <FlatList
-            data={flatData}
-            keyExtractor={(item) => item.id.toString()}
+            data={data}
+            keyExtractor={(item, index) => index.toString()}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <Spacer customHeight={hp(2)} />}
             renderItem={({ item, index }) => {
-                const showDate =
-                    index === 0 || flatData[index - 1].date !== item.date;
+                let status = checkSendOrReceive(item, activeWallet)
+
+                if (item?.isHeader) {
+                    return <PoppinsText style={styles.date}>{item?.label}</PoppinsText>
+                }
+
 
                 return (
                     <View style={{ paddingHorizontal: wp(4) }}>
-                        {showDate && (
+                        {/* {showDate && (
                             <>
                                 <PoppinsText style={styles.date}>{item.date}</PoppinsText>
                                 <Spacer customHeight={hp(1.5)} />
                             </>
-                        )}
+                        )} */}
 
                         <View>
                             <TouchableOpacity
                                 activeOpacity={0.8}
-                                onPress={() => onPress(item)}
+                                onPress={() => onPress(item, status)}
                                 style={[appStyles.row, styles.activityItem]}>
                                 <View style={appStyles.rowBasic}>
                                     <Image
-                                        source={item.icon}
+                                        source={{ uri: item?.logo }}
                                         resizeMode="contain"
                                         style={styles.icon}
                                     />
                                     <View>
-                                        <PoppinsText style={styles.title}>{item?.title}</PoppinsText>
-                                        <PoppinsText style={styles.subtitle}>{item?.subtitle}</PoppinsText>
+                                        <PoppinsText style={styles.title}>{status}</PoppinsText>
+                                        <PoppinsText style={styles.subtitle}>{status == 'Sent' ? `To ${formatAddress(item?.to)}` : `From ${formatAddress(item?.from)}`}</PoppinsText>
                                     </View>
                                 </View>
 
-                                {item.amount && (
-                                    <PoppinsText style={[styles.amount, { color: item.amountColor }]}>
-                                        {item?.amount}
+                                {item?.value && (
+                                    <PoppinsText style={[styles.amount, { color: status == 'Sent' ? colors.white : '#4CAF50' }]}>
+                                        {status == 'Sent' ? `-${NumberRoundFunction(item?.value)}` : `+${NumberRoundFunction(item?.value)}`} {item?.symbol?.toUpperCase()}
                                     </PoppinsText>
                                 )}
                             </TouchableOpacity>
@@ -70,6 +97,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray62,
+        paddingHorizontal: wp(4)
     },
     activityItem: {
         borderRadius: 12,
@@ -80,7 +108,8 @@ const styles = StyleSheet.create({
     icon: {
         width: wp(10.5),
         height: wp(10.5),
-        marginRight: wp(3)
+        marginRight: wp(3),
+        borderRadius: 100
     },
     title: {
         fontSize: 13,

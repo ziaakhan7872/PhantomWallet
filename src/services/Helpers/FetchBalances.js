@@ -102,8 +102,6 @@ export const UpdateCoinAndTokenPrices = async (tokendata) => {
             tokenAddress: tokendata?.tokenAddress,
             cmcId: tokendata?.cmcId,
         }
-        console.log('data::::data:::data', data);
-
         // const change24hr = response?.change24hr ?? 0
         // const curentprice = response?.curentprice ?? 0
         // const tokenLogo = response?.tokenLogo ?? ''

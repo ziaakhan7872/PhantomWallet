@@ -312,7 +312,7 @@ export const EvmTokenFeeCalculation = async (coin, toAddress, fromAddress, ammou
 
 
 
-export const sendEvmToken = async (fromAddress, privateKey, amount, toAddress, tokenData, networkFeeTypeConfirmed, networkFeeTypeAdvance) => {
+export const sendEvmToken = async (fromAddress, privateKey, amount, toAddress, tokenData) => {
 
     return new Promise(async (resolve, reject) => {
 
@@ -336,7 +336,7 @@ export const sendEvmToken = async (fromAddress, privateKey, amount, toAddress, t
             // // Get the current gas price and adjust it
             let gasPrice = await web3.eth.getGasPrice();
             // gasPrice = parseInt(gasPrice) + 14000000000;
-            gasPrice = parseInt(gasPrice) + handleExtraFee(networkFeeTypeAdvance ? networkFeeTypeAdvance : networkFeeTypeConfirmed, tokenData?.chainName)
+            // gasPrice = parseInt(gasPrice) + handleExtraFee(networkFeeTypeAdvance ? networkFeeTypeAdvance : networkFeeTypeConfirmed, tokenData?.chainName)
 
             // // Get the current nonce for the fromAddress
             const nonce = await web3.eth.getTransactionCount(fromAddress, 'pending');
@@ -360,7 +360,7 @@ export const sendEvmToken = async (fromAddress, privateKey, amount, toAddress, t
 
 
 
-export const sendEvmCoin = async (fromAddress, privateKey, amount, toAddress, tokenData, networkFeeTypeConfirmed, networkFeeTypeAdvance) => {
+export const sendEvmCoin = async (fromAddress, privateKey, amount, toAddress, tokenData) => {
     return new Promise(async (resolve, reject) => {
         try {
 
@@ -376,7 +376,7 @@ export const sendEvmCoin = async (fromAddress, privateKey, amount, toAddress, to
 
             // Get the current gas price
             let gasPrice = await web3.eth.getGasPrice();
-            gasPrice = parseInt(gasPrice) + handleExtraFee(networkFeeTypeAdvance || networkFeeTypeConfirmed, tokenData?.chainName);
+            // gasPrice = parseInt(gasPrice) + handleExtraFee(networkFeeTypeAdvance || networkFeeTypeConfirmed, tokenData?.chainName);
 
             // Set the default gas limit for an Ether transfer
             let estimatedGas = 21000;

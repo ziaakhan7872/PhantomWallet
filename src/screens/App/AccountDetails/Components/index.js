@@ -1,4 +1,4 @@
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { appStyles } from '../../../../utilities/appStyles'
 import { Images } from '../../../../Images'
@@ -8,13 +8,13 @@ import { Fonts } from '../../../../constants/fonts'
 import { colors } from '../../../../constants/colors'
 import Spacer from '../../../../components/Spacer'
 
-export const AddAccountHeader = ({ onPressCross }) => {
+export const AddAccountHeader = ({ activeWalletWithTokens, onPressCross }) => {
     return (
         <View style={appStyles.row}>
             <View style={appStyles.rowBasic}>
                 <Image source={Images.profile1} resizeMode='contain' style={styles.profile1} />
                 <View>
-                    <PoppinsText style={styles.userName}>@alihussain1997</PoppinsText>
+                    {activeWalletWithTokens?.username ? <PoppinsText style={styles.userName}>{`@${activeWalletWithTokens?.username}`}</PoppinsText> : null}
                     <PoppinsText style={styles.address}>O followers</PoppinsText>
                 </View>
             </View>
@@ -46,25 +46,40 @@ export const RowTabs = ({ onPressProfile, onPressSettings }) => {
     )
 }
 
-export const AccountsCard = ({ onPressEdit }) => {
+export const AccountsCard = ({ allAccounts, onPressEdit }) => {
     return (
-        <View style={[styles.accountsCardBgView, appStyles.row]}>
-            <View style={appStyles.rowBasic}>
-                <View style={{ marginRight: wp(3) }}>
-                    <Image source={Images.accountLogo} resizeMode='contain' style={styles.accountLogo} />
-                    <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} />
+        <FlatList
+            data={allAccounts}
+            renderItem={({ item }) => (
+                <View style={[styles.accountsCardBgView, appStyles.row]}>
+                    <View style={appStyles.rowBasic}>
+                        <View style={{ marginRight: wp(3) }}>
+                            <Image source={Images.accountLogo} resizeMode='contain' style={styles.accountLogo} />
+                            <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} />
+                        </View>
+                        <PoppinsText style={styles.accountName}>{item?.name}</PoppinsText>
+                    </View>
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => onPressEdit(item)}>
+                        <Image source={Images.pencilWithRound} resizeMode='contain' style={styles.pencilWithRound} />
+                    </TouchableOpacity>
                 </View>
-                <PoppinsText style={styles.accountName}>Account 1</PoppinsText>
-            </View>
-            <TouchableOpacity activeOpacity={0.8} onPress={onPressEdit}>
-                <Image source={Images.pencilWithRound} resizeMode='contain' style={styles.pencilWithRound} />
-            </TouchableOpacity>
-        </View>
+                // <View style={[styles.accountsCardBgView, appStyles.row]}>
+                //     <View style={appStyles.rowBasic}>
+                //         <View style={{ marginRight: wp(3) }}>
+                //             <Image source={Images.accountLogo} resizeMode='contain' style={styles.accountLogo} />
+                //             <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} />
+                //         </View>
+                //         <PoppinsText style={styles.accountName}>Account 1</PoppinsText>
+                //     </View>
+                //     <TouchableOpacity activeOpacity={0.8} onPress={onPressEdit}>
+                //         <Image source={Images.pencilWithRound} resizeMode='contain' style={styles.pencilWithRound} />
+                //     </TouchableOpacity>
+                // </View>
+            )} />
     )
 }
 
 const styles = StyleSheet.create({
-    // AddAccountHeader
     profile1: {
         width: wp(9),
         height: wp(9),

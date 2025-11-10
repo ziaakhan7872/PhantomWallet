@@ -13,9 +13,10 @@ import { appStyles } from '../../../utilities/appStyles'
 import { CustomButton } from '../../../components/CustomButton'
 import useShowPrivateKey from './Hooks'
 import { routes } from '../../../constants/routes'
+import { SeedPhraseCard } from '../ShowSeedPhrase/Components'
 
 const ShowPrivateKey = (props) => {
-    const { isChecked, setIsChecked, showPrivateKey, setShowPrivateKey } = useShowPrivateKey()
+    const { item, isChecked, setIsChecked, showPrivateKey, setShowPrivateKey, isCopy, onPressCopy } = useShowPrivateKey(props)
     return (
         <AppContainer>
             <View style={styles.mainView}>
@@ -27,14 +28,27 @@ const ShowPrivateKey = (props) => {
                         <View style={styles.alertView}>
                             <PoppinsText style={styles.alertText}>Do not share your Private Key!</PoppinsText>
                             <Spacer customHeight={hp(1)} />
-                            <PoppinsText style={styles.alertDesc}>lf someone has your Private Key they will have full control of your wallet.</PoppinsText>
+                            <PoppinsText style={styles.alertDesc}>If someone has your Private Key they will have full control of your wallet.</PoppinsText>
                         </View>
                         <Spacer />
-                        <View style={{ paddingHorizontal: wp(4) }}>
+                        {/* <SeedPhraseCard showSeedPhrase={showPrivateKey} setShowSeedPhrase={setShowPrivateKey} seedPhrase={item?.privateKey ?? ''} onPressCopy={onPressCopy} isCopy={isCopy} /> */}
+                        <View style={styles.copyPrivateKeyBgView}>
+                            <PoppinsText style={styles.copyPrivateKeyText}>{item?.privateKey ?? ''}</PoppinsText>
+                        </View>
+                        <Spacer />
+                        <TouchableOpacity onPress={() => onPressCopy()} style={{ ...appStyles.rowBasic, alignSelf: 'center' }}>
+                            {isCopy ? null : <Image
+                                source={Images.copy}
+                                style={styles.copyimg}
+                                resizeMode='contain'
+                            />}
+                            <PoppinsText style={styles.copyTextStyle}>{isCopy ? 'Copied' : "Copy to clipboard"}</PoppinsText>
+                        </TouchableOpacity>
+                        {/* <View style={{ paddingHorizontal: wp(4) }}>
                             <PoppinsText style={styles.selectAccountText}>Select your account</PoppinsText>
                             <Spacer />
                             <SelectTokenList onPressToken={(item) => props?.navigation.navigate(routes.copyPrivateKey, { token: item })} />
-                        </View>
+                        </View> */}
                     </>
                     :
                     <View style={{ flex: 1, justifyContent: 'center' }}>

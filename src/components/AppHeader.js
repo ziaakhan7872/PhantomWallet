@@ -10,11 +10,11 @@ export const AppHeader = ({ leftImage, title, rightImage, onPressBack, onPressRi
     return (
         <View style={styles.container}>
             <View style={[appStyles.row,]}>
-                <TouchableOpacity activeOpacity={0.8} onPress={onPressBack}>
+                <TouchableOpacity hitSlop={{ left: 20, right: 20, top: 20, bottom: 20 }} activeOpacity={0.8} onPress={onPressBack}>
                     <Image source={leftImage} resizeMode='contain' style={styles.leftImage} />
                 </TouchableOpacity>
                 <PoppinsText style={styles.title}>{title}</PoppinsText>
-                <TouchableOpacity activeOpacity={0.8} onPress={onPressRightImage}>
+                <TouchableOpacity hitSlop={{ left: 20, right: 20, top: 20, bottom: 20 }} activeOpacity={0.8} onPress={onPressRightImage}>
                     <Image source={rightImage} resizeMode='contain' style={styles.rightImage} />
                 </TouchableOpacity>
             </View>

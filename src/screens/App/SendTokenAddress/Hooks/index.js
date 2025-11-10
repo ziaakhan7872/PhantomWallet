@@ -30,7 +30,7 @@ const useSendTokenAddress = (props) => {
             if (!isValidAddress) {
                 setErrorMessage('Invalid address!');
             } else {
-                props?.navigation.navigate(routes.enterSendingAmount, { tokenAddress, item });
+                props?.navigation.navigate(routes.enterSendingAmount, { receiverAddress: tokenAddress, item });
             }
         }
     }

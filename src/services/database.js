@@ -31,6 +31,7 @@ async function createTables(db) {
                 seedPhrase TEXT,
                 isActive INTEGER,
                 name TEXT,
+                username TEXT,
                 account INTEGER,
                 btcWalletAddress TEXT,
                 btcPrivateKey TEXT,
@@ -269,7 +270,7 @@ export const getWalletByAddress = async (address) => {
 export const checkUsernameExists = async (username, excludeWalletId = null) => {
     const db = await getDb();
     try {
-        let query = 'SELECT id FROM WalletTbl WHERE LOWER(name) = LOWER(?)';
+        let query = 'SELECT id FROM WalletTbl WHERE LOWER(username) = LOWER(?)';
         let params = [username];
 
         if (excludeWalletId) {
@@ -290,7 +291,7 @@ export const updateWalletName = async (walletId, newName) => {
     const db = await getDb();
     try {
         const [results] = await db.executeSql(
-            'UPDATE WalletTbl SET name = ? WHERE id = ?',
+            'UPDATE WalletTbl SET username = ? WHERE id = ?',
             [newName, walletId]
         );
 

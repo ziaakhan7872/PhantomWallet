@@ -17,7 +17,7 @@ export const AccountCard = ({ profile, accountName, accountNumber, rightImage1, 
             <TouchableOpacity activeOpacity={0.8} onPress={onPressAccount} style={appStyles.rowBasic}>
                 <Image source={profile} resizeMode='contain' style={styles.profile} />
                 <View>
-                    <PoppinsText style={styles.accountName}>{accountName}</PoppinsText>
+                    {accountName ? <PoppinsText style={styles.accountName}>{accountName}</PoppinsText> : null}
                     <PoppinsText style={styles.accountBalance}>{accountNumber}</PoppinsText>
                 </View>
             </TouchableOpacity>
@@ -114,8 +114,6 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
             contentContainerStyle={{ paddingBottom: hp(5) }}
             renderItem={({ item, index }) => {
-                console.log('item::::item:::item', item);
-
                 return (
                     <TouchableOpacity activeOpacity={0.8} onPress={() => onPressToken(item)} style={{ ...styles.tokenCardBgView, }}>
                         <View style={appStyles.row}>

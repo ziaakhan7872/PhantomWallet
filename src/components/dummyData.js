@@ -105,8 +105,8 @@ export const MultiChainChainsArray = [
         isEvm: 1,
         chainId: 42161,
         isActive: 1,
-        type: "token",
-        tokenAddress: '0x912CE59144191C1204E64559FE8253a0e49E6548',
+        type: "chain",
+        tokenAddress: '',
         tokenImage: "https://assets.coingecko.com/coins/images/16547/standard/arb.jpg?1721358242",
     },
     {
@@ -119,8 +119,8 @@ export const MultiChainChainsArray = [
         isEvm: 1,
         chainId: 8453,
         isActive: 1,
-        type: "token",
-        tokenAddress: '0xd07379a755a8f11b57610154861d694b2a0f615a',
+        type: "chain",
+        tokenAddress: '',
         tokenImage: "https://assets.coingecko.com/nft_contracts/images/2989/small_2x/base-introduced.png?1707289780",
     },
     {
@@ -249,8 +249,8 @@ export const EvmChainsArray = [
         isEvm: 1,
         chainId: 42161,
         isActive: 1,
-        type: "token",
-        tokenAddress: '0x912CE59144191C1204E64559FE8253a0e49E6548',
+        type: "chain",
+        tokenAddress: '',
         tokenImage: "https://assets.coingecko.com/coins/images/16547/standard/arb.jpg?1721358242",
     },
     {
@@ -263,8 +263,8 @@ export const EvmChainsArray = [
         isEvm: 1,
         chainId: 8453,
         isActive: 1,
-        type: "token",
-        tokenAddress: '0xd07379a755a8f11b57610154861d694b2a0f615a',
+        type: "chain",
+        tokenAddress: '',
         tokenImage: "https://assets.coingecko.com/nft_contracts/images/2989/small_2x/base-introduced.png?1707289780",
     },
 ];
