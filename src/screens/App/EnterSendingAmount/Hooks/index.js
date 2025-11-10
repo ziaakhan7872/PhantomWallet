@@ -1,10 +1,14 @@
 import { useState } from 'react'
 
-const useEnterSendingAmount = () => {
+const useEnterSendingAmount = (props) => {
 
-    const [enteredAmount, setEnteredAmount] = useState(0)
+    const receiverAddress = props?.route?.params?.receiverAddress
+    const item = props?.route?.params?.item
+
+    const [enteredAmount, setEnteredAmount] = useState('')
     const [errormsg, seterrormsg] = useState('')
     const [enterkey, setEnterkey] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
     const [isDolorValue, setisDolorValue] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -21,7 +25,9 @@ const useEnterSendingAmount = () => {
     };
 
     return {
+        receiverAddress, item,
         enteredAmount, setEnteredAmount,
+        errorMessage, setErrorMessage,
         errormsg, seterrormsg,
         enterkey, setEnterkey,
         isDolorValue, setisDolorValue,

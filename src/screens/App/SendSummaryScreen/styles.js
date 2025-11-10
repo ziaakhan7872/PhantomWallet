@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { wp } from '../../../components/ResponsiveComponent'
+import { hp, wp } from '../../../components/ResponsiveComponent'
 import { Fonts } from '../../../constants/fonts'
 import { colors } from '../../../constants/colors'
 
@@ -52,5 +52,12 @@ export const styles = StyleSheet.create({
         fontFamily: Fonts.Poppins.Regular,
         color: colors.gray82,
         width: wp(78)
+    },
+    errorMessage: {
+        fontSize: 14,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.red,
+        textAlign: 'center',
+        marginTop: hp(1)
     }
 })

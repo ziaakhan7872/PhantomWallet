@@ -63,5 +63,30 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray64,
+    },
+    copyPrivateKeyBgView: {
+        width: wp(92),
+        alignSelf: 'center',
+        borderWidth: 1,
+        borderColor: colors.gray106,
+        backgroundColor: colors.gray107,
+        borderRadius: 3,
+        padding: wp(5)
+    },
+    copyPrivateKeyText: {
+        fontSize: 14,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.gray12,
+        textAlign: 'left'
+    },
+    copyimg: {
+        width: wp(3.5),
+        height: wp(3.5),
+        marginRight: wp(2.5)
+    },
+    copyTextStyle: {
+        fontSize: 12,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.gray105,
     }
 })

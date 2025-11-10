@@ -6,17 +6,20 @@ import { wp } from '../../../../components/ResponsiveComponent'
 import { Images } from '../../../../Images'
 import { Fonts } from '../../../../constants/fonts'
 import { colors } from '../../../../constants/colors'
+import { NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
 
-export const AvailableAmountView = () => {
+export const AvailableAmountView = ({ item, onPressMax, isDolorValue }) => {
     return (
         <View style={{ ...appStyles.row, paddingHorizontal: wp(4) }}>
             <View>
                 <PoppinsText style={styles.availableAmount}>{"Available To Send"}</PoppinsText>
-                <PoppinsText style={styles.availableAmountValue}>{"O SOL"}</PoppinsText>
+                <PoppinsText style={styles.availableAmountValue}>{`${NumberRoundFunction(item?.balance)} ${item?.symbol?.toUpperCase()}`}</PoppinsText>
             </View>
-            <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
-                <Image source={Images.maxWithRound} resizeMode='contain' style={styles.maxWithRound} />
-            </TouchableOpacity>
+            {isDolorValue ? null :
+                <TouchableOpacity activeOpacity={0.8} onPress={onPressMax}>
+                    <Image source={Images.maxWithRound} resizeMode='contain' style={styles.maxWithRound} />
+                </TouchableOpacity>
+            }
         </View>
     )
 }

@@ -8,19 +8,25 @@ import PoppinsText from '../../../components/PoppinsText'
 import { routes } from '../../../constants/routes'
 import { hp } from '../../../components/ResponsiveComponent'
 import { CustomButton } from '../../../components/CustomButton'
+import useAccountDetails from './Hooks'
 
 const AccountDetails = (props) => {
+    const {
+        activeWalletWithTokens,
+        allAccounts
+    } = useAccountDetails(props)
+
     return (
         <AppContainer>
             <View style={styles.mainView}>
                 <Spacer />
-                <AddAccountHeader onPressCross={() => props?.navigation.goBack()} />
+                <AddAccountHeader activeWalletWithTokens={activeWalletWithTokens} onPressCross={() => props?.navigation.goBack()} />
                 <Spacer />
                 <RowTabs onPressProfile={() => props?.navigation.navigate(routes.editProfile)} onPressSettings={() => props?.navigation.navigate(routes.accountSettings)} />
                 <Spacer />
                 <PoppinsText style={styles.title}>Your Accounts</PoppinsText>
                 <Spacer />
-                <AccountsCard onPressEdit={() => props?.navigation.navigate(routes.editAccount)} />
+                <AccountsCard allAccounts={allAccounts} onPressEdit={(item) => props?.navigation.navigate(routes.editAccount, { item, activeWalletWithTokens })} />
             </View>
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Add Account'} onPressBtn={() => props?.navigation.navigate(routes.addAccounts)} />

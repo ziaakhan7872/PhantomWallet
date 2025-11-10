@@ -1,3 +1,6 @@
+import { BitcoinAddressValidation } from "../../services/Helpers/BitcoinHelper";
+import { EvmAddressValidation } from "../../services/Helpers/EVMHelper";
+import { solanaAddresValidation } from "../../services/Helpers/SolanaHelper";
 
 
 
@@ -34,10 +37,20 @@ export function formatBalancetwoDigit(balance) {
 }
 
 export const NumberRoundFunction = (number) => {
-    const hasNonZeroDecimal = /\.\d*[1-9]/.test(number)
-    const displayNumber = hasNonZeroDecimal ? Number(number).toFixed(2) : Math.round(number);
-    return Number(displayNumber)
-}
+    const num = Number(number);
+
+    if (isNaN(num)) return 0;
+
+    // If number is 0 or nearly 0
+    if (Math.abs(num) < 1e-8) return 0;
+
+    // For large numbers, round to 2 decimals
+    if (Math.abs(num) >= 1) return Number(num.toFixed(2));
+
+    // For small decimals, show up to 8 decimals but trim trailing zeros
+    return Number(num.toFixed(5));
+};
+
 
 export function functionHandleCurentPrice(value) {
     const subscriptChars = ['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉'];
@@ -72,4 +85,23 @@ export function functionHandleCurentPrice(value) {
 
         return `${integerPart}.0${subscript.join('')}${fractionalPart}`;
     }
+}
+
+export const ValidateSendAddress = async (item, addresses) => {
+
+    let isvalidadres = ''
+    console.log('item?.isEvm', item);
+
+    if (item?.isEvm == 1) {
+        isvalidadres = EvmAddressValidation(addresses.trim())
+    }
+    else if (item?.chainName == "bitcoin") {
+        isvalidadres = BitcoinAddressValidation(addresses.trim())
+    }
+    else if (item?.chainName == "Solana") {
+        isvalidadres = await solanaAddresValidation(addresses.trim())
+    }
+
+    console.log('item?.isEvm::::isvalidadres', isvalidadres);
+    return isvalidadres
 }

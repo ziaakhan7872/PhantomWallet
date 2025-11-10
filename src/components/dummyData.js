@@ -1,10 +1,10 @@
 import { Images } from "../Images";
 
 
-export const mainnetRpcBNB = 'https://bnb-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9'
-export const mainnetRpcETH = 'https://eth-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9'
-export const mainnetRpcPolygon = 'https://polygon-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9'
-export const mainnetRpcBase = 'https://base-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9'
+export const mainnetRpcBNB = 'https://white-small-owl.bsc.quiknode.pro/9360ded420c4dac9e642ea073c6c5b0ea1040291/'
+export const mainnetRpcETH = 'https://restless-wandering-paper.quiknode.pro/fb4c4ed77bcf896cb65e2f7dd33a6d2f5e41c5cd/'
+export const mainnetRpcPolygon = 'https://radial-fragrant-glitter.matic.quiknode.pro/71657fa30ed09243fa133d109f4fc77ef38951d7/'
+export const mainnetRpcBase = 'https://orbital-warmhearted-sponge.base-mainnet.quiknode.pro/d39cf0ac7f112ff94576f75cb20b3bf94920ad15/'
 export const mainnetRpcSolana = "https://solana-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9"
 export const mainnetRpcArbitrum = 'https://thrumming-cosmological-silence.arbitrum-mainnet.quiknode.pro/cc9ba52fdd9f3c469c7743dfc2642f89af41bba0/'
 export const mainnetRpcAvalanche = 'https://attentive-polished-spree.avalanche-mainnet.quiknode.pro/bbddf9f846a859c27850faf301dc3e48bdca77f0/ext/bc/C/rpc/'
@@ -105,8 +105,8 @@ export const MultiChainChainsArray = [
         isEvm: 1,
         chainId: 42161,
         isActive: 1,
-        type: "token",
-        tokenAddress: '0x912CE59144191C1204E64559FE8253a0e49E6548',
+        type: "chain",
+        tokenAddress: '',
         tokenImage: "https://assets.coingecko.com/coins/images/16547/standard/arb.jpg?1721358242",
     },
     {
@@ -119,8 +119,8 @@ export const MultiChainChainsArray = [
         isEvm: 1,
         chainId: 8453,
         isActive: 1,
-        type: "token",
-        tokenAddress: '0xd07379a755a8f11b57610154861d694b2a0f615a',
+        type: "chain",
+        tokenAddress: '',
         tokenImage: "https://assets.coingecko.com/nft_contracts/images/2989/small_2x/base-introduced.png?1707289780",
     },
     {
@@ -249,8 +249,8 @@ export const EvmChainsArray = [
         isEvm: 1,
         chainId: 42161,
         isActive: 1,
-        type: "token",
-        tokenAddress: '0x912CE59144191C1204E64559FE8253a0e49E6548',
+        type: "chain",
+        tokenAddress: '',
         tokenImage: "https://assets.coingecko.com/coins/images/16547/standard/arb.jpg?1721358242",
     },
     {
@@ -263,8 +263,8 @@ export const EvmChainsArray = [
         isEvm: 1,
         chainId: 8453,
         isActive: 1,
-        type: "token",
-        tokenAddress: '0xd07379a755a8f11b57610154861d694b2a0f615a',
+        type: "chain",
+        tokenAddress: '',
         tokenImage: "https://assets.coingecko.com/nft_contracts/images/2989/small_2x/base-introduced.png?1707289780",
     },
 ];

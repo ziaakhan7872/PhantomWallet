@@ -31,6 +31,7 @@ async function createTables(db) {
                 seedPhrase TEXT,
                 isActive INTEGER,
                 name TEXT,
+                username TEXT,
                 account INTEGER,
                 btcWalletAddress TEXT,
                 btcPrivateKey TEXT,
@@ -269,7 +270,7 @@ export const getWalletByAddress = async (address) => {
 export const checkUsernameExists = async (username, excludeWalletId = null) => {
     const db = await getDb();
     try {
-        let query = 'SELECT id FROM WalletTbl WHERE LOWER(name) = LOWER(?)';
+        let query = 'SELECT id FROM WalletTbl WHERE LOWER(username) = LOWER(?)';
         let params = [username];
 
         if (excludeWalletId) {
@@ -290,7 +291,7 @@ export const updateWalletName = async (walletId, newName) => {
     const db = await getDb();
     try {
         const [results] = await db.executeSql(
-            'UPDATE WalletTbl SET name = ? WHERE id = ?',
+            'UPDATE WalletTbl SET username = ? WHERE id = ?',
             [newName, walletId]
         );
 
@@ -322,38 +323,55 @@ export const UpdateTokenAndCoinBalance = async (newBalance, id) => {
     }
 };
 
-const UpdateCoinCurrentPrices = tokendata => {
+// save coin current prices and change24h
+export const UpdateCoinCurrentPrices = async (tokendata) => {
+    const db = await getDb();
     try {
-        return new Promise((resolve, reject) => {
-            db.transaction(tx => {
-                tx.executeSql(
-                    `UPDATE ChainsTbl SET change24h =?,currentPriceUsd=? WHERE  rpcUrlname=? AND type=?;`,
-                    [
-                        tokendata?.change24hr ?? 0,
-                        tokendata?.curentprice ?? 0,
-                        tokendata?.platformName,
-                        'chain',
-                    ],
-                    (_, result) => {
-                        if (result.rowsAffected > 0) {
-                            // console.log('coin price updated', tokendata);
-                            resolve(true);
-                        } else {
-                            // console.log('coin not found or price not updated.', tokendata);
-                            resolve(false);
-                        }
-                    },
-                    (_, error) => {
-                        console.log('Error updating coin proce:', error);
-                        reject(error);
-                    },
-                );
-            });
-        });
+        const [results] = await db.executeSql(
+            `UPDATE ChainsTbl SET change24h = ?, currentPriceUsd = ? WHERE cmcId = ? AND type = ?`,
+            [
+                tokendata?.change24hr ?? 0,
+                tokendata?.curentprice ?? 0,
+                tokendata?.cmcId,
+                'chain',
+            ]
+        );
+
+        if (results.rowsAffected > 0) {
+            return true;
+        }
+
+        return false;
     } catch (error) {
-        console.log('errorerror', error);
+        console.error('Error in UpdateCoinCurrentPrices:', error);
+        throw error;
     }
 };
+
+// save token current prices and change24h
+export const UpdateTokenCurrentPrices = async (tokendata) => {
+    const db = await getDb();
+    try {
+        const [results] = await db.executeSql(
+            `UPDATE ChainsTbl SET change24h = ?, currentPriceUsd = ? WHERE LOWER(tokenAddress) = LOWER(?)`,
+            [
+                tokendata?.change24hr ?? 0,
+                tokendata?.curentprice ?? 0,
+                tokendata?.tokenAddress ?? '',
+            ]
+        );
+
+        if (results.rowsAffected > 0) {
+            return true;
+        }
+
+        return false;
+    } catch (error) {
+        console.error('Error in UpdateTokenCurrentPrices:', error);
+        throw error;
+    }
+};
+
 
 // Default export with all methods
 const database = {

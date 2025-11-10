@@ -17,7 +17,7 @@ export const AccountCard = ({ profile, accountName, accountNumber, rightImage1, 
             <TouchableOpacity activeOpacity={0.8} onPress={onPressAccount} style={appStyles.rowBasic}>
                 <Image source={profile} resizeMode='contain' style={styles.profile} />
                 <View>
-                    <PoppinsText style={styles.accountName}>{accountName}</PoppinsText>
+                    {accountName ? <PoppinsText style={styles.accountName}>{accountName}</PoppinsText> : null}
                     <PoppinsText style={styles.accountBalance}>{accountNumber}</PoppinsText>
                 </View>
             </TouchableOpacity>
@@ -33,10 +33,10 @@ export const AccountCard = ({ profile, accountName, accountNumber, rightImage1, 
     )
 }
 
-export const BalanceCard = ({ }) => {
+export const BalanceCard = ({ totalBalance }) => {
     return (
         <View>
-            <PoppinsText style={styles.balanceText}>$2.46</PoppinsText>
+            <PoppinsText style={styles.balanceText}>${NumberRoundFunction(totalBalance)}</PoppinsText>
             <View style={{ ...appStyles.rowBasic }}>
                 <PoppinsText style={styles.amount}>{"+$0.00242559"}</PoppinsText>
                 <View style={styles.dollarAmountBox}>
@@ -132,7 +132,7 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
                                 </View>
                             </View>
                             <View>
-                                <PoppinsText style={styles.tokenPrice}>{NumberRoundFunction(
+                                <PoppinsText style={styles.tokenPrice}>${NumberRoundFunction(
                                     Number(item?.currentPriceUsd) * Number(item?.balance),
                                 ).toLocaleString(undefined, {
                                     minimumFractionDigits: 2,

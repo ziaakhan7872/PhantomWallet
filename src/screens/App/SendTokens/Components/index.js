@@ -8,30 +8,26 @@ import PoppinsText from '../../../../components/PoppinsText'
 import { Fonts } from '../../../../constants/fonts'
 import { colors } from '../../../../constants/colors'
 import Spacer from '../../../../components/Spacer'
+import { NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
 
-export const SendTokensList = ({ onPressToken, searchText }) => {
-    const filteredTokens = tokensData.filter((token) => token?.tokenName?.toLowerCase().includes(searchText?.toLowerCase()))
+export const SendTokensList = ({ data, onPressToken, searchText }) => {
+    const filteredTokens = data?.filter((token) => token?.tokenName?.toLowerCase()?.includes(searchText?.toLowerCase()) ||
+        token?.symbol?.toLowerCase()?.includes(searchText?.toLowerCase()))
     return (
         <FlatList
             data={filteredTokens}
             showsVerticalScrollIndicator={false}
             removeClippedSubviews={false}
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
-            contentContainerStyle={{ paddingBottom: hp(70) }}
+            contentContainerStyle={{ paddingBottom: hp(5) }}
             renderItem={({ item, index }) => {
                 return (
                     <TouchableOpacity activeOpacity={0.8} onPress={() => onPressToken(item)} style={styles.tokenCardBgView}>
-                        <View style={appStyles.row}>
-                            <View style={appStyles.rowBasic}>
-                                <Image source={item?.tokenLogo} resizeMode='contain' style={styles.tokenLogo} />
-                                <View>
-                                    <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
-                                    <PoppinsText style={styles.tokenSymbol}>{'0 BTC'}</PoppinsText>
-                                </View>
-                            </View>
+                        <View style={appStyles.rowBasic}>
+                            <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
                             <View>
-                                <PoppinsText style={styles.tokenPrice}>{item?.tokenPrice}</PoppinsText>
-                                <PoppinsText style={styles.dollarPrice}>{item?.dollarPrice}</PoppinsText>
+                                <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
+                                <PoppinsText style={styles.tokenSymbol}>{`${NumberRoundFunction(item?.balance)} ${item?.symbol?.toUpperCase()}`}</PoppinsText>
                             </View>
                         </View>
                     </TouchableOpacity>

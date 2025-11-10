@@ -12,7 +12,10 @@ import { routes } from '../../../constants/routes'
 
 const SendSuccess = (props) => {
     const previousScreen = props?.route?.params?.screenName
-    console.log(previousScreen, 'previousScreenpreviousScreenpreviousScreen');
+    const receiverAddress = props?.route?.params?.receiverAddress
+    const amount = props?.route?.params?.amount
+    const item = props?.route?.params?.item
+
     return (
         <MainContainerApp>
             <Spacer customHeight={hp(6)} />
@@ -22,11 +25,13 @@ const SendSuccess = (props) => {
                     <Spacer customHeight={hp(1)} />
                     <PoppinsText style={styles.sentText}>{previousScreen === 'Swap' ? 'Swap!' : 'Sent'}</PoppinsText>
                     <Spacer customHeight={hp(0.5)} />
-                    <PoppinsText style={styles.sentText1}>{previousScreen === 'Swap' ? '0.011030096 SOL was successfully swap to EXrs...P4ok' : '0.011030096 SOL was successfully sent to EXrs...P4ok'}</PoppinsText>
+                    <PoppinsText style={styles.sentText1}>{previousScreen === 'Swap' ? '0.011030096 SOL was successfully swap to EXrs...P4ok' :
+                        `${amount} ${item?.symbol?.toUpperCase()} was successfully sent to ${receiverAddress?.slice(0, 4)}...${receiverAddress?.slice(-4)}`}
+                    </PoppinsText>
                     <Spacer customHeight={hp(1)} />
-                    <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
+                    {/* <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
                         <PoppinsText style={styles.viewTransactionText}>{'View transaction'}</PoppinsText>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </View>
             <View style={{ paddingBottom: hp(4) }}>

@@ -63,6 +63,12 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         width: wp(30),
     },
+    inputStyle2: {
+        fontSize: 34,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.gray77,
+        textAlign: 'center',
+    },
     inputContainer1: {
         width: wp(30),
         borderRadius: 0,
@@ -70,10 +76,10 @@ export const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     symbol: {
-        fontSize: 43,
+        fontSize: 34,
         fontFamily: Fonts.Poppins.Bold,
         color: colors.gray77,
-        marginLeft: wp(5)
+        marginLeft: wp(3)
     },
     switchWithRound: {
         width: wp(7),
@@ -84,6 +90,11 @@ export const styles = StyleSheet.create({
         fontFamily: Fonts.Poppins.Regular,
         color: colors.gray78,
         textAlign: 'center'
+    },
+    errorMessage: {
+        fontSize: 12,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.red1,
+        textAlign: 'center'
     }
-
 })

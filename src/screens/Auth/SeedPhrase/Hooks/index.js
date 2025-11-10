@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createMnemonic } from "../../../../utils/mnemonic"
 import { seedValidation } from "../../../../services/Helpers/EVMHelper";
-import { generaEvmWalletUsingPrivatekey, generateAllWallets } from "../../../../services/Helpers/CreateWallet";
+import { generaEvmWalletUsingPrivatekey, generateAllWallets } from "../../../../services/Helpers/CreateWalletHelper";
 import { getWalletByAddress, InsertAllChains, insertWallet } from "../../../../services/database";
 import { EvmChainsArray, MultiChainChainsArray } from "../../../../components/dummyData";
 import { routes } from "../../../../constants/routes";
@@ -40,6 +40,8 @@ const useSeedPhrase = (props) => {
                         setLoading(false)
                     }
                     else {
+
+
                         setTimeout(async () => {
 
                             const allwallets = await generateAllWallets(cleanedSeed.trim())
@@ -52,27 +54,30 @@ const useSeedPhrase = (props) => {
                                 setLoading(false)
                             } else {
 
-                                const waletresponse = await insertWallet(
-                                    'Multi-Chain-Wallet',
-                                    cleanedSeed,
-                                    allwallets?.evmWallet?.address,
-                                    allwallets?.evmWallet?.privateKey,
-                                    allwallets?.bitcoin?.address,
-                                    allwallets?.bitcoin?.privateKey,
-                                    allwallets?.solana?.address,
-                                    allwallets?.solana?.privateKey,
-                                )
-                                console.log('waletresponsewaletresponse', waletresponse);
+                                setLoading(false)
+                                props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
 
-                                if (waletresponse) {
+                                //         const waletresponse = await insertWallet(
+                                //             'Multi-Chain-Wallet',
+                                //             cleanedSeed,
+                                //             allwallets?.evmWallet?.address,
+                                //             allwallets?.evmWallet?.privateKey,
+                                //             allwallets?.bitcoin?.address,
+                                //             allwallets?.bitcoin?.privateKey,
+                                //             allwallets?.solana?.address,
+                                //             allwallets?.solana?.privateKey,
+                                //         )
+                                //         console.log('waletresponsewaletresponse', waletresponse);
 
-                                    let responsechains = await InsertAllChains(waletresponse, MultiChainChainsArray)
-                                    console.log('responsechainsresponsechainsresponsechains', responsechains);
-                                    if (responsechains) {
-                                        setLoading(false)
-                                        props.navigation.replace(routes.pinScreen)
-                                    }
-                                }
+                                //         if (waletresponse) {
+
+                                //             let responsechains = await InsertAllChains(waletresponse, MultiChainChainsArray)
+                                //             console.log('responsechainsresponsechainsresponsechains', responsechains);
+                                //             if (responsechains) {
+                                //                 setLoading(false)
+                                //                 props.navigation.replace(routes.pinScreen)
+                                //             }
+                                //         }
                             }
                         }, 2)
                     }
@@ -102,28 +107,31 @@ const useSeedPhrase = (props) => {
                                 setLoading(false)
                             } else {
 
-                                const waletresponse = await insertWallet(
-                                    'EVM-Wallet',
-                                    '',
-                                    allwallets?.evmWallet?.address,
-                                    allwallets?.evmWallet?.privateKey,
-                                    '',
-                                    '',
-                                    '',
-                                    '',
-                                )
-                                console.log('waletresponsewaletresponse', waletresponse);
+                                setLoading(false)
+                                props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
 
-                                if (waletresponse) {
+                                // const waletresponse = await insertWallet(
+                                //     'EVM-Wallet',
+                                //     '',
+                                //     allwallets?.evmWallet?.address,
+                                //     allwallets?.evmWallet?.privateKey,
+                                //     '',
+                                //     '',
+                                //     '',
+                                //     '',
+                                // )
+                                // console.log('waletresponsewaletresponse', waletresponse);
 
-                                    let responsechains = await InsertAllChains(waletresponse, EvmChainsArray)
+                                // if (waletresponse) {
 
-                                    console.log('responsechainsresponsechainsresponsechains', responsechains);
-                                    if (responsechains) {
-                                        setLoading(false)
-                                        props.navigation.replace(routes.pin)
-                                    }
-                                }
+                                //     let responsechains = await InsertAllChains(waletresponse, EvmChainsArray)
+
+                                //     console.log('responsechainsresponsechainsresponsechains', responsechains);
+                                //     if (responsechains) {
+                                //         setLoading(false)
+                                //         props.navigation.replace(routes.pin)
+                                //     }
+                                // }
                             }
                         } catch (error) {
                             console.log('errorerrorerror', error);

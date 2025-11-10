@@ -1,8 +1,8 @@
-import { UpdateTokenAndCoinBalance } from "../database";
+import { UpdateCoinCurrentPrices, UpdateTokenAndCoinBalance, UpdateTokenCurrentPrices } from "../database";
 import { GetcurentPrices } from "./Apis";
 import { GetbtcBalnceofAddress } from "./BitcoinHelper";
-import { coinGekoTokenID } from "./CommonHelper";
-import { evmCoinBalances, evmTokenBalce } from "./EVMHelper";
+import { coinGekoTokenID, getChainIdByChainName } from "./CommonHelper";
+import { evmCoinBalances, evmTokenBalce, GetchainDataByCHainID } from "./EVMHelper";
 import { getSolanaBalance, getSolanaTokenBalance } from "./SolanaHelper";
 
 
@@ -13,6 +13,7 @@ export const UpdateActiveWalletBalance = async data => {
             // console.log('waletAndtokenwaletAndtoken', waletAndtoken);
 
             waletAndtoken?.tokens?.map(async res => {
+                await UpdateCoinAndTokenPrices(res);
                 if (res?.isEvm == 1) {
                     if (res?.type == 'token') {
                         let coinbalance = await evmTokenBalce(
@@ -84,15 +85,32 @@ export const UpdateActiveWalletBalance = async data => {
 
 export const UpdateCoinAndTokenPrices = async (tokendata) => {
     try {
-        const idofcoingeko = coinGekoTokenID(tokendata?.chainId, tokendata)
+
+        const getcoinid = await getChainIdByChainName(tokendata?.chainName)
+        console.log('tokendata?.chainId:::getcoinid:::', getcoinid, 'and', tokendata?.chainName);
+
+        const idofcoingeko = coinGekoTokenID(getcoinid, tokendata)
+
+        console.log('tokendata?.chainId:::idofcoingeko:::', idofcoingeko, 'and', tokendata?.chainName);
 
         const response = await GetcurentPrices(idofcoingeko ?? null)
 
-        const change24hr = response?.change24hr ?? 0
-        const curentprice = response?.curentprice ?? 0
-        const tokenLogo = response?.tokenLogo ?? ''
+        let data = {
+            change24hr: response?.change24hr ?? 0,
+            curentprice: response?.curentprice ?? 0,
+            tokenLogo: response?.tokenLogo ?? '',
+            tokenAddress: tokendata?.tokenAddress,
+            cmcId: tokendata?.cmcId,
+        }
+        // const change24hr = response?.change24hr ?? 0
+        // const curentprice = response?.curentprice ?? 0
+        // const tokenLogo = response?.tokenLogo ?? ''
 
-        // const update = await UpdateCoinCurrentPrices(change24hr, curentprice, tokenLogo)
+        if (tokendata?.type == 'token') {
+            const update = await UpdateTokenCurrentPrices(data)
+        } else {
+            const update = await UpdateCoinCurrentPrices(data)
+        }
 
 
     } catch (error) {

@@ -2,7 +2,9 @@ import { useEffect, useState } from "react"
 import { generateUniqueMnemonic } from "../../../../EvmWalletHelper"
 import { useIsFocused } from "@react-navigation/native"
 import { copyPaste } from "../../../../utilities/helperFunction"
-const useShowSeedPhrase = () => {
+const useShowSeedPhrase = (props) => {
+
+    const item = props?.route?.params?.item
 
     const [isChecked, setIsChecked] = useState(false)
     const [showSeedPhrase, setShowSeedPhrase] = useState(false)
@@ -12,26 +14,12 @@ const useShowSeedPhrase = () => {
 
     useEffect(() => {
         setShowSeedPhrase(false)
-        genratePhrase()
-
     }, [useIsFocused()])
 
-    const genratePhrase = async () => {
-        try {
-            const seed = await generateUniqueMnemonic()
-            console.log('seedseedseed', seed);
-            setseedPhrase(seed)
-        } catch (error) {
-
-            console.log('errorerrorerror', error);
-
-        }
-    }
 
     const onPressCopy = () => {
-
         setisCopy(true)
-        copyPaste.copynoToast(seedPhrase)
+        copyPaste.copynoToast(item?.seedPhrase)
 
         setTimeout(() => {
             setisCopy(false)
@@ -40,7 +28,7 @@ const useShowSeedPhrase = () => {
     }
 
     return {
-        isChecked, setIsChecked, showSeedPhrase, setShowSeedPhrase, seedPhrase, onPressCopy, isCopy
+        item, isChecked, setIsChecked, showSeedPhrase, setShowSeedPhrase, onPressCopy, isCopy,
     }
 }
 

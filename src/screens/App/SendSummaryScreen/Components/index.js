@@ -5,28 +5,29 @@ import { Fonts } from "../../../../constants/fonts"
 import { appStyles } from "../../../../utilities/appStyles"
 import PoppinsText from "../../../../components/PoppinsText"
 import Spacer from "../../../../components/Spacer"
+import { NumberRoundFunction } from "../../../../constants/commonHelperFunctions/commonHelperFunction"
 
 
-export const SummaryCard = ({ }) => {
+export const SummaryCard = ({ receiverAddress, item, fee }) => {
     return (
         <View>
 
             <View style={styles.cardContainer}>
                 <View style={appStyles.row}>
                     <PoppinsText style={styles.leftText}>{'To'}</PoppinsText>
-                    <PoppinsText style={styles.rightText}>{'EXrs...P4ok'}</PoppinsText>
+                    <PoppinsText style={styles.rightText}>{`${receiverAddress?.slice(0, 4)}...${receiverAddress?.slice(-4)}`}</PoppinsText>
                 </View>
             </View>
             <Spacer customHeight={hp(0.2)} />
             <View style={[appStyles.row, styles.cardContainer2]}>
                 <PoppinsText style={styles.leftText}>{'Network'}</PoppinsText>
-                <PoppinsText style={styles.rightText}>{'Solana'}</PoppinsText>
+                <PoppinsText style={styles.rightText}>{item?.chainName}</PoppinsText>
             </View>
             <Spacer customHeight={hp(0.2)} />
             <View style={[appStyles.row, styles.cardContainer1]}>
                 <PoppinsText style={styles.leftText}>{'Network fee'}</PoppinsText>
                 <View style={appStyles.rowBasic}>
-                    <PoppinsText style={styles.rightText}>{'$0.0177'}</PoppinsText>
+                    <PoppinsText style={styles.rightText}>{`${NumberRoundFunction(fee ?? 0)} ${item?.symbol?.toUpperCase()}`}</PoppinsText>
                 </View>
             </View>
         </View>

@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
     tokenLogo: {
         width: wp(17.5),
         height: wp(17.5),
-        alignSelf: 'center'
+        alignSelf: 'center',
+        borderRadius: 100
     },
     amount: {
         fontSize: 34,

@@ -12,7 +12,10 @@ import { hp } from '../../../components/ResponsiveComponent'
 import { NewCustomHeader } from '../../../components/MainHeader'
 
 const SendTokens = (props) => {
-    const { searchText, setSearchText } = useSendTokens()
+    const {
+        searchText, setSearchText,
+        activeWalletWithTokens,
+    } = useSendTokens(props)
     return (
         <MainContainerApp>
             <Spacer customHeight={hp(6)} />
@@ -37,7 +40,13 @@ const SendTokens = (props) => {
                 </View>
             </TouchableWithoutFeedback>
             <Spacer />
-            <SendTokensList onPressToken={() => props?.navigation.navigate(routes.sendTokensAddress)} searchText={searchText} />
+                      
+             <SendTokensList
+                data={activeWalletWithTokens?.tokens}
+                searchText={searchText}
+                onPressToken={(item) => props?.navigation.navigate(routes.sendTokensAddress, { item })}
+            />
+
         </MainContainerApp>
     )
 }

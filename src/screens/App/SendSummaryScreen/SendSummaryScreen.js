@@ -10,8 +10,13 @@ import PoppinsText from '../../../components/PoppinsText'
 import { SummaryCard } from './Components'
 import { CustomButton } from '../../../components/CustomButton'
 import { routes } from '../../../constants/routes'
+import useSendSummaryScreen from './Hook'
+import LoaderModal from '../../../components/LoaderModal'
+import { NumberRoundFunction } from '../../../constants/commonHelperFunctions/commonHelperFunction'
 
 const SendSummaryScreen = (props) => {
+    const { isDolorValue, enteredAmount, receiverAddress, item, fee, errorMessage, loading, btnLoading, onPressSend } = useSendSummaryScreen(props)
+
     return (
         <MainContainerApp>
             <Spacer customHeight={hp(7)} />
@@ -25,19 +30,27 @@ const SendSummaryScreen = (props) => {
                 <Spacer customHeight={hp(4)} />
                 <Image source={Images.rightPurpleArrow} resizeMode='contain' style={styles.rightPurpleArrow} />
                 <Spacer />
-                <PoppinsText style={styles.amount}>0.01103 S0L</PoppinsText>
-                <PoppinsText style={styles.dollarAmount}>~$2.44</PoppinsText>
+                {isDolorValue ?
+                    <PoppinsText style={styles.amount}>{`${NumberRoundFunction(parseFloat(enteredAmount || 0) / parseFloat(item?.currentPriceUsd || 0))}`} {item?.symbol?.toUpperCase()}</PoppinsText>
+                    :
+                    <PoppinsText style={styles.amount}>{enteredAmount ?? 0} {item?.symbol?.toUpperCase()}</PoppinsText>
+                }
+
+                <PoppinsText style={styles.dollarAmount}>{`~$${isDolorValue ? enteredAmount : NumberRoundFunction(parseFloat(enteredAmount || 0) * parseFloat(item?.currentPriceUsd || 0))}`}</PoppinsText>
                 <Spacer />
-                <View style={[styles.alertViewBgView, appStyles.rowBasic]}>
+                {/* <View style={[styles.alertViewBgView, appStyles.rowBasic]}>
                     <Image source={Images.alertInfoTriangle} resizeMode='contain' style={styles.alertInfoTriangle} />
                     <PoppinsText style={styles.alertText}>{'This wallet address has no balance and doesnt appear in your recent transaction history. Please ensure the address is correct.'}</PoppinsText>
-                </View>
+                </View> */}
                 <Spacer />
-                <SummaryCard />
+                <SummaryCard receiverAddress={receiverAddress} item={item} fee={fee} />
+                {errorMessage ? <PoppinsText style={styles.errorMessage}>{errorMessage}</PoppinsText> : null}
             </View>
             <View style={{ paddingBottom: hp(4) }}>
-                <CustomButton title={'Send'} onPressBtn={() => props?.navigation.navigate(routes.sendSuccess)} />
+                <CustomButton title={'Send'} loading={btnLoading} onPressBtn={() => onPressSend()} />
             </View>
+
+            <LoaderModal visible={loading} />
         </MainContainerApp>
     )
 }

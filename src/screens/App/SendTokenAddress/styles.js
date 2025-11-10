@@ -54,5 +54,12 @@ export const styles = StyleSheet.create({
         width: wp(100),
         alignSelf: 'center',
         color: colors.gray69,
+    },
+    errorMessage: {
+        fontSize: 12,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.red,
+        marginTop: hp(0.5),
+        textAlign: 'center',
     }
 })

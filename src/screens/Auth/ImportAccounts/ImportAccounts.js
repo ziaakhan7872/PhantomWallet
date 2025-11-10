@@ -15,12 +15,12 @@ import { routes } from '../../../constants/routes'
 
 
 const ImportAccounts = (props) => {
-    const { checkedAccounts, setCheckedAccounts, accountSelection, setAccountSelection } = useImportAccounts(props)
+    const { isSeedPhrase, cleanedSeed, allwallets, loading, accountSelection, setAccountSelection, onPressContinue } = useImportAccounts(props)
     return (
         <MainContainer>
             <Spacer customHeight={hp(6)} />
             <View style={styles.mainView}>
-                <SeedPhraseCustomHeader leftImage={Images.goBackArrow} centerImage={Images.slideLine2} rightText={'Next'} onPressLeftImage={() => props?.navigation.goBack()} />
+                <SeedPhraseCustomHeader leftImage={Images.goBackArrow} centerImage={Images.slideLine2} rightText={''} onPressLeftImage={() => props?.navigation.goBack()} />
                 {/* <View style={{ flex: 1, justifyContent: 'center' }}>
                     <Image source={Images.importAccountCircle} resizeMode='contain' style={styles.importAccountCircle} />
                     <Spacer customHeight={hp(1)} />
@@ -35,18 +35,22 @@ const ImportAccounts = (props) => {
                 <Spacer customHeight={hp(1)} />
                 <PoppinsText style={styles.importAccountsDesc}>We found 1 account with activity</PoppinsText>
                 <Spacer />
-                <SelectedAccountCard checkedAccounts={checkedAccounts} setCheckedAccounts={setCheckedAccounts} />
+                <SelectedAccountCard checkedAccounts={accountSelection} setCheckedAccounts={setAccountSelection} />
                 <Spacer />
-                <FindAccountsCard accountSelection={accountSelection} setAccountSelection={setAccountSelection} />
+                <FindAccountsCard allwallets={allwallets} isSeedPhrase={isSeedPhrase} accountSelection={accountSelection} setAccountSelection={setAccountSelection} />
                 <Spacer />
-                <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
+                {/* <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
                     <PoppinsText style={styles.centerText}>Find more accounts</PoppinsText>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <View style={{ paddingBottom: hp(4) }}>
-                <CustomButton title='View Accounts' btnSyles={{ backgroundColor: colors.gray21 }} titleStyles={{ color: colors.gray22 }} />
-                <Spacer customHeight={hp(1)} />
-                <CustomButton title='Continue' onPressBtn={() => props?.navigation.replace(routes.appStack)} />
+                {/* <CustomButton title='View Accounts' btnSyles={{ backgroundColor: colors.gray21 }} titleStyles={{ color: colors.gray22 }} /> */}
+                <Spacer customHeight={hp(2)} />
+                <CustomButton
+                    title='Continue'
+                    disabled={!accountSelection}
+                    loading={loading}
+                    onPressBtn={() => onPressContinue()} />
             </View>
         </MainContainer>
     )

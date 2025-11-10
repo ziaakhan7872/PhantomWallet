@@ -13,7 +13,7 @@ import useShowSeedPhrase from './Hooks'
 import { NewCustomHeader } from '../../../components/MainHeader'
 
 const ShowSeedPhrase = (props) => {
-    const { isChecked, setIsChecked, showSeedPhrase, setShowSeedPhrase, seedPhrase, onPressCopy, isCopy } = useShowSeedPhrase()
+    const { item, isChecked, setIsChecked, showSeedPhrase, setShowSeedPhrase, onPressCopy, isCopy } = useShowSeedPhrase(props)
     return (
         <MainContainerApp>
             <Spacer customHeight={hp(6)} />
@@ -28,7 +28,7 @@ const ShowSeedPhrase = (props) => {
                             <PoppinsText style={styles.alertDesc}>lf someone has your Recovery Phrase they will have full control of your wallet.</PoppinsText>
                         </View>
                         <Spacer />
-                        <SeedPhraseCard showSeedPhrase={showSeedPhrase} setShowSeedPhrase={setShowSeedPhrase} seedPhrase={seedPhrase} onPressCopy={onPressCopy} isCopy={isCopy} />
+                        <SeedPhraseCard showSeedPhrase={showSeedPhrase} setShowSeedPhrase={setShowSeedPhrase} seedPhrase={item?.seedPhrase ?? ''} onPressCopy={onPressCopy} isCopy={isCopy} />
                     </>
                     :
                     <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -49,7 +49,7 @@ const ShowSeedPhrase = (props) => {
             </View>
             <View style={{ paddingBottom: hp(4) }}>
                 {showSeedPhrase ?
-                    <CustomButton title={showSeedPhrase ? 'Done' : 'Continue'} disabled={!isChecked} titleStyles={!isChecked ? styles.disabledTitle : styles.btnEnableTitle} onPressBtn={() => setShowSeedPhrase(true)} />
+                    <CustomButton title={'Done'} disabled={!isChecked} titleStyles={!isChecked ? styles.disabledTitle : styles.btnEnableTitle} onPressBtn={() => props?.navigation.goBack()} />
 
                     :
                     <>
@@ -60,7 +60,9 @@ const ShowSeedPhrase = (props) => {
                             <PoppinsText style={styles.bottomText}>I understand that sharing my recovery phrase could result in permanent loss of funds.</PoppinsText>
                         </TouchableOpacity>
                         <Spacer />
-                        <CustomButton title={showSeedPhrase ? 'Done' : 'Continue'} disabled={!isChecked} titleStyles={!isChecked ? styles.disabledTitle : styles.btnEnableTitle} onPressBtn={() => setShowSeedPhrase(true)} />
+                        <CustomButton title={'Continue'} disabled={!isChecked} titleStyles={!isChecked ? styles.disabledTitle : styles.btnEnableTitle} onPressBtn={() => setShowSeedPhrase(true)}
+
+                        />
                     </>
                 }
             </View>
