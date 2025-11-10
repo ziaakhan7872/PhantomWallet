@@ -1,6 +1,5 @@
 import { Image, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
 import { Images } from '../../../Images'
@@ -11,9 +10,9 @@ import { routes } from '../../../constants/routes'
 
 const Liquidation = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer />
+                <Spacer customHeight={hp(8)} />
                 <Image source={Images.horizontallySlider4} style={styles.horizontallySlider2} />
                 <Spacer customHeight={hp(3)} />
                 <PoppinsText style={styles.liquidationText}>Liquidation</PoppinsText>
@@ -29,7 +28,7 @@ const Liquidation = (props) => {
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Next'} onPressBtn={() => props.navigation.navigate(routes.riskTolerance)} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

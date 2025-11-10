@@ -1,6 +1,5 @@
 import { Image, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
 import { Images } from '../../../Images'
@@ -11,9 +10,9 @@ import { routes } from '../../../constants/routes'
 
 const MasterPerpetualFuture = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer />
+                <Spacer customHeight={hp(8)} />
                 <Image source={Images.horizontallySlider1} style={styles.horizontallySlider1} />
                 <Spacer customHeight={hp(3)} />
                 <PoppinsText style={styles.masterPerpetualFutureText}>Master Perpetual Futures</PoppinsText>
@@ -28,7 +27,7 @@ const MasterPerpetualFuture = (props) => {
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Next'} onPressBtn={() => props.navigation.navigate(routes.goLong)} />
             </View>
-        </AppContainer >
+        </MainContainerApp>
     )
 }
 

@@ -23,7 +23,7 @@ export const MainHeader = ({ onPressLeftImage, leftImage, title, centerImage }) 
 
 export const CustomHeader = ({ leftImage, rightImage, rightText, onPressLeftImage, onPressRightImage }) => {
     return (
-        <View style={{ ...appStyles.row, width: wp(92) }}>
+        <View style={{ ...appStyles.row, width: wp(92), alignSelf: 'center' }}>
             <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
                 <Image source={leftImage} resizeMode='contain' style={styles.leftCustomImage} />
             </TouchableOpacity>
@@ -34,6 +34,26 @@ export const CustomHeader = ({ leftImage, rightImage, rightText, onPressLeftImag
                     <PoppinsText style={styles.rightText}>{rightText}</PoppinsText>
                 }
             </TouchableOpacity>
+        </View>
+    )
+}
+
+export const NewCustomHeader = ({ leftImage, title, rightImage, onPressLeftImage }) => {
+    return (
+        <View style={{ ...appStyles.row, width: wp(92), alignSelf: 'center' }}>
+            <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
+                <Image source={leftImage} resizeMode='contain' style={styles.customLeftCustomImage} />
+            </TouchableOpacity>
+            <PoppinsText style={styles.customeHeaderTitle}>{title}</PoppinsText>
+            {
+                rightImage ?
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
+                        <Image source={rightImage} resizeMode='contain' style={styles.rightImage} />
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
+                        <Image style={styles.customLeftCustomImage} />
+                    </TouchableOpacity>}
         </View>
     )
 }
@@ -92,5 +112,19 @@ const styles = StyleSheet.create({
     centerImage1: {
         width: wp(55),
         height: wp(3)
+    },
+    // NewCustomHeader
+    customLeftCustomImage: {
+        width: wp(3),
+        height: wp(3)
+    },
+    customeHeaderTitle: {
+        fontSize: 13,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.gray83
+    },
+    rightImage: {
+        width: wp(4),
+        height: wp(4)
     }
 })

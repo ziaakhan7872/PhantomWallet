@@ -1,5 +1,4 @@
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native'
-import React from 'react'
 import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'

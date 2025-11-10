@@ -1,24 +1,24 @@
 import { Image, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
-import { AppHeader } from '../../../components/AppHeader'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { Images } from '../../../Images'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
-import { hp, wp } from '../../../components/ResponsiveComponent'
+import { hp } from '../../../components/ResponsiveComponent'
 import { appStyles } from '../../../utilities/appStyles'
 import { EditAccountCard } from './Components'
 import PoppinsText from '../../../components/PoppinsText'
 import { routes } from '../../../constants/routes'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const EditAccount = (props) => {
     const item = props?.route?.params?.item
     const activeWalletWithTokens = props?.route?.params?.activeWalletWithTokens
 
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.backArrow} title={'Edit Account'} onPressBack={() => props?.navigation.goBack()} />
+                <Spacer customHeight={hp(6)} />
+                <NewCustomHeader title={'Edit Account'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer customHeight={hp(3)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.selectAvatar)} style={{ ...appStyles.rowBasic, alignSelf: 'center' }}>
                     <Image source={Images.accountImage} resizeMode='contain' style={styles.accountImage} />
@@ -35,7 +35,7 @@ const EditAccount = (props) => {
                 <Spacer />
                 <EditAccountCard leftText={'Show Recovery Phrase'} leftText1={'Show Private Key'} onPressTitle={() => props?.navigation.navigate(routes.showSeedPhrase, { item })} onPressDesc={() => props?.navigation.navigate(routes.showPrivateKey, { item })} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

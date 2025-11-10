@@ -1,6 +1,5 @@
 import { Image, Keyboard, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { appStyles } from '../../../utilities/appStyles'
 import { Images } from '../../../Images'
@@ -29,7 +28,8 @@ const EnterSendingAmount = (props) => {
     } = useEnterSendingAmount(props)
 
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.mainView}>
                     <View style={styles.container}>
@@ -37,7 +37,7 @@ const EnterSendingAmount = (props) => {
                             <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.goBack()}>
                                 <Image source={Images.backArrow} resizeMode='contain' style={styles.goBackArrow} />
                             </TouchableOpacity>
-                            <PoppinsText style={styles.title}>{'Select Token'}</PoppinsText>
+                            <PoppinsText style={styles.title}>{'Enter Amount'}</PoppinsText>
                             <View style={styles.goBackArrow} />
                             {/* <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
                                 <PoppinsText style={styles.nextText}>{'Next'}</PoppinsText>
@@ -152,7 +152,7 @@ const EnterSendingAmount = (props) => {
                 <Spacer customHeight={hp(1)} />
                 <CustomKeyPad onPressNumber={handleNumberPress} onDelete={handleDelete} onLanguage={handleLanguage} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

@@ -1,8 +1,6 @@
 import { Image, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
-import { AppHeader } from '../../../components/AppHeader'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
 import { hp, wp } from '../../../components/ResponsiveComponent'
@@ -12,15 +10,16 @@ import { CustomButton } from '../../../components/CustomButton'
 import { appStyles } from '../../../utilities/appStyles'
 import LineBreak from '../../../components/LineBreak'
 import useShowSeedPhrase from './Hooks'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const ShowSeedPhrase = (props) => {
     const { item, isChecked, setIsChecked, showSeedPhrase, setShowSeedPhrase, onPressCopy, isCopy } = useShowSeedPhrase(props)
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.backArrow} title={'Show Recovery Phrase'} onPressBack={() => props?.navigation.goBack()} />
+                <NewCustomHeader title={showSeedPhrase ? 'Your Recovery Phrase' : 'Show Recovery Phrase'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer customHeight={hp(4)} />
-
                 {showSeedPhrase ?
                     <>
                         <View style={styles.alertView}>
@@ -67,7 +66,7 @@ const ShowSeedPhrase = (props) => {
                     </>
                 }
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

@@ -1,7 +1,5 @@
 import { View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
-import { AppHeader } from '../../../components/AppHeader'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { Images } from '../../../Images'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
@@ -9,12 +7,14 @@ import { hp, wp } from '../../../components/ResponsiveComponent'
 import { TransactionDetailCard, TransactionDetailCardItem } from './Components'
 import PoppinsText from '../../../components/PoppinsText'
 import { CustomButton } from '../../../components/CustomButton'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const SendConfirmationScreen = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.backArrow} title={'Confirmation'} onPressLeftImage={() => props?.navigation.goBack()} />
+                <NewCustomHeader title={'Confirmation'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer customHeight={hp(4)} />
                 <TransactionDetailCard />
                 <Spacer />
@@ -30,7 +30,7 @@ const SendConfirmationScreen = (props) => {
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Stake'} onPressBtn={() => { }} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

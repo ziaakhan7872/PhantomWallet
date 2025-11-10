@@ -1,5 +1,5 @@
 import { FlatList, Image, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { AppContainer } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { AppHeader } from '../../../components/AppHeader'
@@ -21,7 +21,6 @@ const ActiveNetworks = (props) => {
             setSelectedNetworks(prev => [...prev, item])
         }
     }
-
 
     return (
         <AppContainer>

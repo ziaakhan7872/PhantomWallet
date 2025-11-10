@@ -1,6 +1,6 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { Image, TouchableOpacity, View } from 'react-native'
+import { useState } from 'react'
+import { MainContainerApp } from '../../../components/MainContainer'
 import Spacer from '../../../components/Spacer'
 import { hp } from '../../../components/ResponsiveComponent'
 import { Images } from '../../../Images'
@@ -13,9 +13,9 @@ import { AutoSlippageCard } from './Components'
 const PriorityFee = (props) => {
     const [customPriorityFee, setCustomPriorityFee] = useState(false)
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer customHeight={hp(1)} />
+                <Spacer customHeight={hp(6)} />
                 <View style={appStyles.rowBasic}>
                     <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.goBack()}>
                         <Image source={Images.backArrow} resizeMode='contain' style={styles.backArrow} />
@@ -41,7 +41,7 @@ const PriorityFee = (props) => {
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title='Done' onPressBtn={() => { }} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

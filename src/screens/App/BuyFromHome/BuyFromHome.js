@@ -1,6 +1,6 @@
 import { Image, Keyboard, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { AppContainer, MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { appStyles } from '../../../utilities/appStyles'
 import PoppinsText from '../../../components/PoppinsText'
@@ -15,10 +15,10 @@ import { routes } from '../../../constants/routes'
 const BuyFromHome = (props) => {
     const { searchText, setSearchText } = useBuyFromHome();
     return (
-        <AppContainer>
+        <MainContainerApp>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.mainView}>
-                    <Spacer />
+                    <Spacer customHeight={hp(6)} />
                     <View style={appStyles.row}>
                         <PoppinsText style={styles.selectTokenText}>Select Token</PoppinsText>
                         <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
@@ -43,7 +43,7 @@ const BuyFromHome = (props) => {
                 </View>
             </TouchableWithoutFeedback>
 
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

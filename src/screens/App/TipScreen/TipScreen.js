@@ -1,6 +1,5 @@
 import { Image, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { useState } from 'react'
 import Spacer from '../../../components/Spacer'
 import { hp } from '../../../components/ResponsiveComponent'
 import { Images } from '../../../Images'
@@ -10,13 +9,14 @@ import { styles } from './styles'
 import { appStyles } from '../../../utilities/appStyles'
 import { AutoSlippageCard } from './Components'
 import { routes } from '../../../constants/routes'
+import { MainContainerApp } from '../../../components/MainContainer'
 
 const TipScreen = (props) => {
     const [customPriorityFee, setCustomPriorityFee] = useState(false)
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer customHeight={hp(1)} />
+                <Spacer customHeight={hp(6)} />
                 <View style={appStyles.rowBasic}>
                     <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.goBack()}>
                         <Image source={Images.backArrow} resizeMode='contain' style={styles.backArrow} />
@@ -42,7 +42,7 @@ const TipScreen = (props) => {
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title='Done' onPressBtn={() => props?.navigation.navigate(routes.youPay)} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

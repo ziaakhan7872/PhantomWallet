@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { AppContainer } from '../../../components/MainContainer'
+import { AppContainer, MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
 import { Images } from '../../../Images'
@@ -8,14 +8,17 @@ import { routes } from '../../../constants/routes'
 import { AppHeader } from '../../../components/AppHeader'
 import useReceive from './Hooks'
 import { copyPaste } from '../../../utilities/helperFunction'
+import { hp } from '../../../components/ResponsiveComponent'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const Receive = (props) => {
     const { activeTokensData } = useReceive(props)
 
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.cross} title={'Receive'} onPressBack={() => props?.navigation.goBack()} />
+                <NewCustomHeader title={'Receive'} leftImage={Images.cross} rightImage={Images.searchWhite} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer />
                 <ReceiveTokensList
                     activeTokensData={activeTokensData}
@@ -23,7 +26,7 @@ const Receive = (props) => {
                     onPressCopy={(address) => copyPaste.copy(address)}
                 />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

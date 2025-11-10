@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     backArrow: {
         width: wp(2.5),
         height: wp(3.5),
-        marginRight: wp(2)
+        marginRight: wp(3)
     },
     title: {
         fontSize: 16,

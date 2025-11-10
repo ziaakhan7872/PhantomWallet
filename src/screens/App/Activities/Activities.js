@@ -1,14 +1,13 @@
 import { Image, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
 import { ActivitiesList } from './Components'
 import { routes } from '../../../constants/routes'
-import { wp } from '../../../components/ResponsiveComponent'
+import { hp, wp } from '../../../components/ResponsiveComponent'
 import PoppinsText from '../../../components/PoppinsText'
 import { appStyles } from '../../../utilities/appStyles'
+import { MainContainerApp } from '../../../components/MainContainer'
 import useActivities from './Hook'
 import LoaderModal from '../../../components/LoaderModal'
 
@@ -20,9 +19,9 @@ const Activities = (props) => {
     } = useActivities(props)
 
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer />
+                <Spacer customHeight={hp(6)} />
                 <View style={{ ...appStyles.row, paddingHorizontal: wp(4) }}>
                     <PoppinsText style={styles.recentActivityText}>Recent Activity</PoppinsText>
                     <View style={appStyles.rowBasic}>
@@ -39,8 +38,8 @@ const Activities = (props) => {
                     onPress={(item, status) => props?.navigation.navigate(routes.activitiesDetails, { item, activeWallet, status })} />
             </View>
 
-            <LoaderModal visible={loading} />
-        </AppContainer>
+         <LoaderModal visible={loading} />
+        </MainContainerApp>
     )
 }
 

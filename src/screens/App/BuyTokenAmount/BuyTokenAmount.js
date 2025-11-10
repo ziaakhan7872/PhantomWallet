@@ -2,18 +2,19 @@
 
 
 import { Image, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { appStyles } from '../../../utilities/appStyles'
 import { Images } from '../../../Images'
 import PoppinsText from '../../../components/PoppinsText'
 import Spacer from '../../../components/Spacer'
 import EnterAmount from '../../../components/EnterAmount/EnterAmount'
+import { hp } from '../../../components/ResponsiveComponent'
 
 const BuyTokenAmount = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(4)} />
             <View style={styles.mainView}>
                 <Spacer />
                 <View style={appStyles.row}>
@@ -28,7 +29,7 @@ const BuyTokenAmount = (props) => {
                 <Spacer />
                 <EnterAmount customButton={true} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

@@ -1,7 +1,5 @@
 import { Image, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
-import { AppHeader } from '../../../components/AppHeader'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { Images } from '../../../Images'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
@@ -13,14 +11,17 @@ import { appStyles } from '../../../utilities/appStyles'
 import { CustomButton } from '../../../components/CustomButton'
 import useShowPrivateKey from './Hooks'
 import { routes } from '../../../constants/routes'
+import { NewCustomHeader } from '../../../components/MainHeader'
 import { SeedPhraseCard } from '../ShowSeedPhrase/Components'
 
 const ShowPrivateKey = (props) => {
     const { item, isChecked, setIsChecked, showPrivateKey, setShowPrivateKey, isCopy, onPressCopy } = useShowPrivateKey(props)
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
+
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.backArrow} title={'Show Private Key'} onPressBack={() => props?.navigation.goBack()} />
+                <NewCustomHeader title={'Your Private Key'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
 
                 {showPrivateKey ?
                     <>
@@ -83,7 +84,7 @@ const ShowPrivateKey = (props) => {
                     </>
                 }
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

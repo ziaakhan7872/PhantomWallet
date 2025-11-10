@@ -19,7 +19,7 @@ export const TradePerpCard = ({ onPressBtn1, onPressBtn2 }) => {
             <PoppinsText style={styles.title}>Trade Perps</PoppinsText>
             <PoppinsText style={styles.desc}>Use perps to trade on an asset's future price movements. You'll need to add funds to your perps balance to get started.</PoppinsText>
             <Spacer />
-            <CustomButton title={'Add Funds'} onPressBtn={onPressBtn1} btnSyles={styles.btnSyles1} />
+            <CustomButton title={'Add Funds'} titleStyles={styles.btn1TitleStyles} onPressBtn={onPressBtn1} btnSyles={styles.btnSyles1} />
             <Spacer customHeight={hp(1)} />
             <CustomButton title={'Learn more'} onPressBtn={onPressBtn2} btnSyles={styles.btnSyles2} titleStyles={{ color: colors.gray44 }} />
         </View>
@@ -87,6 +87,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 12,
         justifyContent: 'center',
+        backgroundColor: colors.lightPurple18
+    },
+    btn1TitleStyles: {
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.gray139,
+        textAlign: 'center'
     },
     btnSyles2: {
         width: wp(86),

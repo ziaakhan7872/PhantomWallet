@@ -1,6 +1,6 @@
 import { Image, Keyboard, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { AppContainer, MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import Spacer from '../../../components/Spacer'
 import { hp } from '../../../components/ResponsiveComponent'
@@ -15,10 +15,10 @@ import { routes } from '../../../constants/routes'
 const YouPay = (props) => {
     const { type } = useYouPay(props)
     return (
-        <AppContainer>
+        <MainContainerApp>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                 <View style={styles.mainView}>
-                    <Spacer />
+                    <Spacer customHeight={hp(6)} />
                     <View style={appStyles.row}>
                         <PoppinsText style={styles.title}>{type === 'To' ? 'You Receive' : 'You Pay'}</PoppinsText>
                         <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.goBack()}>
@@ -30,13 +30,15 @@ const YouPay = (props) => {
                     <Spacer />
                     <TokenTabsSelection />
                     <Spacer customHeight={hp(4)} />
-                    <TokensList onPressToken={(item) => {
-                        console.log(item, 'itemitemitem');
-                        props?.navigation.navigate(routes.swapMain, { item: item })
-                    }} />
+                    <TokensList
+                        onPressToken={(item) => {
+                            console.log(item, 'itemitemitem');
+                            props?.navigation.navigate(routes.swapMain, { item: item })
+                        }}
+                    />
                 </View>
             </TouchableWithoutFeedback>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

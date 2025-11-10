@@ -1,6 +1,5 @@
-import { Image, Keyboard, Platform, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { Keyboard, Platform, TouchableWithoutFeedback, View } from 'react-native'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
@@ -12,6 +11,7 @@ import { appStyles } from '../../../utilities/appStyles'
 import PoppinsText from '../../../components/PoppinsText'
 import LineBreak from '../../../components/LineBreak'
 import { CustomButton } from '../../../components/CustomButton'
+import { NewCustomHeader } from '../../../components/MainHeader'
 import QrScanner from '../../../components/QrScanner'
 
 const SendTokenAddress = (props) => {
@@ -24,7 +24,7 @@ const SendTokenAddress = (props) => {
     } = useSendTokenAddress(props)
 
     return (
-        <AppContainer>
+        <MainContainerApp>
             {QrCodeScaner ?
                 <QrScanner
                     onSuccess={(adress) => { setQrCodeScaner(false), handleQrcode(adress) }}
@@ -34,18 +34,7 @@ const SendTokenAddress = (props) => {
                 <>
                     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
                         <View style={styles.mainView}>
-                            <View style={styles.container}>
-                                <View style={[appStyles.row,]}>
-                                    <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.goBack()}>
-                                        <Image source={Images.backArrow} resizeMode='contain' style={styles.goBackArrow} />
-                                    </TouchableOpacity>
-                                    <PoppinsText style={styles.title}>{'Select Token'}</PoppinsText>
-                                    <View style={styles.goBackArrow} />
-                                    {/* <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
-                                        <PoppinsText style={styles.nextText}>{'Next'}</PoppinsText>
-                                    </TouchableOpacity> */}
-                                </View>
-                            </View>
+                             <NewCustomHeader title={'SOL'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                             <Spacer customHeight={hp(1)} />
                             <View style={{ ...appStyles.rowBasic, paddingHorizontal: wp(3) }}>
                                 <PoppinsText style={styles.toText}>To:</PoppinsText>
@@ -79,7 +68,7 @@ const SendTokenAddress = (props) => {
                     </View>
                 </>
             }
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

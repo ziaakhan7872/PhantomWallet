@@ -9,12 +9,12 @@ export const styles = StyleSheet.create({
     },
     container: {
         width: wp(100),
-        backgroundColor: colors.gray29,
+        // backgroundColor: colors.gray29,
         paddingHorizontal: wp(4),
-        borderBottomWidth: 0.5,
+        // borderBottomWidth: 0.5,
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
-        paddingVertical: hp(1.8)
+        // paddingVertical: hp(1.8)
     },
     goBackArrow: {
         width: wp(3),

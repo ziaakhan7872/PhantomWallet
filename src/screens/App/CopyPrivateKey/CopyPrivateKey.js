@@ -1,8 +1,6 @@
 import { Image, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
-import { AppHeader } from '../../../components/AppHeader'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
 import PoppinsText from '../../../components/PoppinsText'
@@ -10,13 +8,16 @@ import { hp } from '../../../components/ResponsiveComponent'
 import { CustomButton } from '../../../components/CustomButton'
 import { appStyles } from '../../../utilities/appStyles'
 import useCopyPrivateKey from './Hooks'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const CopyPrivateKey = (props) => {
     const { isCopy, setPrivateKey, onPressCopy } = useCopyPrivateKey()
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
+
             <View style={styles.mainView}>
-                <AppHeader leftImage={Images.backArrow} title={'Your Private Key'} onPressBack={() => props?.navigation.goBack()} />
+                <NewCustomHeader title={'Your Private Key'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer />
                 <View style={styles.alertView}>
                     <PoppinsText style={styles.alertText}>Do not share your Private Key!</PoppinsText>
@@ -40,7 +41,7 @@ const CopyPrivateKey = (props) => {
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Done'} onPressBtn={() => { }} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

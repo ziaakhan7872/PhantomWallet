@@ -1,20 +1,21 @@
 import { View } from 'react-native'
-import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
-import { AppHeader } from '../../../components/AppHeader'
+import { MainContainerApp } from '../../../components/MainContainer'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
 import { ReceiveTokensList } from './Components'
+import { hp } from '../../../components/ResponsiveComponent'
+import { NewCustomHeader } from '../../../components/MainHeader'
 
 const ReceiveAccountAddress = (props) => {
     return (
-        <AppContainer>
+        <MainContainerApp>
+            <Spacer customHeight={hp(6)} />
             <View>
-                <AppHeader leftImage={Images.backArrow} title={'Receive Account Address'} onPressBack={() => props?.navigation.goBack()} />
+                <NewCustomHeader title={'Receive'} leftImage={Images.backArrow} rightImage={Images.searchWhite} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer />
                 <ReceiveTokensList onPressToken={() => { }} onPressScanner={() => { }} onPressCopy={() => { }} />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

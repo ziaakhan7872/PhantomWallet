@@ -4,9 +4,6 @@ const useSwapMain = (props) => {
 
     const previousFromTokenItem = props?.route?.params?.item
 
-    console.log(previousFromTokenItem, 'previousFromTokenItempreviousFromTokenItempreviousFromTokenItem');
-    // console.log(previousType, 'previousTypepreviousTypepreviousType');
-
 
     const payTokenBottomSheet = useRef(null)
     const receiveTokenBottomSheet = useRef(null)
