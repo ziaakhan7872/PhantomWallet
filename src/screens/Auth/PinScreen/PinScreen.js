@@ -15,7 +15,7 @@ import { colors } from '../../../constants/colors';
 
 const PinScreen = (props) => {
 
-  const { step, errorTitle, newPin, setNewPin, handleRemove, HandleKeyPress } = usePinScreen(props)
+  const { splashScreen, step, errorTitle, newPin, setNewPin, handleRemove, HandleKeyPress } = usePinScreen(props)
   const inputRef = useRef(null);
 
   return (
@@ -27,7 +27,7 @@ const PinScreen = (props) => {
         <View style={{ flex: 1 }}>
           <Spacer customHeight={hp(6)} />
           <View style={styles.mainView}>
-            <MainHeader leftImage={Images.goBackArrow} centerImage={Images.slider2} onPressLeftImage={() => props?.navigation.goBack()} />
+            <MainHeader leftImage={splashScreen ? null : Images.goBackArrow} centerImage={Images.slider2} onPressLeftImage={() => props?.navigation.goBack()} />
             <Spacer customHeight={hp(3)} />
             <PoppinsText style={styles.pinTitle}>
               {step === 'create' ? 'Create a PIN' : step === 'confirm1' ? 'Confirm PIN' : 'Confirm PIN again'}

@@ -6,6 +6,7 @@ import { colors } from '../../../constants/colors';
 import { routes } from '../../../constants/routes';
 import database, { getAllWallets } from '../../../services/database';
 import { hp, wp } from '../../../components/ResponsiveComponent';
+import { Images } from '../../../Images';
 
 const SplashScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const SplashScreen = ({ navigation }) => {
         // Check if wallets exist
         if (wallets && wallets.length > 0) {
           console.log('Existing wallets found - navigating to PIN screen');
-          navigation.replace(routes.appStack);
+          navigation.replace(routes.pinScreen, { splashScreen: true });
         } else {
           console.log('No wallets found - navigating to onboarding');
           navigation.replace(routes.onBoarding);
@@ -37,13 +38,15 @@ const SplashScreen = ({ navigation }) => {
       }
     };
 
-    checkAuthStatus();
+    setTimeout(() => {
+      checkAuthStatus();
+    }, 1000);
   }, [navigation, dispatch]);
 
   return (
     <MainContainer>
       <View style={{ flex: 1, justifyContent: "center" }}>
-        {/* <Image source={Images.splashScreensLogo} resizeMode='contain' style={styles.splashScreensLogo} /> */}
+        <Image source={Images.splashScreensLogo} resizeMode='contain' style={styles.splashScreensLogo} />
       </View>
     </MainContainer>
   );

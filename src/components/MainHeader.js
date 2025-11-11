@@ -10,6 +10,11 @@ import PoppinsText from './PoppinsText'
 export const MainHeader = ({ onPressLeftImage, leftImage, title, centerImage }) => {
     return (
         <View style={{ ...appStyles.row, width: wp(92) }}>
+            {leftImage && (
+                <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
+                    <Image source={leftImage} resizeMode='contain' style={styles.leftImage} />
+                </TouchableOpacity>
+            )}
             <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
                 <Image source={leftImage} resizeMode='contain' style={styles.leftImage} />
             </TouchableOpacity>

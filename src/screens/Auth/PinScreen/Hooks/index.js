@@ -8,6 +8,7 @@ import { routes } from '../../../../constants/routes'
 
 const usePinScreen = (props) => {
 
+    const splashScreen = props?.route?.params?.splashScreen;
     const dispatch = useDispatch()
 
     const userPin = useSelector(state => state?.userdataReducer?.pin)
@@ -39,6 +40,9 @@ const usePinScreen = (props) => {
                     setVerified(true);
                     setNewPin('');
                     setErrorTitle('');
+                    if (splashScreen) {
+                        props?.navigation?.replace(routes.appStack);
+                    }
                 } else {
                     setErrorTitle('Incorrect PIN. Please try again.');
                     setShowToast(true);
@@ -107,6 +111,7 @@ const usePinScreen = (props) => {
     };
 
     return {
+        splashScreen,
         errorTitle,
         step,
         newPin, setNewPin,
