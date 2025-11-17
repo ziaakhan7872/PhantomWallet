@@ -45,13 +45,13 @@ export const styles = StyleSheet.create({
     },
     welcomeText: {
         fontSize: 23,
-        fontWeight: Fonts.Poppins.Bold,
+        fontFamily: Fonts.Poppins.Bold,
         color: colors.gray80,
         textAlign: 'center',
     },
     startedDesc: {
         fontSize: 14,
-        fontWeight: Fonts.Poppins.Regular,
+        fontFamily: Fonts.Poppins.Regular,
         color: colors.gray1,
         textAlign: 'center',
         width: wp(75)

@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     },
     riskToleranceText: {
         fontSize: 22,
-        fontWeight: Fonts.Poppins.Bold,
+        fontFamily: Fonts.Poppins.Bold,
         color: colors.gray91,
         textAlign: 'center'
     },

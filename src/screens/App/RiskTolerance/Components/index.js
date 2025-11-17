@@ -50,12 +50,12 @@ const styles = StyleSheet.create({
     },
     optionTitle: {
         fontSize: 14,
-        fontWeight: Fonts.Poppins.SemiBold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray31
     },
     optionDescription: {
         fontSize: 12,
-        fontWeight: Fonts.Poppins.Regular,
+        fontFamily: Fonts.Poppins.Regular,
         color: colors.gray20
     },
     radioBtn: {

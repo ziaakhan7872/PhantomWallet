@@ -15,13 +15,13 @@ export const styles = StyleSheet.create({
     },
     title: {
         fontSize: 23,
-        fontWeight: Fonts.Poppins.SemiBold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray99,
         textAlign: 'center'
     },
     desc: {
         fontSize: 14,
-        fontWeight: Fonts.Poppins.Regular,
+        fontFamily: Fonts.Poppins.Regular,
         color: colors.gray78,
         textAlign: 'center',
     },
@@ -41,25 +41,25 @@ export const styles = StyleSheet.create({
     },
     usernameAvailable: {
         fontSize: 12,
-        fontWeight: Fonts.Poppins.SemiBold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.green17,
         textAlign: 'center'
     },
     usernameTaken: {
         fontSize: 12,
-        fontWeight: Fonts.Poppins.SemiBold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.red || '#FF3B30',
         textAlign: 'center'
     },
     usernameChecking: {
         fontSize: 12,
-        fontWeight: Fonts.Poppins.SemiBold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray78,
         textAlign: 'center'
     },
     errorText: {
         fontSize: 12,
-        fontWeight: Fonts.Poppins.SemiBold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.red,
         textAlign: 'center',
         flex: 1

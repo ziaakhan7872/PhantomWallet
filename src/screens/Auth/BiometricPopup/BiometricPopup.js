@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Modal } from 'react-native';
+import { Fonts } from '../../../constants/fonts';
 
 const BiometricPopup = ({ navigation }) => {
   const handleEnableBiometric = () => {
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: Fonts.Poppins.Bold,
     color: '#333',
     marginBottom: 15,
     textAlign: 'center',
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: Fonts.Poppins.SemiBold,
   },
   skipButtonText: {
     color: '#666',

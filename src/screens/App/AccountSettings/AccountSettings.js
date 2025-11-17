@@ -43,7 +43,7 @@ const AccountSettings = (props) => {
                             leftImage2={Images.preferences}
                             title2={'Preferences'}
                             leftImage3={Images.securityLogo}
-                            title3={'Security & '}
+                            title3={'Security & Privacy'}
                             onPress1={() => props?.navigation.goBack()}
                             onPress2={() => props?.navigation.navigate(routes.preferences)}
                             onPress3={() => props?.navigation.navigate(routes.securityAndPrivacy)}

@@ -15,13 +15,13 @@ export const styles = StyleSheet.create({
     },
     walletTitle: {
         fontSize: 22,
-        fontWeight: Fonts.Poppins.SemiBold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray132,
         textAlign: 'center'
     },
     walletDesc: {
         fontSize: 13,
-        fontWeight: Fonts.Poppins.Regular,
+        fontFamily: Fonts.Poppins.Regular,
         color: colors.gray111,
         textAlign: 'center'
     },
