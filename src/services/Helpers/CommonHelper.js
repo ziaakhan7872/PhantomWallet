@@ -6,9 +6,6 @@ import moment from 'moment'
 
 
 export const coinGekoTokenID = (chainid, tokendata) => {
-
-    console.log('tokendatatokendatatokendatatokendata', tokendata);
-
     let id = ''
 
     if (tokendata?.chainName == "bitcoin") {

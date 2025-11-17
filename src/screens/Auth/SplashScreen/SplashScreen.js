@@ -46,7 +46,7 @@ const SplashScreen = ({ navigation }) => {
   return (
     <MainContainer>
       <View style={{ flex: 1, justifyContent: "center" }}>
-        <Image source={Images.splashScreensLogo} resizeMode='contain' style={styles.splashScreensLogo} />
+        <Image source={Images.onBoarding1Logo} resizeMode='contain' style={styles.splashScreensLogo} />
       </View>
     </MainContainer>
   );
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   splashScreensLogo: {
     width: wp(100),
-    height: hp(37),
+    height: hp(50),
     alignSelf: 'center'
   }
 });

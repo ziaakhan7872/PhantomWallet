@@ -84,7 +84,10 @@ const CreateUserName = (props) => {
                     <Spacer />
                     <CustomTextInput5
                         value={userName}
-                        onChangeText={(text) => setUserName(text)}
+                        onChangeText={(text) => {
+                            let clean = text.replace(/[^a-zA-Z0-9_]/g, "");
+                            setUserName(clean)
+                        }}
                         leftImage={Images.atTheRate}
                         placeholder={'BlessedCosmos5082'}
                         placeholderTextColor={colors.gray91}

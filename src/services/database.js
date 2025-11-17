@@ -32,6 +32,7 @@ async function createTables(db) {
                 isActive INTEGER,
                 name TEXT,
                 username TEXT,
+                logo TEXT,
                 account INTEGER,
                 btcWalletAddress TEXT,
                 btcPrivateKey TEXT,
@@ -120,9 +121,10 @@ export const insertWallet = async (
 
         // Insert the new active wallet
         const [insertResult] = await db.executeSql(
-            'INSERT INTO WalletTbl(name, account, isActive, seedPhrase, walletAddress, privateKey, btcWalletAddress, btcPrivateKey, solanaWalletAddress, solanaPrivateKey) VALUES (?,?,?,?,?,?,?,?,?,?)',
+            'INSERT INTO WalletTbl(name,logo, account, isActive, seedPhrase, walletAddress, privateKey, btcWalletAddress, btcPrivateKey, solanaWalletAddress, solanaPrivateKey) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
             [
                 name,
+                '😍',
                 0,
                 1,
                 seedPhrase,
@@ -305,6 +307,44 @@ export const updateWalletName = async (walletId, newName) => {
     }
 };
 
+// Update wallet name
+export const updateWalletAccountName = async (walletId, newName) => {
+    const db = await getDb();
+    try {
+        const [results] = await db.executeSql(
+            'UPDATE WalletTbl SET name = ? WHERE id = ?',
+            [newName, walletId]
+        );
+
+        if (results.rowsAffected > 0) {
+            return true;
+        }
+        throw new Error('Failed to update wallet account name');
+    } catch (error) {
+        console.log('Error updating wallet account name:', error);
+        throw error;
+    }
+};
+
+// Update wallet logo
+export const updateWalletLogo = async (walletId, logo) => {
+    const db = await getDb();
+    try {
+        const [results] = await db.executeSql(
+            'UPDATE WalletTbl SET logo = ? WHERE id = ?',
+            [logo, walletId]
+        );
+
+        if (results.rowsAffected > 0) {
+            return true;
+        }
+        throw new Error('Failed to update wallet logo');
+    } catch (error) {
+        console.log('Error updating wallet logo:', error);
+        throw error;
+    }
+};
+
 // update token and coin balance
 export const UpdateTokenAndCoinBalance = async (newBalance, id) => {
     const db = await getDb();
@@ -372,6 +412,25 @@ export const UpdateTokenCurrentPrices = async (tokendata) => {
     }
 };
 
+// switch active wallet
+export const switchActiveWallet = async (walletId) => {
+    const db = await getDb();
+    try {
+        const [results] = await db.executeSql(
+            'UPDATE WalletTbl SET isActive = CASE WHEN id = ? THEN 1 ELSE 0 END',
+            [walletId]
+        );
+
+        if (results.rowsAffected > 0) {
+            return true;
+        }
+        throw new Error('Failed to update wallet name');
+    } catch (error) {
+        console.log('Error updating wallet name:', error);
+        throw error;
+    }
+};
+
 
 // Default export with all methods
 const database = {
@@ -382,7 +441,10 @@ const database = {
     InsertAllChains,
     checkUsernameExists,
     updateWalletName,
+    updateWalletAccountName,
+    updateWalletLogo,
     getActiveWalletsWithTokenData,
+    switchActiveWallet
 };
 
 export default database;

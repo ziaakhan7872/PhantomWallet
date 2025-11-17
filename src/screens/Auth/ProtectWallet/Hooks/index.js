@@ -12,27 +12,34 @@ const useProtectWallet = () => {
 
 
     const onSetToggle = () => {
-        try {
-            const promptMessage = Platform.OS === 'ios'
-                ? 'Authenticate with Face ID'
-                : 'Authenticate with Biometrics';
+        if (isFaceIdEnabled) {
+            setIsFaceIdEnabled(false)
+            dispatch(SaveFingerPrint(false))
+        } else {
+            try {
+                const promptMessage = Platform.OS === 'ios'
+                    ? 'Authenticate with Face ID'
+                    : 'Authenticate with Biometrics';
 
-            rnBiometrics?.simplePrompt({ promptMessage: promptMessage })
-                .then((resultObject) => {
-                    const { success } = resultObject;
-                    if (success) {
-                        setIsFaceIdEnabled(isFaceIdEnabled)
-                        dispatch(SaveFingerPrint(isFaceIdEnabled))
-                    } else {
-                        console.log('Authentication Failed', 'Authentication was not successful.');
+                rnBiometrics?.simplePrompt({ promptMessage: promptMessage })
+                    .then((resultObject) => {
+                        console.log('resultObject', resultObject);
 
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    console.log('Error', 'Something went wrong with biometric authentication');
-                });
-        } catch (error) {
+                        const { success } = resultObject;
+                        if (success) {
+                            setIsFaceIdEnabled(success)
+                            dispatch(SaveFingerPrint(success))
+                        } else {
+                            console.log('Authentication Failed', 'Authentication was not successful.');
+
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        console.log('Error', 'Something went wrong with biometric authentication');
+                    });
+            } catch (error) {
+            }
         }
     }
 

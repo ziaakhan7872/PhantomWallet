@@ -15,19 +15,19 @@ const AddAccounts = (props) => {
             <View style={styles.mainView}>
                 <NewCustomHeader title={'Add Account'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer customHeight={hp(3)} />
-                <AddAccountsList leftImage={Images.plusWithRound} title={'Create New Account'} description={'Add a new multi-chain account'} onPress={() => props?.navigation.navigate(routes.createAccount)} />
+                <AddAccountsList leftImage={Images.plusWithRound} title={'Create New Account'} description={'Add a new multi-chain account'} onPress={() => props?.navigation.navigate(routes.createWallet, { isSettingFlow: true })} />
                 <Spacer customHeight={hp(1)} />
 
-                <AddAccountsList leftImage={Images.connectWithRound} title={'Connect Hardware Wallet'} description={'Use your Ledger hardware wallet'} onPress={() => props?.navigation.navigate(routes.connectHardware)} />
+                {/* <AddAccountsList leftImage={Images.connectWithRound} title={'Connect Hardware Wallet'} description={'Use your Ledger hardware wallet'} onPress={() => props?.navigation.navigate(routes.connectHardware)} />
+                <Spacer customHeight={hp(1)} /> */}
+
+                <AddAccountsList leftImage={Images.importWithRound} title={'Import Recovery Phrase'} description={'Import accounts from another wallet'} onPress={() => props?.navigation.navigate(routes.seedPhrase, { isAddAccountFlow: true, isSeedPhrase: true })} />
                 <Spacer customHeight={hp(1)} />
 
-                <AddAccountsList leftImage={Images.importWithRound} title={'Import Recovery Phrase'} description={'Import accounts from another wallet'} onPress={() => props?.navigation.navigate(routes.seedPhrase, { isAddAccountFlow: true })} />
+                <AddAccountsList leftImage={Images.arrowWithRound} title={'Import Private Key'} description={'Import a single-chain account'} onPress={() => props?.navigation.navigate(routes.seedPhrase, { isAddAccountFlow: true, isSeedPhrase: false })} />
                 <Spacer customHeight={hp(1)} />
 
-                <AddAccountsList leftImage={Images.arrowWithRound} title={'Import Private Key'} description={'Import a single-chain account'} onPress={() => props?.navigation.navigate(routes.importPrivateKey)} />
-                <Spacer customHeight={hp(1)} />
-
-                <AddAccountsList leftImage={Images.eyeWithRound} title={'Watch Address'} description={'Track any public wallet address'} onPress={() => props?.navigation.navigate(routes.watchAddress)} />
+                {/* <AddAccountsList leftImage={Images.eyeWithRound} title={'Watch Address'} description={'Track any public wallet address'} onPress={() => props?.navigation.navigate(routes.watchAddress)} /> */}
             </View>
         </MainContainerApp>
     )

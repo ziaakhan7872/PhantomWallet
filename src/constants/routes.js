@@ -53,6 +53,7 @@ export const routes = {
     // New App
     homeScreen: "homeScreen",
     searchScreen: "searchScreen",
+    cardTab: "cardTab",
     accountDetails: "accountDetails",
     editProfile: "editProfile",
     manageProfile: "manageProfile",

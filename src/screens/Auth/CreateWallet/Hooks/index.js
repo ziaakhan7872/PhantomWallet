@@ -9,6 +9,7 @@ import { MultiChainChainsArray } from "../../../../components/dummyData";
 const useCreateWallet = (props) => {
 
     const isImportFlow = props?.route?.params?.isImportFlow
+    const isSettingFlow = props?.route?.params?.isSettingFlow
 
     const emailBottomSheet = useRef(null);
     const importOptionsBottomSheet = useRef(null);
@@ -45,7 +46,7 @@ const useCreateWallet = (props) => {
                 console.log('responsechains:::', responsechains);
                 if (responsechains) {
                     setLoading(false)
-                    props?.navigation.replace(routes.pinScreen)
+                    props?.navigation.replace(routes.pinScreen, { isSettingFlow: isSettingFlow ? true : false })
                 }
             }
 

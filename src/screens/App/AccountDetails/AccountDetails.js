@@ -13,20 +13,21 @@ import useAccountDetails from './Hooks'
 const AccountDetails = (props) => {
     const {
         activeWalletWithTokens,
-        allAccounts
+        allAccounts,
+        onPressAccount
     } = useAccountDetails(props)
 
     return (
         <AppContainer>
             <View style={styles.mainView}>
                 <Spacer />
-                <AddAccountHeader activeWalletWithTokens={activeWalletWithTokens} onPressCross={() => props?.navigation.goBack()} />
+                <AddAccountHeader logo={activeWalletWithTokens?.logo} activeWalletWithTokens={activeWalletWithTokens} onPressCross={() => props?.navigation.goBack()} />
                 <Spacer />
-                <RowTabs onPressProfile={() => props?.navigation.navigate(routes.editProfile)} onPressSettings={() => props?.navigation.navigate(routes.accountSettings)} />
+                <RowTabs onPressProfile={() => props?.navigation.navigate(routes.editProfile, { item: activeWalletWithTokens })} onPressSettings={() => props?.navigation.navigate(routes.accountSettings, { item: activeWalletWithTokens })} />
                 <Spacer />
                 <PoppinsText style={styles.title}>Your Accounts</PoppinsText>
                 <Spacer />
-                <AccountsCard allAccounts={allAccounts} onPressEdit={(item) => props?.navigation.navigate(routes.editAccount, { item, activeWalletWithTokens })} />
+                <AccountsCard allAccounts={allAccounts} onPressAccount={(item) => onPressAccount(item)} onPressEdit={(item) => props?.navigation.navigate(routes.editAccount, { item, activeWalletWithTokens })} />
             </View>
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Add Account'} onPressBtn={() => props?.navigation.navigate(routes.addAccounts)} />

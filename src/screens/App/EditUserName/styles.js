@@ -24,4 +24,10 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.gray55,
         borderRadius: 15,
     },
+    errorText: {
+        fontSize: 12,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.red,
+        textAlign: 'center'
+    }
 })

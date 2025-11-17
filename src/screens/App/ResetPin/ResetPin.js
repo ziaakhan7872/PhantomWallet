@@ -26,7 +26,7 @@ const ResetPin = (props) => {
                         <PoppinsText style={styles.description}>Your PIN will be used to secure this wallet on all your
                             devices.</PoppinsText>
                         <Spacer />
-                        <CustomTextInput5 value={pin} onChangeText={(text) => setPin(text)} inputStyle={styles.inputStyle} containerStyle={styles.inputContainer} />
+                        <CustomTextInput5 value={pin} onChangeText={(text) => setPin(text)} inputStyle={styles.inputStyle} containerStyle={styles.inputContainer} maxLength={4} keyboardType={'decimal-pad'} />
                     </View>
                 </View>
             </TouchableWithoutFeedback>

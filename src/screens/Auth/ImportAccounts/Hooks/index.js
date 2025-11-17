@@ -11,6 +11,7 @@ const useImportAccounts = (props) => {
 
     const [accountSelection, setAccountSelection] = useState(true);
     const [loading, setLoading] = useState(false);
+    const [accountsView, setAccountsView] = useState(false);
 
     const onPressContinue = async () => {
         if (isSeedPhrase) {
@@ -65,7 +66,8 @@ const useImportAccounts = (props) => {
         isSeedPhrase, cleanedSeed, allwallets,
         loading,
         accountSelection, setAccountSelection,
-        onPressContinue
+        accountsView, setAccountsView,
+        onPressContinue,
     }
 }
 

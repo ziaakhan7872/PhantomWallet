@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray53
+        color: colors.gray53,
+        paddingHorizontal: wp(5)
     },
     leftText: {
         fontSize: 13,

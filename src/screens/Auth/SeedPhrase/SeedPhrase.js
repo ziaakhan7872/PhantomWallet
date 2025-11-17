@@ -24,24 +24,24 @@ const SeedPhrase = (props) => {
                 <View style={styles.mainView}>
                     {/* {isSeedPhrase == true || isSeedPhrase == false ? */}
                     {isAddAccountFlow ?
-                        <AppHeader leftImage={Images.goBackArrow} title={isSeedPhrase || isAddAccountFlow ? 'Import Recovery Phrase' : 'Import Private Key'} rightImage={Images.questionMark} onPressBack={() => props?.navigation.goBack()} />
+                        <AppHeader leftImage={Images.goBackArrow} title={isSeedPhrase ? 'Import Recovery Phrase' : 'Import Private Key'} rightImage={Images.questionMark} onPressBack={() => props?.navigation.goBack()} />
                         :
-                        <SeedPhraseCustomHeader leftImage={Images.goBackArrow} centerImage={Images.slideLine1} rightText={'Next'} onPressLeftImage={() => props?.navigation.goBack()} />
+                        <SeedPhraseCustomHeader leftImage={Images.goBackArrow} rightImage={'none'} centerImage={Images.slideLine1} rightText={'Next'} onPressLeftImage={() => props?.navigation.goBack()} />
                     }
                     <View style={{ flex: 1, justifyContent: 'center' }}>
-                        <PoppinsText style={styles.recoveryPhraseText}>{isSeedPhrase || isAddAccountFlow ? 'Recovery Phrase' : 'Private Key'}</PoppinsText>
+                        <PoppinsText style={styles.recoveryPhraseText}>{isSeedPhrase ? 'Recovery Phrase' : 'Private Key'}</PoppinsText>
                         <Spacer customHeight={hp(1)} />
-                        <PoppinsText style={styles.recoveryPhraseDsec}>{isSeedPhrase || isAddAccountFlow ? 'Restore an existing wallet with your \n 12 or 24-word recovery phrase' : 'Restore an existing wallet with your private key'}</PoppinsText>
+                        <PoppinsText style={styles.recoveryPhraseDsec}>{isSeedPhrase ? 'Restore an existing wallet with your \n 12 or 24-word recovery phrase' : 'Restore an existing wallet with your private key'}</PoppinsText>
                         <Spacer />
                         <View style={{ alignSelf: 'center' }}>
                             <CustomTextInput1
-                                placeholder={isSeedPhrase || isAddAccountFlow ? 'Enter Recovery Phrase' : 'Enter Private Key'}
+                                placeholder={isSeedPhrase ? 'Enter Recovery Phrase' : 'Enter Private Key'}
                                 placeholderTextColor={colors.gray101}
                                 value={mnemonic}
                                 onChangeText={(text) => setMnemonic(text)}
                                 secureTextEntry={false}
-                                editable={true}
-                                containerStyle={{ width: wp(92), borderWidth: isSeedPhrase || isAddAccountFlow ? 1 : 0, borderColor: colors.gray73, backgroundColor: isSeedPhrase || isAddAccountFlow ? colors.gray55 : colors.bottomSheetBgColor }}
+                                editable={loading ? false : true}
+                                containerStyle={{ width: wp(92), borderWidth: isSeedPhrase ? 1 : 0, borderColor: colors.gray73, backgroundColor: isSeedPhrase ? colors.gray55 : colors.bottomSheetBgColor }}
                             />
 
                             {errorMessage != '' && <PoppinsText style={styles.errorMessage}>{errorMessage}</PoppinsText>}
@@ -49,7 +49,7 @@ const SeedPhrase = (props) => {
                         <Spacer />
                         <CustomButton
                             loading={loading}
-                            title={isSeedPhrase || isAddAccountFlow ? 'Import Recovery Phrase' : 'Import Private Key'}
+                            title={isSeedPhrase ? 'Import Recovery Phrase' : 'Import Private Key'}
                             disabled={mnemonic.length <= 0}
                             titleStyles={{ ...styles.btnTitleStyles, color: colors.gray18 }}
                             btnSyles={{

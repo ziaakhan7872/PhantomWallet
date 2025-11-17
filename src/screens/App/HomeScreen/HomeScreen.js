@@ -23,10 +23,11 @@ const HomeScreen = (props) => {
             <Spacer customHeight={hp(7)} />
             <AccountCard
                 profile={Images.profile1}
+                logo={activeWalletWithTokens?.logo}
                 accountName={activeWalletWithTokens?.username ? `@${activeWalletWithTokens?.username}` : ''} accountNumber={activeWalletWithTokens?.name ?? 'Account 1'}
                 rightImage1={Images.clock} rightImage2={Images.searchWhite}
-                onPressRightImage1={() => { }}
-                onPressRightImage2={() => { }}
+                onPressRightImage1={() => props?.navigation.navigate(routes.activities)}
+                onPressRightImage2={() => props?.navigation.navigate(routes.MainTabs, { screen: routes.searchScreen })}
                 onPressAccount={() => props?.navigation.navigate(routes.accountDetails, { activeWalletWithTokens })}
 
             />

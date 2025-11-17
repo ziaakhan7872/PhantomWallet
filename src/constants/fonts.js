@@ -1,11 +1,19 @@
 // Font configuration for the CoreWallet app using Poppins font family
 
+// export const Fonts = {
+//   Poppins: {
+//     Regular: 'Poppins-Regular',
+//     Medium: 'Poppins-Medium',
+//     SemiBold: 'Poppins-SemiBold',
+//     Bold: 'Poppins-Bold',
+//   },
+// };
 export const Fonts = {
   Poppins: {
-    Regular: 'Poppins-Regular',
-    Medium: 'Poppins-Medium',
-    SemiBold: 'Poppins-SemiBold',
-    Bold: 'Poppins-Bold',
+    Regular: 'Inter-Regular',
+    Medium: 'Inter-Medium',
+    SemiBold: 'Inter-SemiBold',
+    Bold: 'Inter-Bold',
   },
 };
 

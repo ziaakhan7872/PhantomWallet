@@ -1,25 +1,30 @@
 
 
-import { } from 'react-native'
+import { Platform } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { SavePin } from '../../../../redux/actions/WalletActions'
 import { routes } from '../../../../constants/routes'
+import ReactNativeBiometrics from 'react-native-biometrics'
+import { StackActions } from '@react-navigation/native'
 
 const usePinScreen = (props) => {
 
     const splashScreen = props?.route?.params?.splashScreen;
+    const isSettingFlow = props?.route?.params?.isSettingFlow
+
+    const rnBiometrics = new ReactNativeBiometrics()
+
     const dispatch = useDispatch()
 
     const userPin = useSelector(state => state?.userdataReducer?.pin)
+    const isBiometric = useSelector(state => state?.userdataReducer?.isBiometric)
 
     const [newPin, setNewPin] = useState('');
     const [firstPin, setFirstPin] = useState('');
     const [step, setStep] = useState('create');
     const [error, setError] = useState('');
-    const [showToast, setShowToast] = useState(false);
     const [errorTitle, setErrorTitle] = useState('');
-    const [showToast1, setShowToast1] = useState('');
     const [verified, setVerified] = useState(false);
 
     useEffect(() => {
@@ -33,6 +38,12 @@ const usePinScreen = (props) => {
 
 
     useEffect(() => {
+        if (isBiometric) {
+            handleBiometricAuth()
+        }
+    }, [])
+
+    useEffect(() => {
         if (newPin.length === 4) {
 
             if (userPin && userPin.length > 0 && !verified) {
@@ -42,10 +53,11 @@ const usePinScreen = (props) => {
                     setErrorTitle('');
                     if (splashScreen) {
                         props?.navigation?.replace(routes.appStack);
+                    } else if (isSettingFlow) {
+                        props?.navigation?.replace(routes.MainTabs, { screen: routes.homeScreen });
                     }
                 } else {
                     setErrorTitle('Incorrect PIN. Please try again.');
-                    setShowToast(true);
                     setNewPin('');
                     setStep('create');
                     setFirstPin('');
@@ -58,19 +70,7 @@ const usePinScreen = (props) => {
                     setStep('confirm1');
                     setErrorTitle('');
                 }
-                else if (step === 'confirm1') {
-                    if (newPin === firstPin) {
-                        setNewPin('');
-                        setStep('confirm2');
-                        setErrorTitle('');
-                    } else {
-                        setErrorTitle('PINs do not match. Please create a new PIN.');
-                        setNewPin('');
-                        setFirstPin('');
-                        setStep('create');
-                    }
-                }
-                else if (step === 'confirm2') {
+                else {
                     if (newPin === firstPin) {
                         dispatch(SavePin(newPin));
                         props?.navigation?.replace(routes.protectWallet);
@@ -80,7 +80,7 @@ const usePinScreen = (props) => {
                         setStep('create');
                         setErrorTitle('');
                     } else {
-                        setErrorTitle('PINs do not match. Please confirm your PIN again.');
+                        setErrorTitle('PINs do not match. Please create a new PIN.');
                         setNewPin('');
                         setFirstPin('');
                         setStep('create');
@@ -89,6 +89,33 @@ const usePinScreen = (props) => {
             }
         }
     }, [newPin]);
+
+    const handleBiometricAuth = () => {
+        try {
+            const promptMessage = Platform.OS === 'ios'
+                ? 'Authenticate with Face ID'
+                : 'Authenticate with Biometrics';
+
+            rnBiometrics?.simplePrompt({ promptMessage: promptMessage })
+                .then((resultObject) => {
+                    const { success } = resultObject;
+                    if (success) {
+                        props.navigation.dispatch(StackActions.replace(routes.appStack))
+
+                        console.log('Biometric Authentication', 'You are successfully authenticated!');
+                    } else {
+                        console.log('Authentication Failed', 'Authentication was not successful.');
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    console.log('Error', 'Something went wrong with biometric authentication');
+
+                });
+        } catch (error) {
+        }
+
+    };
 
     const HandleKeyPress = text => {
         if (errorTitle) {

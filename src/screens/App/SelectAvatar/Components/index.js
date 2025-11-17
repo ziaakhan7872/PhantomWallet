@@ -27,7 +27,7 @@ export const RowTabs = ({ selectedTab, setSelectedTab }) => {
     )
 }
 
-export const EmojisList = () => {
+export const EmojisList = ({ setSelectedEmoji }) => {
     return (
         <FlatList
             data={emojis}
@@ -36,7 +36,7 @@ export const EmojisList = () => {
             removeClippedSubviews={false}
             renderItem={({ item }) => {
                 return (
-                    <TouchableOpacity activeOpacity={0.8} style={{ flex: 1, }}>
+                    <TouchableOpacity activeOpacity={0.8} style={{ flex: 1, }} onPress={() => setSelectedEmoji(item?.emoji)}>
                         <PoppinsText style={styles.emojiImage}>{item?.emoji}</PoppinsText>
                     </TouchableOpacity>
                 )

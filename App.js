@@ -20,6 +20,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Navigation from './src/navigation/index';
 import { store, persistor } from './src/redux/store';
 
+LogBox.ignoreAllLogs();
+
 function App() {
 
   return (

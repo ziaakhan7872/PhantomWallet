@@ -10,14 +10,14 @@ import PoppinsText from './PoppinsText'
 export const MainHeader = ({ onPressLeftImage, leftImage, title, centerImage }) => {
     return (
         <View style={{ ...appStyles.row, width: wp(92) }}>
-            {leftImage && (
+            {leftImage ? (
                 <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
                     <Image source={leftImage} resizeMode='contain' style={styles.leftImage} />
                 </TouchableOpacity>
-            )}
-            <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
+            ) : <View style={styles.leftImage} />}
+            {/* <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
                 <Image source={leftImage} resizeMode='contain' style={styles.leftImage} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity>
                 <Image source={centerImage} resizeMode='contain' style={styles.centerImage} />
             </TouchableOpacity>
@@ -76,7 +76,7 @@ export const SeedPhraseCustomHeader = ({ leftImage, centerImage, rightImage, rig
 
             <TouchableOpacity activeOpacity={0.8} onPress={onPressRightImage}>
                 {rightImage ?
-                    <Image source={rightImage} resizeMode='contain' style={styles.leftCustomImage} />
+                    rightImage == 'none' ? <View style={styles.leftArrowImage} /> : <Image source={rightImage} resizeMode='contain' style={styles.leftCustomImage} />
                     :
                     <PoppinsText style={styles.rightText}>{rightText}</PoppinsText>
                 }

@@ -10,7 +10,7 @@ import { Fonts } from '../constants/fonts'
 import { Images } from '../Images'
 
 
-export const CustomTextInput = ({ ref, numberOfLines, autoCapitalize, secureTextEntry, value, onPress, caretHidden,
+export const CustomTextInput = ({ ref, numberOfLines, autoCapitalize, secureTextEntry, value, onPress, caretHidden, maxLength,
     placeholderTextColor, editable, keyboardType, multiline, placeholder, onChangeText, containerStyle, inputStyle, }) => {
 
     return (
@@ -30,6 +30,7 @@ export const CustomTextInput = ({ ref, numberOfLines, autoCapitalize, secureText
                     secureTextEntry={secureTextEntry}
                     style={[styles.input, inputStyle]}
                     placeholderTextColor={placeholderTextColor ?? colors?.gray1}
+                    maxLength={maxLength}
                     // textAlignVertical="center"
                     textAlign="center"
                     caretHidden={caretHidden}

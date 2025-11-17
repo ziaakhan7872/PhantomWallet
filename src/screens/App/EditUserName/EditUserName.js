@@ -12,7 +12,14 @@ import { hp, wp } from '../../../components/ResponsiveComponent'
 import useEditUserName from './Hooks'
 
 const EditUserName = (props) => {
-    const { isBio } = useEditUserName(props)
+    const {
+        isBio,
+        username, setUsername,
+        error,
+        onPressSave
+    } = useEditUserName(props)
+
+
     return (
         <AppContainer>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -25,12 +32,19 @@ const EditUserName = (props) => {
                         <PoppinsText style={styles.userName}>{isBio ? 'Edit Bio' : 'Edit Username'}</PoppinsText>
                     </View>
                     <Spacer />
-                    <CustomTextInput1 placeholder={isBio ? 'Add a short bio to your profile' : '@loremipsum123'} containerStyle={styles.inputContainer} />
+                    <CustomTextInput1
+                        value={username}
+                        onChangeText={(text) => {
+                            let clean = text.replace(/[^a-zA-Z0-9_]/g, "");
+                            setUsername(clean)
+                        }}
+                        placeholder={isBio ? 'Add a short bio to your profile' : 'Enter username'} containerStyle={styles.inputContainer} />
+                    {error ? <PoppinsText style={styles.errorText}>{error}</PoppinsText> : null}
                 </View>
             </TouchableWithoutFeedback>
 
             <View style={{ marginBottom: hp(4) }}>
-                <CustomButton title='Save' onPress={() => { }} />
+                <CustomButton title='Save' onPressBtn={() => onPressSave()} />
             </View>
         </AppContainer>
     )

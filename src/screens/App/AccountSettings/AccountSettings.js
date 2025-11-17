@@ -13,7 +13,7 @@ import { hp, wp } from '../../../components/ResponsiveComponent'
 import { routes } from '../../../constants/routes'
 
 const AccountSettings = (props) => {
-    const { searchText, setSearchText } = useAccountSettings()
+    const { item, searchText, setSearchText } = useAccountSettings(props)
     return (
         <AppContainer>
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -34,17 +34,17 @@ const AccountSettings = (props) => {
                     </View>
                     <Spacer />
                     <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: wp(4) }}>
-                        <AccountCard profile={Images.profile1} name={'@oldbanana1997'} email={'account1@gmail.com'} rightImage={Images.arrowRight} />
+                        <AccountCard logo={item?.logo} profile={Images.profile1} name={`@${item?.username ?? ''}`} email={'account1@gmail.com'} rightImage={Images.arrowRight} onPress={() => props?.navigation.goBack()} />
                         <Spacer />
                         <AccountSettingCard
                             leftImage1={Images.manageAccounts}
                             title1={'Manage Accounts'}
-                            numbers={'1'}
+                            numbers={''}
                             leftImage2={Images.preferences}
                             title2={'Preferences'}
                             leftImage3={Images.securityLogo}
-                            title3={'Security & Privacy'}
-                            onPress1={() => { }}
+                            title3={'Security & '}
+                            onPress1={() => props?.navigation.goBack()}
                             onPress2={() => props?.navigation.navigate(routes.preferences)}
                             onPress3={() => props?.navigation.navigate(routes.securityAndPrivacy)}
                         />

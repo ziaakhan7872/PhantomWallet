@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
         width: wp(6.5),
         height: wp(6.5),
         position: 'absolute',
-        bottom: 0,
-        right: 0
+        bottom: 10,
+        right: 5
     }
 })

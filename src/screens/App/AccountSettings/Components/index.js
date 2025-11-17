@@ -8,11 +8,12 @@ import PoppinsText from '../../../../components/PoppinsText'
 import { Images } from '../../../../Images'
 import Spacer from '../../../../components/Spacer'
 
-export const AccountCard = ({ profile, name, onPress, rightImage }) => {
+export const AccountCard = ({ logo, profile, name, onPress, rightImage }) => {
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={[styles.container, appStyles.row]}>
             <View style={appStyles.rowBasic}>
-                <Image source={profile} resizeMode='contain' style={styles.profile} />
+                {/* <Image source={profile} resizeMode='contain' style={styles.profile} /> */}
+                <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{logo ?? '😍'}</PoppinsText>
                 <PoppinsText style={styles.name}>{name}</PoppinsText>
             </View>
             <Image source={rightImage} resizeMode='contain' style={styles.rightImage} />

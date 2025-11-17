@@ -5,13 +5,12 @@ import { generaEvmWalletUsingPrivatekey, generateAllWallets } from "../../../../
 import { getWalletByAddress, InsertAllChains, insertWallet } from "../../../../services/database";
 import { EvmChainsArray, MultiChainChainsArray } from "../../../../components/dummyData";
 import { routes } from "../../../../constants/routes";
+import { Keyboard } from "react-native";
 
 const useSeedPhrase = (props) => {
 
     const isSeedPhrase = props?.route?.params?.isSeedPhrase;
     const isAddAccountFlow = props?.route?.params?.isAddAccountFlow;
-
-    console.log(isAddAccountFlow, 'isAddAccountFlowisAddAccountFlow');
 
     const [showSeed, setShowSeed] = useState(false);
     const [mnemonic, setMnemonic] = useState([]);
@@ -40,8 +39,6 @@ const useSeedPhrase = (props) => {
                         setLoading(false)
                     }
                     else {
-
-
                         setTimeout(async () => {
 
                             const allwallets = await generateAllWallets(cleanedSeed.trim())
@@ -55,7 +52,11 @@ const useSeedPhrase = (props) => {
                             } else {
 
                                 setLoading(false)
-                                props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
+                                if (isAddAccountFlow) {
+                                    props.navigation.replace(routes.pinScreen, { isSettingFlow: true })
+                                } else {
+                                    props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
+                                }
 
                                 //         const waletresponse = await insertWallet(
                                 //             'Multi-Chain-Wallet',
@@ -108,7 +109,11 @@ const useSeedPhrase = (props) => {
                             } else {
 
                                 setLoading(false)
-                                props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
+                                if (isAddAccountFlow) {
+                                    props.navigation.replace(routes.pinScreen, { isSettingFlow: true })
+                                } else {
+                                    props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
+                                }
 
                                 // const waletresponse = await insertWallet(
                                 //     'EVM-Wallet',

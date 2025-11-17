@@ -12,6 +12,11 @@ export const styles = StyleSheet.create({
         height: wp(25),
         alignSelf: 'center'
     },
+    profileText: {
+        fontSize: 52,
+        // fontFamily: Fonts.Poppins.SemiBold,
+        textAlign: 'center'
+    },
     containerInputStyle: {
         width: wp(92),
         borderRadius: 7,

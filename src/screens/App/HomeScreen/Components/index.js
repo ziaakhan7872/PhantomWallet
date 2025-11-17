@@ -11,11 +11,12 @@ import Spacer, { HorizontalSpacer } from '../../../../components/Spacer'
 import { formatBalancetwoDigit, NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
 
 
-export const AccountCard = ({ profile, accountName, accountNumber, rightImage1, rightImage2, onPressRightImage1, onPressRightImage2, onPressAccount }) => {
+export const AccountCard = ({ profile, logo, accountName, accountNumber, rightImage1, rightImage2, onPressRightImage1, onPressRightImage2, onPressAccount }) => {
     return (
         <View style={appStyles.row}>
             <TouchableOpacity activeOpacity={0.8} onPress={onPressAccount} style={appStyles.rowBasic}>
-                <Image source={profile} resizeMode='contain' style={styles.profile} />
+                {/* <Image source={profile} resizeMode='contain' style={styles.profile} /> */}
+                <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{logo ?? '😍'}</PoppinsText>
                 <View>
                     {accountName ? <PoppinsText style={styles.accountName}>{accountName}</PoppinsText> : null}
                     <PoppinsText style={styles.accountBalance}>{accountNumber}</PoppinsText>

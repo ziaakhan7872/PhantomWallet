@@ -30,7 +30,7 @@ const TokenAddress = (props) => {
     return (
         <MainContainerApp>
             <Spacer customHeight={hp(6)} />
-            <NewCustomHeader leftImage={Images.backArrow} title={`Your ${name} Address`} onPressBack={() => props?.navigation.goBack()} />
+            <NewCustomHeader leftImage={Images.backArrow} title={`Your ${name} Address`} onPressLeftImage={() => props?.navigation.goBack()} />
             <View style={styles.mainView}>
                 <View style={styles.scannerView}>
                     <View style={styles.qrview}>

@@ -8,6 +8,7 @@ import { Images } from '../Images';
 import { appStyles } from '../utilities/appStyles';
 import { colors } from '../constants/colors';
 import Spacer from '../components/Spacer';
+import CardTab from '../screens/App/CardTab/CardTab';
 
 const Tab = createBottomTabNavigator();
 
@@ -72,8 +73,8 @@ function BottomTabBarNav({ navigation }) {
         />
 
         <Tab.Screen
-          name={routes.activities}
-          component={Activities}
+          name={routes.cardTab}
+          component={CardTab}
           options={{
             // tabBarButton: (props) => (
             //   <TouchableOpacity

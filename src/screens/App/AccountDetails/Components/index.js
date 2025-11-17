@@ -8,11 +8,12 @@ import { Fonts } from '../../../../constants/fonts'
 import { colors } from '../../../../constants/colors'
 import Spacer from '../../../../components/Spacer'
 
-export const AddAccountHeader = ({ activeWalletWithTokens, onPressCross }) => {
+export const AddAccountHeader = ({ logo, activeWalletWithTokens, onPressCross }) => {
     return (
         <View style={appStyles.row}>
             <View style={appStyles.rowBasic}>
-                <Image source={Images.profile1} resizeMode='contain' style={styles.profile1} />
+                {/* <Image source={Images.profile1} resizeMode='contain' style={styles.profile1} /> */}
+                <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{logo ?? '😍'}</PoppinsText>
                 <View>
                     {activeWalletWithTokens?.username ? <PoppinsText style={styles.userName}>{`@${activeWalletWithTokens?.username}`}</PoppinsText> : null}
                     <PoppinsText style={styles.address}>O followers</PoppinsText>
@@ -46,23 +47,26 @@ export const RowTabs = ({ onPressProfile, onPressSettings }) => {
     )
 }
 
-export const AccountsCard = ({ allAccounts, onPressEdit }) => {
+export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
+
     return (
         <FlatList
             data={allAccounts}
+            ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
             renderItem={({ item }) => (
-                <View style={[styles.accountsCardBgView, appStyles.row]}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => onPressAccount(item)} style={[styles.accountsCardBgView, appStyles.row]}>
                     <View style={appStyles.rowBasic}>
                         <View style={{ marginRight: wp(3) }}>
-                            <Image source={Images.accountLogo} resizeMode='contain' style={styles.accountLogo} />
-                            <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} />
+                            {/* <Image source={Images.profile1} resizeMode='contain' style={styles.accountLogo} /> */}
+                            <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{item?.logo ?? '😍'}</PoppinsText>
+                            {item?.isActive == 1 ? <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} /> : null}
                         </View>
                         <PoppinsText style={styles.accountName}>{item?.name}</PoppinsText>
                     </View>
                     <TouchableOpacity activeOpacity={0.8} onPress={() => onPressEdit(item)}>
                         <Image source={Images.pencilWithRound} resizeMode='contain' style={styles.pencilWithRound} />
                     </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
                 // <View style={[styles.accountsCardBgView, appStyles.row]}>
                 //     <View style={appStyles.rowBasic}>
                 //         <View style={{ marginRight: wp(3) }}>
@@ -147,8 +151,8 @@ const styles = StyleSheet.create({
         width: wp(4.5),
         height: wp(4.5),
         position: 'absolute',
-        right: 0,
-        bottom: 0,
+        right: 2,
+        bottom: 3,
     },
     accountName: {
         fontSize: 13,

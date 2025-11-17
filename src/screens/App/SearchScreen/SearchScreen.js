@@ -15,56 +15,54 @@ const SearchScreen = (props) => {
     return (
         <MainContainerApp style={{}}>
             <Spacer customHeight={hp(7)} />
-            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-                <View style={styles.mainView}>
+            <View style={styles.mainView}>
+                <View style={appStyles.row}>
+                    <Image source={Images.accountWithRoundLogo} resizeMode='contain' style={styles.accountWithRoundLogo} />
+                    <CustomTextInput5 leftImage={Images.searchWhite} placeholder={'Sites, tokens, URL'} inputStyle={styles.inputStyle} containerStyle={styles.containerInputStyle} />
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
+                        <Image source={Images.plusWithSquareBox} resizeMode='contain' style={styles.plusWithSquareBox} />
+                    </TouchableOpacity>
+                </View>
+                <Spacer customHeight={hp(1)} />
+                <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false}>
+                    <Spacer />
+                    <SearchList />
+                    <Spacer />
                     <View style={appStyles.row}>
-                        <Image source={Images.accountWithRoundLogo} resizeMode='contain' style={styles.accountWithRoundLogo} />
-                        <CustomTextInput5 leftImage={Images.searchWhite} placeholder={'Sites, tokens, URL'} inputStyle={styles.inputStyle} containerStyle={styles.containerInputStyle} />
-                        <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
-                            <Image source={Images.plusWithSquareBox} resizeMode='contain' style={styles.plusWithSquareBox} />
+                        <PoppinsText style={styles.trendingTokensText}>Trending Tokens</PoppinsText>
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.allSearchTokenList)}>
+                            <PoppinsText style={styles.seeMoreText}>See More</PoppinsText>
                         </TouchableOpacity>
                     </View>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <Spacer />
-                        <SearchList />
-                        <Spacer />
-                        <View style={appStyles.row}>
-                            <PoppinsText style={styles.trendingTokensText}>Trending Tokens</PoppinsText>
-                            <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.allSearchTokenList)}>
-                                <PoppinsText style={styles.seeMoreText}>See More</PoppinsText>
-                            </TouchableOpacity>
-                        </View>
-                        <Spacer />
-                        <View style={styles.trendingTokensView}>
-                            <TrendingTokens />
-                        </View>
-                        <Spacer />
-                        <View style={appStyles.row}>
-                            <PoppinsText style={styles.trendingTokensText}>Perps</PoppinsText>
-                            <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.allSearchTokenList)}>
-                                <PoppinsText style={styles.seeMoreText}>See More</PoppinsText>
-                            </TouchableOpacity>
-                        </View>
-                        <Spacer />
-                        <View style={styles.trendingTokensView}>
-                            <TrendingTokens />
-                        </View>
-                        <Spacer />
-                        <View style={appStyles.row}>
-                            <PoppinsText style={styles.trendingTokensText}>Top Lists</PoppinsText>
-                            <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.allSearchTokenList)}>
-                                <PoppinsText style={styles.seeMoreText}>See More</PoppinsText>
-                            </TouchableOpacity>
-                        </View>
-                        <Spacer />
-                        <View style={styles.trendingTokensView}>
-                            <TrendingTokens />
-                        </View>
-                        <Spacer customHeight={hp(15)} />
-                    </ScrollView>
-                </View>
-            </TouchableWithoutFeedback>
-
+                    <Spacer />
+                    <View style={styles.trendingTokensView}>
+                        <TrendingTokens />
+                    </View>
+                    <Spacer />
+                    <View style={appStyles.row}>
+                        <PoppinsText style={styles.trendingTokensText}>Perps</PoppinsText>
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.allSearchTokenList)}>
+                            <PoppinsText style={styles.seeMoreText}>See More</PoppinsText>
+                        </TouchableOpacity>
+                    </View>
+                    <Spacer />
+                    <View style={styles.trendingTokensView}>
+                        <TrendingTokens />
+                    </View>
+                    <Spacer />
+                    <View style={appStyles.row}>
+                        <PoppinsText style={styles.trendingTokensText}>Top Lists</PoppinsText>
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.allSearchTokenList)}>
+                            <PoppinsText style={styles.seeMoreText}>See More</PoppinsText>
+                        </TouchableOpacity>
+                    </View>
+                    <Spacer />
+                    <View style={styles.trendingTokensView}>
+                        <TrendingTokens />
+                    </View>
+                    <Spacer customHeight={hp(15)} />
+                </ScrollView>
+            </View>
         </MainContainerApp>
     )
 }

@@ -15,9 +15,18 @@ const useAccountDetails = (props) => {
         console.log('accountsaccountsaccounts', accounts);
         setAllAccounts(accounts);
     }
+
+    const onPressAccount = async (item) => {
+        const updateres = await database.switchActiveWallet(item?.id)
+        if (updateres) {
+            getAllAccounts();
+        }
+    }
+
     return {
         activeWalletWithTokens,
-        allAccounts
+        allAccounts,
+        onPressAccount
     }
 }
 
