@@ -29,7 +29,7 @@ const OnboardingScreen = (props) => {
           onScroll={handleScroll}
           renderItem={({ item, index }) => {
             return (
-              <View style={{ flex: 1, justifyContent: 'center', }}>
+              <View style={{ flex: 1, justifyContent: item?.id == 6 ? 'top' : 'center', }}>
                 <Image source={item?.logo} resizeMode='contain'
                   style={item?.id === 1 ? styles.firstOnboardingLogo :
                     item?.id === 2 ? styles.secondOnboardingLogo :
