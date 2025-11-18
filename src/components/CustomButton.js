@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray2,
         textAlign: 'center',
-        marginLeft: wp(3)
+        marginLeft: wp(2)
     },
     leftImage: {
         width: wp(3),

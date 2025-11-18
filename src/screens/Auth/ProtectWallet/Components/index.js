@@ -1,4 +1,4 @@
-import { Image, Platform, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image, Platform, StyleSheet, Switch, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { appStyles } from '../../../../utilities/appStyles'
 import { Images } from '../../../../Images'
@@ -13,13 +13,23 @@ export const FaceIDCard = ({ isFaceIdEnabled, setIsFaceIdEnabled, onSetToggle })
             <View style={appStyles.rowBasic}>
                 <Image source={Images.face} resizeMode='contain' style={styles.face} />
                 <View>
-                    <PoppinsText style={styles.faceText}>{Platform.OS === 'ios' ? 'Face ID' : 'Biometric'}</PoppinsText>
-                    <PoppinsText style={styles.faceDesct}>Use {Platform.OS === 'ios' ? 'Face ID' : 'Biometric'} Authentication</PoppinsText>
+                    {/* <PoppinsText style={styles.faceText}>{Platform.OS === 'ios' ? 'Face ID' : 'Biometric'}</PoppinsText>
+                    <PoppinsText style={styles.faceDesct}>Use {Platform.OS === 'ios' ? 'Face ID' : 'Biometric'} Authentication</PoppinsText> */}
+                    <PoppinsText style={styles.faceText}>Device</PoppinsText>
+                    <PoppinsText style={styles.faceDesct}>Use Device Authentication</PoppinsText>
                 </View>
             </View>
-            <TouchableOpacity activeOpacity={0.8} onPress={onSetToggle}>
+
+            <Switch
+                trackColor={{ false: '#9F9FA3', true: '#AB9FF1' }}
+                thumbColor={isFaceIdEnabled ? '#FFFFFF' : '#FFFFFF'}
+                onValueChange={onSetToggle}
+                value={isFaceIdEnabled}
+            />
+
+            {/* <TouchableOpacity activeOpacity={0.8} onPress={onSetToggle}>
                 <Image source={isFaceIdEnabled ? Images.toggleOn : Images.toggleOff} resizeMode='contain' style={styles.toggle} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     )
 }
@@ -39,8 +49,8 @@ const styles = StyleSheet.create({
     },
     faceText: {
         fontSize: 14,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray15
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.gray13
     },
     faceDesct: {
         fontSize: 12,

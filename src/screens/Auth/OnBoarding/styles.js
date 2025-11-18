@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     firstOnboardingLogo: {
         width: wp(100),
         height: hp(50),
+        marginTop: hp(-10),
         alignSelf: 'center'
     },
     secondOnboardingLogo: {
