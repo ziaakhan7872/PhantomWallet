@@ -23,6 +23,7 @@ export const styles = StyleSheet.create({
         fontSize: 13,
         fontFamily: Fonts.Poppins.Regular,
         color: colors.gray9,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginHorizontal: wp(14)
     },
 })

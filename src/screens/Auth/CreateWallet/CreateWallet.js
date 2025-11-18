@@ -33,8 +33,8 @@ const CreateWallet = (props) => {
                 <CreateWalletSetupList />
             </View>
             <View style={styles.btnView}>
-                {/* <CustomButton title={'Continue with Email'} onPressBtn={() => emailBottomSheet.current?.open()} />
-                <Spacer customHeight={hp(1)} /> */}
+                <CustomButton title={'Continue with Email'} onPressBtn={() => emailBottomSheet.current?.open()} />
+                <Spacer customHeight={hp(1)} />
                 {/* <TouchableOpacity activeOpacity={0.8} style={{ alignSelf: 'center' }} onPress={() => importOptionsBottomSheet.current?.open()}>
                     <PoppinsText style={styles.bottomText}>{isImportFlow ? 'Other Import Options' : "Create a seed phrase wallet"}</PoppinsText>
                 </TouchableOpacity> */}
@@ -51,15 +51,9 @@ const CreateWallet = (props) => {
                 emailBottomSheet={emailBottomSheet}
                 onPressBtn1={() => {
                     emailBottomSheet?.current?.close()
-                    setTimeout(() => {
-                        props?.navigation.navigate(routes.pinScreen)
-                    }, 500);
                 }}
                 onPressBtn2={() => {
                     emailBottomSheet?.current?.close()
-                    setTimeout(() => {
-                        props?.navigation.navigate(routes.pinScreen)
-                    }, 500);
                 }}
             />
             <ImportOptionsBottomSheet

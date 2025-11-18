@@ -41,9 +41,9 @@ export const CreateWalletEmailBottomSheet = ({ emailBottomSheet, onPressBtn1, on
             <Spacer customHeight={hp(1)} />
             <PoppinsText style={styles.bottomSheetDesc}>Add a wallet with your Apple or Google account</PoppinsText>
             <Spacer />
-            <CustomButton leftImage={Images.apple} title={'Continue with Apple'} btnSyles={styles.btnStyles1} titleStyles={styles.btnTitleStyles} onPressBtn={onPressBtn1} />
+            <CustomButton leftImage={Images.apple} leftImageStyle={{ width: wp(4), height: wp(4) }} title={'Continue with Apple'} btnSyles={styles.btnStyles1} titleStyles={styles.btnTitleStyles} onPressBtn={onPressBtn1} />
             <Spacer customHeight={hp(1)} />
-            <CustomButton leftImage={Images.google} title={'Continue with Google'} btnSyles={styles.btnStyles2} titleStyles={styles.btnTitleStyles} onPressBtn={onPressBtn2} />
+            <CustomButton leftImage={Images.google} leftImageStyle={{ width: wp(4), height: wp(4) }} title={'Continue with Google'} btnSyles={styles.btnStyles2} titleStyles={styles.btnTitleStyles} onPressBtn={onPressBtn2} />
         </SimpleRBSheet>
     )
 }
