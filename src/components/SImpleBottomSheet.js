@@ -1,8 +1,7 @@
 import { Platform, ScrollView, StyleSheet } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
-import { hp, wp } from "./ResponsiveComponent";
+import { wp } from "./ResponsiveComponent";
 import { colors } from "../constants/colors";
-
 
 export const SimpleRBSheet = props => {
     return (
