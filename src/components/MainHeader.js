@@ -63,6 +63,36 @@ export const NewCustomHeader = ({ leftImage, title, rightImage, onPressLeftImage
     )
 }
 
+export const SimpleHeader = ({ leftImage, title, rightImage, onPressLeftImage }) => {
+    return (
+        <View style={[appStyles.rowBasic, { paddingHorizontal: wp(4) }]}>
+            <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
+                <Image source={leftImage} tintColor={colors.gray83} resizeMode='contain' style={[styles.simpleIcon, { tintColor: colors.gray83 }]} />
+            </TouchableOpacity>
+            <PoppinsText style={styles.simpleTitle}>{title}</PoppinsText>
+        </View>
+    )
+}
+
+export const NewCustomHeader1 = ({ leftImage, title, rightImage, onPressLeftImage }) => {
+    return (
+        <View style={{ ...appStyles.row, width: wp(92), alignSelf: 'center' }}>
+            <PoppinsText style={styles.customeHeaderTitle1}>{title}</PoppinsText>
+
+            <View style={appStyles.rowBasic}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => { }}>
+                    <Image source={rightImage} resizeMode='contain' style={[styles.img, { marginRight: wp(6) }]} />
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={0.8} onPress={onPressLeftImage}>
+                    <Image source={leftImage} resizeMode='contain' style={[styles.img, { marginRight: wp(3) }]} />
+                </TouchableOpacity>
+            </View>
+
+        </View>
+    )
+}
+
 export const SeedPhraseCustomHeader = ({ leftImage, centerImage, rightImage, rightText, onPressLeftImage, onPressRightImage, onPressCenterImage }) => {
     return (
         <View style={{ ...appStyles.row, width: wp(92) }}>
@@ -128,8 +158,27 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray83
     },
+    customeHeaderTitle1: {
+        fontSize: 24,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.gray83
+    },
+    simpleIcon: {
+        width: wp(4.5),
+        height: wp(4.5),
+        marginRight: wp(3)
+    },
+    simpleTitle: {
+        fontSize: 24,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.gray83
+    },
     rightImage: {
         width: wp(4),
         height: wp(4)
+    },
+    img: {
+        width: wp(5),
+        height: wp(5)
     }
 })

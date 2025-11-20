@@ -116,26 +116,77 @@ export function transformArray(array) {
     return result;
 }
 
-export const calculateTotalBalance = arrayOfObjects => {
-    // Ensure the input is an array
+// export const calculateTotalBalance = arrayOfObjects => {
+//     // Ensure the input is an array
+//     if (!Array.isArray(arrayOfObjects)) {
+//         throw new Error('Input must be an array of objects');
+//     }
+
+//     // Initialize total balance
+//     let totalBalance = 0;
+
+//     // Loop through each object in the array
+//     arrayOfObjects.forEach(obj => {
+//         // Ensure the object has the required properties
+//         if (obj.currentPriceUsd !== undefined && obj.balance !== undefined) {
+//             // Multiply currentPrice with balance and add to total balance
+//             totalBalance += Number(obj.currentPriceUsd) * Number(obj.balance);
+//         } else {
+//         }
+//     });
+//     console.log('totalBalance:::totalBalance', totalBalance);
+
+//     return totalBalance;
+// };
+export const calculateTotalBalance = (arrayOfObjects) => {
     if (!Array.isArray(arrayOfObjects)) {
-        throw new Error('Input must be an array of objects');
+        throw new Error("Input must be an array of objects");
     }
 
-    // Initialize total balance
     let totalBalance = 0;
+    let totalBalance24hAgo = 0;
 
-    // Loop through each object in the array
     arrayOfObjects.forEach(obj => {
-        // Ensure the object has the required properties
-        if (obj.currentPriceUsd !== undefined && obj.balance !== undefined) {
-            // Multiply currentPrice with balance and add to total balance
-            totalBalance += Number(obj.currentPriceUsd) * Number(obj.balance);
-        } else {
+        const { currentPriceUsd, balance, change24h } = obj;
+
+        if (
+            currentPriceUsd !== undefined &&
+            balance !== undefined &&
+            change24h !== undefined
+        ) {
+            const currentValue = Number(currentPriceUsd) * Number(balance);
+            totalBalance += currentValue;
+
+            // Reconstruct price 24h ago:
+            // price24hAgo = currentPrice / (1 + percent/100)
+            const price24hAgo =
+                Number(currentPriceUsd) / (1 + Number(change24h) / 100);
+
+            const value24hAgo = Number(balance) * price24hAgo;
+            totalBalance24hAgo += value24hAgo;
         }
     });
-    return totalBalance;
+
+    // PnL amount
+    const pnlAmount = totalBalance - totalBalance24hAgo;
+
+    // 24h percent change (portfolio-wide)
+    const percentChange =
+        totalBalance24hAgo > 0
+            ? (pnlAmount / totalBalance24hAgo) * 100
+            : 0;
+
+    console.log("💰 Total Balance:", totalBalance);
+    console.log("📈 PnL 24h:", pnlAmount);
+    console.log("📊 Percent Change 24h:", percentChange);
+
+    return {
+        totalBalance,
+        pnlAmount,
+        percentChange24h: percentChange,
+    };
 };
+
 
 export const handleAlltokenChainFee = (recipientAddress, activeWallet, selectedToken, enteredAmount, isDolorValue) => {
     return new Promise(async (resolve, reject) => {

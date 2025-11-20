@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
         color: colors.gray4
     },
     btnTitleStyles: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
     }
 })

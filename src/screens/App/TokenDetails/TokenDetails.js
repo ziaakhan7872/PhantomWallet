@@ -1,7 +1,7 @@
-import { Image, ScrollView, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Image, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import { MainContainerApp } from '../../../components/MainContainer'
-import Spacer from '../../../components/Spacer'
+import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
 import { hp, wp } from '../../../components/ResponsiveComponent'
 import { styles } from './styles'
 import { Images } from '../../../Images'
@@ -13,34 +13,52 @@ import { Graph } from '../../../components/Grpah'
 import { RowButtons } from '../../../components/RowButtons'
 import { colors } from '../../../constants/colors'
 import { routes } from '../../../constants/routes'
+import { CustomModal } from '../../../components/CustomModal'
+import { NumberRoundFunction } from '../../../constants/commonHelperFunctions/commonHelperFunction'
 
 const TokenDetails = (props) => {
 
-    const { previousTokenData, selectedTab, setSelectedTab, stakeOptionBottomSheet } = useTokenDetails(props);
-
-    const data = [{ value: 50 }, { value: 80 }, { value: 90 }, { value: 70 }]
+    const {
+        previousTokenData,
+        selectedTab, setSelectedTab,
+        stakeOptionBottomSheet,
+        balanceModalVisible, setBalanceModalVisible,
+        balanceValue, setBalanceValue,
+        tempBalanceValue, setTempBalanceValue,
+        handleOpenModal,
+        handleCloseModal,
+        handleSaveBalance,
+        handleBalanceChange,
+        getValue,
+        graphData,
+        graphLoading,
+        getGraphData,
+        dailyPnl
+    } = useTokenDetails(props);
 
     return (
         <MainContainerApp>
-            <Spacer customHeight={hp(7)} />
+            <Spacer customHeight={hp(4)} />
             <View style={styles.mainView}>
-                <TokenDetailsHeader leftImage={Images.backArrow} tokenLogo={Images.tokenLogo} tokenName={'Solana'} status={'421 people here'} rightImage={Images.followImage} onPressBackArrow={() => props?.navigation.goBack()} />
+                <TokenDetailsHeader leftImage={Images.backArrow} tokenLogo={{ uri: previousTokenData?.logoURI }} tokenName={previousTokenData?.tokenName ?? ''} status={`${getValue() ?? '0'} people here`} rightImage={Images.followImage} onPressBackArrow={() => props?.navigation.goBack()} />
                 <Spacer />
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <PoppinsText style={styles.tokenCurentPrice}>{previousTokenData?.currentPrice ?? '0.00'}</PoppinsText>
+                    <View style={{ alignSelf: 'center', alignItems: 'center' }}>
+                        <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText>
 
-                    <View style={{ ...appStyles.rowBasic, }}>
-                        <PoppinsText style={styles.dollarPrice}>{previousTokenData?.dollarPrice ?? '$0.00'}</PoppinsText>
-                        <View style={styles.percentageRoundBox}>
-                            <PoppinsText style={styles.percentageText}>{'+2.20%'}</PoppinsText>
+                        <View style={{ ...appStyles.rowBasic }}>
+                            <PoppinsText style={[styles.dollarPrice, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#7B453E' : '#3D6857' }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
+                            <View style={styles.percentageRoundBox}>
+                                <PoppinsText style={styles.percentageText}>{`${NumberRoundFunction(dailyPnl?.change24h)}%`}</PoppinsText>
+                            </View>
                         </View>
                     </View>
 
                     <Spacer />
-                    <Graph />
+                    <Graph graphData={graphData} graphLoading={graphLoading} />
 
                     <Spacer />
-                    <RowTimeIntervals selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+                    <RowTimeIntervals selectedTab={selectedTab} setSelectedTab={setSelectedTab} getGraphData={getGraphData} />
 
                     <Spacer />
                     <RowTabs onPressTab={(item) => item?.id == 4 ? stakeOptionBottomSheet?.current?.open() : null} />
@@ -50,15 +68,15 @@ const TokenDetails = (props) => {
 
                     <Spacer />
                     <View style={appStyles.row}>
-                        <View style={styles.bgView}>
+                        <TouchableOpacity onPress={handleOpenModal} activeOpacity={0.8} style={styles.bgView}>
                             <PoppinsText style={styles.balanceText}>Balance</PoppinsText>
                             <Spacer customHeight={hp(0.5)} />
-                            <PoppinsText style={styles.balance}>0.01103</PoppinsText>
-                        </View>
+                            <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? balanceValue : '0'}</PoppinsText>
+                        </TouchableOpacity>
                         <View style={styles.bgView}>
                             <PoppinsText style={styles.balanceText}>Value</PoppinsText>
                             <Spacer customHeight={hp(0.5)} />
-                            <PoppinsText style={styles.balance}>$2.48</PoppinsText>
+                            <PoppinsText style={styles.balance}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText>
                         </View>
                     </View>
 
@@ -185,6 +203,46 @@ const TokenDetails = (props) => {
                     }
                 }}
             />
+            <CustomModal
+                visible={balanceModalVisible}
+                onRequestClose={handleCloseModal}
+                secondViewStyles={styles.modalContainer}
+            >
+                <View style={styles.modalContent}>
+                    <PoppinsText style={styles.modalTitle}>Edit {previousTokenData?.tokenName == 'Binance Smart Chain' ? 'BNB' : previousTokenData?.tokenName ?? ''} Balance</PoppinsText>
+                    <Spacer customHeight={hp(2)} />
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            value={tempBalanceValue}
+                            onChangeText={handleBalanceChange}
+                            keyboardType="decimal-pad"
+                            placeholder="Enter balance"
+                            placeholderTextColor={colors.gray1}
+                            style={styles.modalInput}
+                            autoFocus={true}
+                            cursorColor={colors.white}
+                        />
+                    </View>
+                    <Spacer customHeight={hp(3)} />
+                    <View style={appStyles.row}>
+                        <TouchableOpacity
+                            onPress={handleCloseModal}
+                            activeOpacity={0.8}
+                            style={[styles.modalButton, styles.cancelButton]}
+                        >
+                            <PoppinsText style={styles.cancelButtonText}>Cancel</PoppinsText>
+                        </TouchableOpacity>
+                        <HorizontalSpacer customWidth={wp(3)} />
+                        <TouchableOpacity
+                            onPress={handleSaveBalance}
+                            activeOpacity={0.8}
+                            style={[styles.modalButton, styles.saveButton]}
+                        >
+                            <PoppinsText style={styles.saveButtonText}>Save</PoppinsText>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </CustomModal>
         </MainContainerApp>
     )
 }

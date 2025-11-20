@@ -2,24 +2,27 @@ import axios from 'axios';
 
 const CoingekoBaseURL = 'https://pro-api.coingecko.com/api/v3';
 
-export const GetcurentPrices = async id => {
+export const GetcurentPrices = async (item, id) => {
     try {
         let change24hr = 0;
         let curentprice = 0;
         let tokenLogo = '';
         if (id) {
 
-            const apikey = 'CG-Tx5BdBytyD3ev6XJqsjQvKeb';
             let res = await axios.get(
-                `${CoingekoBaseURL}/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false&x_cg_pro_api_key=${apikey}`,
+                `${CoingekoBaseURL}/coins/${id == 'matic-network' ? 'polygon-ecosystem-token' : id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false&x_cg_pro_api_key=CG-oGhRPdwsHvTLFmMJ6kW7mea9`,
             );
+            // `${CoingekoBaseURL}/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false&x_cg_pro_api_key=CG-oGhRPdwsHvTLFmMJ6kW7mea9`,
+
+            console.log('res:::res:::res:::res', res);
+
             change24hr = res?.data.market_data?.price_change_percentage_24h;
             curentprice = res.data?.market_data?.current_price?.usd;
             tokenLogo = res.data?.image.small;
         } else {
-            change24hr = 0;
-            curentprice = 0;
-            tokenLogo = '';
+            change24hr = item?.change24h ?? 0;
+            curentprice = item?.currentPriceUsd ?? 0;
+            tokenLogo = item?.logoURI ?? '';
         }
         return {
             change24hr,
@@ -103,5 +106,40 @@ export const GetSolTOkenBySerch = async address => {
         console.log('errorerrorerror', error.response);
 
         return error;
+    }
+};
+
+export const getGraphDataById = async (id, days = 2) => {
+    try {
+        if (!id) return null;
+
+        const tokenId = id === 'matic-network' ? 'polygon-ecosystem-token' : id;
+
+        // Build URL dynamically
+        // let url = `${CoingekoBaseURL}/coins/${tokenId}/market_chart?vs_currency=usd`;
+
+        // if (interval) {
+        //     // interval found → use days=1 and include interval
+        //     url += `&days=${days}&interval=${interval}`;
+        // } else {
+        //     // interval missing → use dynamic days and remove interval parameter
+        //     url += `&days=${days}`;
+        // }
+
+        // url += `&x_cg_pro_api_key=CG-oGhRPdwsHvTLFmMJ6kW7mea9`;
+        let url = `${CoingekoBaseURL}/coins/${tokenId}/market_chart?vs_currency=usd&days=${days}&x_cg_pro_api_key=CG-oGhRPdwsHvTLFmMJ6kW7mea9`;
+
+        console.log('urlurlurlurlurlurl', url);
+
+
+        const res = await axios.get(url);
+
+        console.log("Graph Data Res:", res?.data);
+
+        return res?.data;
+
+    } catch (error) {
+        console.log("Error in getGraphDataByIdw:", error);
+        throw error;
     }
 };

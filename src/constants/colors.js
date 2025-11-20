@@ -150,6 +150,7 @@ export const colors = {
     gray137: "#D2D2D2",
     gray138: "#7D7D88",
     gray139: "#DBDAE6",
+    gray140: "#00000000",
 
     lineColor: "#454545",
 

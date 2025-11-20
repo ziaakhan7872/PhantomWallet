@@ -25,13 +25,23 @@ export const styles = StyleSheet.create({
         marginRight: wp(3)
     },
     prepTitle: {
-        fontSize: 20,
+        fontSize: 22,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray134
+        color: colors.gray75
     },
     manageText: {
         fontSize: 12,
         fontFamily: Fonts.Poppins.Regular,
         color: colors.lightPurple5
+    },
+    disclosures: {
+        width: wp(4),
+        height: wp(4),
+        marginRight: wp(2)
+    },
+    lastText: {
+        fontSize: 14,
+        fontFamily: Fonts.Poppins.Regular,
+        color: '#464646',
     }
 })

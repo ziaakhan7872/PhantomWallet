@@ -141,14 +141,17 @@ export const HistoryCard = ({ onPressToken, transactions = [] }) => {
     )
 }
 
-export const RowTimeIntervals = ({ selectedTab, setSelectedTab }) => {
+export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) => {
     return (
 
         <View style={styles.tabsContainer}>
             {/* 1H Tab */}
             <TouchableOpacity
                 style={[styles.tab, selectedTab === '1H' && styles.selectedTab]}
-                onPress={() => setSelectedTab('1H')}
+                onPress={() => {
+                    setSelectedTab('1H')
+                    getGraphData(2)
+                }}
             >
                 <PoppinsText style={{
                     ...styles.tabText,
@@ -160,7 +163,10 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab }) => {
             {/* 1D Tab */}
             <TouchableOpacity
                 style={[styles.tab, selectedTab === '1D' && styles.selectedTab]}
-                onPress={() => setSelectedTab('1D')}
+                onPress={() => {
+                    setSelectedTab('1D')
+                    getGraphData(4)
+                }}
             >
                 <PoppinsText style={{
                     ...styles.tabText,
@@ -171,7 +177,10 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab }) => {
             {/* 1W Tab */}
             <TouchableOpacity
                 style={[styles.tab, selectedTab === '1W' && styles.selectedTab]}
-                onPress={() => setSelectedTab('1W')}
+                onPress={() => {
+                    setSelectedTab('1W')
+                    getGraphData(7)
+                }}
             >
                 <PoppinsText style={{
                     ...styles.tabText,
@@ -182,7 +191,10 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab }) => {
             {/* 1M Tab */}
             <TouchableOpacity
                 style={[styles.tab, selectedTab === '1M' && styles.selectedTab]}
-                onPress={() => setSelectedTab('1M')}
+                onPress={() => {
+                    setSelectedTab('1M')
+                    getGraphData(30)
+                }}
             >
                 <PoppinsText style={{
                     ...styles.tabText,
@@ -193,7 +205,10 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab }) => {
             {/* 1Y Tab */}
             <TouchableOpacity
                 style={[styles.tab, selectedTab === '1Y' && styles.selectedTab]}
-                onPress={() => setSelectedTab('1Y')}
+                onPress={() => {
+                    setSelectedTab('1Y')
+                    getGraphData(365)
+                }}
             >
                 <PoppinsText style={{
                     ...styles.tabText,
@@ -204,7 +219,10 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab }) => {
             {/* ALL Tab */}
             <TouchableOpacity
                 style={[styles.tab, selectedTab === 'ALL' && styles.selectedTab]}
-                onPress={() => setSelectedTab('ALL')}
+                onPress={() => {
+                    setSelectedTab('ALL')
+                    getGraphData(700)
+                }}
             >
                 <PoppinsText style={{
                     ...styles.tabText,

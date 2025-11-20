@@ -24,18 +24,25 @@ export const styles = StyleSheet.create({
         color: colors.gray8
     },
     resText: {
-        fontSize: 14,
+        fontSize: 22,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.gray83,
+        textAlign: 'center'
+    },
+    resText1: {
+        fontSize: 16,
         fontFamily: Fonts.Poppins.Regular,
         color: colors.gray8,
         textAlign: 'center'
     },
     qrview: {
         alignSelf: 'center',
-        backgroundColor: colors.gray39,
-        borderRadius: 10
+        backgroundColor: colors.gray83,
+        borderRadius: 16,
+        padding: 10
     },
     scannerView: {
-        width: wp(62.5),
+        width: wp(92),
         height: wp(62.5),
         flex: 1,
         alignSelf: 'center',
@@ -45,15 +52,16 @@ export const styles = StyleSheet.create({
     },
     customeBtn1: {
         width: wp(92),
+        height: hp(5.5),
         alignSelf: 'center',
         justifyContent: 'center',
         backgroundColor: colors.gray51,
         borderRadius: 12,
-        paddingHorizontal: wp(3),
-        paddingVertical: hp(2),
+        // paddingHorizontal: wp(3),
+        // paddingVertical: hp(2),
     },
     titleStyles: {
-        fontSize: 14,
+        fontSize: 18,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray44,
     }

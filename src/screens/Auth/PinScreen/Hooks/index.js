@@ -1,6 +1,6 @@
 
 
-import { Platform } from 'react-native'
+import { Keyboard, Platform } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { SavePin } from '../../../../redux/actions/WalletActions'
@@ -51,11 +51,15 @@ const usePinScreen = (props) => {
                     setVerified(true);
                     setNewPin('');
                     setErrorTitle('');
-                    if (splashScreen) {
-                        props?.navigation?.replace(routes.appStack);
-                    } else if (isSettingFlow) {
-                        props?.navigation?.replace(routes.MainTabs, { screen: routes.homeScreen });
-                    }
+                    Keyboard.dismiss();
+                    setTimeout(() => {
+
+                        if (splashScreen) {
+                            props?.navigation?.replace(routes.appStack);
+                        } else if (isSettingFlow) {
+                            props?.navigation?.replace(routes.MainTabs, { screen: routes.homeScreen });
+                        }
+                    }, 500);
                 } else {
                     setErrorTitle('Incorrect PIN. Please try again.');
                     setNewPin('');
@@ -141,6 +145,7 @@ const usePinScreen = (props) => {
         splashScreen,
         errorTitle,
         step,
+        userPin,
         newPin, setNewPin,
         HandleKeyPress,
         handleRemove

@@ -14,14 +14,14 @@ const useActivities = (props) => {
     const [loading, setLoading] = useState(false)
     const [allTransactions, setAllTransactions] = useState([])
 
-    useEffect(() => {
-        const getWallet = async () => {
-            const wallet = await database.getActiveWalletsWithTokenData();
-            setActiveWallet(wallet)
-            getHistory(wallet)
-        }
-        getWallet()
-    }, [])
+    // useEffect(() => {
+    //     const getWallet = async () => {
+    //         const wallet = await database.getActiveWalletsWithTokenData();
+    //         setActiveWallet(wallet)
+    //         getHistory(wallet)
+    //     }
+    //     getWallet()
+    // }, [])
 
     const getHistory = async (wallet) => {
         try {

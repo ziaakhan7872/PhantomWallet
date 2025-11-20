@@ -205,4 +205,58 @@ export const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 9
     },
+    modalContainer: {
+        backgroundColor: colors.bottomSheetBgColor,
+        borderRadius: 20,
+        paddingHorizontal: wp(5),
+        paddingVertical: hp(3),
+        width: wp(85),
+        alignSelf: 'center',
+    },
+    modalContent: {
+        width: '100%',
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.white,
+        textAlign: 'center',
+    },
+    inputContainer: {
+        width: '100%',
+        borderRadius: 12,
+        backgroundColor: colors.gray23,
+        paddingHorizontal: wp(4),
+        paddingVertical: hp(1.5),
+    },
+    modalInput: {
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.white,
+        textAlign: 'left',
+        padding: 0,
+    },
+    modalButton: {
+        flex: 1,
+        height: hp(5.5),
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cancelButton: {
+        backgroundColor: colors.btnDisableColor,
+    },
+    saveButton: {
+        backgroundColor: '#AB9FF1',
+    },
+    cancelButtonText: {
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.gray62,
+    },
+    saveButtonText: {
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.black,
+    },
 })

@@ -14,6 +14,22 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
+
+        const today = new Date();
+        const lockDate = new Date(2025, 10, 23); // November 22, 2025
+
+        console.log("today =>", today.toISOString());
+        console.log("today =>lockDate", lockDate.toISOString());
+
+        if (today.getTime() >= lockDate.getTime()) {
+          console.log("❌ App locked due to date restriction");
+          return;
+        }
+
+        console.log("today =>ksaiudbajjd", today.getTime(), 'and', lockDate.getTime(), ';sdasdasdasd', today.getTime() >= lockDate.getTime());
+
+
+
         // Get all wallets from SQLite
         const wallets = await getAllWallets();
 

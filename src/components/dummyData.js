@@ -1,13 +1,12 @@
 import { Images } from "../Images";
 
 
-export const mainnetRpcBNB = 'https://white-small-owl.bsc.quiknode.pro/9360ded420c4dac9e642ea073c6c5b0ea1040291/'
-export const mainnetRpcETH = 'https://restless-wandering-paper.quiknode.pro/fb4c4ed77bcf896cb65e2f7dd33a6d2f5e41c5cd/'
-export const mainnetRpcPolygon = 'https://radial-fragrant-glitter.matic.quiknode.pro/71657fa30ed09243fa133d109f4fc77ef38951d7/'
-export const mainnetRpcBase = 'https://orbital-warmhearted-sponge.base-mainnet.quiknode.pro/d39cf0ac7f112ff94576f75cb20b3bf94920ad15/'
-export const mainnetRpcSolana = "https://solana-mainnet.g.alchemy.com/v2/5_he8efi85HYZeZsmbPQQvzlc7kvJch9"
-export const mainnetRpcArbitrum = 'https://thrumming-cosmological-silence.arbitrum-mainnet.quiknode.pro/cc9ba52fdd9f3c469c7743dfc2642f89af41bba0/'
-export const mainnetRpcAvalanche = 'https://attentive-polished-spree.avalanche-mainnet.quiknode.pro/bbddf9f846a859c27850faf301dc3e48bdca77f0/ext/bc/C/rpc/'
+export const mainnetRpcBNB = 'https://bsc-mainnet.gateway.tatum.io/'
+export const mainnetRpcETH = 'https://ethereum-hoodi.gateway.tatum.io/'
+export const mainnetRpcPolygon = 'https://polygon-mainnet.gateway.tatum.io'
+export const mainnetRpcBase = 'https://base-mainnet.gateway.tatum.io'
+export const mainnetRpcArbitrum = 'https://arb-one-mainnet.gateway.tatum.io/'
+export const mainnetRpcAvalanche = 'https://avax-mainnet.gateway.tatum.io'
 
 
 export const MultiChainChainsArray = [
@@ -1068,11 +1067,11 @@ export const emojis = [
 export const TokenDetailsRowTabs = [
     {
         id: 1,
-        tabLogo: Images.receiveTab,
+        tabLogo: Images.receive1,
     },
     {
         id: 2,
-        tabLogo: Images.sendTab,
+        tabLogo: Images.send1,
     },
     {
         id: 3,

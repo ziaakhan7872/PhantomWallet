@@ -65,7 +65,12 @@ export const Images = {
     seacrhUnActiveBtn: require('./seacrhUnActiveBtn.png'),
 
     // AppFlow
+    profile: require('./profile.png'),
     profile1: require('./profile1.png'),
+    send1: require('./send1.png'),
+    receive1: require('./receive1.png'),
+    nft1: require('./nft1.png'),
+    nft2: require('./nft2.png'),
     clock: require('./clock.png'),
     searchWhite: require('./searchWhite.png'),
     sendTab: require('./sendTab.png'),
@@ -112,6 +117,7 @@ export const Images = {
     perpImage1: require('./perpImage1.png'),
     shareFeedBack: require('./shareFeedBack.png'),
     infoLogo: require('./infoLogo.png'),
+    following: require('./following.png'),
     horizontallySlider1: require('./horizontallySlider1.png'),
     horzontallySlider2: require('./horzontallySlider2.png'),
     horizontallySlider3: require('./horizontallySlider3.png'),
