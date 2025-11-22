@@ -7,7 +7,7 @@ import { hp, wp } from './ResponsiveComponent';
 
 const { width } = Dimensions.get('window');
 
-export const Graph = ({ graphData, graphLoading }) => {
+export const Graph = ({ graphData, graphLoading, change24h }) => {
     let data = graphData?.map((item) => {
         return {
             value: item?.length > 0 ? item[1] : 0,
@@ -23,9 +23,12 @@ export const Graph = ({ graphData, graphLoading }) => {
         value: (item.value - minValue) * 5000000,
     }));
 
-
+    // const normalizedData = normalizedData1?.reverse();
     // console.log('normalizedData:::normalizedData', normalizedData);
 
+    const lastItem = normalizedData[normalizedData?.length - 1]?.value ?? 0;
+    const secondLastItem = normalizedData[normalizedData?.length - 2]?.value ?? 0;
+    console.log('lastItem:::lastItem', lastItem, secondLastItem);
     return (
         <View style={styles.container}>
             {graphLoading ? (
@@ -42,7 +45,7 @@ export const Graph = ({ graphData, graphLoading }) => {
                     spacing={wp(2.5)}
                     hideOrigin
                     hideYAxisText
-                    color={'#75bb75'}
+                    color={change24h?.toString()?.includes('-') ? '#BC593F' : '#75bb75'}
                     curved
                     scrollAnimation
                     scrollToEnd

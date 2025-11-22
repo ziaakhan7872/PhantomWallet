@@ -41,16 +41,25 @@ const HomeScreen = (props) => {
         onRefresh
     } = useHomeScreen(props);
 
+
+    const sorted = activeWalletWithTokens?.tokens?.sort((a, b) => {
+        const valueA = Number(a.balance) * Number(a.currentPriceUsd);
+        const valueB = Number(b.balance) * Number(b.currentPriceUsd);
+        return valueB - valueA; // high → low
+    });
+
+
+
     return (
         <MainContainerApp style={{ paddingHorizontal: wp(4) }}>
             <Spacer customHeight={hp(4)} />
             <AccountCard
                 profile={Images.profile}
                 logo={activeWalletWithTokens?.logo}
-                // accountName={activeWalletWithTokens?.username ? `@${activeWalletWithTokens?.username}` : ''}
-                // accountNumber={activeWalletWithTokens?.name ?? 'Account 1'}
-                accountName={'@FreshWallet'}
-                accountNumber={'Account 1'}
+                accountName={activeWalletWithTokens?.username ? `@${activeWalletWithTokens?.username}` : ''}
+                accountNumber={activeWalletWithTokens?.name ?? 'Account 1'}
+                // accountName={'@FreshWallet'}
+                // accountNumber={'Account 1'}
                 rightImage1={Images.clock} rightImage2={Images.searchWhite}
                 onPressRightImage1={() => props?.navigation.navigate(routes.activities)}
                 onPressRightImage2={() => props?.navigation.navigate(routes.MainTabs, { screen: routes.searchScreen })}
@@ -101,7 +110,7 @@ const HomeScreen = (props) => {
                 <Spacer customHeight={hp(1.5)} />
 
                 <TokensCard
-                    tokenData={activeWalletWithTokens?.tokens}
+                    tokenData={sorted ?? []}
                     onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                 />
 

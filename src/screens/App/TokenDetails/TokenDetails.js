@@ -55,7 +55,7 @@ const TokenDetails = (props) => {
                     </View>
 
                     <Spacer />
-                    <Graph graphData={graphData} graphLoading={graphLoading} />
+                    <Graph graphData={graphData} graphLoading={graphLoading} change24h={dailyPnl?.change24h} />
 
                     <Spacer />
                     <RowTimeIntervals selectedTab={selectedTab} setSelectedTab={setSelectedTab} getGraphData={getGraphData} />

@@ -1,5 +1,5 @@
-import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { Animated, Easing, FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react'
 import { Images } from '../../../../Images'
 import { hp, wp } from '../../../../components/ResponsiveComponent'
 import PoppinsText from '../../../../components/PoppinsText'
@@ -41,9 +41,9 @@ export const BalanceCard = ({ totalBalance, dailyPnl }) => {
         <View>
             <PoppinsText style={styles.balanceText}>${NumberRoundFunction(totalBalance)}</PoppinsText>
             <View style={{ ...appStyles.rowBasic }}>
-                <PoppinsText style={styles.amount}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
-                <View style={styles.dollarAmountBox}>
-                    <PoppinsText style={styles.dollarAmount}>{`${NumberRoundFunction(dailyPnl?.percentChange24h)}%`}</PoppinsText>
+                <PoppinsText style={[styles.amount, { color: dailyPnl?.pnlAmount?.toString()?.includes('-') ? '#BC593F' : '#447E65' }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
+                <View style={[styles.dollarAmountBox, { backgroundColor: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#BC593F' : '#34A06E' }]}>
+                    <PoppinsText style={[styles.dollarAmount, { color: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#000' : '#9B4026' }]}>{`${NumberRoundFunction(dailyPnl?.percentChange24h)}%`}</PoppinsText>
                 </View>
             </View>
         </View>
@@ -111,6 +111,45 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
 
     let data = tokenData?.filter(item => item?.chainName == 'Ethereum') ?? [];
 
+    const scaleValues = useState(
+        data.reduce((acc, item) => {
+            acc[item.id] = new Animated.Value(1);
+            return acc;
+        }, {})
+    )[0];
+
+    const handlePressIn = (id) => {
+        Animated.timing(scaleValues[id], {
+            toValue: 0.97,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
+    const handlePressOut = (id) => {
+        Animated.timing(scaleValues[id], {
+            toValue: 1,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
+    const handlePress = (id, item) => {
+        Animated.timing(scaleValues[id], {
+            toValue: 0.97,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+
+        onPressToken(item);
+
+        handlePressOut(id);
+    };
+
+
     return (
         <FlatList
             data={data ?? []}
@@ -119,39 +158,50 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
             contentContainerStyle={{}}
             renderItem={({ item, index }) => {
+                if (!scaleValues[item.id]) {
+                    // Ensure scale value exists for this item
+                    scaleValues[item.id] = new Animated.Value(1);
+                }
                 return (
-                    <TouchableOpacity activeOpacity={0.8} onPress={() => onPressToken(item)} style={{ ...styles.tokenCardBgView, }}>
-                        <View style={appStyles.row}>
-                            <View style={appStyles.rowBasic}>
-                                {/* <Image source={{ uri: String(item?.tokenLogo) }} resizeMode='contain' style={styles.tokenLogo} /> */}
-                                {item?.logoURI ?
+                    <Animated.View style={{ transform: [{ scale: scaleValues[item.id] }] }} >
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={() => handlePress(item.id, item)}
+                            onPressIn={() => handlePressIn(item.id)}
+                            onPressOut={() => handlePressOut(item.id)}
+                            style={{ ...styles.tokenCardBgView, }}>
+                            <View style={appStyles.row}>
+                                <View style={appStyles.rowBasic}>
+                                    {/* <Image source={{ uri: String(item?.tokenLogo) }} resizeMode='contain' style={styles.tokenLogo} /> */}
+                                    {item?.logoURI ?
+                                        <View>
+                                            <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                            {item?.type == 'token' &&
+                                                <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} />
+                                            }
+                                        </View>
+                                        :
+                                        <View style={styles.tokenLogo1}>
+                                            <PoppinsText style={styles.tokenName}>{item?.symbol?.slice(0, 1)?.toUpperCase()}</PoppinsText>
+                                        </View>
+                                    }
                                     <View>
-                                        <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
-                                        {item?.type == 'token' &&
-                                            <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} />
-                                        }
+                                        <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
+                                        <PoppinsText style={styles.tokenSymbol}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
                                     </View>
-                                    :
-                                    <View style={styles.tokenLogo1}>
-                                        <PoppinsText style={styles.tokenName}>{item?.symbol?.slice(0, 1)?.toUpperCase()}</PoppinsText>
-                                    </View>
-                                }
+                                </View>
                                 <View>
-                                    <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
-                                    <PoppinsText style={styles.tokenSymbol}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
+                                    <PoppinsText style={styles.tokenPrice}>${NumberRoundFunction(
+                                        Number(item?.currentPriceUsd) * Number(item?.balance),
+                                    ).toLocaleString(undefined, {
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2,
+                                    })}</PoppinsText>
+                                    <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#7B453E' : '#3D6857' }]}>{formatBalancetwoDigit(item?.change24h)}%</PoppinsText>
                                 </View>
                             </View>
-                            <View>
-                                <PoppinsText style={styles.tokenPrice}>${NumberRoundFunction(
-                                    Number(item?.currentPriceUsd) * Number(item?.balance),
-                                ).toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</PoppinsText>
-                                <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#7B453E' : '#3D6857' }]}>{formatBalancetwoDigit(item?.change24h)}%</PoppinsText>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                    </Animated.View>
 
                 )
             }}
