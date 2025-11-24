@@ -16,7 +16,7 @@ const useImportAccounts = (props) => {
     const onPressContinue = async () => {
         if (isSeedPhrase) {
             const waletresponse = await insertWallet(
-                'Multi-Chain-Wallet',
+                'Account',
                 cleanedSeed,
                 allwallets?.evmWallet?.address,
                 allwallets?.evmWallet?.privateKey,
@@ -38,7 +38,7 @@ const useImportAccounts = (props) => {
             }
         } else {
             const waletresponse = await insertWallet(
-                'EVM-Wallet',
+                'Account',
                 '',
                 allwallets?.evmWallet?.address,
                 allwallets?.evmWallet?.privateKey,

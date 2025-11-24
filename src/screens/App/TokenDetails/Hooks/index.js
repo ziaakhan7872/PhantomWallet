@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { Images } from '../../../../Images';
 import axios from 'axios';
-import { getGraphDataById } from '../../../../services/Helpers/Apis';
+import { getCoinTokenInfoById, getGraphDataById } from '../../../../services/Helpers/Apis';
 
 
 const useTokenDetails = (props) => {
@@ -18,7 +18,7 @@ const useTokenDetails = (props) => {
 
     const [allTransactions, setAllTransactions] = useState([])
     const [loading, setLoading] = useState(false)
-    const [selectedTab, setSelectedTab] = useState('1H')
+    const [selectedTab, setSelectedTab] = useState('1Y')
     const [activeWallet, setActiveWallet] = useState({
         publicAddress: '',
         solanaAddress: ''
@@ -28,7 +28,11 @@ const useTokenDetails = (props) => {
     const [tempBalanceValue, setTempBalanceValue] = useState(Number(previousTokenData?.balance) > 0 ? previousTokenData?.balance : '');
     const [graphData, setGraphData] = useState([{ value: 0 }]);
     const [graphLoading, setGraphLoading] = useState(false);
+    const [tokenInfo, setTokenInfo] = useState(false);
     const [dailyPnl, setDailyPnl] = useState({});
+    const [showMore, setShowMore] = useState(false);
+    const [isFollowed, setIsFollowed] = useState(previousTokenData?.isFollowed ?? false);
+
     // Fetch wallet addresses from database
     useFocusEffect(
         React.useCallback(() => {
@@ -41,8 +45,11 @@ const useTokenDetails = (props) => {
                             solanaAddress: wallet.solanaAddress || ''
                         });
                     }
-                    getGraphData(2);
+                    getGraphData(365);
                     setDailyPnl(calculateSelectedTokenPnL(previousTokenData));
+                    const coinTokenInfo = await getCoinTokenInfoById(previousTokenData?.cmcId);
+                    console.log('coinTokenInfo::coinTokenInfo', coinTokenInfo);
+                    setTokenInfo(coinTokenInfo)
                 } catch (error) {
                     console.log('Error fetching wallet addresses:', error);
                 }
@@ -139,6 +146,29 @@ const useTokenDetails = (props) => {
         setTempBalanceValue(finalText);
     };
 
+    const onPressFollow = async () => {
+        try {
+            await database.updateFollowStatus(isFollowed == true ? 0 : 1, previousTokenData?.id);
+            setIsFollowed(!isFollowed);
+
+        } catch (error) {
+            console.log('catch error in onPressFollow:', error);
+
+        }
+    };
+
+    function calculate24hReturn(balance, currentPrice, change24h) {
+        const price24hAgo = currentPrice / (1 + Number(change24h) / 100);
+
+        const currentValue = balance * currentPrice;
+        const previousValue = balance * price24hAgo;
+
+        const return24h = currentValue - previousValue;
+
+        return return24h;
+    }
+
+
     function createValueGenerator() {
         let currentValue = Math.floor(Math.random() * 500) + 1; // first value
 
@@ -174,7 +204,12 @@ const useTokenDetails = (props) => {
         graphData,
         graphLoading,
         getGraphData,
-        dailyPnl
+        dailyPnl,
+        tokenInfo,
+        showMore, setShowMore,
+        isFollowed, setIsFollowed,
+        onPressFollow,
+        calculate24hReturn
     }
 }
 

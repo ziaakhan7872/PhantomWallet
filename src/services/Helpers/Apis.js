@@ -143,3 +143,23 @@ export const getGraphDataById = async (id, days = 2) => {
         throw error;
     }
 };
+
+export const getCoinTokenInfoById = async (id, days = 2) => {
+    try {
+        if (!id) return null;
+
+        const tokenId = id === 'matic-network' ? 'polygon-ecosystem-token' : id;
+
+        let url = `${CoingekoBaseURL}/coins/${tokenId}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false&x_cg_pro_api_key=CG-oGhRPdwsHvTLFmMJ6kW7mea9`;
+        // let url = `${CoingekoBaseURL}/coins/${tokenId}?market_data=true&x_cg_pro_api_key=CG-oGhRPdwsHvTLFmMJ6kW7mea9`;
+
+        const res = await axios.get(url);
+        console.log("Graph Data Res:", res?.data);
+
+        return res?.data;
+
+    } catch (error) {
+        console.log("Error in getGraphDataByIdw:", error);
+        throw error;
+    }
+};

@@ -139,8 +139,8 @@ const HomeScreen = (props) => {
                 // discover and following
                 <Spacer customHeight={hp(2)} />
                 <View style={appStyles.rowBasic}>
-                    <PoppinsText onPress={() => setDiscoverTitle('Discover')} style={[styles.prepTitle, { marginRight: wp(3), color: discoverTitle == 'Discover' ? colors.gray19 : '#5C5C5C' }]}>Discover</PoppinsText>
-                    <PoppinsText onPress={() => setDiscoverTitle('Following')} style={[styles.prepTitle, { color: discoverTitle == 'Following' ? colors.gray19 : '#5C5C5C' }]}>Following</PoppinsText>
+                    <PoppinsText onPress={() => setDiscoverTitle('Discover')} style={[styles.prepTitle, { marginRight: wp(3), color: discoverTitle == 'Discover' ? colors.white : '#5C5C5C' }]}>Discover</PoppinsText>
+                    <PoppinsText onPress={() => setDiscoverTitle('Following')} style={[styles.prepTitle, { color: discoverTitle == 'Following' ? colors.white : '#5C5C5C' }]}>Following</PoppinsText>
                 </View>
                 <Spacer customHeight={hp(2)} />
 
@@ -152,7 +152,11 @@ const HomeScreen = (props) => {
                 )}
 
                 {discoverTitle == 'Following' && (
-                    <FollowingView />
+                    <FollowingView
+                        tokenData={activeWalletWithTokens?.tokens}
+                        onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
+                    />
+                    // <FollowingView />
                 )}
 
                 <Spacer customHeight={hp(3)} />

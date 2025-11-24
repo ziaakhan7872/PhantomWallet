@@ -55,6 +55,7 @@ async function createTables(db) {
                 rpcUrl TEXT,
                 logoURI TEXT,
                 isActive INTEGER,
+                isFollowed INTEGER,
                 isEvm INTEGER,
                 walletId INTEGER,
                 change24h TEXT,
@@ -121,7 +122,7 @@ export const insertWallet = async (
 
         // Insert the new active wallet
         const [insertResult] = await db.executeSql(
-            'INSERT INTO WalletTbl(name,logo, account, isActive, seedPhrase, walletAddress, privateKey, btcWalletAddress, btcPrivateKey, solanaWalletAddress, solanaPrivateKey) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+            'INSERT INTO WalletTbl(name, logo, account, isActive, seedPhrase, walletAddress, privateKey, btcWalletAddress, btcPrivateKey, solanaWalletAddress, solanaPrivateKey) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
             [
                 name,
                 '😍',
@@ -154,8 +155,9 @@ export const InsertAllChains = async (waletid, chainsarray) => {
         // Sequential inserts to simplify error handling
         for (const item of chainsarray) {
             await db.executeSql(
-                'INSERT INTO ChainsTbl(chainName, tokenName, type, tokenAddress, symbol, decimals, cmcId, rpcUrl, logoURI, isActive, isEvm, walletId, change24h, currentPriceUsd, balanceUsd, balance) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                'INSERT INTO ChainsTbl(isFollowed, chainName, tokenName, type, tokenAddress, symbol, decimals, cmcId, rpcUrl, logoURI, isActive, isEvm, walletId, change24h, currentPriceUsd, balanceUsd, balance) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 [
+                    0,
                     item.chainName,
                     item.tokenName,
                     item.type,
@@ -431,6 +433,27 @@ export const switchActiveWallet = async (walletId) => {
     }
 };
 
+// switch active wallet
+const updateFollowStatus = async (isFollowed, walletId) => {
+    const db = await getDb();
+    try {
+        const [results] = await db.executeSql(
+            'UPDATE ChainsTbl SET isFollowed = ? WHERE id = ?',
+            [isFollowed, walletId]
+        );
+
+        console.log('resultsresultsresultsresults', results);
+
+        if (results.rowsAffected > 0) {
+            return true;
+        }
+        throw new Error('Failed to update wallet name');
+    } catch (error) {
+        console.log('Error updating wallet name:', error);
+        throw error;
+    }
+};
+
 
 // Default export with all methods
 const database = {
@@ -444,7 +467,8 @@ const database = {
     updateWalletAccountName,
     updateWalletLogo,
     getActiveWalletsWithTokenData,
-    switchActiveWallet
+    switchActiveWallet,
+    updateFollowStatus
 };
 
 export default database;

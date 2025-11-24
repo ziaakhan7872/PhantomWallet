@@ -3,6 +3,17 @@ import { EvmAddressValidation } from "../../services/Helpers/EVMHelper";
 import { solanaAddresValidation } from "../../services/Helpers/SolanaHelper";
 
 
+export const convertBigValues = (value) => {
+    if (value >= 1e12) {
+        return (value / 1e12).toFixed(2) + 'T';
+    } else if (value >= 1e9) {
+        return (value / 1e9).toFixed(2) + 'B';
+    } else if (value >= 1e6) {
+        return (value / 1e6).toFixed(2) + 'M';
+    } else {
+        return '$' + value?.toFixed(2)
+    }
+}
 
 export function formatBalance(balance) {
     const numString = balance?.toString();
@@ -33,8 +44,17 @@ export function formatBalancetwoDigit(balance) {
         return parseFloat(parts[0] + "." + parts[1]?.substring(0, 2));
     }
 
-    return numString;
+    return numString
 }
+
+export function formatValueTwoDigit(balance) {
+    const num = Number(balance);
+
+    if (!num || Math.abs(num) < 0.0000005) return "0.00";
+
+    return num.toFixed(2); // ALWAYS keeps 2 digits
+}
+
 
 export const NumberRoundFunction = (number) => {
     const num = Number(number);

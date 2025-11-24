@@ -93,6 +93,8 @@ export const getTokenLogo = (chainName) => {
             return Images.baseLogo;
         case 'Arbitrum':
             return Images.arbitrumLogo;
+
+        default: return null;
     }
 }
 

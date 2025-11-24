@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     tokenCurentPrice: {
         fontSize: 42,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray110,
+        color: colors.white,
     },
     greenArrowUp: {
         width: wp(2.5),
@@ -39,34 +39,34 @@ export const styles = StyleSheet.create({
         marginTop: Platform.OS == 'ios' ? 0 : hp(0.2)
     },
     bgView: {
-        width: wp(44),
-        borderRadius: 12,
+        width: wp(45.5),
+        borderRadius: 20,
         padding: wp(3),
-        backgroundColor: colors.gray23
+        backgroundColor: colors.gray14
     },
     balanceText: {
         fontSize: 12,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray25,
+        color: '#C0C0C0',
         textAlign: 'left',
         paddingHorizontal: wp(2)
     },
     balance: {
         fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray62,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.white,
         textAlign: 'left',
         paddingHorizontal: wp(2)
     },
     hourBgView: {
-        borderRadius: 12,
+        borderRadius: 21,
         padding: wp(3),
-        backgroundColor: colors.gray23
+        backgroundColor: colors.gray14
     },
     changeReturn: {
         fontSize: 13,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray36,
+        color: '#C0C0C0',
     },
     changeAmount: {
         fontSize: 13,
@@ -76,22 +76,21 @@ export const styles = StyleSheet.create({
     perpsText: {
         fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray108,
+        color: '#C0C0C0',
     },
     twoRoundsWithCircle: {
-        width: wp(7),
-        height: wp(7),
-        marginRight: wp(3)
+        width: wp(12),
+        height: wp(12),
     },
     tradeText: {
         fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray63,
+        color: colors.white,
     },
     multiplyText: {
         fontSize: 12,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray45,
+        color: '#C0C0C0',
     },
     stakeText: {
         fontSize: 12,
@@ -129,22 +128,22 @@ export const styles = StyleSheet.create({
     },
     infoText1: {
         fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray111,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#C0C0C0',
     },
     about: {
         fontSize: 14,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.white,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#C0C0C0',
     },
     desc: {
         fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray8
+        color: '#C0C0C0'
     },
     showMore: {
-        fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
+        fontSize: 14,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.lightPurple10
     },
     website: {
@@ -162,22 +161,22 @@ export const styles = StyleSheet.create({
     performanceText: {
         fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray47
+        color: '#C0C0C0'
     },
     receivedText: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray25,
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.Bold,
+        color: colors.white,
     },
     amountCrypto: {
-        fontSize: 12,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray97,
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.Medium,
+        color: colors.white,
     },
     address: {
         fontSize: 14,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.green13,
+        fontFamily: Fonts.Poppins.Medium,
+        color: '#C0C0C0',
         textAlign: 'left'
     },
     resText1: {
@@ -189,19 +188,19 @@ export const styles = StyleSheet.create({
     positionText: {
         fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray98,
+        color: '#C0C0C0',
     },
     bottomBtn1: {
         width: wp(42),
         height: wp(10.5),
-        backgroundColor: colors.lightPurple11,
+        backgroundColor: colors.mainBtnColor,
         borderWidth: 0,
         borderRadius: 9
     },
     bottomBtn2: {
         width: wp(42),
         height: wp(10.5),
-        backgroundColor: colors.lightPurple11,
+        backgroundColor: colors.mainBtnColor,
         borderWidth: 0,
         borderRadius: 9
     },

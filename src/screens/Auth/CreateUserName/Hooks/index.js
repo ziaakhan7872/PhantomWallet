@@ -24,7 +24,7 @@ const useCreateUserName = (props) => {
                         setActiveWallet(wallet);
                         // Set initial username if wallet already has a name
                         if (wallet.name) {
-                            setUserName(wallet.name);
+                            setUserName('Account');
                         }
                     } else {
                         setWalletError('No active wallet found. Please create a wallet first.');

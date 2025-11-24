@@ -8,9 +8,8 @@ import { colors } from '../../../../constants/colors'
 import { appStyles } from '../../../../utilities/appStyles/index'
 import { HomeTabs, HorizontalSrcollList, tokensData } from '../../../../components/dummyData'
 import Spacer, { HorizontalSpacer } from '../../../../components/Spacer'
-import { formatBalancetwoDigit, NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
+import { formatBalancetwoDigit, formatValueTwoDigit, NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
 import { getTokenLogo } from '../../Receive/Components'
-
 
 export const AccountCard = ({ profile, logo, accountName, accountNumber, rightImage1, rightImage2, onPressRightImage1, onPressRightImage2, onPressAccount }) => {
     return (
@@ -41,9 +40,9 @@ export const BalanceCard = ({ totalBalance, dailyPnl }) => {
         <View>
             <PoppinsText style={styles.balanceText}>${NumberRoundFunction(totalBalance)}</PoppinsText>
             <View style={{ ...appStyles.rowBasic }}>
-                <PoppinsText style={[styles.amount, { color: dailyPnl?.pnlAmount?.toString()?.includes('-') ? '#BC593F' : '#447E65' }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
-                <View style={[styles.dollarAmountBox, { backgroundColor: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#BC593F' : '#34A06E' }]}>
-                    <PoppinsText style={[styles.dollarAmount, { color: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#000' : '#9B4026' }]}>{`${NumberRoundFunction(dailyPnl?.percentChange24h)}%`}</PoppinsText>
+                <PoppinsText style={[styles.amount, { color: dailyPnl?.pnlAmount?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>{`$${formatValueTwoDigit(dailyPnl?.pnlAmount)}`}</PoppinsText>
+                <View style={[styles.dollarAmountBox, { backgroundColor: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
+                    <PoppinsText style={[styles.dollarAmount, { color: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#000' : '#e94f33' }]}>{`${formatValueTwoDigit(dailyPnl?.percentChange24h)}%`}</PoppinsText>
                 </View>
             </View>
         </View>
@@ -175,18 +174,25 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
                                     {/* <Image source={{ uri: String(item?.tokenLogo) }} resizeMode='contain' style={styles.tokenLogo} /> */}
                                     {item?.logoURI ?
                                         <View>
-                                            <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
-                                            {item?.type == 'token' &&
-                                                <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} />
+                                            {item?.tokenName == 'Ethereum' ?
+                                                <View style={[styles.tokenLogo2, { backgroundColor: colors.white }]}>
+                                                    <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                                </View>
+                                                :
+                                                <View>
+                                                    <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                                </View>
                                             }
+                                            <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} />
                                         </View>
                                         :
                                         <View style={styles.tokenLogo1}>
                                             <PoppinsText style={styles.tokenName}>{item?.symbol?.slice(0, 1)?.toUpperCase()}</PoppinsText>
                                         </View>
                                     }
-                                    <View>
+                                    <View style={{ marginLeft: wp(3) }}>
                                         <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
+                                        <Spacer customHeight={hp(0.3)} />
                                         <PoppinsText style={styles.tokenSymbol}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
                                     </View>
                                 </View>
@@ -197,7 +203,10 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
                                         minimumFractionDigits: 2,
                                         maximumFractionDigits: 2,
                                     })}</PoppinsText>
-                                    <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#7B453E' : '#3D6857' }]}>{formatBalancetwoDigit(item?.change24h)}%</PoppinsText>
+                                    <Spacer customHeight={hp(0.3)} />
+                                    <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
+                                        {item?.change24h?.toString()?.includes('-') ? '' : '+'}{formatValueTwoDigit(item?.change24h)}%
+                                    </PoppinsText>
                                 </View>
                             </View>
                         </TouchableOpacity>
@@ -226,17 +235,102 @@ export const DiscoverView = ({ tokenData, onPressToken }) => {
                                 {/* <Image source={{ uri: String(item?.tokenLogo) }} resizeMode='contain' style={styles.tokenLogo} /> */}
                                 {item?.logoURI ?
                                     <View>
-                                        <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
-                                        {item?.type == 'token' &&
-                                            <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} />
+                                        {item?.tokenName == 'Ethereum' ?
+                                            <View style={[styles.tokenLogo2, { backgroundColor: colors.white }]}>
+                                                <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                            </View>
+                                            :
+                                            <View>
+                                                <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                            </View>
                                         }
+                                        <Image source={getTokenLogo(item?.chainName) ?? { uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogoChain} />
                                     </View>
                                     :
                                     <View style={styles.tokenLogo1}>
                                         <PoppinsText style={styles.tokenName}>{item?.symbol?.slice(0, 1)?.toUpperCase()}</PoppinsText>
                                     </View>
                                 }
-                                <View>
+                                <View style={{ marginLeft: wp(3) }}>
+                                    <PoppinsText style={styles.tokenName1}>{item?.symbol?.toUpperCase()}</PoppinsText>
+                                    <PoppinsText style={styles.tokenSymbol1}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
+                                </View>
+                            </View>
+                            <View>
+                                <PoppinsText style={styles.tokenPrice1}>${NumberRoundFunction(
+                                    Number(item?.currentPriceUsd),
+                                ).toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</PoppinsText>
+                                <PoppinsText style={[styles.dollarPrice1, { color: item?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
+                                    {item?.change24h?.toString()?.includes('-') ? '' : '+'}{formatBalancetwoDigit(item?.change24h)}%
+                                </PoppinsText>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+
+                )
+            }}
+        />
+    )
+}
+
+export const FollowingView = ({ tokenData, onPressToken }) => {
+    console.log('tokenDatatokenData:::tokenData', tokenData);
+
+    let data = tokenData?.filter(item => item?.isFollowed == 1) ?? [];
+    console.log('tokenDatatokenData:::data', data);
+
+    return (
+        <FlatList
+            data={data ?? []}
+            showsVerticalScrollIndicator={false}
+            removeClippedSubviews={false}
+            ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
+            contentContainerStyle={{}}
+            ListEmptyComponent={() => {
+                return (
+                    <View>
+                        <Spacer customHeight={hp(1)} />
+                        <Image source={Images.following} resizeMode='contain' style={styles.followImage} />
+                        <Spacer customHeight={hp(2)} />
+                        <PoppinsText style={styles.followingTitle}>Add tokens to your Followings list</PoppinsText>
+                        <Spacer customHeight={hp(1)} />
+                        <PoppinsText style={styles.followingDesc}>Stay up to date by 'Following' the tokens you care about the most</PoppinsText>
+                        <Spacer customHeight={hp(2)} />
+
+                        <View style={styles.btnTitleView}>
+                            <PoppinsText style={styles.btnTitle}>Browse tokens</PoppinsText>
+                        </View>
+                    </View>
+                )
+            }}
+            renderItem={({ item, index }) => {
+                return (
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => onPressToken(item)} style={{ ...styles.tokenCardBgView1, }}>
+                        <View style={appStyles.row}>
+                            <View style={appStyles.rowBasic}>
+                                {/* <Image source={{ uri: String(item?.tokenLogo) }} resizeMode='contain' style={styles.tokenLogo} /> */}
+                                {item?.logoURI ?
+                                    <View>
+                                        {item?.tokenName == 'Ethereum' ?
+                                            <View style={[styles.tokenLogo2, { backgroundColor: colors.white }]}>
+                                                <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                            </View>
+                                            :
+                                            <View>
+                                                <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                            </View>
+                                        }
+                                        <Image source={getTokenLogo(item?.chainName) ?? { uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogoChain} />
+                                    </View>
+                                    :
+                                    <View style={styles.tokenLogo1}>
+                                        <PoppinsText style={styles.tokenName}>{item?.symbol?.slice(0, 1)?.toUpperCase()}</PoppinsText>
+                                    </View>
+                                }
+                                <View style={{ marginLeft: wp(3) }}>
                                     <PoppinsText style={styles.tokenName1}>{item?.symbol?.toUpperCase()}</PoppinsText>
                                     <PoppinsText style={styles.tokenSymbol1}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
                                 </View>
@@ -248,7 +342,7 @@ export const DiscoverView = ({ tokenData, onPressToken }) => {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                 })}</PoppinsText>
-                                <PoppinsText style={[styles.dollarPrice1, { color: item?.change24h?.toString()?.includes('-') ? '#75403B' : '#3F5F51' }]}>{formatBalancetwoDigit(item?.change24h)}%</PoppinsText>
+                                <PoppinsText style={[styles.dollarPrice1, { color: item?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>{formatBalancetwoDigit(item?.change24h)}%</PoppinsText>
                             </View>
                         </View>
                     </TouchableOpacity>
@@ -256,24 +350,6 @@ export const DiscoverView = ({ tokenData, onPressToken }) => {
                 )
             }}
         />
-    )
-}
-
-export const FollowingView = () => {
-    return (
-        <View>
-            <Spacer customHeight={hp(1)} />
-            <Image source={Images.following} resizeMode='contain' style={styles.followImage} />
-            <Spacer customHeight={hp(2)} />
-            <PoppinsText style={styles.followingTitle}>Add tokens to your Followings list</PoppinsText>
-            <Spacer customHeight={hp(1)} />
-            <PoppinsText style={styles.followingDesc}>Stay up to date by 'Following' the tokens you care about the most</PoppinsText>
-            <Spacer customHeight={hp(2)} />
-
-            <View style={styles.btnTitleView}>
-                <PoppinsText style={styles.btnTitle}>Browse tokens</PoppinsText>
-            </View>
-        </View>
     )
 }
 
@@ -298,14 +374,14 @@ const styles = StyleSheet.create({
         marginRight: wp(3)
     },
     accountName: {
-        fontSize: 11,
+        fontSize: 13,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray37,
+        color: '#C0C0C0',
     },
     accountBalance: {
-        fontSize: 18,
+        fontSize: 20,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray38,
+        color: colors.white,
     },
     rightImage1: {
         width: wp(5),
@@ -321,7 +397,7 @@ const styles = StyleSheet.create({
     balanceText: {
         fontSize: 42,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray90,
+        color: colors.white,
         // textAlign: 'center'
     },
     amount: {
@@ -357,10 +433,9 @@ const styles = StyleSheet.create({
     // TokensCard
     tokenCardBgView: {
         width: wp(92),
-        paddingHorizontal: wp(3),
+        padding: wp(4),
         backgroundColor: colors.gray14,
-        paddingVertical: hp(1.5),
-        borderRadius: 14,
+        borderRadius: 20,
     },
     tokenCardBgView1: {
         width: wp(92),
@@ -370,46 +445,53 @@ const styles = StyleSheet.create({
     tokenLogo: {
         width: wp(12),
         height: wp(12),
-        marginRight: wp(3),
+        // marginRight: wp(3),
         borderRadius: 100
+    },
+    tokenLogo2: {
+        width: wp(12),
+        height: wp(12),
+        // marginRight: wp(3),
+        borderRadius: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     tokenLogoChain: {
         width: wp(5),
         height: wp(5),
         position: 'absolute',
         bottom: 0,
-        right: wp(2.5),
+        right: 0,
         borderWidth: 2,
         borderRadius: 8
     },
     tokenLogo1: {
         width: wp(12),
         height: wp(12),
-        marginRight: wp(3),
         borderRadius: 100,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.gray136,
     },
     tokenName: {
-        fontSize: 16,
-        fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray92
+        fontSize: 18,
+        fontFamily: Fonts.Poppins.Bold,
+        color: colors.white
     },
     tokenSymbol: {
         fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#7A7A7A'
+        color: '#C0C0C0'
     },
     tokenPrice: {
         fontSize: 16,
-        fontFamily: Fonts.Poppins.Bold,
-        color: colors.gray44,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.white,
         textAlign: 'right'
     },
     dollarPrice: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.SemiBold,
+        fontSize: 15,
+        fontFamily: Fonts.Poppins.Regular,
         textAlign: 'right'
     },
     // HorizontalSrcoll
@@ -418,7 +500,7 @@ const styles = StyleSheet.create({
         // height: hp(8),
         backgroundColor: colors.gray14,
         borderRadius: 14,
-        padding: wp(4),
+        padding: wp(5),
     },
     customTokenLogo: {
         width: wp(10.5),
@@ -442,14 +524,14 @@ const styles = StyleSheet.create({
         marginRight: wp(3)
     },
     prepTitle: {
-        fontSize: 16,
+        fontSize: 18,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray7,
+        color: colors.white,
     },
     prepDesc: {
         fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray16,
+        color: '#C0C0C0',
         width: wp(60)
     },
     // TokensTabs
@@ -495,21 +577,21 @@ const styles = StyleSheet.create({
     tokenName1: {
         fontSize: 16,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray86
+        color: colors.white
     },
     tokenSymbol1: {
         fontSize: 13,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#787878'
+        color: '#C0C0C0'
     },
     tokenPrice1: {
         fontSize: 16,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray25,
+        color: colors.white,
         textAlign: 'right'
     },
     dollarPrice1: {
-        fontSize: 14,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
         textAlign: 'right'
     },

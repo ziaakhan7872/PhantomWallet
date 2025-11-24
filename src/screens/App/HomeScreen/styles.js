@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
     prepTitle: {
         fontSize: 22,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray75
+        color: colors.white
     },
     manageText: {
         fontSize: 12,

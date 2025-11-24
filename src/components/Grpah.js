@@ -7,7 +7,7 @@ import { hp, wp } from './ResponsiveComponent';
 
 const { width } = Dimensions.get('window');
 
-export const Graph = ({ graphData, graphLoading, change24h }) => {
+export const Graph = ({ graphData, graphLoading, change24h, selectedTab }) => {
     let data = graphData?.map((item) => {
         return {
             value: item?.length > 0 ? item[1] : 0,
@@ -33,7 +33,7 @@ export const Graph = ({ graphData, graphLoading, change24h }) => {
         <View style={styles.container}>
             {graphLoading ? (
                 <View style={{ height: hp(28.9), justifyContent: 'center', alignItems: 'center' }}>
-                    <ActivityIndicator color={'#75bb75'} size={'large'} />
+                    <ActivityIndicator color={'#29a16b'} size={'large'} />
                 </View>
             ) : (
                 <LineChart
@@ -42,10 +42,10 @@ export const Graph = ({ graphData, graphLoading, change24h }) => {
                     hideDataPoints
                     height={200}
                     onlyPositive
-                    spacing={wp(2.5)}
+                    spacing={selectedTab == '1H' ? wp(2) : (selectedTab == '1D' || selectedTab == '1W') ? wp(1.5) : wp(0.5)}
                     hideOrigin
                     hideYAxisText
-                    color={change24h?.toString()?.includes('-') ? '#BC593F' : '#75bb75'}
+                    color={change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b'}
                     curved
                     scrollAnimation
                     scrollToEnd
