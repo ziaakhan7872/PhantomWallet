@@ -51,10 +51,16 @@ const TokenDetails = (props) => {
                     <View style={{}}>
                         <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText>
 
-                        <View style={{ ...appStyles.rowBasic }}>
+                        {/* <View style={{ ...appStyles.rowBasic }}>
                             <PoppinsText style={[styles.dollarPrice, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>{`$${formatValueTwoDigit(dailyPnl?.pnlAmount)}`}</PoppinsText>
                             <View style={[styles.percentageRoundBox, { backgroundColor: previousTokenData?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
                                 <PoppinsText style={[styles.percentageText, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#000' : '#e94f33' }]}>{`${formatValueTwoDigit(dailyPnl?.change24h)}%`}</PoppinsText>
+                            </View>
+                        </View> */}
+                        <View style={{ ...appStyles.rowBasic }}>
+                            <PoppinsText style={[styles.dollarPrice, { color: '#29a16b' }]}>{`$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                            <View style={[styles.percentageRoundBox, { backgroundColor: '#29a16b' }]}>
+                                <PoppinsText style={[styles.percentageText, { color: '#000' }]}>{`${formatValueTwoDigit(Math.abs(Number(dailyPnl?.change24h)))}%`}</PoppinsText>
                             </View>
                         </View>
                     </View>

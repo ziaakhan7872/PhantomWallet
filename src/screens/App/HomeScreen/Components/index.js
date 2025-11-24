@@ -40,9 +40,13 @@ export const BalanceCard = ({ totalBalance, dailyPnl }) => {
         <View>
             <PoppinsText style={styles.balanceText}>${NumberRoundFunction(totalBalance)}</PoppinsText>
             <View style={{ ...appStyles.rowBasic }}>
-                <PoppinsText style={[styles.amount, { color: dailyPnl?.pnlAmount?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>{`$${formatValueTwoDigit(dailyPnl?.pnlAmount)}`}</PoppinsText>
+                {/* <PoppinsText style={[styles.amount, { color: dailyPnl?.pnlAmount?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>{`$${formatValueTwoDigit(dailyPnl?.pnlAmount)}`}</PoppinsText>
                 <View style={[styles.dollarAmountBox, { backgroundColor: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
                     <PoppinsText style={[styles.dollarAmount, { color: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#000' : '#e94f33' }]}>{`${formatValueTwoDigit(dailyPnl?.percentChange24h)}%`}</PoppinsText>
+                </View> */}
+                <PoppinsText style={[styles.amount, { color: '#29a16b' }]}>{`$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                <View style={[styles.dollarAmountBox, { backgroundColor: '#29a16b' }]}>
+                    <PoppinsText style={[styles.dollarAmount, { color: '#000' }]}>{`${formatValueTwoDigit(Math.abs(Number(dailyPnl?.percentChange24h)))}%`}</PoppinsText>
                 </View>
             </View>
         </View>
@@ -95,14 +99,42 @@ export const HorizontalSrcoll = ({ onPress, onPressCross }) => {
 }
 
 export const PrepView = ({ }) => {
+
+    const [scale] = useState(new Animated.Value(1));
+
+    const handlePressIn = () => {
+        Animated.timing(scale, {
+            toValue: 0.97,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
+    const handlePressOut = () => {
+        Animated.timing(scale, {
+            toValue: 1,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
+
     return (
-        <View style={[appStyles.rowBasic, styles.horizontalBgView]}>
-            <Image source={Images.perpLogo1} resizeMode='contain' style={styles.perpLogo} />
-            <View>
-                <PoppinsText style={styles.prepTitle}>{'More Power with Perps'}</PoppinsText>
-                <PoppinsText style={styles.prepDesc}>{'Trade with up to 40x leverage'}</PoppinsText>
-            </View>
-        </View>
+        <Animated.View style={{ transform: [{ scale }] }}>
+            <TouchableOpacity
+                onPressIn={handlePressIn}
+                onPressOut={handlePressOut}
+                activeOpacity={0.8}
+                style={[appStyles.rowBasic, styles.horizontalBgView]}>
+                <Image source={Images.perpLogo1} resizeMode='contain' style={styles.perpLogo} />
+                <View>
+                    <PoppinsText style={styles.prepTitle}>{'More Power with Perps'}</PoppinsText>
+                    <PoppinsText style={styles.prepDesc}>{'Trade with up to 40x leverage'}</PoppinsText>
+                </View>
+            </TouchableOpacity>
+        </Animated.View>
     )
 }
 
@@ -252,7 +284,7 @@ export const DiscoverView = ({ tokenData, onPressToken }) => {
                                     </View>
                                 }
                                 <View style={{ marginLeft: wp(3) }}>
-                                    <PoppinsText style={styles.tokenName1}>{item?.symbol?.toUpperCase()}</PoppinsText>
+                                    <PoppinsText style={styles.tokenName}>{item?.symbol?.toUpperCase()}</PoppinsText>
                                     <PoppinsText style={styles.tokenSymbol1}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
                                 </View>
                             </View>
@@ -331,7 +363,7 @@ export const FollowingView = ({ tokenData, onPressToken }) => {
                                     </View>
                                 }
                                 <View style={{ marginLeft: wp(3) }}>
-                                    <PoppinsText style={styles.tokenName1}>{item?.symbol?.toUpperCase()}</PoppinsText>
+                                    <PoppinsText style={styles.tokenName}>{item?.symbol?.toUpperCase()}</PoppinsText>
                                     <PoppinsText style={styles.tokenSymbol1}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
                                 </View>
                             </View>
@@ -494,6 +526,17 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.Poppins.Regular,
         textAlign: 'right'
     },
+    tokenPrice1: {
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.white,
+        textAlign: 'right'
+    },
+    dollarPrice1: {
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.Regular,
+        textAlign: 'right'
+    },
     // HorizontalSrcoll
     horizontalBgView: {
         width: wp(92),
@@ -580,19 +623,8 @@ const styles = StyleSheet.create({
         color: colors.white
     },
     tokenSymbol1: {
-        fontSize: 13,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         color: '#C0C0C0'
-    },
-    tokenPrice1: {
-        fontSize: 16,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.white,
-        textAlign: 'right'
-    },
-    dollarPrice1: {
-        fontSize: 15,
-        fontFamily: Fonts.Poppins.Regular,
-        textAlign: 'right'
     },
 })

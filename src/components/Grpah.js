@@ -13,6 +13,7 @@ export const Graph = ({ graphData, graphLoading, change24h, selectedTab }) => {
             value: item?.length > 0 ? item[1] : 0,
         }
     });
+    console.log('datadatadata,datadata', data?.length);
 
     let chartData = data?.length > 0 ? data : [{ value: 0 }];
 
@@ -29,6 +30,14 @@ export const Graph = ({ graphData, graphLoading, change24h, selectedTab }) => {
     const lastItem = normalizedData[normalizedData?.length - 1]?.value ?? 0;
     const secondLastItem = normalizedData[normalizedData?.length - 2]?.value ?? 0;
     console.log('lastItem:::lastItem', lastItem, secondLastItem);
+
+
+    // let finalData = selectedTab == '1H' ? [...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData] :
+    //     (selectedTab == '1D' || selectedTab == '1W') ? [...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData, ...normalizedData] : normalizedData;
+
+
+    let finalData = selectedTab == '1H' ? [...normalizedData, ...normalizedData,] : normalizedData
+
     return (
         <View style={styles.container}>
             {graphLoading ? (
@@ -37,12 +46,12 @@ export const Graph = ({ graphData, graphLoading, change24h, selectedTab }) => {
                 </View>
             ) : (
                 <LineChart
-                    data={normalizedData}
+                    data={finalData}
                     width={wp(89)}
                     hideDataPoints
                     height={200}
                     onlyPositive
-                    spacing={selectedTab == '1H' ? wp(2) : (selectedTab == '1D' || selectedTab == '1W') ? wp(1.5) : wp(0.5)}
+                    spacing={selectedTab == '1H' ? wp(1) : (selectedTab == '1D' || selectedTab == '1W') ? wp(1) : wp(0.5)}
                     hideOrigin
                     hideYAxisText
                     color={change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b'}
