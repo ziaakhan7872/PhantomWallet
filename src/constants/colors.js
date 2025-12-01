@@ -208,4 +208,9 @@ export const colors = {
     lightPurple17: "#A3A6FC",
     lightPurple18: "#5E56A1",
     mainBtnColor: "#aa9ef1",
+
+    mainRed: '#ED4518',
+    mainGreen: '#3A9C6D',
+    mainRedChange: '#DE5B2D',
+    mainGreenChange: '#419B78',
 }

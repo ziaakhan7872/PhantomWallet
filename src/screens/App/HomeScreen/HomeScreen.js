@@ -93,28 +93,28 @@ const HomeScreen = (props) => {
                 </View>
 
                 // perps
-                <Spacer customHeight={hp(1.5)} />
+                <Spacer customHeight={hp(2)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.prepMain)} style={appStyles.rowBasic}>
                     <PoppinsText style={styles.prepTitle}>Perps</PoppinsText>
                     <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(3), height: wp(3), marginLeft: wp(2) }} />
                 </TouchableOpacity>
-                <Spacer customHeight={hp(1.5)} />
+                <Spacer customHeight={hp(1)} />
                 <PrepView />
 
                 // tokens
                 <Spacer customHeight={hp(2.5)} />
-                <TouchableOpacity activeOpacity={0.8} onPress={() => { }} style={appStyles.rowBasic}>
+                <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.moreTokens)} style={appStyles.rowBasic}>
                     <PoppinsText style={styles.prepTitle}>Tokens</PoppinsText>
                     <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(3), marginLeft: wp(2) }} />
                 </TouchableOpacity>
-                <Spacer customHeight={hp(1.5)} />
+                <Spacer customHeight={hp(1)} />
 
                 <TokensCard
-                    tokenData={sorted ?? []}
+                    tokenData={sorted?.slice(0, 5) ?? []}
                     onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                 />
 
-                // nfts
+                {/* // nfts
                 <Spacer customHeight={hp(2.5)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => { }} style={appStyles.rowBasic}>
                     <PoppinsText style={styles.prepTitle}>Collectibles</PoppinsText>
@@ -134,15 +134,15 @@ const HomeScreen = (props) => {
                             </View>
                         )
                     }}
-                />
+                /> */}
 
-                // discover and following
+                {/* // discover and following
                 <Spacer customHeight={hp(2)} />
                 <View style={appStyles.rowBasic}>
                     <PoppinsText onPress={() => setDiscoverTitle('Discover')} style={[styles.prepTitle, { marginRight: wp(3), color: discoverTitle == 'Discover' ? colors.white : '#5C5C5C' }]}>Discover</PoppinsText>
                     <PoppinsText onPress={() => setDiscoverTitle('Following')} style={[styles.prepTitle, { color: discoverTitle == 'Following' ? colors.white : '#5C5C5C' }]}>Following</PoppinsText>
                 </View>
-                <Spacer customHeight={hp(2)} />
+                <Spacer customHeight={hp(1)} />
 
                 {discoverTitle == 'Discover' && (
                     <DiscoverView
@@ -157,7 +157,7 @@ const HomeScreen = (props) => {
                         onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                     />
                     // <FollowingView />
-                )}
+                )} */}
 
                 <Spacer customHeight={hp(3)} />
                 <View style={appStyles.rowBasic}>

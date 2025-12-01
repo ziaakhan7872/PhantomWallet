@@ -15,8 +15,11 @@ export const AccountCard = ({ profile, logo, accountName, accountNumber, rightIm
     return (
         <View style={appStyles.row}>
             <TouchableOpacity activeOpacity={0.8} onPress={onPressAccount} style={appStyles.rowBasic}>
-                <Image source={profile} resizeMode='contain' style={styles.profile} />
-                {/* <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{logo ?? '😍'}</PoppinsText> */}
+                {logo ?
+                    <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{logo ?? '😍'}</PoppinsText>
+                    :
+                    <Image source={profile} resizeMode='contain' style={styles.profile} />
+                }
                 <View>
                     {accountName ? <PoppinsText style={styles.accountName}>{accountName}</PoppinsText> : null}
                     <PoppinsText style={styles.accountBalance}>{accountNumber}</PoppinsText>
@@ -44,9 +47,9 @@ export const BalanceCard = ({ totalBalance, dailyPnl }) => {
                 <View style={[styles.dollarAmountBox, { backgroundColor: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
                     <PoppinsText style={[styles.dollarAmount, { color: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#000' : '#e94f33' }]}>{`${formatValueTwoDigit(dailyPnl?.percentChange24h)}%`}</PoppinsText>
                 </View> */}
-                <PoppinsText style={[styles.amount, { color: '#29a16b' }]}>{`$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
-                <View style={[styles.dollarAmountBox, { backgroundColor: '#29a16b' }]}>
-                    <PoppinsText style={[styles.dollarAmount, { color: '#000' }]}>{`${formatValueTwoDigit(Math.abs(Number(dailyPnl?.percentChange24h)))}%`}</PoppinsText>
+                <PoppinsText style={[styles.amount, { color: colors.mainGreen }]}>{`+$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                <View style={[styles.dollarAmountBox, { backgroundColor: '#018551' }]}>
+                    <PoppinsText style={[styles.dollarAmount, { color: '#101010' }]}>{`+${formatValueTwoDigit(Math.abs(Number(dailyPnl?.percentChange24h)))}%`}</PoppinsText>
                 </View>
             </View>
         </View>
@@ -140,7 +143,8 @@ export const PrepView = ({ }) => {
 
 export const TokensCard = ({ tokenData, onPressToken }) => {
 
-    let data = tokenData?.filter(item => item?.chainName == 'Ethereum') ?? [];
+    // let data = tokenData?.filter(item => item?.chainName == 'Ethereum') ?? [];
+    let data = tokenData ?? [];
 
     const scaleValues = useState(
         data.reduce((acc, item) => {
@@ -236,7 +240,7 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
                                         maximumFractionDigits: 2,
                                     })}</PoppinsText>
                                     <Spacer customHeight={hp(0.3)} />
-                                    <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
+                                    <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? colors.mainRedChange : colors.mainGreenChange }]}>
                                         {item?.change24h?.toString()?.includes('-') ? '' : '+'}{formatValueTwoDigit(item?.change24h)}%
                                     </PoppinsText>
                                 </View>
@@ -401,14 +405,14 @@ export const TokensTabs = () => {
 const styles = StyleSheet.create({
     // AccountCard
     profile: {
-        width: wp(9),
-        height: wp(9),
+        width: wp(9.5),
+        height: wp(9.5),
         marginRight: wp(3)
     },
     accountName: {
         fontSize: 13,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: '#C0C0C0',
+        color: '#B1B1B1',
     },
     accountBalance: {
         fontSize: 20,
@@ -434,19 +438,19 @@ const styles = StyleSheet.create({
     },
     amount: {
         fontSize: 16,
-        fontFamily: Fonts.Poppins.Bold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: '#447E65',
         // textAlign: 'center'
     },
     dollarAmountBox: {
         backgroundColor: '#34A06E',
         paddingHorizontal: wp(1),
-        paddingVertical: hp(0.2),
+        paddingVertical: hp(0.1),
         borderRadius: 7,
         marginLeft: wp(2)
     },
     dollarAmount: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: '#175232',
     },
@@ -466,8 +470,11 @@ const styles = StyleSheet.create({
     tokenCardBgView: {
         width: wp(92),
         padding: wp(4),
-        backgroundColor: colors.gray14,
+        // backgroundColor: colors.gray14,
+        backgroundColor: '#222222',
         borderRadius: 20,
+        borderWidth: 0.4,
+        borderColor: '#1B1B1B',
     },
     tokenCardBgView1: {
         width: wp(92),
@@ -475,8 +482,8 @@ const styles = StyleSheet.create({
         borderRadius: 12,
     },
     tokenLogo: {
-        width: wp(12),
-        height: wp(12),
+        width: wp(11.5),
+        height: wp(11.5),
         // marginRight: wp(3),
         borderRadius: 100
     },
@@ -506,18 +513,18 @@ const styles = StyleSheet.create({
         backgroundColor: colors.gray136,
     },
     tokenName: {
-        fontSize: 18,
-        fontFamily: Fonts.Poppins.Bold,
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
     tokenSymbol: {
-        fontSize: 14,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#C0C0C0'
+        color: '#B4B4B4'
     },
     tokenPrice: {
         fontSize: 16,
-        fontFamily: Fonts.Poppins.Regular,
+        fontFamily: Fonts.Poppins.Medium,
         color: colors.white,
         textAlign: 'right'
     },
@@ -541,9 +548,12 @@ const styles = StyleSheet.create({
     horizontalBgView: {
         width: wp(92),
         // height: hp(8),
-        backgroundColor: colors.gray14,
-        borderRadius: 14,
-        padding: wp(5),
+        // backgroundColor: colors.gray14,
+        backgroundColor: '#222222',
+        borderRadius: 20,
+        padding: wp(4),
+        borderWidth: 0.4,
+        borderColor: '#1B1B1B',
     },
     customTokenLogo: {
         width: wp(10.5),
@@ -567,14 +577,14 @@ const styles = StyleSheet.create({
         marginRight: wp(3)
     },
     prepTitle: {
-        fontSize: 18,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
     prepDesc: {
         fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#C0C0C0',
+        color: '#B4B4B4',
         width: wp(60)
     },
     // TokensTabs

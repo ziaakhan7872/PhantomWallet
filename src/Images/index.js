@@ -2,6 +2,7 @@
 
 export const Images = {
     splashScreensLogo: require('./splashScreensLogo.png'),
+    Splash: require('./Splash.png'),
     onBoarding1Logo: require('./onBoarding1Logo.png'),
     onBoarding2: require('./onBoarding2.png'),
     onBoarding3: require('./onBoarding3.png'),
@@ -18,6 +19,7 @@ export const Images = {
     radioUnFill: require('./radioUnFill.png'),
     questionMark: require('./questionMark.png'),
     goBackArrow: require('./goBackArrow.png'),
+    setting: require('./setting.png'),
     walletLogo: require('./walletLogo.png'),
     seamLessSetup: require('./seamLessSetup.png'),
     seamLessSetup: require('./seamLessSetup.png'),
