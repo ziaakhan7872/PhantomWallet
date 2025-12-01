@@ -41,15 +41,28 @@ const TokenDetails = (props) => {
         calculate24hReturn
     } = useTokenDetails(props);
 
+
+    // REMOVE LATER ONLY FOR TESTINGGGGG /////////////
+    const [livePrice, setLivePrice] = useState("0.00");
+    const [liveTime, setLiveTime] = useState("");
+    // REMOVE LATER ONLY FOR TESTINGGGGG /////////////
+    console.log("price", livePrice);
+
     return (
         <MainContainerApp>
             <Spacer customHeight={hp(4)} />
             <View style={styles.mainView}>
                 <TokenDetailsHeader leftImage={Images.backArrow} isFollowed={isFollowed} tokenLogo={{ uri: previousTokenData?.logoURI }} tokenName={previousTokenData?.tokenName ?? ''} status={`${getValue() ?? '0'} people here`} onPressBackArrow={() => props?.navigation.goBack()} onPressFollow={() => onPressFollow()} />
                 <Spacer />
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={{}}>
-                        <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText>
+                <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
+                    <View style={{}} pointerEvents='box-none'>
+                        {/* <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText> */}
+
+                        {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
+                        <PoppinsText style={styles.tokenCurentPrice}>${livePrice}</PoppinsText>
+                        <PoppinsText style={[styles.tokenCurentPrice, { color: '#ffffff' }]}>-{liveTime}</PoppinsText>
+                        {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
+
 
                         {/* <View style={{ ...appStyles.rowBasic }}>
                             <PoppinsText style={[styles.dollarPrice, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>{`$${formatValueTwoDigit(dailyPnl?.pnlAmount)}`}</PoppinsText>
@@ -66,7 +79,19 @@ const TokenDetails = (props) => {
                     </View>
 
                     <Spacer />
-                    <Graph graphData={graphData} graphLoading={graphLoading} change24h={dailyPnl?.change24h} selectedTab={selectedTab} />
+                    {/* <Graph graphData={graphData} graphLoading={graphLoading} change24h={dailyPnl?.change24h} selectedTab={selectedTab} /> */}
+
+                    {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
+                    <Graph
+                        change24h={dailyPnl?.change24h}
+                        onPriceChange={(price, time) => {
+                            setLivePrice(price);
+                            setLiveTime(new Date(time).toLocaleString());
+                        }}
+                    />
+                    {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
+
+
 
                     <Spacer />
                     <RowTimeIntervals selectedTab={selectedTab} setSelectedTab={setSelectedTab} getGraphData={getGraphData} />
