@@ -219,7 +219,7 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
                                                     <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
                                                 </View>
                                             }
-                                            <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} />
+                                            {/* <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} /> */}
                                         </View>
                                         :
                                         <View style={styles.tokenLogo1}>

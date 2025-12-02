@@ -5,7 +5,9 @@ import { colors } from '../../../constants/colors'
 
 export const styles = StyleSheet.create({
     mainView: {
-        flex: 1,
+        flex: 1
+    },
+    margin: {
         paddingHorizontal: wp(4)
     },
     tokenCurentPrice: {
@@ -20,39 +22,37 @@ export const styles = StyleSheet.create({
         marginBottom: hp(0.3)
     },
     dollarPrice: {
-        fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.green7
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#447E65',
     },
     percentageRoundBox: {
-        marginLeft: wp(2),
-        paddingHorizontal: wp(2),
+        backgroundColor: '#34A06E',
+        paddingHorizontal: wp(1),
         paddingVertical: hp(0.1),
-        backgroundColor: colors.green5,
-        borderRadius: 5
+        borderRadius: 7,
+        marginLeft: wp(2)
     },
     percentageText: {
-        fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.green6,
-        textAlign: 'center',
-        marginTop: Platform.OS == 'ios' ? 0 : hp(0.2)
+        fontSize: 14,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#175232',
     },
     bgView: {
         width: wp(45.5),
         borderRadius: 20,
         padding: wp(3),
-        backgroundColor: colors.gray14
+        backgroundColor: '#222222'
     },
     balanceText: {
-        fontSize: 12,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#C0C0C0',
+        color: '#B4B4B4',
         textAlign: 'left',
         paddingHorizontal: wp(2)
     },
     balance: {
-        fontSize: 13,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
         textAlign: 'left',
@@ -61,12 +61,12 @@ export const styles = StyleSheet.create({
     hourBgView: {
         borderRadius: 21,
         padding: wp(3),
-        backgroundColor: colors.gray14
+        backgroundColor: '#222222'
     },
     changeReturn: {
-        fontSize: 13,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#C0C0C0',
+        color: '#B4B4B4',
     },
     changeAmount: {
         fontSize: 13,
@@ -83,14 +83,14 @@ export const styles = StyleSheet.create({
         height: wp(12),
     },
     tradeText: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
     multiplyText: {
-        fontSize: 12,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#C0C0C0',
+        color: '#B4B4B4',
     },
     stakeText: {
         fontSize: 12,
@@ -137,14 +137,14 @@ export const styles = StyleSheet.create({
         color: '#C0C0C0',
     },
     desc: {
-        fontSize: 14,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#C0C0C0'
+        color: '#B4B4B4'
     },
     showMore: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.lightPurple10
+        fontSize: 15,
+        fontFamily: Fonts.Poppins.Regular,
+        color: '#A193EA'
     },
     website: {
         width: wp(22.5),
@@ -165,44 +165,44 @@ export const styles = StyleSheet.create({
     },
     receivedText: {
         fontSize: 16,
-        fontFamily: Fonts.Poppins.Bold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
     amountCrypto: {
-        fontSize: 16,
-        fontFamily: Fonts.Poppins.Medium,
-        color: colors.white,
+        fontSize: 15,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.mainGreenChange,
     },
     address: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.Medium,
-        color: '#C0C0C0',
+        fontSize: 15,
+        fontFamily: Fonts.Poppins.Regular,
+        color: '#B4B4B4',
         textAlign: 'left'
     },
     resText1: {
-        fontSize: 10,
+        fontSize: 11,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray112,
+        color: '#A1A1A1',
         textAlign: 'left'
     },
     positionText: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: '#C0C0C0',
+        color: '#B4B4B4',
     },
     bottomBtn1: {
         width: wp(42),
-        height: wp(10.5),
-        backgroundColor: colors.mainBtnColor,
+        height: wp(11.5),
+        backgroundColor: '#5F57A2',
         borderWidth: 0,
-        borderRadius: 9
+        borderRadius: 16
     },
     bottomBtn2: {
         width: wp(42),
-        height: wp(10.5),
-        backgroundColor: colors.mainBtnColor,
+        height: wp(11.5),
+        backgroundColor: '#5F57A2',
         borderWidth: 0,
-        borderRadius: 9
+        borderRadius: 16
     },
     modalContainer: {
         backgroundColor: colors.bottomSheetBgColor,

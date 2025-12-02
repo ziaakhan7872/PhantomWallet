@@ -26,12 +26,13 @@ const useTokenDetails = (props) => {
     const [balanceModalVisible, setBalanceModalVisible] = useState(false)
     const [balanceValue, setBalanceValue] = useState(Number(previousTokenData?.balance) > 0 ? previousTokenData?.balance : '')
     const [tempBalanceValue, setTempBalanceValue] = useState(Number(previousTokenData?.balance) > 0 ? previousTokenData?.balance : '');
-    const [graphData, setGraphData] = useState([{ value: 0 }]);
+    const [graphData, setGraphData] = useState([{ value: 0, timestamp: 0 }]);
     const [graphLoading, setGraphLoading] = useState(false);
     const [tokenInfo, setTokenInfo] = useState(false);
     const [dailyPnl, setDailyPnl] = useState({});
     const [showMore, setShowMore] = useState(false);
     const [isFollowed, setIsFollowed] = useState(previousTokenData?.isFollowed ?? false);
+    const [randomPeopleCount, setRandomPeopleCount] = useState(0);
 
     // Fetch wallet addresses from database
     useFocusEffect(
@@ -48,7 +49,6 @@ const useTokenDetails = (props) => {
                     getGraphData(365);
                     setDailyPnl(calculateSelectedTokenPnL(previousTokenData));
                     const coinTokenInfo = await getCoinTokenInfoById(previousTokenData?.cmcId);
-                    console.log('coinTokenInfo::coinTokenInfo', coinTokenInfo);
                     setTokenInfo(coinTokenInfo)
                 } catch (error) {
                     console.log('Error fetching wallet addresses:', error);
@@ -64,6 +64,8 @@ const useTokenDetails = (props) => {
             setGraphLoading(true);
 
             const data = await getGraphDataById(previousTokenData?.cmcId, days);
+            console.log('datadatadatadatadatadatadata,data', data);
+
             setGraphData(data?.prices ?? []);
             setGraphLoading(false);
         } catch (error) {
@@ -182,7 +184,11 @@ const useTokenDetails = (props) => {
             return nextValue;
         };
     }
-    const getValue = createValueGenerator();
+
+    useEffect(() => {
+        const getValue = createValueGenerator();
+        setRandomPeopleCount(getValue() ?? 0);
+    }, []);
 
 
 
@@ -200,11 +206,11 @@ const useTokenDetails = (props) => {
         handleCloseModal,
         handleSaveBalance,
         handleBalanceChange,
-        getValue,
+        randomPeopleCount,
         graphData,
         graphLoading,
         getGraphData,
-        dailyPnl,
+        dailyPnl, setDailyPnl,
         tokenInfo,
         showMore, setShowMore,
         isFollowed, setIsFollowed,

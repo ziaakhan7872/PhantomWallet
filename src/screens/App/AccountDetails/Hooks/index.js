@@ -11,7 +11,7 @@ const useAccountDetails = (props) => {
     }, []);
 
     const getAllAccounts = async () => {
-        const accounts = await database.getAllWallets();
+        const accounts = await database.getAllAccountsWithTokenData();
         console.log('accountsaccountsaccounts', accounts);
         setAllAccounts(accounts);
     }

@@ -92,7 +92,11 @@ export const getTokenLogo = (chainName) => {
         case 'Base':
             return Images.baseLogo;
         case 'Arbitrum':
-            return Images.arbitrumLogo;
+            return Images.arbitrumColorFullLogo;
+        case 'Binance Smart Chain':
+            return Images.bnbColorFullLogo;
+        case 'Avalanche':
+            return Images.avalancheColorFullLogo;
 
         default: return null;
     }

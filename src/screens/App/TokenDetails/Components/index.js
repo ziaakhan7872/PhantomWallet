@@ -28,7 +28,7 @@ export const TokenDetailsHeader = ({ leftImage, tokenLogo, tokenName, status, is
                     <View style={{ marginLeft: wp(3) }}>
                         <PoppinsText style={styles.tokenName}>{tokenName}</PoppinsText>
                         <View style={appStyles.rowBasic}>
-                            <View style={{ width: wp(1.5), height: wp(1.5), backgroundColor: '#29a16b', borderRadius: 100, marginRight: wp(1) }} />
+                            <View style={{ width: wp(1.5), height: wp(1.5), backgroundColor: '#008856', borderRadius: 100, marginRight: wp(1) }} />
                             <PoppinsText style={styles.tokenDetailsStatus}>{status}</PoppinsText>
                         </View>
                     </View>
@@ -164,7 +164,7 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
             >
                 <PoppinsText style={{
                     ...styles.tabText,
-                    color: selectedTab === '1H' ? colors.lightPurple9 : '#C0C0C0',
+                    color: selectedTab === '1H' ? colors.lightPurple9 : colors.white,
 
                 }}>1H</PoppinsText>
             </TouchableOpacity>
@@ -179,7 +179,7 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
             >
                 <PoppinsText style={{
                     ...styles.tabText,
-                    color: selectedTab === '1D' ? colors.lightPurple9 : '#C0C0C0',
+                    color: selectedTab === '1D' ? colors.lightPurple9 : colors.white,
                 }}>1D</PoppinsText>
             </TouchableOpacity>
 
@@ -193,7 +193,7 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
             >
                 <PoppinsText style={{
                     ...styles.tabText,
-                    color: selectedTab === '1W' ? colors.lightPurple9 : '#C0C0C0',
+                    color: selectedTab === '1W' ? colors.lightPurple9 : colors.white,
                 }}>1W</PoppinsText>
             </TouchableOpacity>
 
@@ -207,7 +207,7 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
             >
                 <PoppinsText style={{
                     ...styles.tabText,
-                    color: selectedTab === '1M' ? colors.lightPurple9 : '#C0C0C0',
+                    color: selectedTab === '1M' ? colors.lightPurple9 : colors.white,
                 }}>1M</PoppinsText>
             </TouchableOpacity>
 
@@ -221,7 +221,7 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
             >
                 <PoppinsText style={{
                     ...styles.tabText,
-                    color: selectedTab === '1Y' ? colors.lightPurple9 : '#C0C0C0',
+                    color: selectedTab === '1Y' ? colors.lightPurple9 : colors.white,
                 }}>1Y</PoppinsText>
             </TouchableOpacity>
 
@@ -235,7 +235,7 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
             >
                 <PoppinsText style={{
                     ...styles.tabText,
-                    color: selectedTab === 'ALL' ? colors.lightPurple9 : '#C0C0C0',
+                    color: selectedTab === 'ALL' ? colors.lightPurple9 : colors.white,
                 }}>ALL</PoppinsText>
             </TouchableOpacity>
         </View>
@@ -425,11 +425,11 @@ const styles = StyleSheet.create({
     followBtn: {
         backgroundColor: colors.gray23,
         borderRadius: 10,
-        paddingHorizontal: wp(3),
-        paddingVertical: hp(0.8)
+        paddingHorizontal: wp(2),
+        paddingVertical: hp(0.5)
     },
     followText: {
-        fontSize: 12,
+        fontSize: 13,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
@@ -452,7 +452,7 @@ const styles = StyleSheet.create({
         color: colors.white
     },
     joinChatBtn: {
-        backgroundColor: colors.gray96,
+        backgroundColor: '#2A2A2A',
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -460,8 +460,8 @@ const styles = StyleSheet.create({
         paddingVertical: hp(0.8)
     },
     btnTitle: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.Bold,
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
     //TokenDetailsHeader
@@ -481,9 +481,9 @@ const styles = StyleSheet.create({
         color: colors.white
     },
     tokenDetailsStatus: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#C0C0C0'
+        color: '#B4B4B4'
     },
     rightImage: {
         width: wp(13),
@@ -615,9 +615,11 @@ const styles = StyleSheet.create({
     },
     selectedTab: {
         height: wp(7),
-        borderRadius: 10,
+        borderRadius: 8,
         paddingVertical: wp(1),
-        backgroundColor: colors.bottomSheetBgColor,
+        backgroundColor: '#222222',
+        borderWidth: 1,
+        borderColor: '#181818',
     },
     gradientText: {
         paddingVertical: 5,
@@ -643,7 +645,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        backgroundColor: colors.gray14,
+        backgroundColor: '#222222',
         padding: wp(3.5)
     },
     cardContainer1: {
@@ -651,13 +653,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
-        backgroundColor: colors.gray14,
+        backgroundColor: '#222222',
         padding: wp(3.5)
     },
     cardContainer2: {
         width: wp(92),
         alignSelf: 'center',
-        backgroundColor: colors.gray14,
+        backgroundColor: '#222222',
         padding: wp(3.5)
     },
     title: {
@@ -666,26 +668,26 @@ const styles = StyleSheet.create({
         color: colors.gray53
     },
     leftText: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#C0C0C0'
+        color: '#B4B4B4'
     },
     rightText: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.Medium,
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
     // PerformanceCard
     performaceRightText: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.Medium,
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
         marginRight: wp(2)
     },
     performaceRightText1: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#29a16b'
+        color: colors.mainGreenChange
     },
     // StakeOptionRBSheet
     stakeLogo: {

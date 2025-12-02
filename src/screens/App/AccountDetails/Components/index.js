@@ -7,6 +7,7 @@ import { hp, wp } from '../../../../components/ResponsiveComponent'
 import { Fonts } from '../../../../constants/fonts'
 import { colors } from '../../../../constants/colors'
 import Spacer from '../../../../components/Spacer'
+import { NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
 
 export const AddAccountHeader = ({ logo, activeWalletWithTokens, onPressCross }) => {
     return (
@@ -48,6 +49,7 @@ export const RowTabs = ({ onPressProfile, onPressSettings }) => {
 }
 
 export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
+    console.log('allAccountsallAccounts', allAccounts);
 
     return (
         <FlatList
@@ -61,7 +63,11 @@ export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
                             <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{item?.logo ?? '😍'}</PoppinsText>
                             {item?.isActive == 1 ? <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} /> : null}
                         </View>
-                        <PoppinsText style={styles.accountName}>{item?.name}</PoppinsText>
+
+                        <View>
+                            <PoppinsText style={styles.accountName}>{item?.name}</PoppinsText>
+                            <PoppinsText style={styles.accountBalance}>${NumberRoundFunction(item?.totalBalance ?? 0)}</PoppinsText>
+                        </View>
                     </View>
                     <TouchableOpacity activeOpacity={0.8} onPress={() => onPressEdit(item)}>
                         <Image source={Images.pencilWithRound} resizeMode='contain' style={styles.pencilWithRound} />
@@ -90,14 +96,14 @@ const styles = StyleSheet.create({
         marginRight: wp(3)
     },
     userName: {
-        fontSize: 17,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray44
+        fontSize: 20,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.white
     },
     address: {
-        fontSize: 11,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray45
+        fontSize: 13,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#B1B1B1'
     },
     cross: {
         width: wp(4),
@@ -106,10 +112,8 @@ const styles = StyleSheet.create({
     // RowTabs
     tabBgView: {
         width: wp(45),
-        borderWidth: 1,
-        borderColor: colors.gray46,
         padding: wp(4),
-        borderRadius: 13,
+        borderRadius: 20,
         backgroundColor: colors.gray23
     },
     person: {
@@ -118,9 +122,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     profileText: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray47,
+        fontSize: 11,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#B7B7B7',
         textAlign: 'center'
     },
     settings: {
@@ -129,18 +133,18 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     settingsText: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray47,
+        fontSize: 11,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#B7B7B7',
         textAlign: 'center'
     },
     // AccountsCard
     accountsCardBgView: {
         // width: wp(45),
-        borderWidth: 1,
-        borderColor: colors.gray46,
+        borderWidth: 0.4,
+        borderColor: '#1B1B1B',
         padding: wp(4),
-        borderRadius: 13,
+        borderRadius: 20,
         backgroundColor: colors.gray23
     },
     accountLogo: {
@@ -155,9 +159,14 @@ const styles = StyleSheet.create({
         bottom: 3,
     },
     accountName: {
-        fontSize: 13,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray27
+        color: colors.white
+    },
+    accountBalance: {
+        fontSize: 15,
+        fontFamily: Fonts.Poppins.Regular,
+        color: '#B4B4B4'
     },
     pencilWithRound: {
         width: wp(9),

@@ -454,6 +454,59 @@ const updateFollowStatus = async (isFollowed, walletId) => {
     }
 };
 
+// get all accounts with token data
+export const getAllAccountsWithTokenData = async () => {
+    const db = await getDb();
+    try {
+
+        // 1. Fetch all wallets
+        const [walletResults] = await db.executeSql('SELECT * FROM WalletTbl');
+        const wallets = [];
+        for (let i = 0; i < walletResults.rows.length; i++) {
+            wallets.push(walletResults.rows.item(i));
+        }
+
+        // 2. Fetch all chain/token rows
+        const [chainResults] = await db.executeSql('SELECT * FROM ChainsTbl');
+        const chains = [];
+        for (let i = 0; i < chainResults.rows.length; i++) {
+            chains.push(chainResults.rows.item(i));
+        }
+
+        // 3. Group chains by walletId
+        const chainGroup = {};
+        chains.forEach(chain => {
+            if (!chainGroup[chain.walletId]) {
+                chainGroup[chain.walletId] = [];
+            }
+            chainGroup[chain.walletId].push(chain);
+        });
+
+        // 4. Attach totalBalance to each wallet
+        const finalWallets = wallets.map(wallet => {
+            const tokens = chainGroup[wallet.id] || []; // all tokens for this wallet
+
+            const totalBalance = tokens.reduce((sum, token) => {
+                const balance = Number(token.balance || 0);
+                const price = Number(token.currentPriceUsd || 0);
+                return sum + balance * price;
+            }, 0);
+
+            return {
+                ...wallet,
+                totalBalance,
+            };
+        });
+
+        return finalWallets;
+
+    } catch (error) {
+        console.log('Error fetching all wallets:', error);
+        throw error;
+    }
+};
+
+
 
 // Default export with all methods
 const database = {
@@ -467,6 +520,7 @@ const database = {
     updateWalletAccountName,
     updateWalletLogo,
     getActiveWalletsWithTokenData,
+    getAllAccountsWithTokenData,
     switchActiveWallet,
     updateFollowStatus
 };

@@ -72,12 +72,12 @@
 //     let finalData = selectedTab == '1H' ? [...normalizedData, ...normalizedData,] : normalizedData
 
 //     return (
-//         <View style={styles.container}>
-//             {graphLoading ? (
-//                 <View style={{ height: hp(28.9), justifyContent: 'center', alignItems: 'center' }}>
-//                     <ActivityIndicator color={'#29a16b'} size={'large'} />
-//                 </View>
-//             ) : (
+// <View style={styles.container}>
+//     {graphLoading ? (
+//         <View style={{ height: hp(28.9), justifyContent: 'center', alignItems: 'center' }}>
+//             <ActivityIndicator color={'#29a16b'} size={'large'} />
+//         </View>
+//     ) : (
 //                 // <LineChart
 //                 //     data={finalData}
 //                 //     width={wp(89)}
@@ -161,7 +161,7 @@
 // })
 
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { LineChart } from 'react-native-wagmi-charts';
 import PoppinsText from './PoppinsText';
 import Animated, {
@@ -170,55 +170,100 @@ import Animated, {
     useSharedValue,
     useAnimatedStyle,
 } from 'react-native-reanimated';
+import { hp, wp } from './ResponsiveComponent';
 
-export const Graph = ({ change24h, onPriceChange }) => {
+export const Graph = ({ change24h, onPriceChange, setDailyPnl, dailyPnl, graphData, graphLoading }) => {
 
-    const data = [
-        { timestamp: 1734680000000, value: 210 },
-        { timestamp: 1734680300000, value: 230 },
-        { timestamp: 1734680600000, value: 190 },
-        { timestamp: 1734680900000, value: 250 },
-        { timestamp: 1734681200000, value: 170 },
-        { timestamp: 1734681500000, value: 260 },
-        { timestamp: 1734681800000, value: 200 },
-        { timestamp: 1734682100000, value: 270 },
-        { timestamp: 1734682400000, value: 180 },
-        { timestamp: 1734682700000, value: 300 },
-        { timestamp: 1734683000000, value: 190 },
-        { timestamp: 1734683300000, value: 310 },
-    ];
+    // console.log("graphData:::graphData", graphData);
 
-    const [restX, setRestX] = useState(null);
-    const [restY, setRestY] = useState(null);
+    let data = graphData?.map((item) => {
+        return {
+            value: item?.length > 0 ? item[1] : 0,
+            timestamp: item?.length > 0 ? item[0] : 0,
+        }
+    });
 
-    const lastPoint = data[data.length - 1];
+    // const data = [
+    //     { timestamp: 1734680000000, value: 210 },
+    //     { timestamp: 1734680300000, value: 230 },
+    //     { timestamp: 1734680600000, value: 190 },
+    //     { timestamp: 1734680900000, value: 250 },
+    //     { timestamp: 1734681200000, value: 170 },
+    //     { timestamp: 1734681500000, value: 260 },
+    //     { timestamp: 1734681800000, value: 200 },
+    //     { timestamp: 1734682100000, value: 270 },
+    //     { timestamp: 1734682400000, value: 180 },
+    //     { timestamp: 1734682700000, value: 300 },
+    //     { timestamp: 1734683000000, value: 190 },
+    //     { timestamp: 1734683300000, value: 310 },
+    //     { timestamp: 1734680000000, value: 210 },
+    //     { timestamp: 1734680300000, value: 230 },
+    //     { timestamp: 1734680600000, value: 190 },
+    //     { timestamp: 1734680900000, value: 250 },
+    //     { timestamp: 1734681200000, value: 170 },
+    //     { timestamp: 1734681500000, value: 260 },
+    //     { timestamp: 1734681800000, value: 200 },
+    //     { timestamp: 1734682100000, value: 270 },
+    //     { timestamp: 1734682400000, value: 180 },
+    //     { timestamp: 1734682700000, value: 300 },
+    //     { timestamp: 1734683000000, value: 190 },
+    //     { timestamp: 1734683300000, value: 310 },
+    //     { timestamp: 1734680000000, value: 210 },
+    //     { timestamp: 1734680300000, value: 230 },
+    //     { timestamp: 1734680600000, value: 190 },
+    //     { timestamp: 1734680900000, value: 250 },
+    //     { timestamp: 1734681200000, value: 170 },
+    //     { timestamp: 1734681500000, value: 260 },
+    //     { timestamp: 1734681800000, value: 200 },
+    //     { timestamp: 1734682100000, value: 270 },
+    //     { timestamp: 1734682400000, value: 180 },
+    //     { timestamp: 1734682700000, value: 300 },
+    //     { timestamp: 1734683000000, value: 110 },
+    //     { timestamp: 1734683300000, value: 100 },
+    // ];
 
     // Pulse animation
-    const pulse = useSharedValue(1);
-    useEffect(() => {
-        pulse.value = withRepeat(withTiming(1.4, { duration: 900 }), -1, true);
-    }, []);
-    const pulseStyle = useAnimatedStyle(() => ({
-        transform: [{ scale: pulse.value }],
-    }));
+    // const pulse = useSharedValue(1);
+    // useEffect(() => {
+    //     pulse.value = withRepeat(withTiming(1.4, { duration: 900 }), -1, true);
+    // }, []);
+
 
     return (
         <View style={styles.container}>
+            {graphLoading ? (
+                <View style={{ height: 250, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator color={'#29a16b'} size={'large'} />
+                </View>
+            ) : (
 
-            <LineChart.Provider
+                <LineChart.Provider data={data}
+                    onCurrentIndexChange={(idx) => {
+                        const point = data[idx];
+                        if (point) {
+                            onPriceChange?.(point.value, point.timestamp);
+                        } else {
+                            onPriceChange?.(data[data?.length - 1]?.value, data[data?.length - 1]?.timestamp);
+                        }
+                    }}
+                >
+                    <LineChart width={wp(95)} height={250} >
+                        <LineChart.Path
+                            width={3}
+                            color={change24h < 0 ? '#e94f33' : '#29a16b'}
+                        />
+                        {/* <LineChart.Dot size={20} at={data.length - 1} hasPulse={true} pulseDurationMs={100} hasOuterDot={true} outerSize={20} /> */}
+
+                        <LineChart.CursorCrosshair showAtLastPoint at={data.length - 1} size={13} color={change24h < 0 ? '#e94f33' : '#29a16b'} />
+                        <LineChart.CursorLine color='#BABABA' lineProps={{ strokeWidth: 2, }} textStyle={{ color: '#BABABA' }} />
+                    </LineChart>
+
+                </LineChart.Provider>
+
+            )}
+
+            {/* <LineChart.Provider
                 data={data}
-
-            // onReady={({ bounds }) => {
-            //     // NOW chart is computed → safe to get coordinates
-            //     const x = LineChart.getXForTimestamp(lastPoint.timestamp);
-            //     const y = LineChart.getYForValue(lastPoint.value);
-            //     setRestX(x);
-            //     setRestY(y);
-            // }}
-            // onCurrentIndexChange={(idx) => {
-            //     const point = data[idx];
-            //     if (point) onPriceChange(point.value, point.timestamp);
-            // }}
             >
 
                 <LineChart height={200} width={350} interactive>
@@ -248,12 +293,8 @@ export const Graph = ({ change24h, onPriceChange }) => {
                         )}
                     </LineChart.CursorCrosshair>
 
-                    {/* Moving dot */}
-                    <LineChart.Dot size={12} color="#fff" indicator />
-
                 </LineChart>
 
-                {/* RESTING DOT (SAFE, NO CRASH) */}
                 {restX != null && restY != null && (
                     <Animated.View
                         style={[
@@ -269,14 +310,14 @@ export const Graph = ({ change24h, onPriceChange }) => {
                     />
                 )}
 
-            </LineChart.Provider>
+            </LineChart.Provider> */}
 
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: { justifyContent: 'center', alignItems: 'center' },
+    container: { justifyContent: 'center', alignItems: 'center', width: wp(96) },
 
     restingDot: {
         position: 'absolute',
@@ -284,6 +325,8 @@ const styles = StyleSheet.create({
         height: 12,
         backgroundColor: '#fff',
         borderRadius: 6,
+        alignSelf: 'flex-start',
+        justifyContent: 'flex-start'
     },
 
     cursorBox: {
