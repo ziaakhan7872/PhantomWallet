@@ -1,4 +1,4 @@
-import { FlatList, Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Animated, Easing, FlatList, Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { stakeOptionData, tokenDetailsInfoData, TokenDetailsRowTabs } from '../../../../components/dummyData'
 import Spacer, { HorizontalSpacer } from '../../../../components/Spacer'
@@ -9,6 +9,7 @@ import { hp, wp } from '../../../../components/ResponsiveComponent'
 import { Fonts } from '../../../../constants/fonts'
 import { Images } from '../../../../Images'
 import { SimpleRBSheet } from '../../../../components/SImpleBottomSheet'
+import { usePressAnimation } from '../../../../components/EnterAmount/AnimatedView'
 
 export const TokenDetailsHeader = ({ leftImage, tokenLogo, tokenName, status, isFollowed, onPressBackArrow, onPressFollow }) => {
     return (
@@ -242,7 +243,7 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
     )
 }
 
-export const RowTabs = ({ onPressTab }) => {
+export const RowTabs = ({ onPressTab, onPressIn, onPressOut, tabAnimationMap }) => {
     return (
         <FlatList
             data={TokenDetailsRowTabs}
@@ -254,20 +255,34 @@ export const RowTabs = ({ onPressTab }) => {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{ width: wp(92), justifyContent: 'space-between' }}
             renderItem={({ item }) => {
+
+                const tabAnim = tabAnimationMap[item?.id];
+                const scale = tabAnim?.scale;
+
                 return (
-                    <ImageBackground source={Images.cardbg} resizeMode='contain' style={{
-                        width: wp(22),
-                        height: wp(22),
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // flex: 1
-                    }}>
-                        <TouchableOpacity activeOpacity={0.8} style={{ alignItems: 'center', justifyContent: 'center' }} disabled={true} onPress={() => onPressTab(item)}>
-                            <Image source={item?.tabLogo} resizeMode='contain' style={styles.tabLogo} />
-                            <Spacer customHeight={hp(0.8)} />
-                            <PoppinsText style={styles.tabText1}>{item?.title}</PoppinsText>
+                    <Animated.View style={{ transform: [{ scale }] }}>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPressIn={() => tabAnim?.handlePressIn()}
+                            onPressOut={() => tabAnim?.handlePressOut()}
+                            style={{ alignItems: 'center', justifyContent: 'center' }}
+                            // disabled={true}
+                            onPress={() => onPressTab(item)}
+                        >
+                            <ImageBackground source={Images.cardbg} resizeMode='contain' style={{
+                                width: wp(22),
+                                height: wp(22),
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
+
+                                <Image source={item?.tabLogo} resizeMode='contain' style={styles.tabLogo} />
+                                <Spacer customHeight={hp(0.8)} />
+                                <PoppinsText style={styles.tabText1}>{item?.title}</PoppinsText>
+                            </ImageBackground>
                         </TouchableOpacity>
-                    </ImageBackground>
+                    </Animated.View>
+
                 )
             }}
         />
@@ -275,66 +290,99 @@ export const RowTabs = ({ onPressTab }) => {
 }
 
 export const TokenDetailsInfoCard = ({ name, symbol, network, marketCap, totalSupply, circulatingSupply }) => {
+
+    const Name = usePressAnimation();
+    const Symbol = usePressAnimation();
+    const Network = usePressAnimation();
+    const MarketCap = usePressAnimation();
+    const TotalSupple = usePressAnimation();
+    const CirculatingSupply = usePressAnimation();
+
     return (
         <View>
-            <View style={styles.cardContainer}>
-                <View style={appStyles.row}>
-                    <PoppinsText style={styles.leftText}>{'Name'}</PoppinsText>
-                    <PoppinsText style={styles.rightText}>{name}</PoppinsText>
-                </View>
-            </View>
+            <Animated.View style={{ transform: [{ scale: Name?.scale }] }}>
+                <TouchableOpacity activeOpacity={0.8} onPressIn={Name?.handlePressIn} onPressOut={Name?.handlePressOut} style={styles.cardContainer}>
+                    <View style={appStyles.row}>
+                        <PoppinsText style={styles.leftText}>{'Name'}</PoppinsText>
+                        <PoppinsText style={styles.rightText}>{name}</PoppinsText>
+                    </View>
+                </TouchableOpacity>
+            </Animated.View>
+
             <Spacer customHeight={hp(0.15)} />
-            <View style={[appStyles.row, styles.cardContainer2]}>
-                <PoppinsText style={styles.leftText}>{'Symbol'}</PoppinsText>
-                <PoppinsText style={styles.rightText}>{symbol?.toUpperCase()}</PoppinsText>
-            </View>
+            <Animated.View style={{ transform: [{ scale: Symbol?.scale }] }}>
+                <TouchableOpacity activeOpacity={0.8} onPressIn={Symbol?.handlePressIn} onPressOut={Symbol?.handlePressOut} style={[appStyles.row, styles.cardContainer2]}>
+                    <PoppinsText style={styles.leftText}>{'Symbol'}</PoppinsText>
+                    <PoppinsText style={styles.rightText}>{symbol?.toUpperCase()}</PoppinsText>
+                </TouchableOpacity>
+            </Animated.View>
+
             <Spacer customHeight={hp(0.15)} />
-            <View style={[appStyles.row, styles.cardContainer2]}>
-                <PoppinsText style={styles.leftText}>{'Network'}</PoppinsText>
-                <PoppinsText style={styles.rightText}>{network}</PoppinsText>
-            </View>
+            <Animated.View style={{ transform: [{ scale: Network?.scale }] }}>
+                <TouchableOpacity activeOpacity={0.8} onPressIn={Network?.handlePressIn} onPressOut={Network?.handlePressOut} style={[appStyles.row, styles.cardContainer2]}>
+                    <PoppinsText style={styles.leftText}>{'Network'}</PoppinsText>
+                    <PoppinsText style={styles.rightText}>{network}</PoppinsText>
+                </TouchableOpacity>
+            </Animated.View>
+
             <Spacer customHeight={hp(0.15)} />
-            <View style={[appStyles.row, styles.cardContainer2]}>
-                <PoppinsText style={styles.leftText}>{'Market Cap'}</PoppinsText>
-                <PoppinsText style={styles.rightText}>{marketCap && '$' + marketCap}</PoppinsText>
-            </View>
+            <Animated.View style={{ transform: [{ scale: MarketCap?.scale }] }}>
+                <TouchableOpacity activeOpacity={0.8} onPressIn={MarketCap?.handlePressIn} onPressOut={MarketCap?.handlePressOut} style={[appStyles.row, styles.cardContainer2]}>
+                    <PoppinsText style={styles.leftText}>{'Market Cap'}</PoppinsText>
+                    <PoppinsText style={styles.rightText}>{marketCap && '$' + marketCap}</PoppinsText>
+                </TouchableOpacity>
+            </Animated.View>
+
             <Spacer customHeight={hp(0.15)} />
-            <View style={[appStyles.row, styles.cardContainer2]}>
-                <PoppinsText style={styles.leftText}>{'Total Supply'}</PoppinsText>
-                <View style={appStyles.rowBasic}>
-                    <PoppinsText style={styles.rightText}>{totalSupply}</PoppinsText>
-                </View>
-            </View>
+            <Animated.View style={{ transform: [{ scale: TotalSupple?.scale }] }}>
+                <TouchableOpacity activeOpacity={0.8} onPressIn={TotalSupple?.handlePressIn} onPressOut={TotalSupple?.handlePressOut} style={[appStyles.row, styles.cardContainer2]}>
+                    <PoppinsText style={styles.leftText}>{'Total Supply'}</PoppinsText>
+                    <View style={appStyles.rowBasic}>
+                        <PoppinsText style={styles.rightText}>{totalSupply}</PoppinsText>
+                    </View>
+                </TouchableOpacity>
+            </Animated.View>
+
             <Spacer customHeight={hp(0.15)} />
-            <View style={[appStyles.row, styles.cardContainer1]}>
-                <PoppinsText style={styles.leftText}>{'Circulating Supply'}</PoppinsText>
-                <View style={appStyles.rowBasic}>
-                    <PoppinsText style={styles.rightText}>{circulatingSupply}</PoppinsText>
-                </View>
-            </View>
+            <Animated.View style={{ transform: [{ scale: CirculatingSupply?.scale }] }}>
+                <TouchableOpacity activeOpacity={0.8} onPressIn={CirculatingSupply?.handlePressIn} onPressOut={CirculatingSupply?.handlePressOut} style={[appStyles.row, styles.cardContainer1]}>
+                    <PoppinsText style={styles.leftText}>{'Circulating Supply'}</PoppinsText>
+                    <View style={appStyles.rowBasic}>
+                        <PoppinsText style={styles.rightText}>{circulatingSupply}</PoppinsText>
+                    </View>
+                </TouchableOpacity>
+            </Animated.View>
         </View>
     )
 }
 
 export const PerformanceCard = ({ totalVolume, totalTraders }) => {
+
+    const volume = usePressAnimation();
+    const traders = usePressAnimation();
+
     return (
         <View>
-            <View style={[appStyles.row, styles.cardContainer]}>
-                <PoppinsText style={styles.leftText}>{'Volume'}</PoppinsText>
-                <View style={appStyles.rowBasic}>
-                    <PoppinsText style={styles.performaceRightText}>{totalVolume ? `$${totalVolume}` : '--'}</PoppinsText>
-                    <PoppinsText style={styles.performaceRightText1}>{'+2.46%'}</PoppinsText>
-                </View>
-            </View>
+            <Animated.View style={{ transform: [{ scale: volume?.scale }] }}>
+                <TouchableOpacity activeOpacity={0.8} onPressIn={volume?.handlePressIn} onPressOut={volume?.handlePressOut} style={[appStyles.row, styles.cardContainer]}>
+                    <PoppinsText style={styles.leftText}>{'Volume'}</PoppinsText>
+                    <View style={appStyles.rowBasic}>
+                        <PoppinsText style={styles.performaceRightText}>{totalVolume ? `$${totalVolume}` : '--'}</PoppinsText>
+                        <PoppinsText style={styles.performaceRightText1}>{'+2.46%'}</PoppinsText>
+                    </View>
+                </TouchableOpacity>
+            </Animated.View>
 
             <Spacer customHeight={hp(0.15)} />
-            <View style={[appStyles.row, styles.cardContainer1]}>
-                <PoppinsText style={styles.leftText}>{'Traders'}</PoppinsText>
-                <View style={appStyles.rowBasic}>
-                    <PoppinsText style={styles.performaceRightText}>{totalTraders ? totalTraders : '--'}</PoppinsText>
-                    <PoppinsText style={styles.performaceRightText1}>{'+1.22%'}</PoppinsText>
-                </View>
-            </View>
+            <Animated.View style={{ transform: [{ scale: traders?.scale }] }}>
+                <TouchableOpacity activeOpacity={0.8} onPressIn={traders?.handlePressIn} onPressOut={traders?.handlePressOut} style={[appStyles.row, styles.cardContainer1]}>
+                    <PoppinsText style={styles.leftText}>{'Traders'}</PoppinsText>
+                    <View style={appStyles.rowBasic}>
+                        <PoppinsText style={styles.performaceRightText}>{totalTraders ? totalTraders : '--'}</PoppinsText>
+                        <PoppinsText style={styles.performaceRightText1}>{'+1.22%'}</PoppinsText>
+                    </View>
+                </TouchableOpacity>
+            </Animated.View>
         </View>
     )
 }
@@ -372,6 +420,28 @@ export const ChatBox = () => {
 
     const [chatNumber, setChatNumber] = useState(getRandom(0, 5));
     const [shuffledDummy, setShuffledDummy] = useState([]);
+
+
+    const [scale] = useState(new Animated.Value(1));
+
+    const handlePressIn = () => {
+        Animated.timing(scale, {
+            toValue: 0.97,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
+    const handlePressOut = () => {
+        Animated.timing(scale, {
+            toValue: 1,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
 
     const dummy = [
         Images.avatar1,
@@ -412,37 +482,39 @@ export const ChatBox = () => {
     }, [chatNumber]);
 
     return (
-        <View style={[appStyles.row, styles.chatBoxContainer]}>
-            <View style={appStyles.rowBasic}>
+        <Animated.View style={{ transform: [{ scale }] }}>
+            <TouchableOpacity activeOpacity={0.8} onPressIn={handlePressIn} onPressOut={handlePressOut} style={[appStyles.row, styles.chatBoxContainer]}>
+                <View style={appStyles.rowBasic}>
 
-                {chatNumber == 0 ? null :
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: wp(2) }}>
-                        {shuffledDummy?.slice(0, chatNumber)?.map((item, index) => (
-                            <Image
-                                key={item?.id}
-                                source={item}
-                                style={{
-                                    width: 28,
-                                    height: 28,
-                                    borderRadius: 50,
-                                    // borderWidth: 1,
-                                    // borderColor: '#fff',
-                                    marginLeft: index === 0 ? 0 : -10,   // overlap like FB
-                                }}
-                            />
-                        ))}
-                    </View>
-                }
+                    {chatNumber == 0 ? null :
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: wp(2) }}>
+                            {shuffledDummy?.slice(0, chatNumber)?.map((item, index) => (
+                                <Image
+                                    key={item?.id}
+                                    source={item}
+                                    style={{
+                                        width: 28,
+                                        height: 28,
+                                        borderRadius: 50,
+                                        // borderWidth: 1,
+                                        // borderColor: '#fff',
+                                        marginLeft: index === 0 ? 0 : -10,   // overlap like FB
+                                    }}
+                                />
+                            ))}
+                        </View>
+                    }
 
-                <PoppinsText style={styles.randomNumber}>{chatNumber}
-                    <PoppinsText style={styles.chatBoxTitle}>{chatNumber > 0 ? ' chatting...' : ' chatting'}</PoppinsText>
-                </PoppinsText>
-            </View>
+                    <PoppinsText style={styles.randomNumber}>{chatNumber}
+                        <PoppinsText style={styles.chatBoxTitle}>{chatNumber > 0 ? ' chatting...' : ' chatting'}</PoppinsText>
+                    </PoppinsText>
+                </View>
 
-            <View style={[appStyles.rowBasic, styles.joinChatBtn]}>
-                <PoppinsText style={styles.btnTitle}>Join Chat</PoppinsText>
-            </View>
-        </View>
+                <View style={[appStyles.rowBasic, styles.joinChatBtn]}>
+                    <PoppinsText style={styles.btnTitle}>Join Chat</PoppinsText>
+                </View>
+            </TouchableOpacity>
+        </Animated.View>
     )
 }
 

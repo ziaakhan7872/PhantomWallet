@@ -1,4 +1,4 @@
-import { Image, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import { Animated, Easing, Image, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { MainContainerApp } from '../../../components/MainContainer'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
@@ -15,6 +15,7 @@ import { colors } from '../../../constants/colors'
 import { routes } from '../../../constants/routes'
 import { CustomModal } from '../../../components/CustomModal'
 import { convertBigValues, formatBalancetwoDigit, formatValueTwoDigit, NumberRoundFunction } from '../../../constants/commonHelperFunctions/commonHelperFunction'
+import AnimatedView, { usePressAnimation } from '../../../components/EnterAmount/AnimatedView'
 
 const TokenDetails = (props) => {
 
@@ -49,6 +50,30 @@ const TokenDetails = (props) => {
     const [liveTime, setLiveTime] = useState("");
     // REMOVE LATER ONLY FOR TESTINGGGGG /////////////
     console.log("price::::::price", livePrice);
+
+    const [scale] = useState(new Animated.Value(1));
+
+    const balanceCard = usePressAnimation();
+    const valueCard = usePressAnimation();
+    const changeValue = usePressAnimation();
+    const trade = usePressAnimation();
+    const About = usePressAnimation();
+    const activity = usePressAnimation();
+    const website = usePressAnimation();
+    const telegram = usePressAnimation();
+    const twitter = usePressAnimation();
+
+    const tab1 = usePressAnimation();
+    const tab2 = usePressAnimation();
+    const tab3 = usePressAnimation();
+    const tab4 = usePressAnimation();
+
+    const tabAnimationMap = {
+        1: tab1,
+        2: tab2,
+        3: tab3,
+        4: tab4
+    };
 
     return (
         <MainContainerApp>
@@ -104,7 +129,11 @@ const TokenDetails = (props) => {
                         <RowTimeIntervals selectedTab={selectedTab} setSelectedTab={setSelectedTab} getGraphData={getGraphData} />
 
                         <Spacer />
-                        <RowTabs onPressTab={(item) => item?.id == 4 ? stakeOptionBottomSheet?.current?.open() : null} />
+                        <RowTabs
+                            onPressTab={(item) => item?.id == 4 ? stakeOptionBottomSheet?.current?.open() : null}
+                            tabAnimationMap={tabAnimationMap}
+
+                        />
 
                         <Spacer />
                         <ChatBox />
@@ -114,34 +143,44 @@ const TokenDetails = (props) => {
 
                         <Spacer customHeight={hp(1)} />
                         <View style={appStyles.row}>
-                            <TouchableOpacity onPress={handleOpenModal} activeOpacity={0.8} style={styles.bgView}>
-                                <PoppinsText style={styles.balanceText}>Balance</PoppinsText>
-                                <Spacer customHeight={hp(0.5)} />
-                                <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? balanceValue : '0'}</PoppinsText>
-                            </TouchableOpacity>
-                            <View style={styles.bgView}>
-                                <PoppinsText style={styles.balanceText}>Value</PoppinsText>
-                                <Spacer customHeight={hp(0.5)} />
-                                <PoppinsText style={styles.balance}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText>
-                            </View>
+                            <Animated.View style={{ transform: [{ scale: balanceCard?.scale }] }}>
+                                <TouchableOpacity onPress={handleOpenModal} onPressIn={balanceCard?.handlePressIn} onPressOut={balanceCard?.handlePressOut} activeOpacity={0.8} style={styles.bgView}>
+                                    <PoppinsText style={styles.balanceText}>Balance</PoppinsText>
+                                    <Spacer customHeight={hp(0.5)} />
+                                    <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? balanceValue : '0'}</PoppinsText>
+                                </TouchableOpacity>
+                            </Animated.View>
+
+                            <Animated.View style={{ transform: [{ scale: valueCard?.scale }] }}>
+                                <TouchableOpacity activeOpacity={0.8} onPressIn={valueCard?.handlePressIn} onPressOut={valueCard?.handlePressOut} style={styles.bgView}>
+                                    <PoppinsText style={styles.balanceText}>Value</PoppinsText>
+                                    <Spacer customHeight={hp(0.5)} />
+                                    <PoppinsText style={styles.balance}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText>
+                                </TouchableOpacity>
+                            </Animated.View>
                         </View>
 
                         <Spacer customHeight={hp(0.5)} />
-                        <View style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
-                            <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
-                            <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? colors.mainRedChange : colors.mainGreenChange }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
-                        </View>
+                        <Animated.View style={{ transform: [{ scale: changeValue?.scale }] }}>
+                            <TouchableOpacity activeOpacity={0.8} onPressIn={changeValue?.handlePressIn} onPressOut={changeValue?.handlePressOut} style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
+                                <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
+                                <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? colors.mainRedChange : colors.mainGreenChange }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
+                            </TouchableOpacity>
+                        </Animated.View>
 
                         <Spacer customHeight={hp(3)} />
                         <PoppinsText style={styles.positionText}>Perps Position</PoppinsText>
                         <Spacer customHeight={hp(1)} />
-                        <View style={[styles.hourBgView, appStyles.rowBasic]}>
-                            <Image source={Images.twoRoundsWithCircle} resizeMode='contain' style={[styles.twoRoundsWithCircle, { marginRight: wp(2) }]} />
-                            <View>
-                                <PoppinsText style={styles.tradeText}>Trade {previousTokenData?.symbol?.toUpperCase()} perp</PoppinsText>
-                                <PoppinsText style={styles.multiplyText}>Multiply your P&L up to 20x</PoppinsText>
-                            </View>
-                        </View>
+
+                        <Animated.View style={{ transform: [{ scale: trade?.scale }] }}>
+                            <TouchableOpacity activeOpacity={0.8} onPressIn={trade?.handlePressIn} onPressOut={trade?.handlePressOut} style={[styles.hourBgView, appStyles.rowBasic]}>
+                                <Image source={Images.twoRoundsWithCircle} resizeMode='contain' style={[styles.twoRoundsWithCircle, { marginRight: wp(2) }]} />
+                                <View>
+                                    <PoppinsText style={styles.tradeText}>Trade {previousTokenData?.symbol?.toUpperCase()} perp</PoppinsText>
+                                    <PoppinsText style={styles.multiplyText}>Multiply your P&L up to 20x</PoppinsText>
+                                </View>
+                            </TouchableOpacity>
+                        </Animated.View>
 
 
                         {previousTokenData?.chainName == 'Solana' ?
@@ -179,35 +218,48 @@ const TokenDetails = (props) => {
                         />
 
                         {tokenInfo?.description?.en ?
-                            <>
-                                <Spacer />
-                                <PoppinsText style={styles.positionText}>About</PoppinsText>
-                                <Spacer customHeight={hp(1)} />
-                                <PoppinsText style={styles.desc}>{showMore ? tokenInfo?.description?.en ?? '--' : tokenInfo?.description?.en?.slice(0, 200) + '...'}</PoppinsText>
+                            <Animated.View style={{ transform: [{ scale: About?.scale }] }}>
+                                <TouchableOpacity activeOpacity={0.8} onPressIn={About?.handlePressIn} onPressOut={About?.handlePressOut}>
+                                    <Spacer />
+                                    <PoppinsText style={styles.positionText}>About</PoppinsText>
+                                    <Spacer customHeight={hp(1)} />
+                                    <PoppinsText style={styles.desc}>{showMore ? tokenInfo?.description?.en ?? '--' : tokenInfo?.description?.en?.slice(0, 200) + '...'}</PoppinsText>
 
-                                <Spacer customHeight={hp(1)} />
-                                {tokenInfo?.description?.en?.length > 200 ?
-                                    <TouchableOpacity activeOpacity={0.8} onPress={() => setShowMore(!showMore)}>
-                                        <PoppinsText style={styles.showMore}>{showMore ? 'Show Less' : 'Show More'}</PoppinsText>
-                                    </TouchableOpacity>
-                                    : null}
-                            </> : null}
+                                    <Spacer customHeight={hp(1)} />
+                                    {tokenInfo?.description?.en?.length > 200 ?
+                                        <TouchableOpacity activeOpacity={0.8} onPress={() => setShowMore(!showMore)}>
+                                            <PoppinsText style={styles.showMore}>{showMore ? 'Show Less' : 'Show More'}</PoppinsText>
+                                        </TouchableOpacity>
+                                        : null}
+                                </TouchableOpacity>
+                            </Animated.View>
+                            : null}
                         <Spacer />
+
                         <View style={appStyles.rowBasic}>
-                            <TouchableOpacity activeOpacity={0.8}>
-                                <Image source={Images.website} resizeMode='contain' style={styles.website} />
-                            </TouchableOpacity>
+                            <Animated.View style={{ transform: [{ scale: website?.scale }] }}>
+                                <TouchableOpacity activeOpacity={0.8} onPressIn={website?.handlePressIn} onPressOut={website?.handlePressOut}>
+                                    <Image source={Images.website} resizeMode='contain' style={styles.website} />
+                                </TouchableOpacity>
+                            </Animated.View>
+
                             <HorizontalSpacer customWidth={wp(1)} />
-                            <TouchableOpacity activeOpacity={0.8}>
-                                <Image source={Images.telegram} resizeMode='contain' style={styles.telegram} />
-                            </TouchableOpacity>
+                            <Animated.View style={{ transform: [{ scale: telegram?.scale }] }}>
+                                <TouchableOpacity activeOpacity={0.8} onPressIn={telegram?.handlePressIn} onPressOut={telegram?.handlePressOut}>
+                                    <Image source={Images.telegram} resizeMode='contain' style={styles.telegram} />
+                                </TouchableOpacity>
+                            </Animated.View>
+
                             <HorizontalSpacer customWidth={wp(1)} />
-                            <TouchableOpacity activeOpacity={0.8}>
-                                <Image source={Images.twitter} resizeMode='contain' style={styles.twitter} />
-                            </TouchableOpacity>
+                            <Animated.View style={{ transform: [{ scale: twitter?.scale }] }}>
+                                <TouchableOpacity activeOpacity={0.8} onPressIn={twitter?.handlePressIn} onPressOut={twitter?.handlePressOut}>
+                                    <Image source={Images.twitter} resizeMode='contain' style={styles.twitter} />
+                                </TouchableOpacity>
+                            </Animated.View>
                         </View>
 
                         <Spacer />
+
                         <PoppinsText style={styles.positionText}>24h Performance</PoppinsText>
                         <Spacer customHeight={hp(1)} />
                         <PerformanceCard totalVolume={convertBigValues(tokenInfo?.market_data?.total_volume?.usd ?? 0)} totalTraders={convertBigValues(tokenInfo?.watchlist_portfolio_users ?? 0) ?? '--'} />
@@ -221,24 +273,26 @@ const TokenDetails = (props) => {
                         </View>
 
                         <Spacer customHeight={hp(1)} />
-                        <View style={[styles.hourBgView, appStyles.row, { padding: wp(4) }]}>
-                            <View style={appStyles.rowBasic}>
-                                {previousTokenData?.tokenName == 'Ethereum' ?
-                                    <View style={{ backgroundColor: colors.white, borderRadius: 100, marginRight: wp(2) }}>
-                                        <Image source={{ uri: previousTokenData?.logoURI }} resizeMode='contain' style={styles.twoRoundsWithCircle} />
+                        <Animated.View style={{ transform: [{ scale: activity?.scale }] }}>
+                            <TouchableOpacity activeOpacity={0.8} onPressIn={activity?.handlePressIn} onPressOut={activity?.handlePressOut} style={[styles.hourBgView, appStyles.row, { padding: wp(4) }]}>
+                                <View style={appStyles.rowBasic}>
+                                    {previousTokenData?.tokenName == 'Ethereum' ?
+                                        <View style={{ backgroundColor: colors.white, borderRadius: 100, marginRight: wp(2) }}>
+                                            <Image source={{ uri: previousTokenData?.logoURI }} resizeMode='contain' style={styles.twoRoundsWithCircle} />
+                                        </View>
+                                        :
+                                        <Image source={{ uri: previousTokenData?.logoURI }} resizeMode='contain' style={[styles.twoRoundsWithCircle, { marginRight: wp(2) }]} />
+                                    }
+                                    <View>
+                                        <View style={[appStyles.row, { width: wp(70) }]}>
+                                            <PoppinsText style={styles.receivedText}>Received</PoppinsText>
+                                            <PoppinsText style={styles.amountCrypto}>+0.01103 {previousTokenData?.symbol?.toUpperCase()}</PoppinsText>
+                                        </View>
+                                        <PoppinsText style={styles.address}>From CtcB...A8r2</PoppinsText>
                                     </View>
-                                    :
-                                    <Image source={{ uri: previousTokenData?.logoURI }} resizeMode='contain' style={[styles.twoRoundsWithCircle, { marginRight: wp(2) }]} />
-                                }
-                                <View>
-                                    <View style={[appStyles.row, { width: wp(70) }]}>
-                                        <PoppinsText style={styles.receivedText}>Received</PoppinsText>
-                                        <PoppinsText style={styles.amountCrypto}>+0.01103 {previousTokenData?.symbol?.toUpperCase()}</PoppinsText>
-                                    </View>
-                                    <PoppinsText style={styles.address}>From CtcB...A8r2</PoppinsText>
                                 </View>
-                            </View>
-                        </View>
+                            </TouchableOpacity>
+                        </Animated.View>
 
                         <Spacer />
                         <PoppinsText style={styles.resText1}>Past performance is not an indicator of future performance.</PoppinsText>
