@@ -92,6 +92,7 @@ export const Images = {
     settngs: require('./settngs.png'),
     accountLogo: require('./accountLogo.png'),
     tickWithRound: require('./tickWithRound.png'),
+    staking: require('./staking.png'),
     pencilWithRound: require('./pencilWithRound.png'),
     backArrow: require('./backArrow.png'),
     noActivity: require('./noActivity.png'),
@@ -225,5 +226,18 @@ export const Images = {
     ethLogo: require('./ethLogo.png'),
     btcLogo: require('./btcLogo.png'),
     solLogo: require('./solLogo.png'),
+
+    // avatar images
+    avatar1: require('./avatar/avatar1.png'),
+    avatar2: require('./avatar/avatar2.png'),
+    avatar3: require('./avatar/avatar3.png'),
+    avatar4: require('./avatar/avatar4.png'),
+    avatar5: require('./avatar/avatar5.png'),
+    avatar6: require('./avatar/avatar6.png'),
+    avatar7: require('./avatar/avatar7.png'),
+    avatar8: require('./avatar/avatar8.png'),
+    avatar9: require('./avatar/avatar9.png'),
+    avatar10: require('./avatar/avatar10.png'),
+    avatar11: require('./avatar/avatar11.png'),
 
 }

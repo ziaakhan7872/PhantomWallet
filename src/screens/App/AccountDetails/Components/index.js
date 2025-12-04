@@ -55,12 +55,15 @@ export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
         <FlatList
             data={allAccounts}
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
                 <TouchableOpacity activeOpacity={0.8} onPress={() => onPressAccount(item)} style={[styles.accountsCardBgView, appStyles.row]}>
                     <View style={appStyles.rowBasic}>
                         <View style={{ marginRight: wp(3) }}>
                             {/* <Image source={Images.profile1} resizeMode='contain' style={styles.accountLogo} /> */}
-                            <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{item?.logo ?? '😍'}</PoppinsText>
+                            {/* <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{item?.logo ?? '😍'}</PoppinsText> */}
+                            <View style={{ width: wp(11.5), height: wp(11.5), borderRadius: 100, backgroundColor: '#2A2A2A', alignItems: 'center', justifyContent: 'center' }}>
+                                <PoppinsText style={{ fontSize: 16, fontFamily: Fonts.Poppins.SemiBold, color: colors.white }}>{`A${index + 1}`}</PoppinsText>
+                            </View>
                             {item?.isActive == 1 ? <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} /> : null}
                         </View>
 
@@ -155,8 +158,8 @@ const styles = StyleSheet.create({
         width: wp(4.5),
         height: wp(4.5),
         position: 'absolute',
-        right: 2,
-        bottom: 3,
+        right: 0,
+        bottom: 0,
     },
     accountName: {
         fontSize: 16,

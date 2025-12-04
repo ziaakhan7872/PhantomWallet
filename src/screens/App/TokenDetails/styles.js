@@ -93,19 +93,19 @@ export const styles = StyleSheet.create({
         color: '#B4B4B4',
     },
     stakeText: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray3,
+        color: '#B4B4B4',
     },
     earnText: {
-        fontSize: 17,
+        fontSize: 20,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray83,
+        color: colors.white,
     },
     percentText: {
-        fontSize: 17,
+        fontSize: 20,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.green9,
+        color: '#439D72',
     },
     graphDotLines: {
         width: wp(74.5),
@@ -113,18 +113,18 @@ export const styles = StyleSheet.create({
         alignSelf: 'flex-end'
     },
     btn1Container: {
-        width: wp(42),
-        height: wp(10.5),
+        width: wp(40),
+        height: wp(11.5),
         backgroundColor: colors.btnDisableColor,
         borderWidth: 0,
-        borderRadius: 10
+        borderRadius: 16
     },
     btn2Container: {
-        width: wp(42),
-        height: wp(10.5),
+        width: wp(40),
+        height: wp(11.5),
         backgroundColor: colors.green10,
         borderWidth: 0,
-        borderRadius: 10
+        borderRadius: 16
     },
     infoText1: {
         fontSize: 13,
@@ -189,6 +189,10 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
         color: '#B4B4B4',
+    },
+    staking: {
+        width: wp(92),
+        height: wp(70),
     },
     bottomBtn1: {
         width: wp(42),

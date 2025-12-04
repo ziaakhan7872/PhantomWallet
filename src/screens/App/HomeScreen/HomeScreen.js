@@ -96,7 +96,7 @@ const HomeScreen = (props) => {
                 <Spacer customHeight={hp(2)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.prepMain)} style={appStyles.rowBasic}>
                     <PoppinsText style={styles.prepTitle}>Perps</PoppinsText>
-                    <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(3), height: wp(3), marginLeft: wp(2) }} />
+                    <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(4), marginLeft: wp(2) }} />
                 </TouchableOpacity>
                 <Spacer customHeight={hp(1)} />
                 <PrepView />
@@ -105,7 +105,7 @@ const HomeScreen = (props) => {
                 <Spacer customHeight={hp(2.5)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.moreTokens)} style={appStyles.rowBasic}>
                     <PoppinsText style={styles.prepTitle}>Tokens</PoppinsText>
-                    <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(3), marginLeft: wp(2) }} />
+                    <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(4), marginLeft: wp(2) }} />
                 </TouchableOpacity>
                 <Spacer customHeight={hp(1)} />
 
@@ -118,7 +118,7 @@ const HomeScreen = (props) => {
                 <Spacer customHeight={hp(2.5)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => { }} style={appStyles.rowBasic}>
                     <PoppinsText style={styles.prepTitle}>Collectibles</PoppinsText>
-                    <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(3), marginLeft: wp(2) }} />
+                    <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(4), marginLeft: wp(2) }} />
                 </TouchableOpacity>
                 <Spacer customHeight={hp(1.5)} />
                 <FlatList

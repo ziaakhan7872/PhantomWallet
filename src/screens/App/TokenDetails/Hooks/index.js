@@ -18,7 +18,7 @@ const useTokenDetails = (props) => {
 
     const [allTransactions, setAllTransactions] = useState([])
     const [loading, setLoading] = useState(false)
-    const [selectedTab, setSelectedTab] = useState('1Y')
+    const [selectedTab, setSelectedTab] = useState('1D')
     const [activeWallet, setActiveWallet] = useState({
         publicAddress: '',
         solanaAddress: ''
@@ -28,6 +28,7 @@ const useTokenDetails = (props) => {
     const [tempBalanceValue, setTempBalanceValue] = useState(Number(previousTokenData?.balance) > 0 ? previousTokenData?.balance : '');
     const [graphData, setGraphData] = useState([{ value: 0, timestamp: 0 }]);
     const [graphLoading, setGraphLoading] = useState(false);
+    const [totalVolume, setTotalVolume] = useState(0);
     const [tokenInfo, setTokenInfo] = useState(false);
     const [dailyPnl, setDailyPnl] = useState({});
     const [showMore, setShowMore] = useState(false);
@@ -46,7 +47,7 @@ const useTokenDetails = (props) => {
                             solanaAddress: wallet.solanaAddress || ''
                         });
                     }
-                    getGraphData(365);
+                    getGraphData(4);
                     setDailyPnl(calculateSelectedTokenPnL(previousTokenData));
                     const coinTokenInfo = await getCoinTokenInfoById(previousTokenData?.cmcId);
                     setTokenInfo(coinTokenInfo)
@@ -64,9 +65,12 @@ const useTokenDetails = (props) => {
             setGraphLoading(true);
 
             const data = await getGraphDataById(previousTokenData?.cmcId, days);
-            console.log('datadatadatadatadatadatadata,data', data);
 
             setGraphData(data?.prices ?? []);
+
+            const lastValue = data?.total_volumes[data?.total_volumes.length - 1][1];
+
+            setTotalVolume(lastValue ?? 0);
             setGraphLoading(false);
         } catch (error) {
             console.log('Error fetching graph data:', error);
@@ -215,7 +219,8 @@ const useTokenDetails = (props) => {
         showMore, setShowMore,
         isFollowed, setIsFollowed,
         onPressFollow,
-        calculate24hReturn
+        calculate24hReturn,
+        totalVolume
     }
 }
 

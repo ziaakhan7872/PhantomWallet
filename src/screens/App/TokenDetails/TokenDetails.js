@@ -38,9 +38,11 @@ const TokenDetails = (props) => {
         showMore, setShowMore,
         isFollowed, setIsFollowed,
         onPressFollow,
-        calculate24hReturn
+        calculate24hReturn,
+        totalVolume
     } = useTokenDetails(props);
 
+    console.log('tokenInfotokenInfotokenInfotokenInfo', tokenInfo);
 
     // REMOVE LATER ONLY FOR TESTINGGGGG /////////////
     const [livePrice, setLivePrice] = useState("0.00");
@@ -58,7 +60,7 @@ const TokenDetails = (props) => {
                 </View>
                 <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
                     <View style={styles.margin} pointerEvents='box-none'>
-                        <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(livePrice ? livePrice : previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText>
+                        <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(livePrice ?? 0))}</PoppinsText>
 
                         {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
                         {/* <PoppinsText style={styles.tokenCurentPrice}>${dailyPnl?.totalValue}</PoppinsText> */}
@@ -145,9 +147,10 @@ const TokenDetails = (props) => {
                         {previousTokenData?.chainName == 'Solana' ?
                             <>
                                 <Spacer />
-                                <PoppinsText style={styles.perpsText}>Your Stake</PoppinsText>
+                                <PoppinsText style={styles.positionText}>Your Stake</PoppinsText>
                                 <Spacer customHeight={hp(1)} />
-                                <View style={styles.hourBgView}>
+                                <Image source={Images.staking} resizeMode='stretch' style={styles.staking} />
+                                {/* <View style={[styles.hourBgView, { padding: wp(5) }]}>
                                     <PoppinsText style={styles.stakeText}>Stake with Phantom</PoppinsText>
                                     <Spacer customHeight={hp(0.3)} />
                                     <PoppinsText style={styles.earnText}>Earn{' '}
@@ -160,7 +163,7 @@ const TokenDetails = (props) => {
                                     <View style={{ alignSelf: 'center', paddingHorizontal: wp(4) }}>
                                         <RowButtons titlebtn1={'Learn More'} titlebtn2={'Start Earning'} titleColor2={colors.green11} style={styles.btn1Container} styleBtn={styles.btn2Container} />
                                     </View>
-                                </View>
+                                </View> */}
                             </> : null}
 
                         <Spacer />
@@ -207,7 +210,7 @@ const TokenDetails = (props) => {
                         <Spacer />
                         <PoppinsText style={styles.positionText}>24h Performance</PoppinsText>
                         <Spacer customHeight={hp(1)} />
-                        <PerformanceCard totalVolume={convertBigValues(tokenInfo?.market_data?.total_volume?.usd ?? 0)} totalTraders={convertBigValues(tokenInfo?.market_data?.total_traders ?? 0) ?? '--'} />
+                        <PerformanceCard totalVolume={convertBigValues(tokenInfo?.market_data?.total_volume?.usd ?? 0)} totalTraders={convertBigValues(tokenInfo?.watchlist_portfolio_users ?? 0) ?? '--'} />
 
                         <Spacer />
                         <View style={appStyles.row}>

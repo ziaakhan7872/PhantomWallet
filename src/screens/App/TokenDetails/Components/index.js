@@ -331,7 +331,7 @@ export const PerformanceCard = ({ totalVolume, totalTraders }) => {
             <View style={[appStyles.row, styles.cardContainer1]}>
                 <PoppinsText style={styles.leftText}>{'Traders'}</PoppinsText>
                 <View style={appStyles.rowBasic}>
-                    <PoppinsText style={styles.performaceRightText}>528</PoppinsText>
+                    <PoppinsText style={styles.performaceRightText}>{totalTraders ? totalTraders : '--'}</PoppinsText>
                     <PoppinsText style={styles.performaceRightText1}>{'+1.22%'}</PoppinsText>
                 </View>
             </View>
@@ -371,20 +371,45 @@ export const ChatBox = () => {
 
 
     const [chatNumber, setChatNumber] = useState(getRandom(0, 5));
+    const [shuffledDummy, setShuffledDummy] = useState([]);
+
+    const dummy = [
+        Images.avatar1,
+        Images.avatar2,
+        Images.avatar3,
+        Images.avatar4,
+        Images.avatar5,
+        Images.avatar6,
+        Images.avatar7,
+        Images.avatar8,
+        Images.avatar9,
+        Images.avatar10,
+        Images.avatar11,
+    ];
+
+    // Shuffle helper
+    const shuffleArray = (array) => {
+        return [...array].sort(() => Math.random() - 0.5);
+    };
+
+    useEffect(() => {
+        // First shuffle
+        setShuffledDummy(shuffleArray(dummy));
+    }, []);
 
     useEffect(() => {
         let time = chatNumber == 0 ? 10000 : 5000;
+
         const interval = setInterval(() => {
-            setChatNumber(getRandom(0, 5)); // updates state → re-renders component
+            const newNumber = getRandom(0, 5);
+            setChatNumber(newNumber);
+
+            // Shuffle dummy array whenever chatNumber changes
+            setShuffledDummy(shuffleArray(dummy));
         }, time);
 
-        return () => clearInterval(interval); // cleanup
-    }, []);
-
-    const avatars = Array.from({ length: 20 }, () => ({
-        id: Math.random().toString(),
-        url: `https://randomuser.me/api/portraits/men/${Math.floor(Math.random() * 90)}.jpg`
-    }));
+        return () => clearInterval(interval);
+    }, [chatNumber]);
 
     return (
         <View style={[appStyles.row, styles.chatBoxContainer]}>
@@ -392,10 +417,10 @@ export const ChatBox = () => {
 
                 {chatNumber == 0 ? null :
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: wp(2) }}>
-                        {avatars?.slice(0, chatNumber)?.map((item, index) => (
+                        {shuffledDummy?.slice(0, chatNumber)?.map((item, index) => (
                             <Image
                                 key={item?.id}
-                                source={{ uri: item?.url }}
+                                source={item}
                                 style={{
                                     width: 28,
                                     height: 28,

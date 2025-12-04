@@ -56,21 +56,43 @@ export function formatValueTwoDigit(balance) {
 }
 
 
+// export const NumberRoundFunction = (number) => {
+//     const num = Number(number);
+
+//     if (isNaN(num)) return 0;
+
+//     // If number is 0 or nearly 0
+//     if (Math.abs(num) < 1e-8) return 0;
+
+//     // For large numbers, round to 2 decimals
+//     if (Math.abs(num) >= 1) return Number(num.toFixed(2));
+
+//     // For small decimals, show up to 8 decimals but trim trailing zeros
+//     return Number(num.toFixed(5));
+// };
+
+
 export const NumberRoundFunction = (number) => {
     const num = Number(number);
 
-    if (isNaN(num)) return 0;
+    if (isNaN(num)) return '0';
 
     // If number is 0 or nearly 0
-    if (Math.abs(num) < 1e-8) return 0;
+    if (Math.abs(num) < 1e-8) return '0';
 
     // For large numbers, round to 2 decimals
-    if (Math.abs(num) >= 1) return Number(num.toFixed(2));
+    if (Math.abs(num) >= 1) {
+        return num.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
 
-    // For small decimals, show up to 8 decimals but trim trailing zeros
-    return Number(num.toFixed(5));
+    // For small decimals, show up to 5 decimals
+    const formatted = num.toFixed(5);
+    // Remove trailing zeros
+    return formatted.replace(/\.?0+$/, '');
 };
-
 
 export function functionHandleCurentPrice(value) {
     const subscriptChars = ['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉'];
