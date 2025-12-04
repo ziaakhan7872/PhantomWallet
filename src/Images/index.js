@@ -65,6 +65,8 @@ export const Images = {
     historyUnActiveBtn: require('./historyUnActiveBtn.png'),
     searchActiveBtn: require('./searchActiveBtn.png'),
     seacrhUnActiveBtn: require('./seacrhUnActiveBtn.png'),
+    chatActiveTab: require('./chatActiveTab.png'),
+    chatUnActiveTab: require('./chatUnActiveTab.png'),
 
     // AppFlow
     profile: require('./profile.png'),

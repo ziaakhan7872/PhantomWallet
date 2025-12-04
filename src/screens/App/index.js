@@ -20,6 +20,7 @@ import TokenDetails from "./TokenDetails/TokenDetails";
 
 // New Screens
 import HomeScreen from "./HomeScreen/HomeScreen";
+import ChatScreen from "./ChatScreen/ChatScreen";
 import AccountDetails from "./AccountDetails/AccountDetails";
 import SearchScreen from "./SearchScreen/SearchScreen";
 import EditProfile from "./EditProfile/EditProfile";
@@ -91,6 +92,7 @@ export {
 
     // New Screens
     HomeScreen,
+    ChatScreen,
     SearchScreen,
     AccountDetails,
     EditProfile,

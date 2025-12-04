@@ -55,6 +55,7 @@ export const routes = {
     homeScreen: "homeScreen",
     searchScreen: "searchScreen",
     cardTab: "cardTab",
+    chatScreen: "chatScreen",
     accountDetails: "accountDetails",
     editProfile: "editProfile",
     manageProfile: "manageProfile",

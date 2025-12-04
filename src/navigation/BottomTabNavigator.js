@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Activities, HistoryScreen, HomeScreen, SearchScreen, Settings, SwapMain } from '../screens/App';
+import { Activities, ChatScreen, HistoryScreen, HomeScreen, SearchScreen, Settings, SwapMain } from '../screens/App';
 import { routes } from '../constants/routes';
 import { StyleSheet, TouchableOpacity, View, Image, Platform, } from 'react-native';
 import { hp, wp } from '../components/ResponsiveComponent';
@@ -96,6 +96,8 @@ function BottomTabBarNav({ navigation }) {
           }}
         />
 
+
+
         <Tab.Screen
           name={routes.swapMain}
           component={SwapMain}
@@ -114,6 +116,20 @@ function BottomTabBarNav({ navigation }) {
 
               <View style={{ borderTopWidth: focused ? 0 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
                 <Image source={focused ? Images.swapActiveBtn : Images.swapUnActiveBtn} style={focused ? styles.activeTab : styles.unActiveTab} resizeMode="contain" />
+              </View>
+
+          }}
+        />
+
+        <Tab.Screen
+          name={routes.chatScreen}
+          component={ChatScreen}
+          options={{
+
+            tabBarIcon: ({ focused }) =>
+
+              <View style={{ borderTopWidth: focused ? 0 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
+                <Image source={focused ? Images.chatActiveTab : Images.chatUnActiveTab} tintColor={focused ? colors.lightPurple14 : colors.gray125} style={focused ? styles.activeTab : styles.unActiveTab} resizeMode="contain" />
               </View>
 
           }}
