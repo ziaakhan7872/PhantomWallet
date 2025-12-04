@@ -9,8 +9,8 @@ export const styles = StyleSheet.create({
         paddingHorizontal: wp(4)
     },
     title: {
-        fontSize: 16,
+        fontSize: 20,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray48
+        color: colors.white
     }
 })

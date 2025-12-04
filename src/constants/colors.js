@@ -150,6 +150,7 @@ export const colors = {
     gray137: "#D2D2D2",
     gray138: "#7D7D88",
     gray139: "#DBDAE6",
+    gray140: "#00000000",
 
     lineColor: "#454545",
 
@@ -196,7 +197,7 @@ export const colors = {
     lightPurple6: "#8980B2",
     lightPurple7: "#8F85B8",
     lightPurple8: "#D0C1FF",
-    lightPurple9: "#948AC3",
+    lightPurple9: "#bca9ff",
     lightPurple10: "#8980B1",
     lightPurple11: "#9E93D4",
     lightPurple12: "#B4A7EB",
@@ -206,4 +207,10 @@ export const colors = {
     lightPurple16: "#AEA1E6",
     lightPurple17: "#A3A6FC",
     lightPurple18: "#5E56A1",
+    mainBtnColor: "#aa9ef1",
+
+    mainRed: '#ED4518',
+    mainGreen: '#3A9C6D',
+    mainRedChange: '#DE5B2D',
+    mainGreenChange: '#419B78',
 }

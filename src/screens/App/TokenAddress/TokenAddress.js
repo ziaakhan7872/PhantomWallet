@@ -10,7 +10,8 @@ import { copyPaste } from '../../../utilities/helperFunction'
 import { CustomButton } from '../../../components/CustomButton'
 import useTokenAddress from './Hooks'
 import { colors } from '../../../constants/colors'
-import { NewCustomHeader } from '../../../components/MainHeader'
+import { NewCustomHeader, SimpleHeader } from '../../../components/MainHeader'
+import { Fonts } from '../../../constants/fonts'
 
 const TokenAddress = (props) => {
 
@@ -19,8 +20,11 @@ const TokenAddress = (props) => {
 
     const shareAddress = async () => {
         try {
+            // await Share.share({
+            //     message: `Use this address to receive tokens on ${name}: ${address}`,
+            // });
             await Share.share({
-                message: `Use this address to receive tokens on ${name}: ${address}`,
+                message: address
             });
         } catch (error) {
             console.log('Error sharing address:', error);
@@ -30,29 +34,31 @@ const TokenAddress = (props) => {
     return (
         <MainContainerApp>
             <Spacer customHeight={hp(6)} />
-            <NewCustomHeader leftImage={Images.backArrow} title={`Your ${name} Address`} onPressLeftImage={() => props?.navigation.goBack()} />
+            <SimpleHeader leftImage={Images.backArrow} title={`Your ${name?.charAt(0).toUpperCase() + name?.slice(1)} Address`} onPressLeftImage={() => props?.navigation.goBack()} />
             <View style={styles.mainView}>
                 <View style={styles.scannerView}>
                     <View style={styles.qrview}>
                         <QRCodeStyled
                             data={address}
-                            style={{ backgroundColor: colors.gray39, borderRadius: 10 }}
-                            padding={Platform.OS == 'ios' ? 10 : 10}
+                            style={{ backgroundColor: colors.gray39 }}
+                            padding={5}
                             pieceSize={6}
                             borderRadius={10}
                         />
                     </View>
                     <Spacer height={hp(1)} />
                     <Spacer />
-                    <PoppinsText style={styles.resText}>Your {name} Address</PoppinsText>
+                    <PoppinsText style={styles.resText}>Your {name?.charAt(0).toUpperCase() + name?.slice(1)} Address</PoppinsText>
                     <Spacer customHeight={hp(1)} />
-                    <PoppinsText style={styles.resText}>{`Use this address to receive tokens and collectibles on ${name}.`}</PoppinsText>
+                    <PoppinsText style={styles.resText1}>{`Use this address to receive tokens and collectibles on `}
+                        <PoppinsText style={[styles.resText1, { fontFamily: Fonts.Poppins.Medium, color: colors.gray83 }]}>{name?.charAt(0).toUpperCase() + name?.slice(1)}.</PoppinsText>
+                    </PoppinsText>
                 </View>
             </View>
 
             <View style={{ paddingBottom: Platform.OS == 'ios' ? hp(5) : hp(3) }}>
                 <CustomButton
-                    title={`${address?.slice(0, 6)}...${address?.slice(-6)}`}
+                    title={`${address?.slice(0, 8)}...${address?.slice(-6)}`}
                     rightImage={Images.copy} titleStyles={styles.titleStyles} btnSyles={styles.customeBtn1}
                     onPressBtn={() => copyPaste.copy(address)}
                 />

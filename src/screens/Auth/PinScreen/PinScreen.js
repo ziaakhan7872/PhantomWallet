@@ -13,7 +13,7 @@ import { CustomTextInput } from '../../../components/CustomTextInput';
 
 const PinScreen = (props) => {
 
-  const { splashScreen, step, errorTitle, newPin, setNewPin, handleRemove, HandleKeyPress } = usePinScreen(props)
+  const { splashScreen, step, errorTitle, userPin, newPin, setNewPin, handleRemove, HandleKeyPress } = usePinScreen(props)
   const inputRef = useRef(null);
 
   return (
@@ -28,7 +28,7 @@ const PinScreen = (props) => {
             <MainHeader leftImage={splashScreen ? null : Images.goBackArrow} centerImage={Images.slider2} onPressLeftImage={() => props?.navigation.goBack()} />
             <Spacer customHeight={hp(3)} />
             <PoppinsText style={styles.pinTitle}>
-              {step === 'create' ? 'Create a PIN' : 'Confirm PIN'}
+              {userPin.length > 0 ? 'Enter Your PIN' : step === 'create' ? 'Create a PIN' : 'Confirm PIN'}
             </PoppinsText>
             <Spacer customHeight={hp(0.5)} />
             <PoppinsText style={styles.pinDesc}>This is used to secure your wallet on all your devices.

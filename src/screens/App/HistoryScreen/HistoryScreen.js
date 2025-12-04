@@ -25,25 +25,25 @@ const HistoryScreen = (props) => {
   })
 
   // Fetch wallet addresses from database
-  useFocusEffect(
-    React.useCallback(() => {
-      const getWalletAddresses = async () => {
-        try {
-          const wallet = await database.getWallet();
-          if (wallet) {
-            setActiveWallet({
-              publicAddress: wallet.evmAddress || '',
-              solanaAddress: wallet.solanaAddress || ''
-            });
-          }
-        } catch (error) {
-          console.log('Error fetching wallet addresses:', error);
-        }
-      };
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     const getWalletAddresses = async () => {
+  //       try {
+  //         const wallet = await database.getWallet();
+  //         if (wallet) {
+  //           setActiveWallet({
+  //             publicAddress: wallet.evmAddress || '',
+  //             solanaAddress: wallet.solanaAddress || ''
+  //           });
+  //         }
+  //       } catch (error) {
+  //         console.log('Error fetching wallet addresses:', error);
+  //       }
+  //     };
 
-      getWalletAddresses();
-    }, [])
-  );
+  //     getWalletAddresses();
+  //   }, [])
+  // );
 
   // Helper function to format Ethereum transaction data
   const setAllEtherTransectionData = (transactions) => {
@@ -278,30 +278,30 @@ const HistoryScreen = (props) => {
   }
 
   // Fetch transactions for all supported chains (based on available addresses)
-  useEffect(() => {
-    const fetchHistory = async () => {
-      try {
-        setLoading(true)
-        const [ethNative, ethTokens, sol] = await Promise.all([
-          activeWallet.publicAddress ? getEtherTransaction() : Promise.resolve([]),
-          activeWallet.publicAddress ? getEtherTokenTransaction() : Promise.resolve([]),
-          activeWallet.solanaAddress ? getSolanaHistory() : Promise.resolve([]),
-        ])
+  // useEffect(() => {
+  //   const fetchHistory = async () => {
+  //     try {
+  //       setLoading(true)
+  //       const [ethNative, ethTokens, sol] = await Promise.all([
+  //         activeWallet.publicAddress ? getEtherTransaction() : Promise.resolve([]),
+  //         activeWallet.publicAddress ? getEtherTokenTransaction() : Promise.resolve([]),
+  //         activeWallet.solanaAddress ? getSolanaHistory() : Promise.resolve([]),
+  //       ])
 
-        const merged = [...(ethNative || []), ...(ethTokens || []), ...(sol || [])]
-        const sorted = merged.sort((a, b) => b.timestamp - a.timestamp)
-        setAllTransactions(sorted)
-        setLoading(false)
-      } catch (error) {
-        console.log('error from call history function', error)
-        setLoading(false)
-      }
-    }
+  //       const merged = [...(ethNative || []), ...(ethTokens || []), ...(sol || [])]
+  //       const sorted = merged.sort((a, b) => b.timestamp - a.timestamp)
+  //       setAllTransactions(sorted)
+  //       setLoading(false)
+  //     } catch (error) {
+  //       console.log('error from call history function', error)
+  //       setLoading(false)
+  //     }
+  //   }
 
-    if (activeWallet.publicAddress || activeWallet.solanaAddress) {
-      fetchHistory()
-    }
-  }, [activeWallet])
+  //   if (activeWallet.publicAddress || activeWallet.solanaAddress) {
+  //     fetchHistory()
+  //   }
+  // }, [activeWallet])
 
   // Sort transactions by timestamp
   const sortedTransactions = [...allTransactions].sort((a, b) => b.timestamp - a.timestamp)

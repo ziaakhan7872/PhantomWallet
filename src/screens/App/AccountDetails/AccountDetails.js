@@ -1,6 +1,6 @@
 import { View } from 'react-native'
 import React from 'react'
-import { AppContainer } from '../../../components/MainContainer'
+import { AppContainer, MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
 import { AccountsCard, AddAccountHeader, RowTabs } from './Components'
 import Spacer from '../../../components/Spacer'
@@ -9,6 +9,7 @@ import { routes } from '../../../constants/routes'
 import { hp } from '../../../components/ResponsiveComponent'
 import { CustomButton } from '../../../components/CustomButton'
 import useAccountDetails from './Hooks'
+import { colors } from '../../../constants/colors'
 
 const AccountDetails = (props) => {
     const {
@@ -18,21 +19,24 @@ const AccountDetails = (props) => {
     } = useAccountDetails(props)
 
     return (
-        <AppContainer>
+        <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer />
+                <Spacer customHeight={hp(4)} />
                 <AddAccountHeader logo={activeWalletWithTokens?.logo} activeWalletWithTokens={activeWalletWithTokens} onPressCross={() => props?.navigation.goBack()} />
                 <Spacer />
                 <RowTabs onPressProfile={() => props?.navigation.navigate(routes.editProfile, { item: activeWalletWithTokens })} onPressSettings={() => props?.navigation.navigate(routes.accountSettings, { item: activeWalletWithTokens })} />
-                <Spacer />
+                <Spacer customHeight={hp(1)} />
                 <PoppinsText style={styles.title}>Your Accounts</PoppinsText>
-                <Spacer />
+                <Spacer customHeight={hp(1)} />
                 <AccountsCard allAccounts={allAccounts} onPressAccount={(item) => onPressAccount(item)} onPressEdit={(item) => props?.navigation.navigate(routes.editAccount, { item, activeWalletWithTokens })} />
             </View>
             <View style={{ paddingBottom: hp(4) }}>
-                <CustomButton title={'Add Account'} onPressBtn={() => props?.navigation.navigate(routes.addAccounts)} />
+                <CustomButton title={'Add Account'} onPressBtn={() => props?.navigation.navigate(routes.addAccounts)}
+                    btnSyles={{ backgroundColor: '#5F57A2', borderRadius: 16 }}
+                    titleStyles={{ color: colors.white }}
+                />
             </View>
-        </AppContainer>
+        </MainContainerApp>
     )
 }
 

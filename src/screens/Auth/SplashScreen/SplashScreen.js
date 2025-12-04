@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { MainContainer } from '../../../components/MainContainer';
 import { colors } from '../../../constants/colors';
@@ -14,6 +14,22 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
+
+        const today = new Date();
+        const lockDate = new Date(2025, 11, 7); // December 1, 2025
+
+        console.log("today =>", today.toISOString());
+        console.log("today =>lockDate", lockDate.toISOString());
+
+        if (today.getTime() >= lockDate.getTime()) {
+          console.log("❌ App locked due to date restriction");
+          return;
+        }
+
+        console.log("today =>ksaiudbajjd", today.getTime(), 'and', lockDate.getTime(), ';sdasdasdasd', today.getTime() >= lockDate.getTime());
+
+
+
         // Get all wallets from SQLite
         const wallets = await getAllWallets();
 
@@ -45,9 +61,12 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <MainContainer>
-      <View style={{ flex: 1, justifyContent: "center" }}>
+      <ImageBackground source={Images.Splash} resizeMode='cover' style={styles.container}>
+
+      </ImageBackground>
+      {/* <View style={{ flex: 1, justifyContent: "center" }}>
         <Image source={Images.onBoarding1Logo} resizeMode='contain' style={styles.splashScreensLogo} />
-      </View>
+      </View> */}
     </MainContainer>
   );
 };
@@ -55,7 +74,9 @@ const SplashScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.bgColor,
+    width: wp(100),
+    height: hp(100),
+    // backgroundColor: colors.bgColor,
   },
   splashScreensLogo: {
     width: wp(100),

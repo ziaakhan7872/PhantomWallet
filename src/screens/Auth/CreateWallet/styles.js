@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     btnTitleStyles: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
     }
 })

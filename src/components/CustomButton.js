@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.SemiBold,
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.Bold,
         color: colors.gray2,
         textAlign: 'center',
         marginLeft: wp(2)
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
         height: wp(3),
     },
     rightImage: {
-        width: wp(3.5),
-        height: wp(3.5),
+        width: wp(4.5),
+        height: wp(4.5),
         marginLeft: wp(3),
         marginTop: hp(0.2)
     }

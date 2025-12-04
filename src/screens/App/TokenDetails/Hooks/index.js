@@ -1,25 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useFocusEffect } from "@react-navigation/native";
-import database from "../../../../services/database";
+import database, { UpdateTokenAndCoinBalance } from "../../../../services/database";
 import { ethers } from "ethers";
 import { Connection, PublicKey } from "@solana/web3.js";
 import { Images } from '../../../../Images';
 import axios from 'axios';
+import { getCoinTokenInfoById, getGraphDataById } from '../../../../services/Helpers/Apis';
 
 
 const useTokenDetails = (props) => {
 
     const previousTokenData = props?.route?.params?.tokenData;
+    console.log('previousTokenData::previousTokenData', previousTokenData);
+
 
     const stakeOptionBottomSheet = useRef(null)
 
     const [allTransactions, setAllTransactions] = useState([])
     const [loading, setLoading] = useState(false)
-    const [selectedTab, setSelectedTab] = useState('1H')
+    const [selectedTab, setSelectedTab] = useState('1D')
     const [activeWallet, setActiveWallet] = useState({
         publicAddress: '',
         solanaAddress: ''
     })
+    const [balanceModalVisible, setBalanceModalVisible] = useState(false)
+    const [balanceValue, setBalanceValue] = useState(Number(previousTokenData?.balance) > 0 ? previousTokenData?.balance : '')
+    const [tempBalanceValue, setTempBalanceValue] = useState(Number(previousTokenData?.balance) > 0 ? previousTokenData?.balance : '');
+    const [graphData, setGraphData] = useState([{ value: 0, timestamp: 0 }]);
+    const [graphLoading, setGraphLoading] = useState(false);
+    const [totalVolume, setTotalVolume] = useState(0);
+    const [tokenInfo, setTokenInfo] = useState(false);
+    const [dailyPnl, setDailyPnl] = useState({});
+    const [showMore, setShowMore] = useState(false);
+    const [isFollowed, setIsFollowed] = useState(previousTokenData?.isFollowed ?? false);
+    const [randomPeopleCount, setRandomPeopleCount] = useState(0);
 
     // Fetch wallet addresses from database
     useFocusEffect(
@@ -33,6 +47,10 @@ const useTokenDetails = (props) => {
                             solanaAddress: wallet.solanaAddress || ''
                         });
                     }
+                    getGraphData(4);
+                    setDailyPnl(calculateSelectedTokenPnL(previousTokenData));
+                    const coinTokenInfo = await getCoinTokenInfoById(previousTokenData?.cmcId);
+                    setTokenInfo(coinTokenInfo)
                 } catch (error) {
                     console.log('Error fetching wallet addresses:', error);
                 }
@@ -42,275 +60,167 @@ const useTokenDetails = (props) => {
         }, [])
     );
 
-    // Helper function to format Ethereum transaction data
-    const setAllEtherTransectionData = (transactions) => {
-        console.log('=== setAllEtherTransectionData ===');
-        console.log('Transactions count:', transactions?.length);
-        console.log('ActiveWallet publicAddress:', activeWallet?.publicAddress);
-
-        if (!transactions || transactions.length === 0) {
-            console.log('No transactions found');
-            return [];
-        }
-
-        return transactions.map((tx, index) => {
-            try {
-                const isSent = tx.from?.toLowerCase() === activeWallet?.publicAddress?.toLowerCase()
-                const value = tx.value && tx.value !== '0' ? ethers.formatEther(tx.value) : '0'
-                const timestamp = parseInt(tx.timeStamp) * 1000
-
-                console.log(`Transaction ${index}:`, {
-                    from: tx.from,
-                    to: tx.to,
-                    value: value,
-                    isSent: isSent,
-                    hash: tx.hash
-                });
-
-                return {
-                    id: `eth-${tx.hash}-${index}`,
-                    statusLogo: isSent ? Images.receiveGreenArrow : Images.sentRedArrow,
-                    status: isSent ? 'Token Sent' : 'Token Received',
-                    amount: `${isSent ? '-' : '+'}${parseFloat(value).toFixed(6)} ETH`,
-                    usdValue: isSent ? '-$0.00' : '+$0.00',
-                    address: isSent
-                        ? `${tx.to?.substring(0, 3)}..${tx.to?.substring(tx.to.length - 5)}`
-                        : `${tx.from?.substring(0, 3)}..${tx.from?.substring(tx.from.length - 5)}`,
-                    timestamp: timestamp,
-                    date: new Date(timestamp).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-                    time: new Date(timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-                    txHash: tx.hash,
-                    chainName: 'Ethereum',
-                    fullData: tx
-                }
-            } catch (error) {
-                console.error('Error formatting transaction:', error, tx);
-                return null;
-            }
-        }).filter(tx => tx !== null)
-    }
-
-    // Helper function to format Ethereum token transaction data
-    const setAllTransectionData = (transactions) => {
-        console.log('=== setAllTransectionData ===');
-        console.log('Token Transactions count:', transactions?.length);
-        console.log('ActiveWallet publicAddress:', activeWallet?.publicAddress);
-
-        if (!transactions || transactions.length === 0) {
-            console.log('No token transactions found');
-            return [];
-        }
-
-        return transactions.map((tx, index) => {
-            try {
-                const isSent = tx.from?.toLowerCase() === activeWallet?.publicAddress?.toLowerCase()
-                const decimals = parseInt(tx.tokenDecimal) || 18
-                const value = (parseInt(tx.value) / Math.pow(10, decimals)).toFixed(6)
-                const timestamp = parseInt(tx.timeStamp) * 1000
-
-                console.log(`Token Transaction ${index}:`, {
-                    from: tx.from,
-                    to: tx.to,
-                    value: value,
-                    symbol: tx.tokenSymbol,
-                    isSent: isSent
-                });
-
-                return {
-                    id: `token-${tx.hash}-${index}`,
-                    statusLogo: isSent ? Images.receiveGreenArrow : Images.sentRedArrow,
-                    status: isSent ? 'Token Sent' : 'Token Received',
-                    amount: `${isSent ? '-' : '+'}${value} ${tx.tokenSymbol || ''}`,
-                    usdValue: isSent ? '-$0.00' : '+$0.00',
-                    address: isSent
-                        ? `${tx.to?.substring(0, 3)}..${tx.to?.substring(tx.to.length - 5)}`
-                        : `${tx.from?.substring(0, 3)}..${tx.from?.substring(tx.from.length - 5)}`,
-                    timestamp: timestamp,
-                    date: new Date(timestamp).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-                    time: new Date(timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-                    txHash: tx.hash,
-                    chainName: 'Ethereum',
-                    fullData: tx
-                }
-            } catch (error) {
-                console.error('Error formatting token transaction:', error, tx);
-                return null;
-            }
-        }).filter(tx => tx !== null)
-    }
-
-    // Helper function to format Solana transaction data
-    const setAllSolanaTransection = async (signatures, connection) => {
-        const formattedTransactions = []
-
-        // Fetch details for each signature (limit to first 20 for performance)
-        const signaturesToFetch = signatures.slice(0, 20)
-
-        for (const sig of signaturesToFetch) {
-            try {
-                const txDetails = await connection.getParsedTransaction(sig.signature, {
-                    maxSupportedTransactionVersion: 0
-                })
-
-                if (txDetails && txDetails.meta) {
-                    const timestamp = sig.blockTime ? sig.blockTime * 1000 : Date.now()
-                    const isSent = txDetails.meta.err === null && txDetails.meta.preBalances[0] > txDetails.meta.postBalances[0]
-
-                    // Calculate amount change
-                    const balanceChange = Math.abs(
-                        (txDetails.meta.postBalances[0] - txDetails.meta.preBalances[0]) / 1e9
-                    )
-
-                    formattedTransactions.push({
-                        id: `sol-${sig.signature}`,
-                        statusLogo: isSent ? Images.receiveGreenArrow : Images.sentRedArrow,
-                        status: isSent ? 'Token Sent' : 'Token Received',
-                        amount: `${isSent ? '-' : '+'}${balanceChange.toFixed(6)} SOL`,
-                        usdValue: isSent ? '-$0.00' : '+$0.00',
-                        address: 'Solana',
-                        timestamp: timestamp,
-                        date: new Date(timestamp).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-                        time: new Date(timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-                        txHash: sig.signature,
-                        chainName: 'Solana',
-                        fullData: txDetails
-                    })
-                }
-            } catch (error) {
-                console.log('Error fetching Solana transaction details:', error)
-            }
-        }
-
-        return formattedTransactions
-    }
-
-    // Fetch Ethereum chain transactions
-    const getEtherTransaction = async () => {
+    const getGraphData = async (days) => {
         try {
-            console.log('=== Starting getEtherTransaction ===');
-            console.log('Fetching from address:', activeWallet?.publicAddress);
+            setGraphLoading(true);
 
-            const provider = new ethers.JsonRpcProvider("https://eth-mainnet.public.blastapi.io")
-            const blocknumber = await provider.getBlockNumber()
+            const data = await getGraphDataById(previousTokenData?.cmcId, days);
 
-            console.log('Block number:', blocknumber);
+            setGraphData(data?.prices ?? []);
 
-            const result = await axios.get(
-                `https://api.etherscan.io/v2/api?module=account&action=txlist&address=${activeWallet?.publicAddress}&startblock=0&endblock=${blocknumber}&sort=desc&apikey=U2TQCDDSJBGSKSII5HXNTRQIR4ATTXV1UD&chainid=1`
-            )
+            const lastValue = data?.total_volumes[data?.total_volumes.length - 1][1];
 
-            console.log('API Response status:', result?.data?.status);
-            console.log('API Response result count:', result?.data?.result?.length);
-
-            if (result?.data?.result && Array.isArray(result.data.result)) {
-                let transactions = setAllEtherTransectionData(result.data.result)
-                console.log('Formatted ETH transactions count:', transactions?.length);
-                return transactions
-            } else {
-                console.log('No valid ETH transactions in response');
-                return []
-            }
+            setTotalVolume(lastValue ?? 0);
+            setGraphLoading(false);
         } catch (error) {
-            console.error('Error from getEtherTransaction:', error.message);
-            return []
+            console.log('Error fetching graph data:', error);
         }
-    }
+    };
 
-    // Fetch Ethereum token transactions
-    const getEtherTokenTransaction = async () => {
+    const calculateSelectedTokenPnL = (token) => {
+        if (!token) {
+            return {
+                totalValue: 0,
+                pnlAmount: 0,
+                change24h: 0,
+            };
+        }
+
+        const { currentPriceUsd, balance, change24h } = token;
+
+        // 1. Current total value
+        const totalValue = Number(currentPriceUsd) * Number(balance);
+
+        // 2. Reconstruct price 24h ago
+        const price24hAgo =
+            Number(currentPriceUsd) / (1 + Number(change24h) / 100);
+
+        // 3. Value 24h ago
+        const value24hAgo = Number(balance) * price24hAgo;
+
+        // 4. PnL amount
+        const pnlAmount = totalValue - value24hAgo;
+
+        return {
+            totalValue,
+            pnlAmount,
+            change24h,
+        };
+    };
+
+
+    const handleOpenModal = () => {
+        setTempBalanceValue(balanceValue);
+        setBalanceModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setBalanceModalVisible(false);
+        setTempBalanceValue(balanceValue);
+    };
+
+    const handleSaveBalance = async () => {
+        // Validate that the value is a valid number (integer or float)
+        const trimmedValue = tempBalanceValue.trim();
+        if (trimmedValue === '' || isNaN(trimmedValue) || trimmedValue.includes(' ') || trimmedValue.includes(',')) {
+            return; // Don't save invalid values
+        }
+
+        const numValue = parseFloat(trimmedValue);
+        if (!isNaN(numValue) && isFinite(numValue)) {
+            setBalanceValue(trimmedValue);
+            setBalanceModalVisible(false);
+
+            await UpdateTokenAndCoinBalance(trimmedValue, previousTokenData?.id);
+        }
+    };
+
+    const handleBalanceChange = (text) => {
+        // Only allow numbers, decimal point, and minus sign
+        // Remove any characters that aren't digits, decimal point, or minus
+        const cleanedText = text.replace(/[^0-9.-]/g, '');
+
+        // Ensure only one decimal point
+        const parts = cleanedText.split('.');
+        const filteredText = parts.length > 2
+            ? parts[0] + '.' + parts.slice(1).join('')
+            : cleanedText;
+
+        // Ensure minus sign only at the beginning
+        const finalText = filteredText.replace(/(?!^)-/g, '');
+
+        setTempBalanceValue(finalText);
+    };
+
+    const onPressFollow = async () => {
         try {
-            console.log('=== Starting getEtherTokenTransaction ===');
-            console.log('Fetching token transactions for address:', activeWallet?.publicAddress);
+            await database.updateFollowStatus(isFollowed == true ? 0 : 1, previousTokenData?.id);
+            setIsFollowed(!isFollowed);
 
-            const provider = new ethers.JsonRpcProvider("https://eth-mainnet.public.blastapi.io")
-            const blocknumber = await provider.getBlockNumber()
-
-            console.log('Block number:', blocknumber);
-
-            const result = await axios.get(
-                `https://api.etherscan.io/v2/api?module=account&action=tokentx&address=${activeWallet?.publicAddress}&startblock=0&endblock=${blocknumber}&sort=desc&apikey=U2TQCDDSJBGSKSII5HXNTRQIR4ATTXV1UD&chainid=1`
-            )
-
-            console.log('API Response status:', result?.data?.status);
-            console.log('Total token transactions:', result?.data?.result?.length);
-
-            if (result?.data?.result && Array.isArray(result.data.result)) {
-                let transactions = setAllTransectionData(result.data.result)
-                console.log('Formatted token transactions count:', transactions?.length);
-                return transactions
-            } else {
-                console.log('No valid token transactions in response');
-                return []
-            }
         } catch (error) {
-            console.error('Error from getEtherTokenTransaction:', error.message);
-            return []
+            console.log('catch error in onPressFollow:', error);
+
         }
+    };
+
+    function calculate24hReturn(balance, currentPrice, change24h) {
+        const price24hAgo = currentPrice / (1 + Number(change24h) / 100);
+
+        const currentValue = balance * currentPrice;
+        const previousValue = balance * price24hAgo;
+
+        const return24h = currentValue - previousValue;
+
+        return return24h;
     }
 
-    // Fetch Solana transactions
-    const getSolanaHistory = async () => {
-        try {
-            console.log('=== Starting getSolanaHistory ===');
-            console.log('Solana Address:', activeWallet?.solanaAddress);
 
-            const connection = new Connection('https://api.mainnet-beta.solana.com')
-            const walletAddress = new PublicKey(activeWallet?.solanaAddress)
-            const result = await connection.getSignaturesForAddress(walletAddress)
+    function createValueGenerator() {
+        let currentValue = Math.floor(Math.random() * 500) + 1; // first value
 
-            console.log('Solana signatures found:', result?.length);
+        return function getNextValue() {
+            const min = Math.max(1, currentValue - 10);
+            const max = Math.min(500, currentValue + 10);
 
-            if (result?.length) {
-                let transactions = await setAllSolanaTransection(result, connection)
-                console.log('Formatted Solana transactions count:', transactions?.length);
-                return transactions
-            } else {
-                console.log('No Solana transactions found');
-                return []
-            }
-        } catch (error) {
-            console.error("Error from getSolanaHistory:", error.message);
-            return []
-        }
+            const nextValue = Math.floor(Math.random() * (max - min + 1)) + min;
+            currentValue = nextValue;
+
+            return nextValue;
+        };
     }
 
-    // Fetch transactions for all supported chains (based on available addresses)
     useEffect(() => {
-        const fetchHistory = async () => {
-            try {
-                setLoading(true)
-                const [ethNative, ethTokens, sol] = await Promise.all([
-                    activeWallet.publicAddress ? getEtherTransaction() : Promise.resolve([]),
-                    activeWallet.publicAddress ? getEtherTokenTransaction() : Promise.resolve([]),
-                    activeWallet.solanaAddress ? getSolanaHistory() : Promise.resolve([]),
-                ])
+        const getValue = createValueGenerator();
+        setRandomPeopleCount(getValue() ?? 0);
+    }, []);
 
-                const merged = [...(ethNative || []), ...(ethTokens || []), ...(sol || [])]
-                const sorted = merged.sort((a, b) => b.timestamp - a.timestamp)
-                setAllTransactions(sorted)
-                setLoading(false)
-            } catch (error) {
-                console.log('error from call history function', error)
-                setLoading(false)
-            }
-        }
-
-        if (activeWallet.publicAddress || activeWallet.solanaAddress) {
-            fetchHistory()
-        }
-    }, [activeWallet])
-
-    // Sort transactions by timestamp
-    const sortedTransactions = [...allTransactions].sort((a, b) => b.timestamp - a.timestamp)
 
 
 
     return {
         loading,
         previousTokenData,
-        sortedTransactions,
         selectedTab, setSelectedTab,
         stakeOptionBottomSheet,
+        balanceModalVisible,
+        setBalanceModalVisible,
+        balanceValue, setBalanceValue,
+        tempBalanceValue, setTempBalanceValue,
+        handleOpenModal,
+        handleCloseModal,
+        handleSaveBalance,
+        handleBalanceChange,
+        randomPeopleCount,
+        graphData,
+        graphLoading,
+        getGraphData,
+        dailyPnl, setDailyPnl,
+        tokenInfo,
+        showMore, setShowMore,
+        isFollowed, setIsFollowed,
+        onPressFollow,
+        calculate24hReturn,
+        totalVolume
     }
 }
 

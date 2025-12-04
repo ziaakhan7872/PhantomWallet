@@ -39,6 +39,7 @@ export const routes = {
     sendTokensAmont: "sendTokensAmont",
     sendConfirmation: "sendConfirmation",
     tokenDetails: "tokenDetails",
+    moreTokens: "moreTokens",
 
     // New Auth
     splashScreen: "splashScreen",

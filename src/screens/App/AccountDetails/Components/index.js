@@ -7,6 +7,7 @@ import { hp, wp } from '../../../../components/ResponsiveComponent'
 import { Fonts } from '../../../../constants/fonts'
 import { colors } from '../../../../constants/colors'
 import Spacer from '../../../../components/Spacer'
+import { NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
 
 export const AddAccountHeader = ({ logo, activeWalletWithTokens, onPressCross }) => {
     return (
@@ -48,20 +49,28 @@ export const RowTabs = ({ onPressProfile, onPressSettings }) => {
 }
 
 export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
+    console.log('allAccountsallAccounts', allAccounts);
 
     return (
         <FlatList
             data={allAccounts}
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
                 <TouchableOpacity activeOpacity={0.8} onPress={() => onPressAccount(item)} style={[styles.accountsCardBgView, appStyles.row]}>
                     <View style={appStyles.rowBasic}>
                         <View style={{ marginRight: wp(3) }}>
                             {/* <Image source={Images.profile1} resizeMode='contain' style={styles.accountLogo} /> */}
-                            <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{item?.logo ?? '😍'}</PoppinsText>
+                            {/* <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{item?.logo ?? '😍'}</PoppinsText> */}
+                            <View style={{ width: wp(11.5), height: wp(11.5), borderRadius: 100, backgroundColor: '#2A2A2A', alignItems: 'center', justifyContent: 'center' }}>
+                                <PoppinsText style={{ fontSize: 16, fontFamily: Fonts.Poppins.SemiBold, color: colors.white }}>{`A${index + 1}`}</PoppinsText>
+                            </View>
                             {item?.isActive == 1 ? <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} /> : null}
                         </View>
-                        <PoppinsText style={styles.accountName}>{item?.name}</PoppinsText>
+
+                        <View>
+                            <PoppinsText style={styles.accountName}>{item?.name}</PoppinsText>
+                            <PoppinsText style={styles.accountBalance}>${NumberRoundFunction(item?.totalBalance ?? 0)}</PoppinsText>
+                        </View>
                     </View>
                     <TouchableOpacity activeOpacity={0.8} onPress={() => onPressEdit(item)}>
                         <Image source={Images.pencilWithRound} resizeMode='contain' style={styles.pencilWithRound} />
@@ -90,14 +99,14 @@ const styles = StyleSheet.create({
         marginRight: wp(3)
     },
     userName: {
-        fontSize: 17,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray44
+        fontSize: 20,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.white
     },
     address: {
-        fontSize: 11,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray45
+        fontSize: 13,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#B1B1B1'
     },
     cross: {
         width: wp(4),
@@ -106,10 +115,8 @@ const styles = StyleSheet.create({
     // RowTabs
     tabBgView: {
         width: wp(45),
-        borderWidth: 1,
-        borderColor: colors.gray46,
         padding: wp(4),
-        borderRadius: 13,
+        borderRadius: 20,
         backgroundColor: colors.gray23
     },
     person: {
@@ -118,9 +125,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     profileText: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray47,
+        fontSize: 11,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#B7B7B7',
         textAlign: 'center'
     },
     settings: {
@@ -129,18 +136,18 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     settingsText: {
-        fontSize: 14,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray47,
+        fontSize: 11,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#B7B7B7',
         textAlign: 'center'
     },
     // AccountsCard
     accountsCardBgView: {
         // width: wp(45),
-        borderWidth: 1,
-        borderColor: colors.gray46,
+        borderWidth: 0.4,
+        borderColor: '#1B1B1B',
         padding: wp(4),
-        borderRadius: 13,
+        borderRadius: 20,
         backgroundColor: colors.gray23
     },
     accountLogo: {
@@ -151,13 +158,18 @@ const styles = StyleSheet.create({
         width: wp(4.5),
         height: wp(4.5),
         position: 'absolute',
-        right: 2,
-        bottom: 3,
+        right: 0,
+        bottom: 0,
     },
     accountName: {
-        fontSize: 13,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray27
+        color: colors.white
+    },
+    accountBalance: {
+        fontSize: 15,
+        fontFamily: Fonts.Poppins.Regular,
+        color: '#B4B4B4'
     },
     pencilWithRound: {
         width: wp(9),

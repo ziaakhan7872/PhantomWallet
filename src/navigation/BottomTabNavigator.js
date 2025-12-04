@@ -62,7 +62,7 @@ function BottomTabBarNav({ navigation }) {
             //   />
             // ),
             tabBarIcon: ({ focused }) =>
-              <View style={{ borderTopWidth: focused ? 2 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
+              <View style={{ borderTopWidth: focused ? 0 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
                 <Image
                   source={focused ? Images.homeActiveBtn : Images.homeUnActiveBtn}
                   style={focused ? styles.activeTab : styles.unActiveTab}
@@ -89,7 +89,7 @@ function BottomTabBarNav({ navigation }) {
             // ),
             tabBarIcon: ({ focused }) =>
 
-              <View style={{ borderTopWidth: focused ? 2 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
+              <View style={{ borderTopWidth: focused ? 0 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
                 <Image source={focused ? Images.historyUnActiveBtn : Images.historyUnActiveBtn} tintColor={focused ? colors.lightPurple14 : colors.gray125} style={focused ? styles.activeTab : styles.unActiveTab} resizeMode="contain" />
               </View>
 
@@ -112,7 +112,7 @@ function BottomTabBarNav({ navigation }) {
             // ),
             tabBarIcon: ({ focused }) =>
 
-              <View style={{ borderTopWidth: focused ? 2 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
+              <View style={{ borderTopWidth: focused ? 0 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
                 <Image source={focused ? Images.swapActiveBtn : Images.swapUnActiveBtn} style={focused ? styles.activeTab : styles.unActiveTab} resizeMode="contain" />
               </View>
 
@@ -136,7 +136,7 @@ function BottomTabBarNav({ navigation }) {
             // ),
             tabBarIcon: ({ focused }) =>
 
-              <View style={{ borderTopWidth: focused ? 2 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
+              <View style={{ borderTopWidth: focused ? 0 : 0, borderTopColor: focused ? colors.lightPurple17 : 'transparent', width: wp(18), height: wp(9), justifyContent: 'flex-end', alignItems: 'center' }}>
                 <Image source={focused ? Images.searchActiveBtn : Images.seacrhUnActiveBtn} style={focused ? styles.activeTab : styles.unActiveTab} resizeMode="contain" />
               </View>
 

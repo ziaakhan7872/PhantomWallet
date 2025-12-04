@@ -66,6 +66,7 @@ import BottomTabBarNav from './BottomTabNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
 import { CreateWallet, ImportPrivateKey, PinScreen, SeedPhrase } from '../screens/Auth';
 import ResetApp from '../screens/App/ResetApp/ResetApp';
+import MoreTokens from '../screens/App/MoreTokens/MoreTokens';
 
 const Stack = createStackNavigator();
 
@@ -94,7 +95,7 @@ const AppNavigator = () => {
             <Stack.Screen name={routes.sendTokensAmont} component={SendTokensAmount} />
             <Stack.Screen name={routes.sendConfirmation} component={SendConfirmation} />
             <Stack.Screen name={routes.tokenDetails} component={TokenDetails} />
-
+            <Stack.Screen name={routes.moreTokens} component={MoreTokens} />
             {/* // New */}
             <Stack.Screen name={routes.createWallet} component={CreateWallet} />
             <Stack.Screen name={routes.accountDetails} component={AccountDetails} />

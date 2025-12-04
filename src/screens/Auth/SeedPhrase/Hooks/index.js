@@ -59,7 +59,7 @@ const useSeedPhrase = (props) => {
                                 }
 
                                 //         const waletresponse = await insertWallet(
-                                //             'Multi-Chain-Wallet',
+                                //             'Account',
                                 //             cleanedSeed,
                                 //             allwallets?.evmWallet?.address,
                                 //             allwallets?.evmWallet?.privateKey,
@@ -116,7 +116,7 @@ const useSeedPhrase = (props) => {
                                 }
 
                                 // const waletresponse = await insertWallet(
-                                //     'EVM-Wallet',
+                                //     'Account',
                                 //     '',
                                 //     allwallets?.evmWallet?.address,
                                 //     allwallets?.evmWallet?.privateKey,

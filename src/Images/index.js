@@ -2,6 +2,7 @@
 
 export const Images = {
     splashScreensLogo: require('./splashScreensLogo.png'),
+    Splash: require('./Splash.png'),
     onBoarding1Logo: require('./onBoarding1Logo.png'),
     onBoarding2: require('./onBoarding2.png'),
     onBoarding3: require('./onBoarding3.png'),
@@ -18,6 +19,7 @@ export const Images = {
     radioUnFill: require('./radioUnFill.png'),
     questionMark: require('./questionMark.png'),
     goBackArrow: require('./goBackArrow.png'),
+    setting: require('./setting.png'),
     walletLogo: require('./walletLogo.png'),
     seamLessSetup: require('./seamLessSetup.png'),
     seamLessSetup: require('./seamLessSetup.png'),
@@ -65,9 +67,19 @@ export const Images = {
     seacrhUnActiveBtn: require('./seacrhUnActiveBtn.png'),
 
     // AppFlow
+    profile: require('./profile.png'),
     profile1: require('./profile1.png'),
+    send1: require('./send1.png'),
+    receive1: require('./receive1.png'),
+    nft1: require('./nft1.png'),
+    nft2: require('./nft2.png'),
     clock: require('./clock.png'),
     searchWhite: require('./searchWhite.png'),
+    cardbg: require('./cardbg.png'),
+    sendIcon: require('./sendIcon.png'),
+    receiveIcon: require('./receiveIcon.png'),
+    dotsIcon: require('./dotsIcon.png'),
+    buyIcon: require('./buyIcon.png'),
     sendTab: require('./sendTab.png'),
     receiveTab: require('./receiveTab.png'),
     swapTab: require('./swapTab.png'),
@@ -80,6 +92,7 @@ export const Images = {
     settngs: require('./settngs.png'),
     accountLogo: require('./accountLogo.png'),
     tickWithRound: require('./tickWithRound.png'),
+    staking: require('./staking.png'),
     pencilWithRound: require('./pencilWithRound.png'),
     backArrow: require('./backArrow.png'),
     noActivity: require('./noActivity.png'),
@@ -112,6 +125,7 @@ export const Images = {
     perpImage1: require('./perpImage1.png'),
     shareFeedBack: require('./shareFeedBack.png'),
     infoLogo: require('./infoLogo.png'),
+    following: require('./following.png'),
     horizontallySlider1: require('./horizontallySlider1.png'),
     horzontallySlider2: require('./horzontallySlider2.png'),
     horizontallySlider3: require('./horizontallySlider3.png'),
@@ -154,6 +168,7 @@ export const Images = {
     eyeSlashWithRound: require('./eyeSlashWithRound.png'),
     infoWithRound: require('./infoWithRound.png'),
     followImage: require('./followImage.png'),
+    unfollowImage: require('./unfollowImage.png'),
     cashByTab: require('./cashByTab.png'),
     moreTab: require('./moreTab.png'),
     twoRoundsWithCircle: require('./twoRoundsWithCircle.png'),
@@ -211,5 +226,18 @@ export const Images = {
     ethLogo: require('./ethLogo.png'),
     btcLogo: require('./btcLogo.png'),
     solLogo: require('./solLogo.png'),
+
+    // avatar images
+    avatar1: require('./avatar/avatar1.png'),
+    avatar2: require('./avatar/avatar2.png'),
+    avatar3: require('./avatar/avatar3.png'),
+    avatar4: require('./avatar/avatar4.png'),
+    avatar5: require('./avatar/avatar5.png'),
+    avatar6: require('./avatar/avatar6.png'),
+    avatar7: require('./avatar/avatar7.png'),
+    avatar8: require('./avatar/avatar8.png'),
+    avatar9: require('./avatar/avatar9.png'),
+    avatar10: require('./avatar/avatar10.png'),
+    avatar11: require('./avatar/avatar11.png'),
 
 }

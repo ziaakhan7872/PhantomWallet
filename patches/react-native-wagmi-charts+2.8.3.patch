@@ -1,0 +1,125 @@
+diff --git a/node_modules/react-native-wagmi-charts/src/charts/line/CursorCrosshair.tsx b/node_modules/react-native-wagmi-charts/src/charts/line/CursorCrosshair.tsx
+index 69c77b2..70a6d76 100644
+--- a/node_modules/react-native-wagmi-charts/src/charts/line/CursorCrosshair.tsx
++++ b/node_modules/react-native-wagmi-charts/src/charts/line/CursorCrosshair.tsx
+@@ -62,10 +62,10 @@ export function LineChartCursorCrosshair({
+         {
+           scale: enableSpringAnimation
+             ? withSpring(isActive.value ? 1 : 0, {
+-                damping: 10,
+-                stiffness: 100,
+-                mass: 0.3,
+-              })
++              damping: 10,
++              stiffness: 100,
++              mass: 0.3,
++            })
+             : 0,
+         },
+       ],
+diff --git a/node_modules/react-native-wagmi-charts/src/charts/line/CursorLine.tsx b/node_modules/react-native-wagmi-charts/src/charts/line/CursorLine.tsx
+index 72dbbf2..9bbc9cc 100644
+--- a/node_modules/react-native-wagmi-charts/src/charts/line/CursorLine.tsx
++++ b/node_modules/react-native-wagmi-charts/src/charts/line/CursorLine.tsx
+@@ -180,7 +180,7 @@ export function LineChartCursorLine({
+     return {
+       ...baseStyle,
+       left: labelLeft,
+-      top: labelTop,
++      top: -30,
+       textAlign: 'center' as const,
+     };
+   });
+@@ -198,16 +198,16 @@ export function LineChartCursorLine({
+   return (
+     <LineChartCursor {...cursorProps} type="line">
+       <Animated.View style={containerStyle}>
++        <AnimatedText text={displayText} style={textPositionStyle} />
+         <Svg style={styles.svg}>
+           <AnimatedLine
+             animatedProps={lineAnimatedProps}
+-            strokeWidth={2}
++            strokeWidth={4}
+             stroke={color}
+-            strokeDasharray="3 3"
++            // strokeDasharray="3 3"
+             {...lineProps}
+           />
+         </Svg>
+-        <AnimatedText text={displayText} style={textPositionStyle} />
+       </Animated.View>
+       {children}
+     </LineChartCursor>
+diff --git a/node_modules/react-native-wagmi-charts/src/charts/line/types.ts b/node_modules/react-native-wagmi-charts/src/charts/line/types.ts
+index 037988e..55bcd99 100644
+--- a/node_modules/react-native-wagmi-charts/src/charts/line/types.ts
++++ b/node_modules/react-native-wagmi-charts/src/charts/line/types.ts
+@@ -7,8 +7,8 @@ export type TLineChartPoint = {
+ export type TLineChartDataProp =
+   | TLineChartData
+   | {
+-      [key: string]: TLineChartData;
+-    };
++    [key: string]: TLineChartData;
++  };
+ export type TLineChartData = Array<TLineChartPoint>;
+ export type TLineChartContext = {
+   currentX: SharedValue<number>;
+diff --git a/node_modules/react-native-wagmi-charts/src/charts/line/useDatetime.ts b/node_modules/react-native-wagmi-charts/src/charts/line/useDatetime.ts
+index 7f3e48d..cfcf0c4 100644
+--- a/node_modules/react-native-wagmi-charts/src/charts/line/useDatetime.ts
++++ b/node_modules/react-native-wagmi-charts/src/charts/line/useDatetime.ts
+@@ -31,21 +31,41 @@ export function useLineChartDatetime({
+     [timestamp]
+   );
+ 
++  // const formatted = useDerivedValue(() => {
++  //   const formattedDatetime = value.value
++  //     ? formatDatetime({
++  //         value: value.value,
++  //         locale,
++  //         options,
++  //       })
++  //     : '';
++  //   return format
++  //     ? format({
++  //         value: value.value || -1,
++  //         formatted: formattedDatetime,
++  //       })
++  //     : formattedDatetime;
++  // }, [format, locale, options, value]);
+   const formatted = useDerivedValue(() => {
+-    const formattedDatetime = value.value
+-      ? formatDatetime({
+-          value: value.value,
+-          locale,
+-          options,
+-        })
+-      : '';
++    if (!value.value) return '';
++
++    const date = new Date(value.value);
++
++    // Force time formatting: 12:01 AM
++    const timeString = date.toLocaleTimeString(locale || 'en-US', {
++      hour: '2-digit',
++      minute: '2-digit',
++      hour12: true,
++    });
++
+     return format
+       ? format({
+-          value: value.value || -1,
+-          formatted: formattedDatetime,
+-        })
+-      : formattedDatetime;
+-  }, [format, locale, options, value]);
++        value: value.value,
++        formatted: timeString,
++      })
++      : timeString;
++  }, [format, locale, value]);
++
+ 
+   return { value, formatted };
+ }

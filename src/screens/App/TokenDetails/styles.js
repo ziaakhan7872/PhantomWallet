@@ -5,13 +5,15 @@ import { colors } from '../../../constants/colors'
 
 export const styles = StyleSheet.create({
     mainView: {
-        flex: 1,
+        flex: 1
+    },
+    margin: {
         paddingHorizontal: wp(4)
     },
     tokenCurentPrice: {
         fontSize: 42,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray110,
+        color: colors.white,
     },
     greenArrowUp: {
         width: wp(2.5),
@@ -20,53 +22,51 @@ export const styles = StyleSheet.create({
         marginBottom: hp(0.3)
     },
     dollarPrice: {
-        fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.green7
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#447E65',
     },
     percentageRoundBox: {
-        marginLeft: wp(2),
-        paddingHorizontal: wp(2),
+        backgroundColor: '#34A06E',
+        paddingHorizontal: wp(1),
         paddingVertical: hp(0.1),
-        backgroundColor: colors.green5,
-        borderRadius: 5
+        borderRadius: 7,
+        marginLeft: wp(2)
     },
     percentageText: {
-        fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.green6,
-        textAlign: 'center',
-        marginTop: Platform.OS == 'ios' ? 0 : hp(0.2)
+        fontSize: 14,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#175232',
     },
     bgView: {
-        width: wp(44),
-        borderRadius: 12,
+        width: wp(45.5),
+        borderRadius: 20,
         padding: wp(3),
-        backgroundColor: colors.gray23
+        backgroundColor: '#222222'
     },
     balanceText: {
-        fontSize: 12,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray25,
+        color: '#B4B4B4',
         textAlign: 'left',
         paddingHorizontal: wp(2)
     },
     balance: {
-        fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray62,
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.white,
         textAlign: 'left',
         paddingHorizontal: wp(2)
     },
     hourBgView: {
-        borderRadius: 12,
+        borderRadius: 21,
         padding: wp(3),
-        backgroundColor: colors.gray23
+        backgroundColor: '#222222'
     },
     changeReturn: {
-        fontSize: 13,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray36,
+        color: '#B4B4B4',
     },
     changeAmount: {
         fontSize: 13,
@@ -76,37 +76,36 @@ export const styles = StyleSheet.create({
     perpsText: {
         fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray108,
+        color: '#C0C0C0',
     },
     twoRoundsWithCircle: {
-        width: wp(7),
-        height: wp(7),
-        marginRight: wp(3)
+        width: wp(12),
+        height: wp(12),
     },
     tradeText: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray63,
+        color: colors.white,
     },
     multiplyText: {
-        fontSize: 12,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray45,
+        color: '#B4B4B4',
     },
     stakeText: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray3,
+        color: '#B4B4B4',
     },
     earnText: {
-        fontSize: 17,
+        fontSize: 20,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray83,
+        color: colors.white,
     },
     percentText: {
-        fontSize: 17,
+        fontSize: 20,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.green9,
+        color: '#439D72',
     },
     graphDotLines: {
         width: wp(74.5),
@@ -114,38 +113,38 @@ export const styles = StyleSheet.create({
         alignSelf: 'flex-end'
     },
     btn1Container: {
-        width: wp(42),
-        height: wp(10.5),
+        width: wp(40),
+        height: wp(11.5),
         backgroundColor: colors.btnDisableColor,
         borderWidth: 0,
-        borderRadius: 10
+        borderRadius: 16
     },
     btn2Container: {
-        width: wp(42),
-        height: wp(10.5),
+        width: wp(40),
+        height: wp(11.5),
         backgroundColor: colors.green10,
         borderWidth: 0,
-        borderRadius: 10
+        borderRadius: 16
     },
     infoText1: {
         fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray111,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#C0C0C0',
     },
     about: {
         fontSize: 14,
-        fontFamily: Fonts.Poppins.Regular,
-        color: colors.white,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#C0C0C0',
     },
     desc: {
-        fontSize: 14,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray8
+        color: '#B4B4B4'
     },
     showMore: {
-        fontSize: 13,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.lightPurple10
+        color: '#A193EA'
     },
     website: {
         width: wp(22.5),
@@ -162,47 +161,105 @@ export const styles = StyleSheet.create({
     performanceText: {
         fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray47
+        color: '#C0C0C0'
     },
     receivedText: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray25,
+        color: colors.white,
     },
     amountCrypto: {
-        fontSize: 12,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray97,
+        color: colors.mainGreenChange,
     },
     address: {
-        fontSize: 14,
+        fontSize: 15,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.green13,
+        color: '#B4B4B4',
         textAlign: 'left'
     },
     resText1: {
-        fontSize: 10,
+        fontSize: 11,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray112,
+        color: '#A1A1A1',
         textAlign: 'left'
     },
     positionText: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
-        color: colors.gray98,
+        color: '#B4B4B4',
+    },
+    staking: {
+        width: wp(92),
+        height: wp(70),
     },
     bottomBtn1: {
         width: wp(42),
-        height: wp(10.5),
-        backgroundColor: colors.lightPurple11,
+        height: wp(11.5),
+        backgroundColor: '#5F57A2',
         borderWidth: 0,
-        borderRadius: 9
+        borderRadius: 16
     },
     bottomBtn2: {
         width: wp(42),
-        height: wp(10.5),
-        backgroundColor: colors.lightPurple11,
+        height: wp(11.5),
+        backgroundColor: '#5F57A2',
         borderWidth: 0,
-        borderRadius: 9
+        borderRadius: 16
+    },
+    modalContainer: {
+        backgroundColor: colors.bottomSheetBgColor,
+        borderRadius: 20,
+        paddingHorizontal: wp(5),
+        paddingVertical: hp(3),
+        width: wp(85),
+        alignSelf: 'center',
+    },
+    modalContent: {
+        width: '100%',
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.white,
+        textAlign: 'center',
+    },
+    inputContainer: {
+        width: '100%',
+        borderRadius: 12,
+        backgroundColor: colors.gray23,
+        paddingHorizontal: wp(4),
+        paddingVertical: hp(1.5),
+    },
+    modalInput: {
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.Regular,
+        color: colors.white,
+        textAlign: 'left',
+        padding: 0,
+    },
+    modalButton: {
+        flex: 1,
+        height: hp(5.5),
+        borderRadius: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cancelButton: {
+        backgroundColor: colors.btnDisableColor,
+    },
+    saveButton: {
+        backgroundColor: '#AB9FF1',
+    },
+    cancelButtonText: {
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.gray62,
+    },
+    saveButtonText: {
+        fontSize: 16,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: colors.black,
     },
 })

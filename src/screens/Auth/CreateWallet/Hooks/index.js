@@ -28,7 +28,7 @@ const useCreateWallet = (props) => {
             console.log('allwalletsallwalletsallwallets', allwallets);
 
             const waletresponse = await insertWallet(
-                'Multi-Chain-Wallet',
+                'Account',
                 seed.trim(),
                 allwallets?.evmWallet?.address,
                 allwallets?.evmWallet?.privateKey,
