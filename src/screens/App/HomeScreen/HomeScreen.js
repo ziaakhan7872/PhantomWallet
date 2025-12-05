@@ -92,7 +92,6 @@ const HomeScreen = (props) => {
                 <HorizontalSrcoll onPress={(item) => { }} onPressCross={(item) => { }} /> */}
                 </View>
 
-                // perps
                 <Spacer customHeight={hp(2)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.prepMain)} style={appStyles.rowBasic}>
                     <PoppinsText style={styles.prepTitle}>Perps</PoppinsText>
@@ -101,7 +100,6 @@ const HomeScreen = (props) => {
                 <Spacer customHeight={hp(1)} />
                 <PrepView />
 
-                // tokens
                 <Spacer customHeight={hp(2.5)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.moreTokens)} style={appStyles.rowBasic}>
                     <PoppinsText style={styles.prepTitle}>Tokens</PoppinsText>
