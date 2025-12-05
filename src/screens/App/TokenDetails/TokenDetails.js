@@ -53,15 +53,14 @@ const TokenDetails = (props) => {
 
     const [scale] = useState(new Animated.Value(1));
 
-    const balanceCard = usePressAnimation();
-    const valueCard = usePressAnimation();
-    const changeValue = usePressAnimation();
+
     const trade = usePressAnimation();
-    const About = usePressAnimation();
     const activity = usePressAnimation();
     const website = usePressAnimation();
     const telegram = usePressAnimation();
     const twitter = usePressAnimation();
+    const buyButton = usePressAnimation();
+    const sellButton = usePressAnimation();
 
     const tab1 = usePressAnimation();
     const tab2 = usePressAnimation();
@@ -132,7 +131,6 @@ const TokenDetails = (props) => {
                         <RowTabs
                             onPressTab={(item) => item?.id == 4 ? stakeOptionBottomSheet?.current?.open() : null}
                             tabAnimationMap={tabAnimationMap}
-
                         />
 
                         <Spacer />
@@ -143,30 +141,24 @@ const TokenDetails = (props) => {
 
                         <Spacer customHeight={hp(1)} />
                         <View style={appStyles.row}>
-                            <Animated.View style={{ transform: [{ scale: balanceCard?.scale }] }}>
-                                <TouchableOpacity onPress={handleOpenModal} onPressIn={balanceCard?.handlePressIn} onPressOut={balanceCard?.handlePressOut} activeOpacity={0.8} style={styles.bgView}>
-                                    <PoppinsText style={styles.balanceText}>Balance</PoppinsText>
-                                    <Spacer customHeight={hp(0.5)} />
-                                    <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? balanceValue : '0'}</PoppinsText>
-                                </TouchableOpacity>
-                            </Animated.View>
+                            <TouchableOpacity onPress={handleOpenModal} activeOpacity={0.8} style={styles.bgView}>
+                                <PoppinsText style={styles.balanceText}>Balance</PoppinsText>
+                                <Spacer customHeight={hp(0.5)} />
+                                <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? balanceValue : '0'}</PoppinsText>
+                            </TouchableOpacity>
 
-                            <Animated.View style={{ transform: [{ scale: valueCard?.scale }] }}>
-                                <TouchableOpacity activeOpacity={0.8} onPressIn={valueCard?.handlePressIn} onPressOut={valueCard?.handlePressOut} style={styles.bgView}>
-                                    <PoppinsText style={styles.balanceText}>Value</PoppinsText>
-                                    <Spacer customHeight={hp(0.5)} />
-                                    <PoppinsText style={styles.balance}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText>
-                                </TouchableOpacity>
-                            </Animated.View>
+                            <View style={styles.bgView}>
+                                <PoppinsText style={styles.balanceText}>Value</PoppinsText>
+                                <Spacer customHeight={hp(0.5)} />
+                                <PoppinsText style={styles.balance}>${NumberRoundFunction(Number(balanceValue ?? 0) * Number(previousTokenData?.currentPriceUsd ?? 0))}</PoppinsText>
+                            </View>
                         </View>
 
                         <Spacer customHeight={hp(0.5)} />
-                        <Animated.View style={{ transform: [{ scale: changeValue?.scale }] }}>
-                            <TouchableOpacity activeOpacity={0.8} onPressIn={changeValue?.handlePressIn} onPressOut={changeValue?.handlePressOut} style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
-                                <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
-                                <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? colors.mainRedChange : colors.mainGreenChange }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
-                            </TouchableOpacity>
-                        </Animated.View>
+                        <View style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
+                            <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
+                            <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? colors.mainRedChange : colors.mainGreenChange }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
+                        </View>
 
                         <Spacer customHeight={hp(3)} />
                         <PoppinsText style={styles.positionText}>Perps Position</PoppinsText>
@@ -218,21 +210,19 @@ const TokenDetails = (props) => {
                         />
 
                         {tokenInfo?.description?.en ?
-                            <Animated.View style={{ transform: [{ scale: About?.scale }] }}>
-                                <TouchableOpacity activeOpacity={0.8} onPressIn={About?.handlePressIn} onPressOut={About?.handlePressOut}>
-                                    <Spacer />
-                                    <PoppinsText style={styles.positionText}>About</PoppinsText>
-                                    <Spacer customHeight={hp(1)} />
-                                    <PoppinsText style={styles.desc}>{showMore ? tokenInfo?.description?.en ?? '--' : tokenInfo?.description?.en?.slice(0, 200) + '...'}</PoppinsText>
+                            <View>
+                                <Spacer />
+                                <PoppinsText style={styles.positionText}>About</PoppinsText>
+                                <Spacer customHeight={hp(1)} />
+                                <PoppinsText style={styles.desc}>{showMore ? tokenInfo?.description?.en ?? '--' : tokenInfo?.description?.en?.slice(0, 200) + '...'}</PoppinsText>
 
-                                    <Spacer customHeight={hp(1)} />
-                                    {tokenInfo?.description?.en?.length > 200 ?
-                                        <TouchableOpacity activeOpacity={0.8} onPress={() => setShowMore(!showMore)}>
-                                            <PoppinsText style={styles.showMore}>{showMore ? 'Show Less' : 'Show More'}</PoppinsText>
-                                        </TouchableOpacity>
-                                        : null}
-                                </TouchableOpacity>
-                            </Animated.View>
+                                <Spacer customHeight={hp(1)} />
+                                {tokenInfo?.description?.en?.length > 200 ?
+                                    <TouchableOpacity activeOpacity={0.8} onPress={() => setShowMore(!showMore)}>
+                                        <PoppinsText style={styles.showMore}>{showMore ? 'Show Less' : 'Show More'}</PoppinsText>
+                                    </TouchableOpacity>
+                                    : null}
+                            </View>
                             : null}
                         <Spacer />
 
@@ -259,7 +249,6 @@ const TokenDetails = (props) => {
                         </View>
 
                         <Spacer />
-
                         <PoppinsText style={styles.positionText}>24h Performance</PoppinsText>
                         <Spacer customHeight={hp(1)} />
                         <PerformanceCard totalVolume={convertBigValues(tokenInfo?.market_data?.total_volume?.usd ?? 0)} totalTraders={convertBigValues(tokenInfo?.watchlist_portfolio_users ?? 0) ?? '--'} />
@@ -314,7 +303,21 @@ const TokenDetails = (props) => {
             </View>
             <View style={{ paddingBottom: hp(3), justifyContent: 'center', alignSelf: 'center', backgroundColor: colors.bgColor }}>
                 <Spacer customHeight={hp(1)} />
-                <RowButtons titlebtn1={'Buy'} titlebtn2={'Sell'} titleColor1={colors.white} titleColor2={colors.white} onPressBtn1={() => props?.navigation.navigate(routes.buyMain)} onPressBtn2={() => props?.navigation.navigate(routes.buyMain, { sellTokenFlow: true })} style={styles.bottomBtn1} styleBtn={styles.bottomBtn2} />
+                <RowButtons
+                    titlebtn1={'Buy'}
+                    titlebtn2={'Sell'}
+                    scale1={buyButton?.scale}
+                    scale2={sellButton?.scale}
+                    onPressInBtn1={buyButton?.handlePressIn}
+                    onPressOutBtn1={buyButton?.handlePressOut}
+                    onPressInBtn2={sellButton?.handlePressIn}
+                    onPressOutBtn2={sellButton?.handlePressOut}
+                    titleColor1={colors.white}
+                    titleColor2={colors.white}
+                    onPressBtn1={() => props?.navigation.navigate(routes.buyMain)}
+                    onPressBtn2={() => props?.navigation.navigate(routes.buyMain, { sellTokenFlow: true })}
+                    style={styles.bottomBtn1} styleBtn={styles.bottomBtn2}
+                />
             </View>
             <StakeOptionRBSheet stakeOptionBottomSheet={stakeOptionBottomSheet}
                 onPress={(item) => {
@@ -330,8 +333,7 @@ const TokenDetails = (props) => {
             <CustomModal
                 visible={balanceModalVisible}
                 onRequestClose={handleCloseModal}
-                secondViewStyles={styles.modalContainer}
-            >
+                secondViewStyles={styles.modalContainer}>
                 <View style={styles.modalContent}>
                     <PoppinsText style={styles.modalTitle}>Edit {previousTokenData?.tokenName == 'Binance Smart Chain' ? 'BNB' : previousTokenData?.tokenName ?? ''} Balance</PoppinsText>
                     <Spacer customHeight={hp(2)} />

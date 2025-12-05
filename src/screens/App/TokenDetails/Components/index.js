@@ -243,7 +243,7 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
     )
 }
 
-export const RowTabs = ({ onPressTab, onPressIn, onPressOut, tabAnimationMap }) => {
+export const RowTabs = ({ onPressTab, tabAnimationMap }) => {
     return (
         <FlatList
             data={TokenDetailsRowTabs}
@@ -267,8 +267,7 @@ export const RowTabs = ({ onPressTab, onPressIn, onPressOut, tabAnimationMap }) 
                             onPressOut={() => tabAnim?.handlePressOut()}
                             style={{ alignItems: 'center', justifyContent: 'center' }}
                             // disabled={true}
-                            onPress={() => onPressTab(item)}
-                        >
+                            onPress={() => onPressTab(item)}>
                             <ImageBackground source={Images.cardbg} resizeMode='contain' style={{
                                 width: wp(22),
                                 height: wp(22),

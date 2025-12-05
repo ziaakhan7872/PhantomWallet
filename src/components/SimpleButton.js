@@ -5,10 +5,12 @@ import { colors } from '../constants/colors';
 import PoppinsText from './PoppinsText';
 import { Fonts } from '../constants/fonts';
 
-const SimpleButton = ({ title, source, onPress, outerBox, btntitle, tintColor, Loading, loadingColor, disabled, titleColor }) => {
+const SimpleButton = ({ title, source, onPress, onPressIn, onPressOut, outerBox, btntitle, tintColor, Loading, loadingColor, disabled, titleColor }) => {
     return (
         <TouchableOpacity
             disabled={Loading ? Loading : disabled}
+            onPressIn={onPressIn}
+            onPressOut={onPressOut}
             activeOpacity={0.8} onPress={onPress} style={[styles.CustomButton, outerBox]}>
             <View style={styles.rowView}>
                 {source &&

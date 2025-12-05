@@ -1,19 +1,14 @@
-import React from 'react'
-import { ImageBackground, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Animated, StyleSheet, View } from "react-native";
 import { hp, wp } from "./ResponsiveComponent";
 import SimpleButton from "./SimpleButton";
 import { colors } from '../constants/colors';
-import { Images } from '../Images';
 import { Fonts } from '../constants/fonts';
-import PoppinsText from './PoppinsText';
 
 export const RowButtons = ({
     onPressBtn1,
     onPressBtn2,
     style,
     wrapperStyle,
-    btn1title,
-    btn2title,
     styleBtn,
     btnImage2,
     btnImage1,
@@ -29,54 +24,45 @@ export const RowButtons = ({
     titlebtn2,
     titleColor1,
     titleColor2,
+    onPressInBtn1,
+    onPressOutBtn1,
+    onPressInBtn2,
+    onPressOutBtn2,
+    scale1, scale2
 }) => {
     return (
         <View style={[styles.btnRow, wrapperStyle]}>
+            <Animated.View style={{ transform: [{ scale: scale1 }] }}>
+                <SimpleButton
+                    source={btnImage1}
+                    Loading={secondLoading}
+                    onPressIn={onPressInBtn1}
+                    onPressOut={onPressOutBtn1}
+                    tintColor={tintColor1}
+                    title={titlebtn1 ? titlebtn1 : 'Cancel'}
+                    onPress={onPressBtn1}
+                    btntitle={btntitle}
+                    titleColor={titleColor1}
+                    disabled={disablebtn2}
+                    outerBox={[{ width: wp(45), backgroundColor: colors.white, borderColor: colors.appButtonColor1, borderWidth: 1, borderRadius: 80 }, style]}
+                />
+            </Animated.View>
 
-
-            {/* <ImageBackground source={Images.rowLeftButton} resizeMode='contain' style={styles.simpleRoundBox}>
-                <TouchableOpacity activeOpacity={0.8} style={{ flex: 1, justifyContent: 'center' }} onPress={onPressBtn1}>
-                    <PoppinsText style={styles.btn1Title}>{btn1title}</PoppinsText>
-                </TouchableOpacity>
-            </ImageBackground>
-
-
-
-            <ImageBackground source={Images.rowRightButton} resizeMode='contain' style={styles.simpleRoundBox}>
-                <TouchableOpacity activeOpacity={0.8} style={{ flex: 1, justifyContent: 'center' }} onPress={onPressBtn2}>
-                    <PoppinsText style={styles.btn1Title}>{btn2title}</PoppinsText>
-                </TouchableOpacity>
-            </ImageBackground> */}
-
-
-            <SimpleButton
-                source={btnImage1}
-                Loading={secondLoading}
-
-                tintColor={tintColor1}
-                title={titlebtn1 ? titlebtn1 : 'Cancel'}
-                onPress={onPressBtn1}
-                btntitle={btntitle}
-                titleColor={titleColor1}
-
-                disabled={disablebtn2}
-                outerBox={[{ width: wp(45), backgroundColor: colors.white, borderColor: colors.appButtonColor1, borderWidth: 1, borderRadius: 80 }, style]}
-            />
-
-
-            <SimpleButton
-                source={btnImage2}
-                tintColor={tintColor2}
-                title={titlebtn2 ? titlebtn2 : 'Activate'}
-                onPress={onPressBtn2}
-                btntitle={btntitle1}
-                Loading={Loading}
-                titleColor={titleColor2}
-                disabled={disable}
-                outerBox={[{ width: wp(45), backgroundColor: colors.appButtonColor1, borderColor: colors.appButtonColor1, borderWidth: 1, borderRadius: 80 }, styleBtn]}
-            />
-
-
+            <Animated.View style={{ transform: [{ scale: scale2 }] }}>
+                <SimpleButton
+                    source={btnImage2}
+                    tintColor={tintColor2}
+                    onPressIn={onPressInBtn2}
+                    onPressOut={onPressOutBtn2}
+                    title={titlebtn2 ? titlebtn2 : 'Activate'}
+                    onPress={onPressBtn2}
+                    btntitle={btntitle1}
+                    Loading={Loading}
+                    titleColor={titleColor2}
+                    disabled={disable}
+                    outerBox={[{ width: wp(45), backgroundColor: colors.appButtonColor1, borderColor: colors.appButtonColor1, borderWidth: 1, borderRadius: 80 }, styleBtn]}
+                />
+            </Animated.View>
         </View>
     );
 };
@@ -99,8 +85,5 @@ const styles = StyleSheet.create({
     simpleRoundBox: {
         width: wp(42),
         height: hp(7),
-        // alignSelf: 'center',
-        // alignContent: 'center',
-        // alignItems: 'center'
     }
 })
