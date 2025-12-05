@@ -1,4 +1,4 @@
-import { FlatList, Image, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, Platform, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { styles } from './styles'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
@@ -52,7 +52,7 @@ const HomeScreen = (props) => {
 
     return (
         <MainContainerApp style={{ paddingHorizontal: wp(4) }}>
-            <Spacer customHeight={hp(4)} />
+            <Spacer customHeight={Platform.OS === 'ios' ? hp(7) : hp(2)} />
             <AccountCard
                 profile={Images.profile}
                 logo={activeWalletWithTokens?.logo}
@@ -66,7 +66,14 @@ const HomeScreen = (props) => {
                 onPressAccount={() => props?.navigation.navigate(routes.accountDetails, { activeWalletWithTokens })}
             />
             <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+                refreshControl={
+                    <RefreshControl 
+                        colors={[colors.white]} 
+                        tintColor={colors.white}
+                        refreshing={refreshing} 
+                        onRefresh={onRefresh} 
+                    />
+                }>
                 <View>
                     <Spacer customHeight={hp(1)} />
                     <BalanceCard totalBalance={totalBalance} dailyPnl={dailyPnl} />

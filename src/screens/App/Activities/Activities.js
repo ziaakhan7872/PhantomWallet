@@ -1,4 +1,4 @@
-import { Image, TouchableOpacity, View } from 'react-native'
+import { Image, Platform, TouchableOpacity, View } from 'react-native'
 import { styles } from './styles'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
@@ -21,7 +21,7 @@ const Activities = (props) => {
     return (
         <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer customHeight={hp(6)} />
+                <Spacer customHeight={Platform.OS == 'ios' ? hp(7) : hp(6)} />
                 <View style={{ ...appStyles.row, paddingHorizontal: wp(4) }}>
                     <PoppinsText style={styles.recentActivityText}>Recent Activity</PoppinsText>
                     <View style={appStyles.rowBasic}>

@@ -15,6 +15,8 @@ import { routes } from '../../../constants/routes'
 const EditProfile = (props) => {
     const item = props?.route?.params?.item
 
+    console.log('itemitem', item);
+
     return (
         <AppContainer>
             <View style={styles.mainView}>
@@ -38,8 +40,20 @@ const EditProfile = (props) => {
                 <Spacer />
 
                 <View style={{ alignSelf: 'center' }}>
-                    <RowButtons titlebtn1='Edit Profile' titlebtn2='Follow' titleColor1={colors.gray52} tintColor2={colors.gray28} style={styles.btn1Styles} styleBtn={styles.btn2Styles}
-                        onPressBtn1={() => props.navigation.navigate(routes.manageProfile, { item })}
+
+                    <RowButtons 
+                    titlebtn1='Edit Profile'
+                     titlebtn2='Share Profile' 
+                     titleColor1={colors.gray52} 
+                     tintColor2={colors.gray28} style={styles.btn1Styles} styleBtn={styles.btn2Styles}
+                        onPressBtn1={() => {console.log('onPressBtn1')}}
+                        onPressBtn2={() => {console.log('onPressBtn2')}}
+                        onPressInBtn1={() => {console.log('onPressInBtn1')}}
+                        onPressOutBtn1={() => {console.log('onPressOutBtn1')}}
+                        onPressInBtn2={() => {console.log('onPressInBtn2')}}
+                        onPressOutBtn2={() => {console.log('onPressOutBtn2')}}
+                        scale1={0.9}
+                        scale2={0.9}
                     />
                 </View>
                 <Spacer customHeight={hp(4)} />

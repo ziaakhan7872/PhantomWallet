@@ -1,4 +1,4 @@
-import { Animated, Easing, Image, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import { Animated, Easing, Image, Platform, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { MainContainerApp } from '../../../components/MainContainer'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
@@ -77,7 +77,7 @@ const TokenDetails = (props) => {
 
     return (
         <MainContainerApp>
-            <Spacer customHeight={hp(4)} />
+            <Spacer customHeight={Platform.OS == 'ios' ? hp(7) : hp(4)} />
             <View style={styles.mainView}>
                 <View style={styles.margin}>
                     <TokenDetailsHeader leftImage={Images.backArrow} isFollowed={isFollowed} tokenLogo={{ uri: previousTokenData?.logoURI }} tokenName={previousTokenData?.tokenName ?? ''} status={`${randomPeopleCount ?? '0'} people here`} onPressBackArrow={() => props?.navigation.goBack()} onPressFollow={() => onPressFollow()} />

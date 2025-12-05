@@ -17,7 +17,7 @@ const EditAccount = (props) => {
     return (
         <MainContainerApp>
             <View style={styles.mainView}>
-                <Spacer customHeight={hp(6)} />
+                <Spacer customHeight={Platform.OS == 'ios' ? hp(7) : hp(6)} />
                 <NewCustomHeader title={'Edit Account'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                 <Spacer customHeight={hp(3)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.selectAvatar, { item })} style={{ ...appStyles.rowBasic, alignSelf: 'center' }}>
