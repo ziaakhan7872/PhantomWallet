@@ -59,6 +59,7 @@ const TokenDetails = (props) => {
     const website = usePressAnimation();
     const telegram = usePressAnimation();
     const twitter = usePressAnimation();
+
     const buyButton = usePressAnimation();
     const sellButton = usePressAnimation();
 

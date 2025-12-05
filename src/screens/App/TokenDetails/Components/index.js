@@ -290,98 +290,82 @@ export const RowTabs = ({ onPressTab, tabAnimationMap }) => {
 
 export const TokenDetailsInfoCard = ({ name, symbol, network, marketCap, totalSupply, circulatingSupply }) => {
 
-    const Name = usePressAnimation();
-    const Symbol = usePressAnimation();
-    const Network = usePressAnimation();
-    const MarketCap = usePressAnimation();
-    const TotalSupple = usePressAnimation();
-    const CirculatingSupply = usePressAnimation();
+    // const Name = usePressAnimation();
+    // const Symbol = usePressAnimation();
+    // const Network = usePressAnimation();
+    // const MarketCap = usePressAnimation();
+    // const TotalSupple = usePressAnimation();
+    // const CirculatingSupply = usePressAnimation();
 
     return (
         <View>
-            <Animated.View style={{ transform: [{ scale: Name?.scale }] }}>
-                <TouchableOpacity activeOpacity={0.8} onPressIn={Name?.handlePressIn} onPressOut={Name?.handlePressOut} style={styles.cardContainer}>
-                    <View style={appStyles.row}>
-                        <PoppinsText style={styles.leftText}>{'Name'}</PoppinsText>
-                        <PoppinsText style={styles.rightText}>{name}</PoppinsText>
-                    </View>
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={styles.cardContainer}>
+                <View style={appStyles.row}>
+                    <PoppinsText style={styles.leftText}>{'Name'}</PoppinsText>
+                    <PoppinsText style={styles.rightText}>{name}</PoppinsText>
+                </View>
+            </View>
 
             <Spacer customHeight={hp(0.15)} />
-            <Animated.View style={{ transform: [{ scale: Symbol?.scale }] }}>
-                <TouchableOpacity activeOpacity={0.8} onPressIn={Symbol?.handlePressIn} onPressOut={Symbol?.handlePressOut} style={[appStyles.row, styles.cardContainer2]}>
-                    <PoppinsText style={styles.leftText}>{'Symbol'}</PoppinsText>
-                    <PoppinsText style={styles.rightText}>{symbol?.toUpperCase()}</PoppinsText>
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={[appStyles.row, styles.cardContainer2]}>
+                <PoppinsText style={styles.leftText}>{'Symbol'}</PoppinsText>
+                <PoppinsText style={styles.rightText}>{symbol?.toUpperCase()}</PoppinsText>
+            </View>
 
             <Spacer customHeight={hp(0.15)} />
-            <Animated.View style={{ transform: [{ scale: Network?.scale }] }}>
-                <TouchableOpacity activeOpacity={0.8} onPressIn={Network?.handlePressIn} onPressOut={Network?.handlePressOut} style={[appStyles.row, styles.cardContainer2]}>
-                    <PoppinsText style={styles.leftText}>{'Network'}</PoppinsText>
-                    <PoppinsText style={styles.rightText}>{network}</PoppinsText>
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={[appStyles.row, styles.cardContainer2]}>
+                <PoppinsText style={styles.leftText}>{'Network'}</PoppinsText>
+                <PoppinsText style={styles.rightText}>{network}</PoppinsText>
+            </View>
 
             <Spacer customHeight={hp(0.15)} />
-            <Animated.View style={{ transform: [{ scale: MarketCap?.scale }] }}>
-                <TouchableOpacity activeOpacity={0.8} onPressIn={MarketCap?.handlePressIn} onPressOut={MarketCap?.handlePressOut} style={[appStyles.row, styles.cardContainer2]}>
-                    <PoppinsText style={styles.leftText}>{'Market Cap'}</PoppinsText>
-                    <PoppinsText style={styles.rightText}>{marketCap && '$' + marketCap}</PoppinsText>
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={[appStyles.row, styles.cardContainer2]}>
+                <PoppinsText style={styles.leftText}>{'Market Cap'}</PoppinsText>
+                <PoppinsText style={styles.rightText}>{marketCap && '$' + marketCap}</PoppinsText>
+            </View>
 
             <Spacer customHeight={hp(0.15)} />
-            <Animated.View style={{ transform: [{ scale: TotalSupple?.scale }] }}>
-                <TouchableOpacity activeOpacity={0.8} onPressIn={TotalSupple?.handlePressIn} onPressOut={TotalSupple?.handlePressOut} style={[appStyles.row, styles.cardContainer2]}>
-                    <PoppinsText style={styles.leftText}>{'Total Supply'}</PoppinsText>
-                    <View style={appStyles.rowBasic}>
-                        <PoppinsText style={styles.rightText}>{totalSupply}</PoppinsText>
-                    </View>
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={[appStyles.row, styles.cardContainer2]}>
+                <PoppinsText style={styles.leftText}>{'Total Supply'}</PoppinsText>
+                <View style={appStyles.rowBasic}>
+                    <PoppinsText style={styles.rightText}>{totalSupply}</PoppinsText>
+                </View>
+            </View>
 
             <Spacer customHeight={hp(0.15)} />
-            <Animated.View style={{ transform: [{ scale: CirculatingSupply?.scale }] }}>
-                <TouchableOpacity activeOpacity={0.8} onPressIn={CirculatingSupply?.handlePressIn} onPressOut={CirculatingSupply?.handlePressOut} style={[appStyles.row, styles.cardContainer1]}>
-                    <PoppinsText style={styles.leftText}>{'Circulating Supply'}</PoppinsText>
-                    <View style={appStyles.rowBasic}>
-                        <PoppinsText style={styles.rightText}>{circulatingSupply}</PoppinsText>
-                    </View>
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={[appStyles.row, styles.cardContainer1]}>
+                <PoppinsText style={styles.leftText}>{'Circulating Supply'}</PoppinsText>
+                <View style={appStyles.rowBasic}>
+                    <PoppinsText style={styles.rightText}>{circulatingSupply}</PoppinsText>
+                </View>
+            </View>
         </View>
     )
 }
 
 export const PerformanceCard = ({ totalVolume, totalTraders }) => {
 
-    const volume = usePressAnimation();
-    const traders = usePressAnimation();
+    // const volume = usePressAnimation();
+    // const traders = usePressAnimation();
 
     return (
         <View>
-            <Animated.View style={{ transform: [{ scale: volume?.scale }] }}>
-                <TouchableOpacity activeOpacity={0.8} onPressIn={volume?.handlePressIn} onPressOut={volume?.handlePressOut} style={[appStyles.row, styles.cardContainer]}>
-                    <PoppinsText style={styles.leftText}>{'Volume'}</PoppinsText>
-                    <View style={appStyles.rowBasic}>
-                        <PoppinsText style={styles.performaceRightText}>{totalVolume ? `$${totalVolume}` : '--'}</PoppinsText>
-                        <PoppinsText style={styles.performaceRightText1}>{'+2.46%'}</PoppinsText>
-                    </View>
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={[appStyles.row, styles.cardContainer]}>
+                <PoppinsText style={styles.leftText}>{'Volume'}</PoppinsText>
+                <View style={appStyles.rowBasic}>
+                    <PoppinsText style={styles.performaceRightText}>{totalVolume ? `$${totalVolume}` : '--'}</PoppinsText>
+                    <PoppinsText style={styles.performaceRightText1}>{'+2.46%'}</PoppinsText>
+                </View>
+            </View>
 
             <Spacer customHeight={hp(0.15)} />
-            <Animated.View style={{ transform: [{ scale: traders?.scale }] }}>
-                <TouchableOpacity activeOpacity={0.8} onPressIn={traders?.handlePressIn} onPressOut={traders?.handlePressOut} style={[appStyles.row, styles.cardContainer1]}>
-                    <PoppinsText style={styles.leftText}>{'Traders'}</PoppinsText>
-                    <View style={appStyles.rowBasic}>
-                        <PoppinsText style={styles.performaceRightText}>{totalTraders ? totalTraders : '--'}</PoppinsText>
-                        <PoppinsText style={styles.performaceRightText1}>{'+1.22%'}</PoppinsText>
-                    </View>
-                </TouchableOpacity>
-            </Animated.View>
+            <View style={[appStyles.row, styles.cardContainer1]}>
+                <PoppinsText style={styles.leftText}>{'Traders'}</PoppinsText>
+                <View style={appStyles.rowBasic}>
+                    <PoppinsText style={styles.performaceRightText}>{totalTraders ? totalTraders : '--'}</PoppinsText>
+                    <PoppinsText style={styles.performaceRightText1}>{'+1.22%'}</PoppinsText>
+                </View>
+            </View>
         </View>
     )
 }
