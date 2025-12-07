@@ -69,7 +69,7 @@ const HomeScreen = (props) => {
                 refreshControl={
                     <RefreshControl 
                         colors={[colors.white]} 
-                        tintColor={colors.white}
+                        tintColor={'#fff'}
                         refreshing={refreshing} 
                         onRefresh={onRefresh} 
                     />
