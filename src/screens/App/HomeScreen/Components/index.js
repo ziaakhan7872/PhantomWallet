@@ -10,6 +10,7 @@ import { HomeTabs, HorizontalSrcollList, tokensData } from '../../../../componen
 import Spacer, { HorizontalSpacer } from '../../../../components/Spacer'
 import { formatBalancetwoDigit, formatValueTwoDigit, NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
 import { getTokenLogo } from '../../Receive/Components'
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 export const AccountCard = ({ profile, logo, accountName, accountNumber, rightImage1, rightImage2, onPressRightImage1, onPressRightImage2, onPressAccount }) => {
     return (
@@ -141,7 +142,7 @@ export const PrepView = ({ }) => {
     )
 }
 
-export const TokensCard = ({ tokenData, onPressToken }) => {
+export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
 
     // let data = tokenData?.filter(item => item?.chainName == 'Ethereum') ?? [];
     let data = tokenData ?? [];
@@ -198,6 +199,48 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
                     scaleValues[item.id] = new Animated.Value(1);
                 }
                 return (
+                    <>
+                    {isSkeltonLoading ?
+                    <View style={styles.tokenCardBgView}>
+                    <SkeletonPlaceholder backgroundColor="#6F6F6F" highlightColor="#999999">
+
+<View style={appStyles.row}>
+<View style={appStyles.rowBasic}>
+
+<SkeletonPlaceholder.Item
+                width={48}
+                height={48}
+                borderRadius={100}
+              />
+
+<View style={{ marginLeft: wp(3) }}>
+<SkeletonPlaceholder.Item
+                width={100}
+                height={12}
+                style={{ marginBottom: hp(1) }}
+              />
+                                        <SkeletonPlaceholder.Item
+                width={100}
+                height={12}
+              />
+                                    </View>
+              </View>
+              
+              <View>
+              <SkeletonPlaceholder.Item
+                width={70}
+                height={12}
+                style={{ marginBottom: hp(1) }}
+              />
+                                        <SkeletonPlaceholder.Item
+                width={70}
+                height={12}
+              />
+              </View>
+              </View>
+                   </SkeletonPlaceholder>
+                   </View>
+               :
                     <Animated.View style={{ transform: [{ scale: scaleValues[item.id] }] }} >
                         <TouchableOpacity
                             activeOpacity={0.8}
@@ -247,7 +290,8 @@ export const TokensCard = ({ tokenData, onPressToken }) => {
                             </View>
                         </TouchableOpacity>
                     </Animated.View>
-
+            }
+                    </>
                 )
             }}
         />

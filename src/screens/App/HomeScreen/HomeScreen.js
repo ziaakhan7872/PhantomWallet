@@ -38,9 +38,9 @@ const HomeScreen = (props) => {
         discoverTitle, setDiscoverTitle,
         refreshing,
         dailyPnl,
-        onRefresh
+        onRefresh,
+        isSkeltonLoading, setIsSkeltonLoading
     } = useHomeScreen(props);
-
 
     const sorted = activeWalletWithTokens?.tokens?.sort((a, b) => {
         const valueA = Number(a.balance) * Number(a.currentPriceUsd);
@@ -68,8 +68,10 @@ const HomeScreen = (props) => {
             <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}
                 refreshControl={
                     <RefreshControl 
-                        colors={[colors.white]} 
-                        tintColor={'#fff'}
+                        // colors={[Platform.OS === 'ios' ? colors.white : colors.black]} 
+                        // tintColor={Platform.OS === 'ios' ? colors.white : colors.black}
+                        tintColor={Platform.OS === 'ios' ? '#fff' : '#000'}
+                       
                         refreshing={refreshing} 
                         onRefresh={onRefresh} 
                     />
@@ -114,8 +116,10 @@ const HomeScreen = (props) => {
                 </TouchableOpacity>
                 <Spacer customHeight={hp(1)} />
 
+                
                 <TokensCard
                     tokenData={sorted?.slice(0, 5) ?? []}
+                    isSkeltonLoading={isSkeltonLoading}
                     onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                 />
 
