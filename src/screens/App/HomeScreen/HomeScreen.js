@@ -123,7 +123,7 @@ const HomeScreen = (props) => {
 
 
                 <TokensCard
-                    tokenData={sorted?.filter(item => item?.symbol != 'BTC')?.slice(0, 3) ?? []}
+                    tokenData={sorted?.slice(0, 3) ?? []}
                     isSkeltonLoading={isSkeltonLoading}
                     onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                 />
