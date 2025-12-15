@@ -11,6 +11,7 @@ const useMoreTokens = (props) => {
     const [refreshing, setRefreshing] = useState(false);
     const [discoverTitle, setDiscoverTitle] = useState('Discover');
     const [dailyPnl, setDailyPnl] = useState({});
+    const [isSkeltonLoading, setIsSkeltonLoading] = useState(false);
 
     useFocusEffect(
         useCallback(() => {
@@ -34,10 +35,15 @@ const useMoreTokens = (props) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
     };
 
+
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         getWallet();
-        wait(2000).then(() => setRefreshing(false));
+        setIsSkeltonLoading(true);
+        setTimeout(() => {
+            setIsSkeltonLoading(false);
+        }, 2000);
+        wait(1000).then(() => setRefreshing(false));
     }, []);
 
     return {
@@ -45,6 +51,7 @@ const useMoreTokens = (props) => {
         totalBalance,
         discoverTitle, setDiscoverTitle,
         refreshing,
+        isSkeltonLoading,
         onRefresh,
         dailyPnl
     }

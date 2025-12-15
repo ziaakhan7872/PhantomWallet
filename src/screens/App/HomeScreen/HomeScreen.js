@@ -74,6 +74,11 @@ const HomeScreen = (props) => {
                        
                         refreshing={refreshing} 
                         onRefresh={onRefresh} 
+                        progressBackgroundColor={Platform.OS === 'ios' ? colors.black : colors.white}
+                        // Android: move indicator down using offsetƒt
+                        progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
+                        // iOS: slight upward shift so it sits closer to top content
+                        
                     />
                 }>
                 <View>

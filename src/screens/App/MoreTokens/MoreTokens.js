@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, RefreshControl, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ScrollView, RefreshControl, TouchableOpacity, Image, Platform } from 'react-native'
 import React from 'react'
 import useMoreTokens from './Hook';
 import { MainContainerApp } from '../../../components/MainContainer';
@@ -10,6 +10,7 @@ import { appStyles } from '../../../utilities/appStyles';
 import { Images } from '../../../Images';
 import PoppinsText from '../../../components/PoppinsText';
 import { styles } from './styles';
+import { colors } from '../../../constants/colors';
 
 const MoreTokens = (props) => {
     const {
@@ -17,6 +18,7 @@ const MoreTokens = (props) => {
         totalBalance,
         discoverTitle, setDiscoverTitle,
         refreshing,
+        isSkeltonLoading,
         dailyPnl,
         onRefresh
     } = useMoreTokens(props);
@@ -30,7 +32,7 @@ const MoreTokens = (props) => {
 
     return (
         <MainContainerApp style={{ paddingHorizontal: wp(4) }}>
-            <Spacer customHeight={hp(4)} />
+            <Spacer customHeight={hp(Platform.OS === 'ios' ? 7 : 4)} />
 
             <View style={appStyles.row}>
                 <View style={appStyles.rowBasic}>
@@ -43,7 +45,21 @@ const MoreTokens = (props) => {
             </View>
 
             <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}
-                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+               refreshControl={
+                <RefreshControl 
+                    // colors={[Platform.OS === 'ios' ? colors.white : colors.black]} 
+                    // tintColor={Platform.OS === 'ios' ? colors.white : colors.black}
+                    tintColor={Platform.OS === 'ios' ? '#fff' : '#000'}
+                   
+                    refreshing={refreshing} 
+                    onRefresh={onRefresh} 
+                    progressBackgroundColor={Platform.OS === 'ios' ? colors.black : colors.white}
+                    // Android: move indicator down using offsetƒt
+                    progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
+                    // iOS: slight upward shift so it sits closer to top content
+                    
+                />
+            }>
                 <View>
                     <Spacer customHeight={hp(1)} />
                     <BalanceCard totalBalance={totalBalance} dailyPnl={dailyPnl} />
@@ -73,6 +89,7 @@ const MoreTokens = (props) => {
                 <Spacer customHeight={hp(2)} />
                 <TokensCard
                     tokenData={sorted ?? []}
+                    isSkeltonLoading={isSkeltonLoading}
                     onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                 />
             </ScrollView>
