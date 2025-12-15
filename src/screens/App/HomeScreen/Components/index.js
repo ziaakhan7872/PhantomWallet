@@ -200,97 +200,97 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                 }
                 return (
                     <>
-                    {isSkeltonLoading ?
-                    <View style={styles.tokenCardBgView}>
-                    <SkeletonPlaceholder backgroundColor="#6F6F6F" highlightColor="#999999">
+                        {isSkeltonLoading ?
+                            <View style={styles.tokenCardBgView}>
+                                <SkeletonPlaceholder backgroundColor="#6F6F6F" highlightColor="#999999">
 
-<View style={appStyles.row}>
-<View style={appStyles.rowBasic}>
+                                    <View style={appStyles.row}>
+                                        <View style={appStyles.rowBasic}>
 
-<SkeletonPlaceholder.Item
-                width={48}
-                height={48}
-                borderRadius={100}
-              />
+                                            <SkeletonPlaceholder.Item
+                                                width={48}
+                                                height={48}
+                                                borderRadius={100}
+                                            />
 
-<View style={{ marginLeft: wp(3) }}>
-<SkeletonPlaceholder.Item
-                width={100}
-                height={12}
-                style={{ marginBottom: hp(1) }}
-              />
-                                        <SkeletonPlaceholder.Item
-                width={100}
-                height={12}
-              />
-                                    </View>
-              </View>
-              
-              <View>
-              <SkeletonPlaceholder.Item
-                width={70}
-                height={12}
-                style={{ marginBottom: hp(1) }}
-              />
-                                        <SkeletonPlaceholder.Item
-                width={70}
-                height={12}
-              />
-              </View>
-              </View>
-                   </SkeletonPlaceholder>
-                   </View>
-               :
-                    <Animated.View style={{ transform: [{ scale: scaleValues[item.id] }] }} >
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={() => handlePress(item.id, item)}
-                            onPressIn={() => handlePressIn(item.id)}
-                            onPressOut={() => handlePressOut(item.id)}
-                            style={{ ...styles.tokenCardBgView, }}>
-                            <View style={appStyles.row}>
-                                <View style={appStyles.rowBasic}>
-                                    {/* <Image source={{ uri: String(item?.tokenLogo) }} resizeMode='contain' style={styles.tokenLogo} /> */}
-                                    {item?.logoURI ?
+                                            <View style={{ marginLeft: wp(3) }}>
+                                                <SkeletonPlaceholder.Item
+                                                    width={100}
+                                                    height={12}
+                                                    style={{ marginBottom: hp(1) }}
+                                                />
+                                                <SkeletonPlaceholder.Item
+                                                    width={100}
+                                                    height={12}
+                                                />
+                                            </View>
+                                        </View>
+
                                         <View>
-                                            {item?.tokenName == 'Ethereum' ?
-                                                <View style={[styles.tokenLogo2, { backgroundColor: colors.white }]}>
-                                                    <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                            <SkeletonPlaceholder.Item
+                                                width={70}
+                                                height={12}
+                                                style={{ marginBottom: hp(1) }}
+                                            />
+                                            <SkeletonPlaceholder.Item
+                                                width={70}
+                                                height={12}
+                                            />
+                                        </View>
+                                    </View>
+                                </SkeletonPlaceholder>
+                            </View>
+                            :
+                            <Animated.View style={{ transform: [{ scale: scaleValues[item.id] }] }} >
+                                <TouchableOpacity
+                                    activeOpacity={0.8}
+                                    onPress={() => handlePress(item.id, item)}
+                                    onPressIn={() => handlePressIn(item.id)}
+                                    onPressOut={() => handlePressOut(item.id)}
+                                    style={{ ...styles.tokenCardBgView, }}>
+                                    <View style={appStyles.row}>
+                                        <View style={appStyles.rowBasic}>
+                                            {/* <Image source={{ uri: String(item?.tokenLogo) }} resizeMode='contain' style={styles.tokenLogo} /> */}
+                                            {item?.logoURI ?
+                                                <View>
+                                                    {item?.tokenName == 'Ethereum' ?
+                                                        <View style={[styles.tokenLogo2, { backgroundColor: colors.white }]}>
+                                                            <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                                        </View>
+                                                        :
+                                                        <View>
+                                                            <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                                        </View>
+                                                    }
+                                                    {/* <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} /> */}
                                                 </View>
                                                 :
-                                                <View>
-                                                    <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
+                                                <View style={styles.tokenLogo1}>
+                                                    <PoppinsText style={styles.tokenName}>{item?.symbol?.slice(0, 1)?.toUpperCase()}</PoppinsText>
                                                 </View>
                                             }
-                                            {/* <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} /> */}
+                                            <View style={{ marginLeft: wp(3) }}>
+                                                <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
+                                                <Spacer customHeight={hp(0.3)} />
+                                                <PoppinsText style={styles.tokenSymbol}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
+                                            </View>
                                         </View>
-                                        :
-                                        <View style={styles.tokenLogo1}>
-                                            <PoppinsText style={styles.tokenName}>{item?.symbol?.slice(0, 1)?.toUpperCase()}</PoppinsText>
+                                        <View>
+                                            <PoppinsText style={styles.tokenPrice}>${NumberRoundFunction(
+                                                Number(item?.currentPriceUsd) * Number(item?.balance),
+                                            ).toLocaleString(undefined, {
+                                                minimumFractionDigits: 2,
+                                                maximumFractionDigits: 2,
+                                            })}</PoppinsText>
+                                            <Spacer customHeight={hp(0.3)} />
+                                            <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? colors.mainRedChange : colors.mainGreenChange }]}>
+                                                {`${item?.change24h < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(item?.change24h))}%`}
+                                            </PoppinsText>
                                         </View>
-                                    }
-                                    <View style={{ marginLeft: wp(3) }}>
-                                        <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
-                                        <Spacer customHeight={hp(0.3)} />
-                                        <PoppinsText style={styles.tokenSymbol}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
                                     </View>
-                                </View>
-                                <View>
-                                    <PoppinsText style={styles.tokenPrice}>${NumberRoundFunction(
-                                        Number(item?.currentPriceUsd) * Number(item?.balance),
-                                    ).toLocaleString(undefined, {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2,
-                                    })}</PoppinsText>
-                                    <Spacer customHeight={hp(0.3)} />
-                                    <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? colors.mainRedChange : colors.mainGreenChange }]}>
-                                        {item?.change24h?.toString()?.includes('-') ? '' : '+'}{formatValueTwoDigit(item?.change24h)}%
-                                    </PoppinsText>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                    </Animated.View>
-            }
+                                </TouchableOpacity>
+                            </Animated.View>
+                        }
                     </>
                 )
             }}
