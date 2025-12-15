@@ -11,7 +11,7 @@ const useHomeScreen = (props) => {
     const [refreshing, setRefreshing] = useState(false);
     const [discoverTitle, setDiscoverTitle] = useState('Discover');
     const [dailyPnl, setDailyPnl] = useState({});
-const [isSkeltonLoading, setIsSkeltonLoading] = useState(false);
+    const [isSkeltonLoading, setIsSkeltonLoading] = useState(false);
 
 
     useFocusEffect(

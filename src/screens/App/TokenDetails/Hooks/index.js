@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useFocusEffect } from "@react-navigation/native";
 import database, { UpdateTokenAndCoinBalance } from "../../../../services/database";
 import { ethers } from "ethers";
@@ -34,31 +34,32 @@ const useTokenDetails = (props) => {
     const [showMore, setShowMore] = useState(false);
     const [isFollowed, setIsFollowed] = useState(previousTokenData?.isFollowed ?? false);
     const [randomPeopleCount, setRandomPeopleCount] = useState(0);
+    const [refreshing, setRefreshing] = useState(false);
 
     // Fetch wallet addresses from database
     useFocusEffect(
         React.useCallback(() => {
-            const getWalletAddresses = async () => {
-                try {
-                    const wallet = await database.getWallet();
-                    if (wallet) {
-                        setActiveWallet({
-                            publicAddress: wallet.evmAddress || '',
-                            solanaAddress: wallet.solanaAddress || ''
-                        });
-                    }
-                    getGraphData(4);
-                    setDailyPnl(calculateSelectedTokenPnL(previousTokenData));
-                    const coinTokenInfo = await getCoinTokenInfoById(previousTokenData?.cmcId);
-                    setTokenInfo(coinTokenInfo)
-                } catch (error) {
-                    console.log('Error fetching wallet addresses:', error);
-                }
-            };
-
             getWalletAddresses();
         }, [])
     );
+
+    const getWalletAddresses = async () => {
+        try {
+            const wallet = await database.getWallet();
+            if (wallet) {
+                setActiveWallet({
+                    publicAddress: wallet.evmAddress || '',
+                    solanaAddress: wallet.solanaAddress || ''
+                });
+            }
+            getGraphData(4);
+            setDailyPnl(calculateSelectedTokenPnL(previousTokenData));
+            const coinTokenInfo = await getCoinTokenInfoById(previousTokenData?.cmcId);
+            setTokenInfo(coinTokenInfo)
+        } catch (error) {
+            console.log('Error fetching wallet addresses:', error);
+        }
+    };
 
     const getGraphData = async (days) => {
         try {
@@ -195,6 +196,17 @@ const useTokenDetails = (props) => {
     }, []);
 
 
+    const wait = timeout => {
+        return new Promise(resolve => setTimeout(resolve, timeout));
+    };
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        getWalletAddresses()
+        const getValue = createValueGenerator();
+        setRandomPeopleCount(getValue() ?? 0);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
 
 
     return {
@@ -220,7 +232,9 @@ const useTokenDetails = (props) => {
         isFollowed, setIsFollowed,
         onPressFollow,
         calculate24hReturn,
-        totalVolume
+        totalVolume,
+        refreshing,
+        onRefresh,
     }
 }
 

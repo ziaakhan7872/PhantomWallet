@@ -52,7 +52,7 @@ const HomeScreen = (props) => {
 
     return (
         <MainContainerApp style={{ paddingHorizontal: wp(4) }}>
-            <Spacer customHeight={Platform.OS === 'ios' ? hp(7) : hp(2)} />
+            <Spacer customHeight={Platform.OS === 'ios' ? hp(7) : hp(4)} />
             <AccountCard
                 profile={Images.profile}
                 logo={activeWalletWithTokens?.logo}
@@ -67,18 +67,18 @@ const HomeScreen = (props) => {
             />
             <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}
                 refreshControl={
-                    <RefreshControl 
+                    <RefreshControl
                         // colors={[Platform.OS === 'ios' ? colors.white : colors.black]} 
                         // tintColor={Platform.OS === 'ios' ? colors.white : colors.black}
                         tintColor={Platform.OS === 'ios' ? '#fff' : '#000'}
-                       
-                        refreshing={refreshing} 
-                        onRefresh={onRefresh} 
+
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
                         progressBackgroundColor={Platform.OS === 'ios' ? colors.black : colors.white}
                         // Android: move indicator down using offsetƒt
                         progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
-                        // iOS: slight upward shift so it sits closer to top content
-                        
+                    // iOS: slight upward shift so it sits closer to top content
+
                     />
                 }>
                 <View>
@@ -121,9 +121,9 @@ const HomeScreen = (props) => {
                 </TouchableOpacity>
                 <Spacer customHeight={hp(1)} />
 
-                
+
                 <TokensCard
-                    tokenData={sorted?.slice(0, 5) ?? []}
+                    tokenData={sorted?.filter(item => item?.symbol != 'BTC')?.slice(0, 3) ?? []}
                     isSkeltonLoading={isSkeltonLoading}
                     onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                 />

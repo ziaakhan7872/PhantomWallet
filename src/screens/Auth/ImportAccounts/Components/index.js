@@ -49,7 +49,7 @@ export const FindAccountsCard = ({ allwallets, isSeedPhrase, accountSelection, s
                                         <PoppinsText style={styles.tokenAmount}>{item?.symbol}</PoppinsText>
                                     </View>
                                 </View>
-                                <PoppinsText style={styles.accountsAddress}>{formatAddress(item?.isEvm == 1 ? allwallets?.evmWallet?.address : item?.chainName == 'bitcoin' ? allwallets?.bitcoin?.address : allwallets?.solana?.address)}</PoppinsText>
+                                <PoppinsText style={styles.accountsAddress}>{formatAddress(item?.isEvm == 1 ? allwallets?.evmWallet?.address : (item?.chainName == 'bitcoin' || item?.chainName == 'Bitcoin') ? allwallets?.bitcoin?.address : allwallets?.solana?.address)}</PoppinsText>
                             </TouchableOpacity>
                         </View>
                     )

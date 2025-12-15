@@ -219,7 +219,7 @@ export const handleAlltokenChainFee = (recipientAddress, activeWallet, selectedT
                     console.log('handle solana coin feee', solcoinFee)
                     resolve(solcoinFee?.Fee)
                 }
-            } else if (selectedToken?.chainName == 'bitcoin') {
+            } else if (selectedToken?.chainName == 'bitcoin' || selectedToken?.chainName == 'Bitcoin') {
                 const btcfee = await estimateBtcTransactionFee(selectedToken, fromAddress, amounttosend, isDolorValue)
                 console.log('handle btc feee', btcfee)
                 resolve(btcfee?.Fee)

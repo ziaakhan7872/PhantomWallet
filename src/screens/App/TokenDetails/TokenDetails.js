@@ -1,4 +1,4 @@
-import { Animated, Easing, Image, Platform, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import { Animated, Easing, Image, Platform, RefreshControl, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { MainContainerApp } from '../../../components/MainContainer'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
@@ -40,7 +40,9 @@ const TokenDetails = (props) => {
         isFollowed, setIsFollowed,
         onPressFollow,
         calculate24hReturn,
-        totalVolume
+        totalVolume,
+        refreshing,
+        onRefresh,
     } = useTokenDetails(props);
 
     console.log('tokenInfotokenInfotokenInfotokenInfo', tokenInfo);
@@ -83,7 +85,22 @@ const TokenDetails = (props) => {
                     <TokenDetailsHeader leftImage={Images.backArrow} isFollowed={isFollowed} tokenLogo={{ uri: previousTokenData?.logoURI }} tokenName={previousTokenData?.tokenName ?? ''} status={`${randomPeopleCount ?? '0'} people here`} onPressBackArrow={() => props?.navigation.goBack()} onPressFollow={() => onPressFollow()} />
                     <Spacer />
                 </View>
-                <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
+                <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}
+                    refreshControl={
+                        <RefreshControl
+                            // colors={[Platform.OS === 'ios' ? colors.white : colors.black]} 
+                            // tintColor={Platform.OS === 'ios' ? colors.white : colors.black}
+                            tintColor={Platform.OS === 'ios' ? '#fff' : '#000'}
+
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                            progressBackgroundColor={Platform.OS === 'ios' ? colors.black : colors.white}
+                            // Android: move indicator down using offsetƒt
+                            progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
+                        // iOS: slight upward shift so it sits closer to top content
+
+                        />
+                    }>
                     <View style={styles.margin} pointerEvents='box-none'>
                         <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(livePrice ?? 0))}</PoppinsText>
 

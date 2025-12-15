@@ -121,7 +121,7 @@ const useSendSummaryScreen = (props) => {
                     }
                 }
             }
-            else if (item?.chainName == 'bitcoin') {
+            else if (item?.chainName == 'bitcoin' || item?.chainName == 'Bitcoin') {
 
                 console.log('handle btc coin send')
                 const setBtc = await sendBitcoin(fromPrivateKey, fromAddress, receverAddress, amounttosend)

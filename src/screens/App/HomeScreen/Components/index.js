@@ -262,7 +262,7 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                                                             <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
                                                         </View>
                                                     }
-                                                    {/* <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} /> */}
+                                                    {item?.type == 'token' && <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} />}
                                                 </View>
                                                 :
                                                 <View style={styles.tokenLogo1}>
@@ -270,7 +270,22 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                                                 </View>
                                             }
                                             <View style={{ marginLeft: wp(3) }}>
-                                                <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
+                                                <View style={appStyles.rowBasic}>
+                                                    <PoppinsText style={styles.tokenName}>{item?.tokenName}</PoppinsText>
+                                                    <Image source={Images.verified} resizeMode='contain' style={styles.verified} />
+
+                                                    {item?.chainName == 'Bitcoin' ?
+                                                        <View style={styles.typeView}>
+                                                            <PoppinsText style={styles.type}>Taproot</PoppinsText>
+                                                        </View>
+                                                        :
+                                                        item?.chainName == 'bitcoin' ?
+                                                            <View style={styles.typeView}>
+                                                                <PoppinsText style={styles.type}>Native Segwit</PoppinsText>
+                                                            </View>
+                                                            : null}
+                                                </View>
+
                                                 <Spacer customHeight={hp(0.3)} />
                                                 <PoppinsText style={styles.tokenSymbol}>{NumberRoundFunction(item?.balance)} {item?.symbol?.toUpperCase()}</PoppinsText>
                                             </View>
@@ -324,7 +339,7 @@ export const DiscoverView = ({ tokenData, onPressToken }) => {
                                                 <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
                                             </View>
                                         }
-                                        <Image source={getTokenLogo(item?.chainName) ?? { uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogoChain} />
+                                        {item?.type == 'token' && <Image source={getTokenLogo(item?.chainName) ?? { uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogoChain} />}
                                     </View>
                                     :
                                     <View style={styles.tokenLogo1}>
@@ -403,7 +418,7 @@ export const FollowingView = ({ tokenData, onPressToken }) => {
                                                 <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
                                             </View>
                                         }
-                                        <Image source={getTokenLogo(item?.chainName) ?? { uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogoChain} />
+                                        {item?.type == 'token' && <Image source={getTokenLogo(item?.chainName) ?? { uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogoChain} />}
                                     </View>
                                     :
                                     <View style={styles.tokenLogo1}>
@@ -540,12 +555,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     tokenLogoChain: {
-        width: wp(5),
-        height: wp(5),
+        width: wp(6),
+        height: wp(6),
         position: 'absolute',
-        bottom: 0,
-        right: 0,
-        borderWidth: 2,
+        bottom: -2,
+        right: -2,
+        borderWidth: 1,
         borderRadius: 8
     },
     tokenLogo1: {
@@ -681,4 +696,21 @@ const styles = StyleSheet.create({
         fontFamily: Fonts.Poppins.Regular,
         color: '#C0C0C0'
     },
+    verified: {
+        width: wp(4),
+        height: wp(4),
+        marginLeft: wp(1)
+    },
+    typeView: {
+        backgroundColor: '#3A3A3A',
+        borderRadius: 4,
+        paddingHorizontal: wp(1.5),
+        paddingVertical: wp(0.5),
+        marginLeft: wp(1)
+    },
+    type: {
+        fontSize: 10,
+        fontFamily: Fonts.Poppins.SemiBold,
+        color: '#fff'
+    }
 })

@@ -44,22 +44,22 @@ const MoreTokens = (props) => {
                 <Image source={Images.setting} resizeMode='contain' style={{ width: wp(5), height: wp(5) }} />
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}
-               refreshControl={
-                <RefreshControl 
-                    // colors={[Platform.OS === 'ios' ? colors.white : colors.black]} 
-                    // tintColor={Platform.OS === 'ios' ? colors.white : colors.black}
-                    tintColor={Platform.OS === 'ios' ? '#fff' : '#000'}
-                   
-                    refreshing={refreshing} 
-                    onRefresh={onRefresh} 
-                    progressBackgroundColor={Platform.OS === 'ios' ? colors.black : colors.white}
-                    // Android: move indicator down using offsetƒt
-                    progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
+            <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true} contentContainerStyle={{ paddingBottom: hp(8) }}
+                refreshControl={
+                    <RefreshControl
+                        // colors={[Platform.OS === 'ios' ? colors.white : colors.black]} 
+                        // tintColor={Platform.OS === 'ios' ? colors.white : colors.black}
+                        tintColor={Platform.OS === 'ios' ? '#fff' : '#000'}
+
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        progressBackgroundColor={Platform.OS === 'ios' ? colors.black : colors.white}
+                        // Android: move indicator down using offsetƒt
+                        progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
                     // iOS: slight upward shift so it sits closer to top content
-                    
-                />
-            }>
+
+                    />
+                }>
                 <View>
                     <Spacer customHeight={hp(1)} />
                     <BalanceCard totalBalance={totalBalance} dailyPnl={dailyPnl} />

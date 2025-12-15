@@ -15,7 +15,7 @@ export const TokenDetailsHeader = ({ leftImage, tokenLogo, tokenName, status, is
     return (
         <View style={appStyles.row}>
             <View style={appStyles.rowBasic}>
-                <TouchableOpacity activeOpacity={0.8} onPress={onPressBackArrow}>
+                <TouchableOpacity activeOpacity={0.8} onPress={onPressBackArrow} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                     <Image source={leftImage} resizeMode='contain' style={styles.backArrow} />
                 </TouchableOpacity>
                 <TouchableOpacity style={appStyles.rowBasic}>
@@ -27,7 +27,11 @@ export const TokenDetailsHeader = ({ leftImage, tokenLogo, tokenName, status, is
                         <Image source={tokenLogo} resizeMode='contain' style={styles.tokenLogo} />
                     }
                     <View style={{ marginLeft: wp(3) }}>
-                        <PoppinsText style={styles.tokenName}>{tokenName}</PoppinsText>
+                        <View style={appStyles.rowBasic}>
+                            <PoppinsText style={styles.tokenName}>{tokenName}</PoppinsText>
+                            <Image source={Images.verified} resizeMode='contain' style={styles.verified} />
+                        </View>
+
                         <View style={appStyles.rowBasic}>
                             <View style={{ width: wp(1.5), height: wp(1.5), backgroundColor: '#008856', borderRadius: 100, marginRight: wp(1) }} />
                             <PoppinsText style={styles.tokenDetailsStatus}>{status}</PoppinsText>
@@ -779,5 +783,10 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.gray88
+    },
+    verified: {
+        width: wp(4),
+        height: wp(4),
+        marginLeft: wp(1)
     }
 })

@@ -89,6 +89,7 @@ export const Images = {
     cross: require('./cross.png'),
     prepLogo: require('./prepLogo.png'),
     perpLogo1: require('./perpLogo1.png'),
+    verified: require('./verified.png'),
     horizontallyDots: require('./horizontallyDots.png'),
     onePerson: require('./onePerson.png'),
     settngs: require('./settngs.png'),
