@@ -10,6 +10,7 @@ import { hp } from '../../../components/ResponsiveComponent'
 import { CustomButton } from '../../../components/CustomButton'
 import useAccountDetails from './Hooks'
 import { colors } from '../../../constants/colors'
+import { Fonts } from '../../../constants/fonts'
 
 const AccountDetails = (props) => {
     const {
@@ -19,7 +20,7 @@ const AccountDetails = (props) => {
     } = useAccountDetails(props)
 
     return (
-        <MainContainerApp>
+        <AppContainer>
             <View style={styles.mainView}>
                 <Spacer customHeight={Platform.OS == 'ios' ? hp(7) : hp(4)} />
                 <AddAccountHeader logo={activeWalletWithTokens?.logo} activeWalletWithTokens={activeWalletWithTokens} onPressCross={() => props?.navigation.goBack()} />
@@ -32,11 +33,11 @@ const AccountDetails = (props) => {
             </View>
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Add Account'} onPressBtn={() => props?.navigation.navigate(routes.addAccounts)}
-                    btnSyles={{ backgroundColor: '#5F57A2', borderRadius: 16 }}
-                    titleStyles={{ color: colors.white }}
+                    btnSyles={{ backgroundColor: '#AD9EF8', borderRadius: 16 }}
+                    titleStyles={{ color: '#0F0F0D', fontFamily: Fonts.Poppins.SemiBold }}
                 />
             </View>
-        </MainContainerApp>
+        </AppContainer>
     )
 }
 

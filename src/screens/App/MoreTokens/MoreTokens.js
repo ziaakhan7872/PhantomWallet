@@ -37,7 +37,7 @@ const MoreTokens = (props) => {
             <View style={appStyles.row}>
                 <View style={appStyles.rowBasic}>
                     <TouchableOpacity hitSlop={{ left: 20, right: 20, top: 20, bottom: 20 }} activeOpacity={0.8} onPress={() => props?.navigation.goBack()}>
-                        <Image source={Images.backArrow} resizeMode='contain' style={{ width: wp(4), height: wp(4), marginRight: wp(2) }} />
+                        <Image source={Images.backArrow} resizeMode='contain' style={{ width: wp(3.5), height: wp(3.5), marginRight: wp(3) }} />
                     </TouchableOpacity>
                     <PoppinsText style={styles.prepTitle}>Tokens</PoppinsText>
                 </View>

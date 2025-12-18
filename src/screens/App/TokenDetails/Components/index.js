@@ -33,15 +33,19 @@ export const TokenDetailsHeader = ({ leftImage, tokenLogo, tokenName, status, is
                         </View>
 
                         <View style={appStyles.rowBasic}>
-                            <View style={{ width: wp(1.5), height: wp(1.5), backgroundColor: '#008856', borderRadius: 100, marginRight: wp(1) }} />
+                            <View style={{ width: wp(1.5), height: wp(1.5), backgroundColor: '#58C08B', borderRadius: 100, marginRight: wp(1) }} />
                             <PoppinsText style={styles.tokenDetailsStatus}>{status}</PoppinsText>
                         </View>
                     </View>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity activeOpacity={0.8} style={styles.followBtn} onPress={onPressFollow}>
-                <PoppinsText style={styles.followText}>{isFollowed ? '✓' : 'Follow'}</PoppinsText>
-            </TouchableOpacity>
+            <View style={appStyles.rowBasic}>
+                <TouchableOpacity activeOpacity={0.8} style={styles.followBtn} onPress={onPressFollow}>
+                    <PoppinsText style={styles.followText}>{isFollowed ? '✓' : 'Follow'}</PoppinsText>
+                </TouchableOpacity>
+
+                <Image source={Images.shareicon} resizeMode='contain' style={styles.shareicon} />
+            </View>
         </View >
     )
 }
@@ -279,7 +283,7 @@ export const RowTabs = ({ onPressTab, tabAnimationMap }) => {
                                 justifyContent: 'center',
                             }}>
 
-                                <Image source={item?.tabLogo} resizeMode='contain' style={styles.tabLogo} />
+                                <Image source={item?.tabLogo} resizeMode='contain' style={item?.id == 1 || item?.id == 2 ? styles.longShortLogo : styles.tabLogo} />
                                 <Spacer customHeight={hp(0.8)} />
                                 <PoppinsText style={styles.tabText1}>{item?.title}</PoppinsText>
                             </ImageBackground>
@@ -310,25 +314,21 @@ export const TokenDetailsInfoCard = ({ name, symbol, network, marketCap, totalSu
                 </View>
             </View>
 
-            <Spacer customHeight={hp(0.15)} />
             <View style={[appStyles.row, styles.cardContainer2]}>
                 <PoppinsText style={styles.leftText}>{'Symbol'}</PoppinsText>
                 <PoppinsText style={styles.rightText}>{symbol?.toUpperCase()}</PoppinsText>
             </View>
 
-            <Spacer customHeight={hp(0.15)} />
             <View style={[appStyles.row, styles.cardContainer2]}>
                 <PoppinsText style={styles.leftText}>{'Network'}</PoppinsText>
                 <PoppinsText style={styles.rightText}>{network}</PoppinsText>
             </View>
 
-            <Spacer customHeight={hp(0.15)} />
             <View style={[appStyles.row, styles.cardContainer2]}>
                 <PoppinsText style={styles.leftText}>{'Market Cap'}</PoppinsText>
                 <PoppinsText style={styles.rightText}>{marketCap && '$' + marketCap}</PoppinsText>
             </View>
 
-            <Spacer customHeight={hp(0.15)} />
             <View style={[appStyles.row, styles.cardContainer2]}>
                 <PoppinsText style={styles.leftText}>{'Total Supply'}</PoppinsText>
                 <View style={appStyles.rowBasic}>
@@ -336,7 +336,6 @@ export const TokenDetailsInfoCard = ({ name, symbol, network, marketCap, totalSu
                 </View>
             </View>
 
-            <Spacer customHeight={hp(0.15)} />
             <View style={[appStyles.row, styles.cardContainer1]}>
                 <PoppinsText style={styles.leftText}>{'Circulating Supply'}</PoppinsText>
                 <View style={appStyles.rowBasic}>
@@ -507,15 +506,20 @@ export const ChatBox = () => {
 
 const styles = StyleSheet.create({
     followBtn: {
-        backgroundColor: colors.gray23,
+        backgroundColor: '#232323',
         borderRadius: 10,
         paddingHorizontal: wp(2),
-        paddingVertical: hp(0.5)
+        paddingVertical: hp(0.3)
     },
     followText: {
-        fontSize: 13,
+        fontSize: 12,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
+    },
+    shareicon: {
+        width: wp(6),
+        height: wp(6),
+        marginLeft: wp(2)
     },
     //ChatBox
     chatBoxContainer: {
@@ -544,7 +548,7 @@ const styles = StyleSheet.create({
         paddingVertical: hp(0.8)
     },
     btnTitle: {
-        fontSize: 16,
+        fontSize: 12,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
@@ -560,12 +564,12 @@ const styles = StyleSheet.create({
         borderRadius: 100
     },
     tokenName: {
-        fontSize: 20,
+        fontSize: 18,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
     tokenDetailsStatus: {
-        fontSize: 14,
+        fontSize: 12,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4'
     },
@@ -723,6 +727,10 @@ const styles = StyleSheet.create({
         width: wp(6),
         height: wp(6),
     },
+    longShortLogo: {
+        width: wp(7),
+        height: wp(5),
+    },
     // TokenDetailsInfoCard
     cardContainer: {
         width: wp(92),
@@ -730,7 +738,8 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         backgroundColor: '#222222',
-        padding: wp(3.5)
+        padding: wp(3.5),
+        marginBottom: wp(0.1)
     },
     cardContainer1: {
         width: wp(92),
@@ -738,13 +747,14 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         backgroundColor: '#222222',
-        padding: wp(3.5)
+        padding: wp(3.5),
     },
     cardContainer2: {
         width: wp(92),
         alignSelf: 'center',
         backgroundColor: '#222222',
-        padding: wp(3.5)
+        padding: wp(3.5),
+        marginBottom: wp(0.1)
     },
     title: {
         fontSize: 14,
@@ -752,12 +762,12 @@ const styles = StyleSheet.create({
         color: colors.gray53
     },
     leftText: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4'
     },
     rightText: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },

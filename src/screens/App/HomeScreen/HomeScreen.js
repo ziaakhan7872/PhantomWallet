@@ -102,17 +102,9 @@ const HomeScreen = (props) => {
                         }
                     }} />
 
-                    {/* <Spacer />
-                <HorizontalSrcoll onPress={(item) => { }} onPressCross={(item) => { }} /> */}
+                    <Spacer customHeight={hp(2.5)} />
+                    <HorizontalSrcoll onPress={(item) => { }} onPressCross={(item) => { }} />
                 </View>
-
-                <Spacer customHeight={hp(2)} />
-                <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.prepMain)} style={appStyles.rowBasic}>
-                    <PoppinsText style={styles.prepTitle}>Perps</PoppinsText>
-                    <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(4), marginLeft: wp(2) }} />
-                </TouchableOpacity>
-                <Spacer customHeight={hp(1)} />
-                <PrepView />
 
                 <Spacer customHeight={hp(2.5)} />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.moreTokens)} style={appStyles.rowBasic}>
@@ -127,6 +119,14 @@ const HomeScreen = (props) => {
                     isSkeltonLoading={isSkeltonLoading}
                     onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                 />
+
+                <Spacer customHeight={hp(2)} />
+                <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.prepMain)} style={appStyles.rowBasic}>
+                    <PoppinsText style={styles.prepTitle}>Perps</PoppinsText>
+                    <Image source={Images.arrowRight} resizeMode='contain' style={{ width: wp(2), height: wp(4), marginLeft: wp(2) }} />
+                </TouchableOpacity>
+                <Spacer customHeight={hp(1)} />
+                <PrepView />
 
                 {/* // nfts
                 <Spacer customHeight={hp(2.5)} />

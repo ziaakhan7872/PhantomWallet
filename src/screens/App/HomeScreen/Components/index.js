@@ -28,10 +28,10 @@ export const AccountCard = ({ profile, logo, accountName, accountNumber, rightIm
             </TouchableOpacity>
             <View style={appStyles.rowBasic}>
                 <TouchableOpacity activeOpacity={0.8} onPress={onPressRightImage1}>
-                    <Image source={rightImage1} resizeMode='contain' style={styles.rightImage1} />
+                    <Image source={rightImage1} resizeMode='contain' tintColor={colors.white} style={styles.rightImage1} />
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={0.8} onPress={onPressRightImage2}>
-                    <Image source={rightImage2} resizeMode='contain' style={styles.rightImage2} />
+                    <Image source={rightImage2} resizeMode='contain' tintColor={colors.white} style={styles.rightImage2} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -48,9 +48,9 @@ export const BalanceCard = ({ totalBalance, dailyPnl }) => {
                 <View style={[styles.dollarAmountBox, { backgroundColor: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
                     <PoppinsText style={[styles.dollarAmount, { color: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#000' : '#e94f33' }]}>{`${formatValueTwoDigit(dailyPnl?.percentChange24h)}%`}</PoppinsText>
                 </View> */}
-                <PoppinsText style={[styles.amount, { color: colors.mainGreen }]}>{`+$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
-                <View style={[styles.dollarAmountBox, { backgroundColor: '#018551' }]}>
-                    <PoppinsText style={[styles.dollarAmount, { color: '#101010' }]}>{`+${formatValueTwoDigit(Math.abs(Number(dailyPnl?.percentChange24h)))}%`}</PoppinsText>
+                <PoppinsText style={[styles.amount, { color: '#4AA46C' }]}>{`+$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                <View style={[styles.dollarAmountBox, { backgroundColor: '#4AA46C' }]}>
+                    <PoppinsText style={[styles.dollarAmount, { color: '#111111' }]}>{`+${formatValueTwoDigit(Math.abs(Number(dailyPnl?.percentChange24h)))}%`}</PoppinsText>
                 </View>
             </View>
         </View>
@@ -87,13 +87,13 @@ export const HorizontalSrcoll = ({ onPress, onPressCross }) => {
             removeClippedSubviews={false}
             renderItem={({ item, index }) => {
                 return (
-                    <TouchableOpacity activeOpacity={0.8} onPress={() => onPress(item)} style={[appStyles.row, styles.horizontalBgView]}>
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => onPress(item)} style={[appStyles.row, styles.horizontalBgView, { padding: wp(2), width: wp(85) }]}>
                         <View style={appStyles.rowBasic}>
                             <Image source={item.tokenLogo} resizeMode='contain' style={styles.customTokenLogo} />
                             <PoppinsText style={styles.customTitle}>{item?.title}</PoppinsText>
                         </View>
                         <TouchableOpacity activeOpacity={0.8} onPress={() => onPressCross(item)}>
-                            <Image source={Images.cross} resizeMode='contain' style={styles.cross} />
+                            <Image source={Images.cross} resizeMode='contain' tintColor={'#B4B4B4'} style={{ width: wp(2.5), height: wp(2.5), marginRight: wp(4), tintColor: '#B4B4B4' }} />
                         </TouchableOpacity>
                     </TouchableOpacity>
                 )
@@ -298,7 +298,7 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                                                 maximumFractionDigits: 2,
                                             })}</PoppinsText>
                                             <Spacer customHeight={hp(0.3)} />
-                                            <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? colors.mainRedChange : colors.mainGreenChange }]}>
+                                            <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
                                                 {`${item?.change24h < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(item?.change24h))}%`}
                                             </PoppinsText>
                                         </View>
@@ -358,7 +358,7 @@ export const DiscoverView = ({ tokenData, onPressToken }) => {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                 })}</PoppinsText>
-                                <PoppinsText style={[styles.dollarPrice1, { color: item?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
+                                <PoppinsText style={[styles.dollarPrice1, { fontSize: 12, color: item?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
                                     {item?.change24h?.toString()?.includes('-') ? '' : '+'}{formatBalancetwoDigit(item?.change24h)}%
                                 </PoppinsText>
                             </View>
@@ -469,12 +469,12 @@ const styles = StyleSheet.create({
         marginRight: wp(3)
     },
     accountName: {
-        fontSize: 13,
+        fontSize: 12,
         fontFamily: Fonts.Poppins.SemiBold,
         color: '#B1B1B1',
     },
     accountBalance: {
-        fontSize: 20,
+        fontSize: 19,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
@@ -482,15 +482,17 @@ const styles = StyleSheet.create({
         width: wp(5),
         height: wp(5),
         marginRight: wp(5),
+        tintColor: colors.white
     },
     rightImage2: {
         width: wp(5),
         height: wp(5),
+        tintColor: colors.white
     },
 
     // BalanceCard
     balanceText: {
-        fontSize: 42,
+        fontSize: 36,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
         // textAlign: 'center'
@@ -517,7 +519,7 @@ const styles = StyleSheet.create({
     // RowTabs
     tabLogo: {
         width: wp(21.7),
-        height: wp(21),
+        height: wp(20),
     },
     tabText: {
         fontSize: 12,
@@ -572,12 +574,12 @@ const styles = StyleSheet.create({
         backgroundColor: colors.gray136,
     },
     tokenName: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
     tokenSymbol: {
-        fontSize: 15,
+        fontSize: 12,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4'
     },
@@ -588,7 +590,7 @@ const styles = StyleSheet.create({
         textAlign: 'right'
     },
     dollarPrice: {
-        fontSize: 15,
+        fontSize: 12,
         fontFamily: Fonts.Poppins.Regular,
         textAlign: 'right'
     },
@@ -599,7 +601,7 @@ const styles = StyleSheet.create({
         textAlign: 'right'
     },
     dollarPrice1: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         textAlign: 'right'
     },
@@ -615,15 +617,16 @@ const styles = StyleSheet.create({
         borderColor: '#1B1B1B',
     },
     customTokenLogo: {
-        width: wp(10.5),
-        height: wp(10.5),
-        marginRight: wp(3)
+        width: wp(13),
+        height: wp(13),
+        marginRight: wp(2),
+        marginLeft: wp(1)
     },
     customTitle: {
         fontSize: 12,
         fontFamily: Fonts.Poppins.Regular,
-        color: colors.gray15,
-        width: wp(60)
+        color: colors.white,
+        width: wp(55),
     },
     cross: {
         width: wp(3),
@@ -692,13 +695,13 @@ const styles = StyleSheet.create({
         color: colors.white
     },
     tokenSymbol1: {
-        fontSize: 14,
+        fontSize: 12,
         fontFamily: Fonts.Poppins.Regular,
-        color: '#C0C0C0'
+        color: '#B4B4B4'
     },
     verified: {
-        width: wp(4),
-        height: wp(4),
+        width: wp(3),
+        height: wp(3),
         marginLeft: wp(1)
     },
     typeView: {

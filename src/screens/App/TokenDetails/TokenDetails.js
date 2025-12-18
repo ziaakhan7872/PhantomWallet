@@ -117,9 +117,9 @@ const TokenDetails = (props) => {
                             </View>
                         </View> */}
                         <View style={{ ...appStyles.rowBasic }}>
-                            <PoppinsText style={[styles.dollarPrice, { color: colors.mainGreenChange }]}>{`$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
-                            <View style={[styles.percentageRoundBox, { backgroundColor: '#018551' }]}>
-                                <PoppinsText style={[styles.percentageText, { color: '#101010' }]}>{`${formatValueTwoDigit(Math.abs(Number(dailyPnl?.change24h)))}%`}</PoppinsText>
+                            <PoppinsText style={[styles.dollarPrice, { color: '#4AA46C' }]}>{`$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                            <View style={[styles.percentageRoundBox, { backgroundColor: '#4AA46C' }]}>
+                                <PoppinsText style={[styles.percentageText, { color: '#111111' }]}>{`${formatValueTwoDigit(Math.abs(Number(dailyPnl?.change24h)))}%`}</PoppinsText>
                             </View>
                         </View>
                     </View>
@@ -175,22 +175,27 @@ const TokenDetails = (props) => {
                         <Spacer customHeight={hp(0.5)} />
                         <View style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
                             <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
-                            <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? colors.mainRedChange : colors.mainGreenChange }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
+                            <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
                         </View>
 
-                        <Spacer customHeight={hp(3)} />
-                        <PoppinsText style={styles.positionText}>Perps Position</PoppinsText>
-                        <Spacer customHeight={hp(1)} />
+                        {previousTokenData?.chainName == 'Solana' || previousTokenData?.chainName == 'bitcoin' || previousTokenData?.chainName == 'Bitcoin' || previousTokenData?.chainName == 'Sui' ?
+                            <>
+                                <Spacer customHeight={hp(3)} />
+                                <PoppinsText style={styles.positionText}>Perps Position</PoppinsText>
+                                <Spacer customHeight={hp(1)} />
 
-                        <Animated.View style={{ transform: [{ scale: trade?.scale }] }}>
-                            <TouchableOpacity activeOpacity={0.8} onPressIn={trade?.handlePressIn} onPressOut={trade?.handlePressOut} style={[styles.hourBgView, appStyles.rowBasic]}>
-                                <Image source={Images.twoRoundsWithCircle} resizeMode='contain' style={[styles.twoRoundsWithCircle, { marginRight: wp(2) }]} />
-                                <View>
-                                    <PoppinsText style={styles.tradeText}>Trade {previousTokenData?.symbol?.toUpperCase()} perp</PoppinsText>
-                                    <PoppinsText style={styles.multiplyText}>Multiply your P&L up to 20x</PoppinsText>
-                                </View>
-                            </TouchableOpacity>
-                        </Animated.View>
+                                <Animated.View style={{ transform: [{ scale: trade?.scale }] }}>
+                                    <TouchableOpacity activeOpacity={0.8} onPressIn={trade?.handlePressIn} onPressOut={trade?.handlePressOut} style={[styles.hourBgView1, appStyles.rowBasic]}>
+                                        <Image source={Images.twoRoundsWithCircle} resizeMode='contain' style={[styles.twoRoundsWithCircle, { marginRight: wp(2) }]} />
+                                        <View>
+                                            <PoppinsText style={styles.tradeText}>Trade {previousTokenData?.symbol?.toUpperCase()} perp</PoppinsText>
+                                            <PoppinsText style={styles.multiplyText}>{`Multiply your P&L up to ${previousTokenData?.chainName == 'Solana' ? 20
+                                                : previousTokenData?.chainName == 'bitcoin' || previousTokenData?.chainName == 'Bitcoin' ? 40 : 10}x`}</PoppinsText>
+                                        </View>
+                                    </TouchableOpacity>
+                                </Animated.View>
+                            </>
+                            : null}
 
 
                         {previousTokenData?.chainName == 'Solana' ?
@@ -330,8 +335,8 @@ const TokenDetails = (props) => {
                     onPressOutBtn1={buyButton?.handlePressOut}
                     onPressInBtn2={sellButton?.handlePressIn}
                     onPressOutBtn2={sellButton?.handlePressOut}
-                    titleColor1={colors.white}
-                    titleColor2={colors.white}
+                    titleColor1={'#111111'}
+                    titleColor2={'#111111'}
                     onPressBtn1={() => props?.navigation.navigate(routes.buyMain)}
                     onPressBtn2={() => props?.navigation.navigate(routes.buyMain, { sellTokenFlow: true })}
                     style={styles.bottomBtn1} styleBtn={styles.bottomBtn2}

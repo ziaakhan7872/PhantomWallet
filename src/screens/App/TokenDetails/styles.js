@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: wp(4)
     },
     tokenCurentPrice: {
-        fontSize: 42,
+        fontSize: 36,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
@@ -45,14 +45,14 @@ export const styles = StyleSheet.create({
         backgroundColor: '#222222'
     },
     balanceText: {
-        fontSize: 15,
+        fontSize: 13,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4',
         textAlign: 'left',
         paddingHorizontal: wp(2)
     },
     balance: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
         textAlign: 'left',
@@ -63,8 +63,14 @@ export const styles = StyleSheet.create({
         padding: wp(3),
         backgroundColor: '#222222'
     },
+    hourBgView1: {
+        borderRadius: 21,
+        paddingVertical: wp(3),
+        paddingHorizontal: wp(5),
+        backgroundColor: '#222222'
+    },
     changeReturn: {
-        fontSize: 15,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4',
     },
@@ -83,12 +89,12 @@ export const styles = StyleSheet.create({
         height: wp(12),
     },
     tradeText: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
     multiplyText: {
-        fontSize: 15,
+        fontSize: 12,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4',
     },
@@ -186,7 +192,7 @@ export const styles = StyleSheet.create({
         textAlign: 'left'
     },
     positionText: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: '#B4B4B4',
     },
@@ -197,14 +203,14 @@ export const styles = StyleSheet.create({
     bottomBtn1: {
         width: wp(42),
         height: wp(11.5),
-        backgroundColor: '#5F57A2',
+        backgroundColor: '#AB9FF1',
         borderWidth: 0,
         borderRadius: 16
     },
     bottomBtn2: {
         width: wp(42),
         height: wp(11.5),
-        backgroundColor: '#5F57A2',
+        backgroundColor: '#AB9FF1',
         borderWidth: 0,
         borderRadius: 16
     },

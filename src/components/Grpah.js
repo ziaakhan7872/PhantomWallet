@@ -233,7 +233,7 @@ export const Graph = ({ change24h, onPriceChange, setDailyPnl, dailyPnl, graphDa
         <View style={styles.container}>
             {graphLoading ? (
                 <View style={{ height: 250, justifyContent: 'center', alignItems: 'center' }}>
-                    <ActivityIndicator color={'#29a16b'} size={'large'} />
+                    <ActivityIndicator color={'#4AA46C'} size={'large'} />
                 </View>
             ) : (
 
@@ -250,11 +250,11 @@ export const Graph = ({ change24h, onPriceChange, setDailyPnl, dailyPnl, graphDa
                     <LineChart width={wp(95)} height={250} >
                         <LineChart.Path
                             width={3}
-                            color={change24h < 0 ? '#e94f33' : '#29a16b'}
+                            color={change24h < 0 ? '#E54D2E' : '#4AA46C'}
                         />
                         {/* <LineChart.Dot size={20} at={data.length - 1} hasPulse={true} pulseDurationMs={100} hasOuterDot={true} outerSize={20} /> */}
 
-                        <LineChart.CursorCrosshair showAtLastPoint at={data.length - 1} size={13} color={change24h < 0 ? '#e94f33' : '#29a16b'} />
+                        <LineChart.CursorCrosshair showAtLastPoint at={data.length - 1} size={13} color={change24h < 0 ? '#E54D2E' : '#4AA46C'} />
                         <LineChart.CursorLine color='#BABABA' lineProps={{ strokeWidth: 2, }} textStyle={{ color: '#BABABA' }} />
                     </LineChart>
 

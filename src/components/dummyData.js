@@ -767,17 +767,17 @@ export const networkListData = [
 export const HorizontalSrcollList = [
     {
         id: 1,
-        tokenLogo: Images.tokenLogo,
+        tokenLogo: Images.tokenLogo123,
         title: 'Earn up to 8% APY by staking your SOL',
     },
     {
         id: 2,
-        tokenLogo: Images.tokenLogo,
+        tokenLogo: Images.tokenLogo123,
         title: 'Earn up to 8% APY by staking your SOL',
     },
     {
         id: 3,
-        tokenLogo: Images.tokenLogo,
+        tokenLogo: Images.tokenLogo123,
         title: 'Earn up to 8% APY by staking your SOL',
     },
 ]
@@ -1179,18 +1179,18 @@ export const emojis = [
 export const TokenDetailsRowTabs = [
     {
         id: 1,
-        tabLogo: Images.receiveIcon,
-        title: "Receive",
+        tabLogo: Images.long,
+        title: "Long",
     },
     {
         id: 2,
-        tabLogo: Images.sendIcon,
-        title: "Send",
+        tabLogo: Images.short,
+        title: "Short",
     },
     {
         id: 3,
-        tabLogo: Images.buyIcon,
-        title: "Cash Buy",
+        tabLogo: Images.receiveIcon,
+        title: "Receive",
     },
     {
         id: 4,
