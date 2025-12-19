@@ -51,7 +51,7 @@ export const BalanceCard = ({ totalBalance, dailyPnl }) => {
                 <View style={[styles.dollarAmountBox, { backgroundColor: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
                     <PoppinsText style={[styles.dollarAmount, { color: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#000' : '#e94f33' }]}>{`${formatValueTwoDigit(dailyPnl?.percentChange24h)}%`}</PoppinsText>
                 </View> */}
-                <PoppinsText style={[styles.amount, { color: '#4AA46C' }]}>{`+$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                <PoppinsText style={[styles.amount, { color: '#4AA46C' }]}>{`+$${NumberRoundFunction(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
                 <View style={[styles.dollarAmountBox, { backgroundColor: '#4AA46C' }]}>
                     <PoppinsText style={[styles.dollarAmount, { color: '#111111' }]}>{`+${formatValueTwoDigit(Math.abs(Number(dailyPnl?.percentChange24h)))}%`}</PoppinsText>
                 </View>
