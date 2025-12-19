@@ -469,12 +469,12 @@ const styles = StyleSheet.create({
         marginRight: wp(3)
     },
     accountName: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: '#B1B1B1',
     },
     accountBalance: {
-        fontSize: 19,
+        fontSize: 22,
          fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
@@ -492,7 +492,7 @@ const styles = StyleSheet.create({
 
     // BalanceCard
     balanceText: {
-        fontSize: 36,
+        fontSize: 42,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
         // textAlign: 'center'
@@ -574,12 +574,12 @@ const styles = StyleSheet.create({
         backgroundColor: colors.gray136,
     },
     tokenName: {
-        fontSize: 14,
+        fontSize: 18,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
     tokenSymbol: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4'
     },
@@ -590,7 +590,7 @@ const styles = StyleSheet.create({
         textAlign: 'right'
     },
     dollarPrice: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         textAlign: 'right'
     },
@@ -623,7 +623,7 @@ const styles = StyleSheet.create({
         marginLeft: wp(1)
     },
     customTitle: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         color: colors.white,
         width: wp(55),

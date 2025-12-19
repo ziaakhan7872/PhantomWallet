@@ -15,7 +15,8 @@ export const Fonts = {
   Poppins: {
     Regular: Platform.select({ ios: 'Inter18pt-Regular', android: 'Inter-Regular' }),
     Medium: Platform.select({ ios: 'Inter18pt-Medium', android: 'Inter-Medium' }),
-    SemiBold: Platform.select({ ios: 'Inter24pt-SemiBold', android: 'Inter-SemiBold' }),
+    //  SemiBold: Platform.select({ ios: 'Inter24pt-SemiBold', android: 'Inter-SemiBold' }),
+     SemiBold: Platform.select({ ios: 'Inter18pt-Bold', android: 'Inter-SemiBold' }),
     Bold: Platform.select({ ios: 'Inter18pt-Bold', android: 'Inter-Bold' }),
   },
 };

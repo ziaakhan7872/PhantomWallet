@@ -512,7 +512,7 @@ const styles = StyleSheet.create({
         paddingVertical: hp(0.3)
     },
     followText: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
         paddingVertical: hp(0.8)
     },
     btnTitle: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
@@ -564,12 +564,12 @@ const styles = StyleSheet.create({
         borderRadius: 100
     },
     tokenName: {
-        fontSize: 18,
+        fontSize: 20,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },
     tokenDetailsStatus: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4'
     },
@@ -762,12 +762,12 @@ const styles = StyleSheet.create({
         color: colors.gray53
     },
     leftText: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4'
     },
     rightText: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white
     },

@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: wp(4)
     },
     tokenCurentPrice: {
-        fontSize: 36,
+        fontSize: 42,
         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#222222'
     },
     balanceText: {
-        fontSize: 13,
+        fontSize: 14,
         fontFamily: Fonts.Poppins.Regular,
         color: '#B4B4B4',
         textAlign: 'left',
@@ -192,7 +192,7 @@ export const styles = StyleSheet.create({
         textAlign: 'left'
     },
     positionText: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Fonts.Poppins.SemiBold,
         color: '#B4B4B4',
     },
