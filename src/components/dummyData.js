@@ -161,23 +161,23 @@ export const MultiChainChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/4128/standard/solana.png?1718769756',
+        tokenImage: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png',
         chainId: 'solana',
     },
-    {
-        tokenName: "Ethereum",
-        symbol: "ETH",
-        decimals: 18,
-        chainName: "Base",
-        rpcUrl: mainnetRpcBase,
-        rpcUrlname: "ethereum",
-        isEvm: 1,
-        isActive: 1,
-        type: "chain",
-        tokenAddress: 0,
-        tokenImage: "https://assets.coingecko.com/nft_contracts/images/2989/small_2x/base-introduced.png?1707289780",
-        chainId: 8453,
-    },
+    // {
+    //     tokenName: "Ethereum",
+    //     symbol: "ETH",
+    //     decimals: 18,
+    //     chainName: "Base",
+    //     rpcUrl: mainnetRpcBase,
+    //     rpcUrlname: "ethereum",
+    //     isEvm: 1,
+    //     isActive: 1,
+    //     type: "chain",
+    //     tokenAddress: 0,
+    //     tokenImage: "https://assets.coingecko.com/nft_contracts/images/2989/small_2x/base-introduced.png?1707289780",
+    //     chainId: 8453,
+    // },
     {
         tokenName: 'Sui',
         symbol: 'SUI',
@@ -217,9 +217,38 @@ export const MultiChainChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/50882/standard/hyperliquid.jpg?1729431300',
+        tokenImage: 'https://cdn.dexscreener.com/cms/images/c4528ba2506121f3f2a1f3db2ef5d27907f8305ebe2088319c2de50effaa76e4?width=64&height=64&fit=crop&quality=95&format=auto',
         chainId: 999
     },
+    {
+        "tokenName": "OFFICIAL TRUMP",
+        "symbol": "TRUMP",
+        "decimals": 18,
+        "chainName": "Solana",  // Adjusted for the Solana network (since the address seems Solana-related)
+        "rpcUrl": "0000000",  // Solana mainnet RPC URL
+        "rpcUrlname": "official-trump",
+        "isEvm": 0,  // Set to 0 as Solana is not EVM-compatible
+        "isActive": 1,
+        "type": "token",
+        "tokenAddress": "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",  // Official TRUMP token address on Solana
+        "tokenImage": "https://cdn.dexscreener.com/cms/images/85a2613c51c8ded8e51b1b3910487ab66691cb60fecec7d0905481a603bba899?width=64&height=64&fit=crop&quality=95&format=auto",  // Replace with the actual token image URL
+        "chainId": "solana"
+    },
+    {
+        "tokenName": "Fartcoin",
+        "symbol": "FARTCOIN",
+        "decimals": 18,
+        "chainName": "Solana",  // Adjusted for the Solana network (since the address seems Solana-related)
+        "rpcUrl": "0000000",  // Solana mainnet RPC URL
+        "rpcUrlname": "fartcoin",
+        "isEvm": 0,  // Set to 0 as Solana is not EVM-compatible
+        "isActive": 1,
+        "type": "token",
+        "tokenAddress": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",  // Official TRUMP token address on Solana
+        "tokenImage": "https://cdn.dexscreener.com/cms/images/9af5672845c89585e9ff1e3b26a640090324aa4d92222052d1043e60ef8182de?width=64&height=64&fit=crop&quality=95&format=auto",  // Replace with the actual token image URL
+        "chainId": "solana"
+    }
+
 ];
 
 
@@ -294,20 +323,20 @@ export const EvmChainsArray = [
         tokenImage: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912',
         chainId: 137,
     },
-    {
-        tokenName: "Ethereum",
-        symbol: "ETH",
-        decimals: 18,
-        chainName: "Base",
-        rpcUrl: mainnetRpcBase,
-        rpcUrlname: "ethereum",
-        isEvm: 1,
-        isActive: 1,
-        type: "chain",
-        tokenAddress: 0,
-        tokenImage: "https://assets.coingecko.com/nft_contracts/images/2989/small_2x/base-introduced.png?1707289780",
-        chainId: 8453,
-    },
+    // {
+    //     tokenName: "Ethereum",
+    //     symbol: "ETH",
+    //     decimals: 18,
+    //     chainName: "Base",
+    //     rpcUrl: mainnetRpcBase,
+    //     rpcUrlname: "ethereum",
+    //     isEvm: 1,
+    //     isActive: 1,
+    //     type: "chain",
+    //     tokenAddress: 0,
+    //     tokenImage: "https://assets.coingecko.com/nft_contracts/images/2989/small_2x/base-introduced.png?1707289780",
+    //     chainId: 8453,
+    // },
     {
         tokenName: 'Monad',
         symbol: 'MON',
@@ -333,7 +362,7 @@ export const EvmChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/50882/standard/hyperliquid.jpg?1729431300',
+        tokenImage: 'https://cdn.dexscreener.com/cms/images/c4528ba2506121f3f2a1f3db2ef5d27907f8305ebe2088319c2de50effaa76e4?width=64&height=64&fit=crop&quality=95&format=auto',
         chainId: 999
     },
     // {

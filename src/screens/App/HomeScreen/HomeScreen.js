@@ -140,8 +140,8 @@ const HomeScreen = (props) => {
                         }
                     }} />
 
-                    <Spacer customHeight={hp(2.5)} />
-                    <HorizontalSrcoll onPress={(item) => { }} onPressCross={(item) => { }} />
+                    {/* <Spacer customHeight={hp(2.5)} />
+                    <HorizontalSrcoll onPress={(item) => { }} onPressCross={(item) => { }} /> */}
                 </View>
 
                 <Spacer customHeight={hp(2.5)} />

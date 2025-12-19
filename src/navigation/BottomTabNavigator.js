@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Activities, ChatScreen, HistoryScreen, HomeScreen, SearchScreen, Settings, SwapMain } from '../screens/App';
+import { Activities, ChatScreen, HistoryScreen, HomeScreen, SearchScreen, Settings, SwapMain, TokenDetails } from '../screens/App';
 import { routes } from '../constants/routes';
 import { StyleSheet, TouchableOpacity, View, Image, Platform, } from 'react-native';
 import { hp, wp } from '../components/ResponsiveComponent';
@@ -9,19 +9,34 @@ import { appStyles } from '../utilities/appStyles';
 import { colors } from '../constants/colors';
 import Spacer from '../components/Spacer';
 import CardTab from '../screens/App/CardTab/CardTab';
+import { createStackNavigator } from '@react-navigation/stack';
+import MoreTokens from '../screens/App/MoreTokens/MoreTokens';
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 
-function BottomTabBarNav({ navigation }) {
 
-  const [activeTab, setActiveTab] = useState()
+function HomeStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name={routes.homeScreen} component={HomeScreen} />
+      <Stack.Screen name={routes.moreTokens} component={MoreTokens} />
+    </Stack.Navigator>
+  );
+}
+
+
+function BottomTabBarNav({ navigation }) {
 
   return (
     <View style={[styles.tabBarBackground, appStyles.row]}>
 
       <Tab.Navigator
-        initialRouteName={routes.homeScreen}
+        initialRouteName={'HomeStack'}
         screenOptions={{
           tabBarShowLabel: false,
           tabBarHideOnKeyboard: false,
@@ -43,8 +58,8 @@ function BottomTabBarNav({ navigation }) {
         }}>
 
         <Tab.Screen
-          name={routes.homeScreen}
-          component={HomeScreen}
+          name={'HomeStack'}
+          component={HomeStack}
           options={{
             // tabBarButton: ({ focused }) => (
             //   <TouchableOpacity

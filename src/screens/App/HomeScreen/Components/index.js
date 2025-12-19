@@ -13,12 +13,33 @@ import { getTokenLogo } from '../../Receive/Components'
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 export const AccountCard = ({ profile, logo, accountName, accountNumber, rightImage1, rightImage2, onPressRightImage1, onPressRightImage2, onPressAccount }) => {
+
+    // const [scale] = useState(new Animated.Value(1));
+
+    // const handlePressIn = () => {
+    //     Animated.timing(scale, {
+    //         toValue: 0.95,
+    //         duration: 200,
+    //         useNativeDriver: true,
+    //         easing: Easing.ease,
+    //     }).start();
+    // };
+
+    // const handlePressOut = () => {
+    //     Animated.timing(scale, {
+    //         toValue: 1,
+    //         duration: 200,
+    //         useNativeDriver: true,
+    //         easing: Easing.ease,
+    //     }).start();
+    // };
+
     return (
         <View style={appStyles.row}>
             <TouchableOpacity activeOpacity={0.8} onPress={onPressAccount} style={appStyles.rowBasic}>
                 {logo ?
-                <View style={{ padding: wp(2.5), borderRadius: 100, backgroundColor: '#222222', alignItems: 'center', justifyContent: 'center',marginRight: wp(2) }}>
-                    <PoppinsText style={{ fontSize: 18,textAlign: 'center', }}>{logo ?? '😍'}</PoppinsText>
+                    <View style={{ padding: wp(2.5), borderRadius: 100, backgroundColor: '#222222', alignItems: 'center', justifyContent: 'center', marginRight: wp(2) }}>
+                        <PoppinsText style={{ fontSize: 18, textAlign: 'center', }}>{logo ?? '😍'}</PoppinsText>
                     </View>
                     :
                     <Image source={profile} resizeMode='contain' style={styles.profile} />
@@ -111,7 +132,7 @@ export const PrepView = ({ }) => {
 
     const handlePressIn = () => {
         Animated.timing(scale, {
-            toValue: 0.97,
+            toValue: 0.95,
             duration: 200,
             useNativeDriver: true,
             easing: Easing.ease,
@@ -133,7 +154,7 @@ export const PrepView = ({ }) => {
             <TouchableOpacity
                 onPressIn={handlePressIn}
                 onPressOut={handlePressOut}
-                activeOpacity={0.8}
+                activeOpacity={1}
                 style={[appStyles.rowBasic, styles.horizontalBgView]}>
                 <Image source={Images.perpLogo1} resizeMode='contain' style={styles.perpLogo} />
                 <View>
@@ -159,7 +180,7 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
 
     const handlePressIn = (id) => {
         Animated.timing(scaleValues[id], {
-            toValue: 0.97,
+            toValue: 0.95,
             duration: 200,
             useNativeDriver: true,
             easing: Easing.ease,
@@ -177,7 +198,7 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
 
     const handlePress = (id, item) => {
         Animated.timing(scaleValues[id], {
-            toValue: 0.97,
+            toValue: 0.95,
             duration: 200,
             useNativeDriver: true,
             easing: Easing.ease,
@@ -220,11 +241,13 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                                                 <SkeletonPlaceholder.Item
                                                     width={100}
                                                     height={12}
+                                                    borderRadius={20}
                                                     style={{ marginBottom: hp(1) }}
                                                 />
                                                 <SkeletonPlaceholder.Item
-                                                    width={100}
+                                                    width={70}
                                                     height={12}
+                                                    borderRadius={20}
                                                 />
                                             </View>
                                         </View>
@@ -233,11 +256,13 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                                             <SkeletonPlaceholder.Item
                                                 width={70}
                                                 height={12}
+                                                borderRadius={20}
                                                 style={{ marginBottom: hp(1) }}
                                             />
                                             <SkeletonPlaceholder.Item
                                                 width={70}
                                                 height={12}
+                                                borderRadius={20}
                                             />
                                         </View>
                                     </View>
@@ -246,7 +271,7 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                             :
                             <Animated.View style={{ transform: [{ scale: scaleValues[item.id] }] }} >
                                 <TouchableOpacity
-                                    activeOpacity={0.8}
+                                    activeOpacity={1}
                                     onPress={() => handlePress(item.id, item)}
                                     onPressIn={() => handlePressIn(item.id)}
                                     onPressOut={() => handlePressOut(item.id)}
@@ -302,7 +327,7 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                                             })}</PoppinsText>
                                             <Spacer customHeight={hp(0.3)} />
                                             <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
-                                                {`${item?.change24h < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(item?.change24h))}%`}
+                                                {`${item?.change24h < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(item?.change24h))}`}
                                             </PoppinsText>
                                         </View>
                                     </View>
@@ -478,7 +503,7 @@ const styles = StyleSheet.create({
     },
     accountBalance: {
         fontSize: 22,
-         fontFamily: Fonts.Poppins.SemiBold,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
     rightImage1: {

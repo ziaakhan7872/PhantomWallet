@@ -255,7 +255,7 @@ export const Graph = ({ change24h, onPriceChange, setDailyPnl, dailyPnl, graphDa
                         {/* <LineChart.Dot size={20} at={data.length - 1} hasPulse={true} pulseDurationMs={100} hasOuterDot={true} outerSize={20} /> */}
 
                         <LineChart.CursorCrosshair showAtLastPoint at={data.length - 1} size={13} color={change24h < 0 ? '#E54D2E' : '#4AA46C'} />
-                        <LineChart.CursorLine color='#BABABA' lineProps={{ strokeWidth: 2, }} textStyle={{ color: '#BABABA' }} />
+                        <LineChart.CursorLine color='#101010' lineProps={{ strokeWidth: 0, }} textStyle={{ color: '#101010' }} />
                     </LineChart>
 
                 </LineChart.Provider>
