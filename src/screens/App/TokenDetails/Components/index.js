@@ -1,6 +1,6 @@
 import { Animated, Easing, FlatList, Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { stakeOptionData, tokenDetailsInfoData, TokenDetailsRowTabs } from '../../../../components/dummyData'
+import { stakeOptionData, tokenDetailsInfoData, TokenDetailsRowTabs, TokenDetailsRowTabsBalance } from '../../../../components/dummyData'
 import Spacer, { HorizontalSpacer } from '../../../../components/Spacer'
 import { appStyles } from '../../../../utilities/appStyles'
 import PoppinsText from '../../../../components/PoppinsText'
@@ -251,16 +251,17 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
     )
 }
 
-export const RowTabs = ({ onPressTab, tabAnimationMap }) => {
+export const RowTabs = ({ onPressTab, tabAnimationMap,balanceValue }) => {
+   
     return (
         <FlatList
-            data={TokenDetailsRowTabs}
+            data={Number(balanceValue ??0) > 0 ? TokenDetailsRowTabsBalance : TokenDetailsRowTabs}
             keyExtractor={(item) => item.id.toString()}
             horizontal
             removeClippedSubviews={false}
-
             ItemSeparatorComponent={() => <HorizontalSpacer customWidth={wp(1)} />}
             showsHorizontalScrollIndicator={false}
+            scrollEnabled={false}
             contentContainerStyle={{ width: wp(92), justifyContent: 'space-between' }}
             renderItem={({ item }) => {
 
@@ -276,14 +277,14 @@ export const RowTabs = ({ onPressTab, tabAnimationMap }) => {
                             style={{ alignItems: 'center', justifyContent: 'center' }}
                             // disabled={true}
                             onPress={() => onPressTab(item)}>
-                            <ImageBackground source={Images.cardbg} resizeMode='contain' style={{
-                                width: wp(22),
+                            <ImageBackground source={Images.cardbg} resizeMode='stretch' style={{
+                                width: wp(Number(balanceValue ??0) > 0 ? 29.3 : 22),
                                 height: wp(22),
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}>
 
-                                <Image source={item?.tabLogo} resizeMode='contain' style={item?.id == 1 || item?.id == 2 ? styles.longShortLogo : styles.tabLogo} />
+                                <Image source={item?.tabLogo} resizeMode='contain' style={item?.title == 'Long' || item?.title == 'Short' ? styles.longShortLogo : styles.tabLogo} />
                                 <Spacer customHeight={hp(0.8)} />
                                 <PoppinsText style={styles.tabText1}>{item?.title}</PoppinsText>
                             </ImageBackground>
@@ -430,17 +431,25 @@ export const ChatBox = () => {
 
 
     const dummy = [
-        Images.avatar1,
-        Images.avatar2,
-        Images.avatar3,
-        Images.avatar4,
-        Images.avatar5,
-        Images.avatar6,
-        Images.avatar7,
-        Images.avatar8,
-        Images.avatar9,
-        Images.avatar10,
-        Images.avatar11,
+        // Images.avatar1,
+        // Images.avatar2,
+        // Images.avatar3,
+        // Images.avatar4,
+        // Images.avatar5,
+        // Images.avatar6,
+        // Images.avatar7,
+        // Images.avatar8,
+        // Images.avatar9,
+        // Images.avatar10,
+        // Images.avatar11,
+        Images.chat1,
+        Images.chat2,
+        Images.chat3,
+        Images.chat4,
+        Images.chat5,
+        Images.chat6,
+        Images.chat7,
+        Images.chat8,
     ];
 
     // Shuffle helper

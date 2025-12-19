@@ -1230,6 +1230,25 @@ export const TokenDetailsRowTabs = [
 
 ]
 
+export const TokenDetailsRowTabsBalance = [
+    {
+        id: 1,
+        tabLogo: Images.sendIcon,
+        title: "Send",
+    },
+    {
+        id: 2,
+        tabLogo: Images.receiveIcon,
+        title: "Receive",
+    },
+    {
+        id: 3,
+        tabLogo: Images.dotsIcon,
+        title: "More",
+    },
+
+]
+
 export const buyTokenDetailsOptions = [
     {
         id: 1,

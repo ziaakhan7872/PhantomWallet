@@ -39,7 +39,7 @@ const SplashScreen = ({ navigation }) => {
         // Check if wallets exist
         if (wallets && wallets.length > 0) {
           console.log('Existing wallets found - navigating to PIN screen');
-          navigation.replace(routes.pinScreen, { splashScreen: true });
+          navigation.replace(routes.appStack);
         } else {
           console.log('No wallets found - navigating to onboarding');
           navigation.replace(routes.onBoarding);

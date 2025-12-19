@@ -149,6 +149,7 @@ const TokenDetails = (props) => {
                         <RowTabs
                             onPressTab={(item) => item?.id == 4 ? stakeOptionBottomSheet?.current?.open() : null}
                             tabAnimationMap={tabAnimationMap}
+                            balanceValue={balanceValue}
                         />
 
                         <Spacer />

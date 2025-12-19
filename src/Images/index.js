@@ -246,5 +246,13 @@ export const Images = {
     avatar9: require('./avatar/avatar9.png'),
     avatar10: require('./avatar/avatar10.png'),
     avatar11: require('./avatar/avatar11.png'),
+    chat1: require('./avatar/chat1.png'),
+    chat2: require('./avatar/chat2.png'),
+    chat3: require('./avatar/chat3.png'),
+    chat4: require('./avatar/chat4.png'),
+    chat5: require('./avatar/chat5.png'),
+    chat6: require('./avatar/chat6.png'),
+    chat7: require('./avatar/chat7.png'),
+    chat8: require('./avatar/chat8.png'),
 
 }
