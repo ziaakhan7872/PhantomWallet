@@ -14,29 +14,9 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 export const AccountCard = ({ profile, logo, accountName, accountNumber, rightImage1, rightImage2, onPressRightImage1, onPressRightImage2, onPressAccount }) => {
 
-    // const [scale] = useState(new Animated.Value(1));
-
-    // const handlePressIn = () => {
-    //     Animated.timing(scale, {
-    //         toValue: 0.95,
-    //         duration: 200,
-    //         useNativeDriver: true,
-    //         easing: Easing.ease,
-    //     }).start();
-    // };
-
-    // const handlePressOut = () => {
-    //     Animated.timing(scale, {
-    //         toValue: 1,
-    //         duration: 200,
-    //         useNativeDriver: true,
-    //         easing: Easing.ease,
-    //     }).start();
-    // };
-
     return (
         <View style={appStyles.row}>
-            <TouchableOpacity activeOpacity={0.8} onPress={onPressAccount} style={appStyles.rowBasic}>
+            <TouchableOpacity activeOpacity={0.2} onPress={onPressAccount} style={appStyles.rowBasic}>
                 {logo ?
                     <View style={{ padding: wp(2.5), borderRadius: 100, backgroundColor: '#222222', alignItems: 'center', justifyContent: 'center', marginRight: wp(2) }}>
                         <PoppinsText style={{ fontSize: 18, textAlign: 'center', }}>{logo ?? '😍'}</PoppinsText>
@@ -254,15 +234,16 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
 
                                         <View>
                                             <SkeletonPlaceholder.Item
-                                                width={70}
+                                                width={60}
                                                 height={12}
                                                 borderRadius={20}
-                                                style={{ marginBottom: hp(1) }}
+                                                style={{ marginBottom: hp(1), alignSelf: 'flex-end' }}
                                             />
                                             <SkeletonPlaceholder.Item
-                                                width={70}
+                                                width={80}
                                                 height={12}
                                                 borderRadius={20}
+                                                style={{ alignSelf: 'flex-end' }}
                                             />
                                         </View>
                                     </View>
