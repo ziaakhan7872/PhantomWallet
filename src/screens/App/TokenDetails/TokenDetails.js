@@ -1,5 +1,5 @@
-import { Animated, Easing, Image, Platform, RefreshControl, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import { ActivityIndicator, Animated, Easing, Image, Platform, RefreshControl, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useRef, useState } from 'react'
 import { MainContainerApp } from '../../../components/MainContainer'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
 import { hp, wp } from '../../../components/ResponsiveComponent'
@@ -77,6 +77,24 @@ const TokenDetails = (props) => {
         4: tab4
     };
 
+    const scrollY = useRef(new Animated.Value(0)).current;
+    const [pullDistance, setPullDistance] = useState(0);
+
+    const handleScroll = Animated.event(
+        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+        {
+            useNativeDriver: false,
+            listener: (event) => {
+                const offsetY = event.nativeEvent.contentOffset.y;
+                if (offsetY < 0) {
+                    setPullDistance(Math.abs(offsetY));
+                } else {
+                    setPullDistance(0);
+                }
+            }
+        }
+    );
+
     return (
         <MainContainerApp>
             <Spacer customHeight={Platform.OS == 'ios' ? hp(7) : hp(4)} />
@@ -85,22 +103,42 @@ const TokenDetails = (props) => {
                     <TokenDetailsHeader leftImage={Images.backArrow} isFollowed={isFollowed} tokenLogo={{ uri: previousTokenData?.logoURI }} tokenName={previousTokenData?.tokenName ?? ''} status={`${randomPeopleCount ?? '0'} people here`} onPressBackArrow={() => props?.navigation.goBack()} onPressFollow={() => onPressFollow()} />
                     <Spacer />
                 </View>
-                <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}
+                <Animated.ScrollView 
+                    showsVerticalScrollIndicator={false} 
+                    nestedScrollEnabled={true}
+                    onScroll={handleScroll}
+                    scrollEventThrottle={16}
                     refreshControl={
                         <RefreshControl
-                            // colors={[Platform.OS === 'ios' ? colors.white : colors.black]} 
-                            // tintColor={Platform.OS === 'ios' ? colors.white : colors.black}
-                            tintColor={Platform.OS === 'ios' ? '#fff' : '#000'}
-
+                            tintColor={'transparent'}
+                            colors={['transparent']}
                             refreshing={refreshing}
                             onRefresh={onRefresh}
-                            progressBackgroundColor={Platform.OS === 'ios' ? colors.black : colors.white}
-                            // Android: move indicator down using offsetƒt
+                            progressBackgroundColor={'transparent'}
                             progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
-                        // iOS: slight upward shift so it sits closer to top content
-
                         />
                     }>
+                    {/* Custom centered loader overlay */}
+                    {(pullDistance > 0 || refreshing) && (
+                        <View 
+                            style={{
+                                position: 'absolute',
+                                top: -pullDistance,
+                                left: 0,
+                                right: 0,
+                                height: pullDistance,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                zIndex: 999,
+                            }}
+                        >
+                            <ActivityIndicator 
+                                size="large" 
+                                color={Platform.OS === 'ios' ? colors.white : colors.black} 
+                                animating={pullDistance > 30 || refreshing}
+                            />
+                        </View>
+                    )}
                     <View style={styles.margin} pointerEvents='box-none'>
                         <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(livePrice ?? 0))}</PoppinsText>
 
@@ -323,7 +361,7 @@ const TokenDetails = (props) => {
 
                         <Spacer customHeight={hp(5)} />
                     </View>
-                </ScrollView>
+                </Animated.ScrollView>
             </View>
             <View style={{ paddingBottom: hp(3), justifyContent: 'center', alignSelf: 'center', backgroundColor: colors.bgColor }}>
                 <Spacer customHeight={hp(1)} />
