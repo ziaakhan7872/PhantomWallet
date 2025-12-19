@@ -1067,6 +1067,36 @@ export const walletConnectOptions = [
 ]
 
 
+export const suggestedEmojis = [
+    { emoji: "🔥", name: "Fire" },
+    { emoji: "🔒", name: "Lock" },
+    { emoji: "🔮", name: "Crystal Ball" },
+    { emoji: "🖼️", name: "Framed Picture" },
+    { emoji: "💯", name: "Hundred Points" },
+    { emoji: "⚡", name: "High Voltage" },
+    { emoji: "⚒️", name: "Hammer and Pick" },
+    { emoji: "⛓️", name: "Chains" },
+    { emoji: "🚀", name: "Rocket" },
+    { emoji: "🌙", name: "Crescent Moon" },
+    { emoji: "💩", name: "Pile of Poo" },
+    { emoji: "👻", name: "Ghost" },
+    { emoji: "👽", name: "Alien" },
+    { emoji: "👾", name: "Alien Monster" },
+    { emoji: "🤖", name: "Robot Face" },
+    { emoji: "🐱", name: "Cat Face" },
+    { emoji: "🧑‍🚀", name: "Astronaut" },
+    { emoji: "🤡", name: "Clown Face" },
+    { emoji: "💎", name: "Gem Stone" },
+    { emoji: "🙌", name: "Raising Hands" },
+    { emoji: "🤷‍♂️", name: "Person Shrugging" },
+    { emoji: "💸", name: "Money with Wings" },
+    { emoji: "💵", name: "Dollar Banknote" },
+    { emoji: "💳", name: "Credit Card" },
+    { emoji: "🧠", name: "Brain" },
+    { emoji: "📱", name: "Mobile Phone" },
+    { emoji: "⚫", name: "Black Circle" }
+];
+
 export const emojis = [
     { emoji: "😀", name: "Grinning Face" },
     { emoji: "😁", name: "Beaming Face with Smiling Eyes" },

@@ -5,7 +5,7 @@ import PoppinsText from '../../../../components/PoppinsText'
 import { Fonts } from '../../../../constants/fonts'
 import { colors } from '../../../../constants/colors'
 import { hp, wp } from '../../../../components/ResponsiveComponent'
-import { emojis } from '../../../../components/dummyData'
+import { emojis, suggestedEmojis } from '../../../../components/dummyData'
 import Spacer, { HorizontalSpacer } from '../../../../components/Spacer'
 
 export const RowTabs = ({ selectedTab, setSelectedTab }) => {
@@ -24,6 +24,24 @@ export const RowTabs = ({ selectedTab, setSelectedTab }) => {
                 }}>Collectibles</PoppinsText>
             </TouchableOpacity>
         </View>
+    )
+}
+
+export const SuggestedEmojisList = ({ setSelectedEmoji }) => {
+    return (
+        <FlatList
+            data={suggestedEmojis}
+            showsVerticalScrollIndicator={false}
+            numColumns={8}
+            removeClippedSubviews={false}
+            renderItem={({ item }) => {
+                return (
+                    <TouchableOpacity activeOpacity={0.8} style={{ flex: 1, }} onPress={() => setSelectedEmoji(item?.emoji)}>
+                        <PoppinsText style={styles.emojiImage}>{item?.emoji}</PoppinsText>
+                    </TouchableOpacity>
+                )
+            }}
+        />
     )
 }
 

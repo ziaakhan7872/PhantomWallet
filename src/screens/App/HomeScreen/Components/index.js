@@ -65,6 +65,7 @@ export const RowTabs = ({ onPressTab, }) => {
             removeClippedSubviews={false}
             ItemSeparatorComponent={() => <HorizontalSpacer customWidth={wp(1)} />}
             showsHorizontalScrollIndicator={false}
+            scrollEnabled={false}
             contentContainerStyle={{ width: wp(92), justifyContent: 'space-between' }}
             renderItem={({ item }) => {
                 return (

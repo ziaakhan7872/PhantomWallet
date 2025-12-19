@@ -6,7 +6,7 @@ import { AppHeader } from '../../../components/AppHeader'
 import { Images } from '../../../Images'
 import Spacer from '../../../components/Spacer'
 import { hp, wp } from '../../../components/ResponsiveComponent'
-import { CollectiblesList, EmojisList, RowTabs } from './Components'
+import { CollectiblesList, EmojisList, RowTabs, SuggestedEmojisList } from './Components'
 import { CustomTextInput5 } from '../../../components/CustomTextInput'
 import { CustomButton } from '../../../components/CustomButton'
 import PoppinsText from '../../../components/PoppinsText'
@@ -50,8 +50,14 @@ const SelectAvatar = (props) => {
                     </View>
                     <Spacer />
                     {selectedTab === 'Emojis' ?
-                        <>
-                            <PoppinsText style={styles.suggestedText}>Suggested</PoppinsText>
+
+<>
+<PoppinsText style={styles.suggestedText}>Suggested</PoppinsText>
+<Spacer customHeight={hp(2)} />
+<SuggestedEmojisList setSelectedEmoji={setSelectedEmoji} />
+
+<Spacer customHeight={hp(4)} />
+                            <PoppinsText style={styles.suggestedText}>Smileys & People</PoppinsText>
                             <Spacer customHeight={hp(1)} />
                             <EmojisList setSelectedEmoji={setSelectedEmoji} />
                         </>
