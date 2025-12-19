@@ -22,7 +22,8 @@ const AccountDetails = (props) => {
     return (
         <AppContainer>
             <View style={styles.mainView}>
-                <Spacer customHeight={Platform.OS == 'ios' ? hp(7) : hp(4)} />
+                <Spacer customHeight={hp(1.5)} />
+                {/* <Spacer customHeight={Platform.OS == 'ios' ? hp(7) : hp(4)} /> */}
                 <AddAccountHeader logo={activeWalletWithTokens?.logo} activeWalletWithTokens={activeWalletWithTokens} onPressCross={() => props?.navigation.goBack()} />
                 <Spacer />
                 <RowTabs onPressProfile={() => props?.navigation.navigate(routes.editProfile, { item: activeWalletWithTokens })} onPressSettings={() => props?.navigation.navigate(routes.accountSettings, { item: activeWalletWithTokens })} />

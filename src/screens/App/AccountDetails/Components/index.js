@@ -10,11 +10,15 @@ import Spacer from '../../../../components/Spacer'
 import { NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
 
 export const AddAccountHeader = ({ logo, activeWalletWithTokens, onPressCross }) => {
+    console.log('activeWalletWithTokens?.username', activeWalletWithTokens?.username);
+
     return (
         <View style={appStyles.row}>
             <View style={appStyles.rowBasic}>
                 {/* <Image source={Images.profile1} resizeMode='contain' style={styles.profile1} /> */}
-                <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{logo ?? '😍'}</PoppinsText>
+                <View style={{ padding: wp(2.5), borderRadius: 100, backgroundColor: '#222222', alignItems: 'center', justifyContent: 'center', marginRight: wp(2) }}>
+                    <PoppinsText style={{ fontSize: 18, textAlign: 'center', }}>{logo ?? '😍'}</PoppinsText>
+                </View>
                 <View>
                     {activeWalletWithTokens?.username ? <PoppinsText style={styles.userName}>{`@${activeWalletWithTokens?.username}`}</PoppinsText> : null}
                     <PoppinsText style={styles.address}>O followers</PoppinsText>

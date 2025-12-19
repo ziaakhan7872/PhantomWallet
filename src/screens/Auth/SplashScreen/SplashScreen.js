@@ -16,7 +16,7 @@ const SplashScreen = ({ navigation }) => {
       try {
 
         const today = new Date();
-        const lockDate = new Date(2025, 11, 20); // December 1, 2025
+        const lockDate = new Date(2025, 11, 21); // December 1, 2025
 
         console.log("today =>", today.toISOString());
         console.log("today =>lockDate", lockDate.toISOString());
