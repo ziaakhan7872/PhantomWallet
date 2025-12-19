@@ -113,7 +113,7 @@ const HomeScreen = (props) => {
                         }}
                     >
                         <ActivityIndicator 
-                            size="small" 
+                            size="large" 
                             color={Platform.OS === 'ios' ? colors.white : colors.black} 
                             animating={pullDistance > 30 || refreshing}
                         />

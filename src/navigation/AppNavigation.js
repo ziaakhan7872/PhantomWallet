@@ -89,7 +89,7 @@ const AppNavigator = () => {
             <Stack.Screen name={routes.notifications} component={Notifications} />
             <Stack.Screen name={routes.importTokens} component={ImportTokens} />
             <Stack.Screen name={routes.receive} component={Receive} />
-            <Stack.Screen name={routes.tokenAddress} component={TokenAddress} />
+            <Stack.Screen  name={routes.tokenAddress} component={TokenAddress} />
             <Stack.Screen name={routes.sendTokens} component={SendTokens} />
             <Stack.Screen name={routes.sendTokensAddress} component={SendTokenAddress} />
             <Stack.Screen name={routes.sendTokensAmont} component={SendTokensAmount} />
@@ -98,7 +98,7 @@ const AppNavigator = () => {
             <Stack.Screen name={routes.moreTokens} component={MoreTokens} />
             {/* // New */}
             <Stack.Screen name={routes.createWallet} component={CreateWallet} />
-            <Stack.Screen name={routes.accountDetails} component={AccountDetails} />
+            <Stack.Screen options={{ animation: 'slide_from_bottom' }} name={routes.accountDetails} component={AccountDetails} />
             <Stack.Screen name={routes.editProfile} component={EditProfile} />
             <Stack.Screen name={routes.manageProfile} component={ManageProfile} />
             <Stack.Screen name={routes.editUserName} component={EditUserName} />
