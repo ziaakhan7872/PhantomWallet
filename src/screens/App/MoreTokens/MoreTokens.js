@@ -75,26 +75,26 @@ const MoreTokens = (props) => {
                         refreshing={refreshing}
                         onRefresh={onRefresh}
                         progressBackgroundColor={'transparent'}
-                        progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
                     />
                 }>
-                {/* Custom centered loader overlay */}
+                {/* Custom centered loader overlay - stays in center of pull space */}
                 {(pullDistance > 0 || refreshing) && (
                     <View 
                         style={{
                             position: 'absolute',
-                            top: -pullDistance,
+                            top: 0,
                             left: 0,
                             right: 0,
-                            height: pullDistance,
+                            height: pullDistance > 0 ? pullDistance : hp(8),
                             justifyContent: 'center',
                             alignItems: 'center',
                             zIndex: 999,
+                            marginTop: pullDistance > 0 ? -pullDistance : -hp(8),
                         }}
                     >
                         <ActivityIndicator 
                             size="large" 
-                            color={Platform.OS === 'ios' ? colors.white : colors.black} 
+                            color={colors.white} 
                             animating={pullDistance > 30 || refreshing}
                         />
                     </View>
