@@ -211,9 +211,10 @@ const TokenDetails = (props) => {
                             </View>
                         </View>
 
-                        <Spacer customHeight={hp(0.5)} />
+                        <Spacer customHeight={hp(2)} />
                         <View style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
                             <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
+
                             <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
                         </View>
 

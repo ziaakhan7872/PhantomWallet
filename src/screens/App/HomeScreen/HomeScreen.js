@@ -90,11 +90,12 @@ const HomeScreen = (props) => {
                 scrollEventThrottle={16}
                 refreshControl={
                     <RefreshControl
-                        tintColor={'transparent'}
-                        colors={['transparent']}
-                        refreshing={refreshing}
+                    tintColor={'rgba(0,0,0,0)'}
+                    colors={['rgba(0,0,0,0)']}
+                    refreshing={false}
+                    progressBackgroundColor={'rgba(0,0,0,0)'}
                         onRefresh={onRefresh}
-                        progressBackgroundColor={'transparent'}
+                      
                         progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
                     />
                 }>

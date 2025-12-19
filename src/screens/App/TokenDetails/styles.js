@@ -75,8 +75,8 @@ export const styles = StyleSheet.create({
         color: '#B4B4B4',
     },
     changeAmount: {
-        fontSize: 13,
-        fontFamily: Fonts.Poppins.Regular,
+        fontSize: 14,
+        fontFamily: Fonts.Poppins.SemiBold,
         color: colors.green8,
     },
     perpsText: {
