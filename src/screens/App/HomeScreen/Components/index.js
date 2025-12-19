@@ -234,15 +234,16 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
 
                                         <View>
                                             <SkeletonPlaceholder.Item
-                                                width={70}
+                                                width={60}
                                                 height={12}
                                                 borderRadius={20}
-                                                style={{ marginBottom: hp(1) }}
+                                                style={{ marginBottom: hp(1), alignSelf: 'flex-end' }}
                                             />
                                             <SkeletonPlaceholder.Item
-                                                width={70}
+                                                width={80}
                                                 height={12}
                                                 borderRadius={20}
+                                                style={{ alignSelf: 'flex-end' }}
                                             />
                                         </View>
                                     </View>
