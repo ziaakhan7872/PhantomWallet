@@ -709,8 +709,9 @@ const styles = StyleSheet.create({
         color: '#B4B4B4'
     },
     verified: {
-        width: wp(3),
-        height: wp(3),
+        width: wp(3.5),
+        height: wp(3.5),
+        marginTop: hp(0.4),
         marginLeft: wp(1)
     },
     typeView: {
