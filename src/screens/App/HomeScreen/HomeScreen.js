@@ -1,5 +1,5 @@
-import { ActivityIndicator, Animated, FlatList, Image, Platform, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { ActivityIndicator, Animated, FlatList, Image, Platform, RefreshControl, TouchableOpacity, View } from 'react-native'
+import React, { useRef, useState } from 'react'
 import { styles } from './styles'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
 import { hp, wp } from '../../../components/ResponsiveComponent'
@@ -90,32 +90,31 @@ const HomeScreen = (props) => {
                 scrollEventThrottle={16}
                 refreshControl={
                     <RefreshControl
-                    tintColor={'rgba(0,0,0,0)'}
-                    colors={['rgba(0,0,0,0)']}
-                    refreshing={false}
-                    progressBackgroundColor={'rgba(0,0,0,0)'}
+                        tintColor={'transparent'}
+                        colors={['transparent']}
+                        refreshing={refreshing}
+                        progressBackgroundColor={'transparent'}
                         onRefresh={onRefresh}
-                      
-                        progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
                     />
                 }>
-                {/* Custom centered loader overlay */}
+                {/* Custom centered indicator - stays in center of pull space */}
                 {(pullDistance > 0 || refreshing) && (
                     <View 
                         style={{
                             position: 'absolute',
-                            top: -pullDistance,
+                            top: 0,
                             left: 0,
                             right: 0,
-                            height: pullDistance,
+                            height: pullDistance > 0 ? pullDistance : hp(8),
                             justifyContent: 'center',
                             alignItems: 'center',
                             zIndex: 999,
+                            marginTop: pullDistance > 0 ? -pullDistance : -hp(8),
                         }}
                     >
                         <ActivityIndicator 
                             size="large" 
-                            color={Platform.OS === 'ios' ? colors.white : colors.black} 
+                            color={colors.white} 
                             animating={pullDistance > 30 || refreshing}
                         />
                     </View>
