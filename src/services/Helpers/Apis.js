@@ -129,12 +129,12 @@ export const getGraphDataById = async (id, days = 2) => {
         // url += `&x_cg_pro_api_key=CG-oGhRPdwsHvTLFmMJ6kW7mea9`;
         let url = `${CoingekoBaseURL}/coins/${tokenId}/market_chart?vs_currency=usd&days=${days}&x_cg_pro_api_key=CG-oGhRPdwsHvTLFmMJ6kW7mea9`;
 
-        console.log('urlurlurlurlurlurl', url);
+        // console.log('urlurlurlurlurlurl', url);
 
 
         const res = await axios.get(url);
 
-        console.log("Graph Data Res:", res?.data);
+        // console.log("Graph Data Res:", res);
 
         return res?.data;
 

@@ -172,7 +172,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { hp, wp } from './ResponsiveComponent';
 
-export const Graph = ({ change24h, onPriceChange, setDailyPnl, dailyPnl, graphData, graphLoading }) => {
+export const Graph = ({ change24h, onPriceChange, setDailyPnl, dailyPnl, graphData, graphLoading, balanceValue }) => {
 
     // console.log("graphData:::graphData", graphData);
 
@@ -241,9 +241,14 @@ export const Graph = ({ change24h, onPriceChange, setDailyPnl, dailyPnl, graphDa
                     onCurrentIndexChange={(idx) => {
                         const point = data[idx];
                         if (point) {
-                            onPriceChange?.(point.value, point.timestamp);
+                            const priceDifference = point.value - data[data?.length - 1]?.value; // Difference between the two prices
+                            const price24hAgo = (priceDifference / data[data?.length - 1]?.value) * 100;
+
+                            const priceDifference1 = data[data?.length - 1]?.value - point.value;
+                            const dollarChange = priceDifference1 * balanceValue;
+                            onPriceChange?.(point.value, point.timestamp, price24hAgo, dollarChange);
                         } else {
-                            onPriceChange?.(data[data?.length - 1]?.value, data[data?.length - 1]?.timestamp);
+                            onPriceChange?.(data[data?.length - 1]?.value, data[data?.length - 1]?.timestamp, change24h, dailyPnl?.pnlAmount);
                         }
                     }}
                 >

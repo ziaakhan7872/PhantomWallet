@@ -103,8 +103,8 @@ const TokenDetails = (props) => {
                     <TokenDetailsHeader leftImage={Images.backArrow} isFollowed={isFollowed} tokenLogo={{ uri: previousTokenData?.logoURI }} tokenName={previousTokenData?.tokenName ?? ''} status={`${randomPeopleCount ?? '0'} people here`} onPressBackArrow={() => props?.navigation.goBack()} onPressFollow={() => onPressFollow()} />
                     <Spacer />
                 </View>
-                <Animated.ScrollView 
-                    showsVerticalScrollIndicator={false} 
+                <Animated.ScrollView
+                    showsVerticalScrollIndicator={false}
                     nestedScrollEnabled={true}
                     onScroll={handleScroll}
                     scrollEventThrottle={16}
@@ -120,7 +120,7 @@ const TokenDetails = (props) => {
                     }>
                     {/* Custom centered loader overlay */}
                     {(pullDistance > 0 || refreshing) && (
-                        <View 
+                        <View
                             style={{
                                 position: 'absolute',
                                 top: -pullDistance,
@@ -132,9 +132,9 @@ const TokenDetails = (props) => {
                                 zIndex: 999,
                             }}
                         >
-                            <ActivityIndicator 
-                                size="large" 
-                                color={Platform.OS === 'ios' ? colors.white : colors.black} 
+                            <ActivityIndicator
+                                size="large"
+                                color={Platform.OS === 'ios' ? colors.white : colors.black}
                                 animating={pullDistance > 30 || refreshing}
                             />
                         </View>
@@ -168,12 +168,18 @@ const TokenDetails = (props) => {
                     {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
                     <Graph
                         graphData={graphData} graphLoading={graphLoading}
-                        change24h={dailyPnl?.change24h}
+                        change24h={previousTokenData?.change24h}
                         setDailyPnl={setDailyPnl}
                         dailyPnl={dailyPnl}
-                        onPriceChange={(price, time) => {
+                        balanceValue={balanceValue}
+                        onPriceChange={(price, time, change, dollarChange) => {
                             setLivePrice(price);
                             setLiveTime(new Date(time).toLocaleString());
+                            setDailyPnl({
+                                ...dailyPnl,
+                                change24h: change == 0 ? dailyPnl?.change24h : change,
+                                pnlAmount: change == 0 ? dailyPnl?.pnlAmount : dollarChange
+                            });
                         }}
                     />
                     {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
