@@ -1,5 +1,5 @@
-import { View, Text, ScrollView, RefreshControl, TouchableOpacity, Image, Platform } from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, RefreshControl, TouchableOpacity, Image, Platform, Animated, ActivityIndicator } from 'react-native'
+import React, { useRef, useState } from 'react'
 import useMoreTokens from './Hook';
 import { MainContainerApp } from '../../../components/MainContainer';
 import { hp, wp } from '../../../components/ResponsiveComponent';
@@ -30,6 +30,24 @@ const MoreTokens = (props) => {
         return valueB - valueA; // high → low
     });
 
+    const scrollY = useRef(new Animated.Value(0)).current;
+    const [pullDistance, setPullDistance] = useState(0);
+
+    const handleScroll = Animated.event(
+        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+        {
+            useNativeDriver: false,
+            listener: (event) => {
+                const offsetY = event.nativeEvent.contentOffset.y;
+                if (offsetY < 0) {
+                    setPullDistance(Math.abs(offsetY));
+                } else {
+                    setPullDistance(0);
+                }
+            }
+        }
+    );
+
     return (
         <MainContainerApp style={{ paddingHorizontal: wp(4) }}>
             <Spacer customHeight={hp(Platform.OS === 'ios' ? 7 : 4)} />
@@ -44,22 +62,43 @@ const MoreTokens = (props) => {
                 <Image source={Images.setting} resizeMode='contain' style={{ width: wp(5), height: wp(5) }} />
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true} contentContainerStyle={{ paddingBottom: hp(8) }}
+            <Animated.ScrollView 
+                showsVerticalScrollIndicator={false} 
+                nestedScrollEnabled={true} 
+                contentContainerStyle={{ paddingBottom: hp(8) }}
+                onScroll={handleScroll}
+                scrollEventThrottle={16}
                 refreshControl={
                     <RefreshControl
-                        // colors={[Platform.OS === 'ios' ? colors.white : colors.black]} 
-                        // tintColor={Platform.OS === 'ios' ? colors.white : colors.black}
-                        tintColor={Platform.OS === 'ios' ? '#fff' : '#000'}
-
+                        tintColor={'transparent'}
+                        colors={['transparent']}
                         refreshing={refreshing}
                         onRefresh={onRefresh}
-                        progressBackgroundColor={Platform.OS === 'ios' ? colors.black : colors.white}
-                        // Android: move indicator down using offsetƒt
+                        progressBackgroundColor={'transparent'}
                         progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
-                    // iOS: slight upward shift so it sits closer to top content
-
                     />
                 }>
+                {/* Custom centered loader overlay */}
+                {(pullDistance > 0 || refreshing) && (
+                    <View 
+                        style={{
+                            position: 'absolute',
+                            top: -pullDistance,
+                            left: 0,
+                            right: 0,
+                            height: pullDistance,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: 999,
+                        }}
+                    >
+                        <ActivityIndicator 
+                            size="large" 
+                            color={Platform.OS === 'ios' ? colors.white : colors.black} 
+                            animating={pullDistance > 30 || refreshing}
+                        />
+                    </View>
+                )}
                 <View>
                     <Spacer customHeight={hp(1)} />
                     <BalanceCard totalBalance={totalBalance} dailyPnl={dailyPnl} />
@@ -92,7 +131,7 @@ const MoreTokens = (props) => {
                     isSkeltonLoading={isSkeltonLoading}
                     onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                 />
-            </ScrollView>
+            </Animated.ScrollView>
 
         </MainContainerApp>
     )
