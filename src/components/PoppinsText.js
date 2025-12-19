@@ -21,7 +21,7 @@ const PoppinsText = ({
   const fontSize = FontSizes[size];
 
   return (
-    <Text style={[styles.text, { fontFamily, fontSize }, style]} {...props}>
+    <Text style={[styles.text, { fontSize }, style]} {...props}>
       {children}
     </Text>
   );

@@ -1,4 +1,5 @@
-// Font configuration for the CoreWallet app using Poppins font family
+// Font configuration for the CoreWallet app using Inter font family
+import { Platform } from 'react-native';
 
 // export const Fonts = {
 //   Poppins: {
@@ -8,12 +9,14 @@
 //     Bold: 'Poppins-Bold',
 //   },
 // };
+
+// Android uses filename, iOS uses PostScript name
 export const Fonts = {
   Poppins: {
-    Regular: 'Inter-Regular',
-    Medium: 'Inter-Medium',
-    SemiBold: 'Inter-SemiBold',
-    Bold: 'Inter-Bold',
+    Regular: Platform.select({ ios: 'Inter18pt-Regular', android: 'Inter-Regular' }),
+    Medium: Platform.select({ ios: 'Inter18pt-Medium', android: 'Inter-Medium' }),
+    SemiBold: Platform.select({ ios: 'Inter24pt-SemiBold', android: 'Inter-SemiBold' }),
+    Bold: Platform.select({ ios: 'Inter18pt-Bold', android: 'Inter-Bold' }),
   },
 };
 

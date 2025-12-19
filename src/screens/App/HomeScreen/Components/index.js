@@ -475,7 +475,7 @@ const styles = StyleSheet.create({
     },
     accountBalance: {
         fontSize: 19,
-        fontFamily: Fonts.Poppins.SemiBold,
+         fontFamily: Fonts.Poppins.SemiBold,
         color: colors.white,
     },
     rightImage1: {
