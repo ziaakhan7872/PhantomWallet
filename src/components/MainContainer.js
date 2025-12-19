@@ -58,9 +58,9 @@ const styles = StyleSheet.create({
     },
     mainContainer2: {
         flex: 1,
-        backgroundColor: 'black',
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
+        backgroundColor: colors.bgColor,
+        // borderTopLeftRadius: 8,
+        // borderTopRightRadius: 8,
     },
     container: {
         width: wp(92),
