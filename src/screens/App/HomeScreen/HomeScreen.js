@@ -1,5 +1,5 @@
-import { FlatList, Image, Platform, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, Animated, FlatList, Image, Platform, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import { styles } from './styles'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
 import { hp, wp } from '../../../components/ResponsiveComponent'
@@ -42,6 +42,24 @@ const HomeScreen = (props) => {
         isSkeltonLoading, setIsSkeltonLoading
     } = useHomeScreen(props);
 
+    const scrollY = useRef(new Animated.Value(0)).current;
+    const [pullDistance, setPullDistance] = useState(0);
+
+    const handleScroll = Animated.event(
+        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+        {
+            useNativeDriver: false,
+            listener: (event) => {
+                const offsetY = event.nativeEvent.contentOffset.y;
+                if (offsetY < 0) {
+                    setPullDistance(Math.abs(offsetY));
+                } else {
+                    setPullDistance(0);
+                }
+            }
+        }
+    );
+
     const sorted = activeWalletWithTokens?.tokens?.sort((a, b) => {
         const valueA = Number(a.balance) * Number(a.currentPriceUsd);
         const valueB = Number(b.balance) * Number(b.currentPriceUsd);
@@ -65,22 +83,42 @@ const HomeScreen = (props) => {
                 onPressRightImage2={() => props?.navigation.navigate(routes.MainTabs, { screen: routes.searchScreen })}
                 onPressAccount={() => props?.navigation.navigate(routes.accountDetails, { activeWalletWithTokens })}
             />
-            <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}
+            <Animated.ScrollView 
+                showsVerticalScrollIndicator={false} 
+                nestedScrollEnabled={true}
+                onScroll={handleScroll}
+                scrollEventThrottle={16}
                 refreshControl={
                     <RefreshControl
-                        // colors={[Platform.OS === 'ios' ? colors.white : colors.black]} 
-                        // tintColor={Platform.OS === 'ios' ? colors.white : colors.black}
-                        tintColor={Platform.OS === 'ios' ? '#fff' : '#000'}
-
+                        tintColor={'transparent'}
+                        colors={['transparent']}
                         refreshing={refreshing}
                         onRefresh={onRefresh}
-                        progressBackgroundColor={Platform.OS === 'ios' ? colors.black : colors.white}
-                        // Android: move indicator down using offsetƒt
+                        progressBackgroundColor={'transparent'}
                         progressViewOffset={hp(Platform.OS === 'ios' ? 2.5 : 0)}
-                    // iOS: slight upward shift so it sits closer to top content
-
                     />
                 }>
+                {/* Custom centered loader overlay */}
+                {(pullDistance > 0 || refreshing) && (
+                    <View 
+                        style={{
+                            position: 'absolute',
+                            top: -pullDistance,
+                            left: 0,
+                            right: 0,
+                            height: pullDistance,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: 999,
+                        }}
+                    >
+                        <ActivityIndicator 
+                            size="small" 
+                            color={Platform.OS === 'ios' ? colors.white : colors.black} 
+                            animating={pullDistance > 30 || refreshing}
+                        />
+                    </View>
+                )}
                 <View>
                     <Spacer customHeight={hp(1)} />
                     <BalanceCard totalBalance={totalBalance} dailyPnl={dailyPnl} />
@@ -180,7 +218,7 @@ const HomeScreen = (props) => {
                 </View>
                 <Spacer customHeight={hp(2)} />
 
-            </ScrollView>
+            </Animated.ScrollView>
 
         </MainContainerApp>
     )
