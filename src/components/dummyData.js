@@ -247,7 +247,21 @@ export const MultiChainChainsArray = [
         "tokenAddress": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",  // Official TRUMP token address on Solana
         "tokenImage": "https://cdn.dexscreener.com/cms/images/9af5672845c89585e9ff1e3b26a640090324aa4d92222052d1043e60ef8182de?width=64&height=64&fit=crop&quality=95&format=auto",  // Replace with the actual token image URL
         "chainId": "solana"
-    }
+    },
+    {
+        "tokenName": "USDT",
+        "symbol": "USDT",
+        "decimals": 18,
+        "chainName": "Solana",  // Adjusted for the Solana network (since the address seems Solana-related)
+        "rpcUrl": "0000000",  // Solana mainnet RPC URL
+        "rpcUrlname": "tether",
+        "isEvm": 0,  // Set to 0 as Solana is not EVM-compatible
+        "isActive": 1,
+        "type": "token",
+        "tokenAddress": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",  // Official TRUMP token address on Solana
+        "tokenImage": "https://cdn.dexscreener.com/cms/images/ad986e3ebe668b0c5ed2ecec0f6bcdc2f4cda3ad8a424a252d33f730c75364a7?width=64&height=64&fit=crop&quality=95&format=auto",  // Replace with the actual token image URL
+        "chainId": "solana"
+    },
 
 ];
 
