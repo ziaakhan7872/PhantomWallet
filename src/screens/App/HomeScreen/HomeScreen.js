@@ -96,8 +96,8 @@ const HomeScreen = (props) => {
                 onPressRightImage2={() => props?.navigation.navigate(routes.MainTabs, { screen: routes.searchScreen })}
                 onPressAccount={() => props?.navigation.navigate(routes.accountDetails, { activeWalletWithTokens })}
             />
-            <ScrollView 
-                showsVerticalScrollIndicator={false} 
+            <ScrollView
+                showsVerticalScrollIndicator={false}
                 nestedScrollEnabled={true}
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
@@ -106,7 +106,7 @@ const HomeScreen = (props) => {
                 overScrollMode="always">
                 {/* Custom pull-to-refresh indicator */}
                 {(pullDistance > 0 || refreshing) && (
-                    <View 
+                    <View
                         style={{
                             height: refreshing ? hp(6) : pullDistance,
                             justifyContent: 'center',
@@ -114,9 +114,9 @@ const HomeScreen = (props) => {
                             overflow: 'hidden',
                         }}
                     >
-                        <ActivityIndicator 
-                            size="small" 
-                            color={'#ffffff'} 
+                        <ActivityIndicator
+                            size="large"
+                            color={'#ffffff'}
                             animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
                         />
                     </View>

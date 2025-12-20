@@ -76,8 +76,8 @@ const MoreTokens = (props) => {
             </View>
 
             <ScrollView
-                showsVerticalScrollIndicator={false} 
-                nestedScrollEnabled={true} 
+                showsVerticalScrollIndicator={false}
+                nestedScrollEnabled={true}
                 contentContainerStyle={{ paddingBottom: hp(8) }}
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
@@ -86,7 +86,7 @@ const MoreTokens = (props) => {
                 overScrollMode="always">
                 {/* Custom pull-to-refresh indicator */}
                 {(pullDistance > 0 || refreshing) && (
-                    <View 
+                    <View
                         style={{
                             height: refreshing ? hp(6) : pullDistance,
                             justifyContent: 'center',
@@ -94,9 +94,9 @@ const MoreTokens = (props) => {
                             overflow: 'hidden',
                         }}
                     >
-                        <ActivityIndicator 
-                            size="small" 
-                            color={'#ffffff'} 
+                        <ActivityIndicator
+                            size="large"
+                            color={'#ffffff'}
                             animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
                         />
                     </View>

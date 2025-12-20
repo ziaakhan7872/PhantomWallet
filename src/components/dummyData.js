@@ -1252,18 +1252,18 @@ export const emojis = [
 export const TokenDetailsRowTabs = [
     {
         id: 1,
+        tabLogo: Images.sendIcon,
+        title: "Send",
+    },
+    {
+        id: 2,
         tabLogo: Images.long,
         title: "Long",
     },
     {
-        id: 2,
+        id: 3,
         tabLogo: Images.short,
         title: "Short",
-    },
-    {
-        id: 3,
-        tabLogo: Images.receiveIcon,
-        title: "Receive",
     },
     {
         id: 4,

@@ -241,12 +241,24 @@ export const Graph = ({ change24h, onPriceChange, setDailyPnl, dailyPnl, graphDa
                     onCurrentIndexChange={(idx) => {
                         const point = data[idx];
                         if (point) {
-                            const priceDifference = point.value - data[data?.length - 1]?.value; // Difference between the two prices
-                            const price24hAgo = (priceDifference / data[data?.length - 1]?.value) * 100;
+                            // const priceDifference = point.value - data[data?.length - 1]?.value; // Difference between the two prices
+                            // const price24hAgo = (priceDifference / data[data?.length - 1]?.value) * 100;
 
-                            const priceDifference1 = data[data?.length - 1]?.value - point.value;
-                            const dollarChange = priceDifference1 * balanceValue;
-                            onPriceChange?.(point.value, point.timestamp, price24hAgo, dollarChange);
+                            // const priceDifference1 = data[data?.length - 1]?.value - point.value;
+                            // const dollarChange = priceDifference1 * balanceValue;
+
+                            const currentPrice = Number(data?.[data.length - 1]?.value || 0);
+                            const selectedPrice = Number(point?.value || 0);
+
+                            if (!currentPrice || !selectedPrice) {
+                                return { dollarChange: 0, percentageChange: 0 };
+                            }
+
+                            // selected vs current
+                            const dollarChange = selectedPrice - currentPrice; // ✅ 2900 - 3000 = -100 (down)
+                            const percentageChange = (dollarChange / currentPrice) * 100;
+
+                            onPriceChange?.(point.value, point.timestamp, percentageChange, dollarChange);
                         } else {
                             onPriceChange?.(data[data?.length - 1]?.value, data[data?.length - 1]?.timestamp, change24h, dailyPnl?.pnlAmount);
                         }

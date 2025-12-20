@@ -61,7 +61,9 @@ async function createTables(db) {
                 change24h TEXT,
                 currentPriceUsd TEXT,
                 balanceUsd TEXT,
-                balance TEXT
+                balance TEXT,
+                totalPeoples TEXT,
+                return24h TEXT
             );
             `);
 
@@ -155,8 +157,10 @@ export const InsertAllChains = async (waletid, chainsarray) => {
         // Sequential inserts to simplify error handling
         for (const item of chainsarray) {
             await db.executeSql(
-                'INSERT INTO ChainsTbl(isFollowed, chainName, tokenName, type, tokenAddress, symbol, decimals, cmcId, rpcUrl, logoURI, isActive, isEvm, walletId, change24h, currentPriceUsd, balanceUsd, balance) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                'INSERT INTO ChainsTbl(totalPeoples, return24h, isFollowed, chainName, tokenName, type, tokenAddress, symbol, decimals, cmcId, rpcUrl, logoURI, isActive, isEvm, walletId, change24h, currentPriceUsd, balanceUsd, balance) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 [
+                    0,
+                    0,
                     0,
                     item.chainName,
                     item.tokenName,
@@ -454,6 +458,27 @@ const updateFollowStatus = async (isFollowed, walletId) => {
     }
 };
 
+// change Total Peoples and Return 24h
+const updateTotalPeoplesAndReturn24h = async (totalPeoples, return24h, walletId) => {
+    const db = await getDb();
+    try {
+        const [results] = await db.executeSql(
+            'UPDATE ChainsTbl SET totalPeoples= ?, return24h = ? WHERE id = ?',
+            [totalPeoples, return24h, walletId]
+        );
+
+        console.log('resultsresultsresultsresults', results);
+
+        if (results.rowsAffected > 0) {
+            return true;
+        }
+        throw new Error('Failed to update wallet name');
+    } catch (error) {
+        console.log('Error updating wallet name:', error);
+        throw error;
+    }
+};
+
 // get all accounts with token data
 export const getAllAccountsWithTokenData = async () => {
     const db = await getDb();
@@ -522,7 +547,8 @@ const database = {
     getActiveWalletsWithTokenData,
     getAllAccountsWithTokenData,
     switchActiveWallet,
-    updateFollowStatus
+    updateFollowStatus,
+    updateTotalPeoplesAndReturn24h
 };
 
 export default database;

@@ -24,8 +24,12 @@ const useTokenDetails = (props) => {
         solanaAddress: ''
     })
     const [balanceModalVisible, setBalanceModalVisible] = useState(false)
+    const [totalPeoplesModalVisible, setTotalPeoplesModalVisible] = useState(false)
+    const [return24hModalVisible, setReturn24hModalVisible] = useState(false)
+    const [totalPeoplesValue, setTotalPeoplesValue] = useState(Number(previousTokenData?.totalPeoples) > 0 ? previousTokenData?.totalPeoples : '')
+    const [return24hValue, setReturn24hValue] = useState(Number(previousTokenData?.return24h) ? previousTokenData?.return24h : '0')
     const [balanceValue, setBalanceValue] = useState(Number(previousTokenData?.balance) > 0 ? previousTokenData?.balance : '')
-    const [tempBalanceValue, setTempBalanceValue] = useState(Number(previousTokenData?.balance) > 0 ? previousTokenData?.balance : '');
+    const [tempBalanceValue, setTempBalanceValue] = useState(Number(previousTokenData?.balance) > 0 ? previousTokenData?.balance : '0');
     const [graphData, setGraphData] = useState([{ value: 0, timestamp: 0 }]);
     const [graphLoading, setGraphLoading] = useState(false);
     const [totalVolume, setTotalVolume] = useState(0);
@@ -52,7 +56,7 @@ const useTokenDetails = (props) => {
                     solanaAddress: wallet.solanaAddress || ''
                 });
             }
-            getGraphData(4);
+            getGraphData(1);
             setDailyPnl(calculateSelectedTokenPnL(previousTokenData));
             const coinTokenInfo = await getCoinTokenInfoById(previousTokenData?.cmcId);
             setTokenInfo(coinTokenInfo)
@@ -89,18 +93,25 @@ const useTokenDetails = (props) => {
 
         const { currentPriceUsd, balance, change24h } = token;
 
-        // 1. Current total value
         const totalValue = Number(currentPriceUsd) * Number(balance);
 
-        // 2. Reconstruct price 24h ago
-        const price24hAgo =
-            Number(currentPriceUsd) / (1 + Number(change24h) / 100);
+        const pnlAmount = Number(Number(change24h) / 100) * Number(currentPriceUsd);;
 
-        // 3. Value 24h ago
-        const value24hAgo = Number(balance) * price24hAgo;
 
-        // 4. PnL amount
-        const pnlAmount = totalValue - value24hAgo;
+
+        // // 1. Current total value
+        // const totalValue = Number(currentPriceUsd) * Number(balance);
+
+        // // 2. Reconstruct price 24h ago
+        // const price24hAgo =
+        //     Number(currentPriceUsd) / (1 + Number(change24h) / 100);
+
+        // // 3. Value 24h ago
+        // const value24hAgo = Number(balance) * price24hAgo;
+
+        // // 4. PnL amount
+        // const pnlAmount = totalValue - value24hAgo;
+
 
         return {
             totalValue,
@@ -117,7 +128,26 @@ const useTokenDetails = (props) => {
 
     const handleCloseModal = () => {
         setBalanceModalVisible(false);
+        setTotalPeoplesModalVisible(false);
+        setReturn24hModalVisible(false);
         setTempBalanceValue(balanceValue);
+        setTotalPeoplesValue(previousTokenData?.totalPeoples);
+        setReturn24hValue(previousTokenData?.return24h);
+    };
+
+    const handleSaveReturn24hAndPeoples = async () => {
+
+        try {
+
+            let res = await database.updateTotalPeoplesAndReturn24h(totalPeoplesValue, return24hValue, previousTokenData?.id);
+
+            setReturn24hValue(return24hValue);
+            setTotalPeoplesValue(totalPeoplesValue);
+            setTotalPeoplesModalVisible(false);
+            setReturn24hModalVisible(false);
+        } catch (error) {
+            console.log('catch error in handleSaveReturn24hAndPeoples:', error);
+        }
     };
 
     const handleSaveBalance = async () => {
@@ -220,6 +250,7 @@ const useTokenDetails = (props) => {
         tempBalanceValue, setTempBalanceValue,
         handleOpenModal,
         handleCloseModal,
+        handleSaveReturn24hAndPeoples,
         handleSaveBalance,
         handleBalanceChange,
         randomPeopleCount,
@@ -235,6 +266,10 @@ const useTokenDetails = (props) => {
         totalVolume,
         refreshing,
         onRefresh,
+        totalPeoplesModalVisible, setTotalPeoplesModalVisible,
+        return24hModalVisible, setReturn24hModalVisible,
+        totalPeoplesValue, setTotalPeoplesValue,
+        return24hValue, setReturn24hValue,
     }
 }
 

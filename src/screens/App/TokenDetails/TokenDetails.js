@@ -28,6 +28,7 @@ const TokenDetails = (props) => {
         tempBalanceValue, setTempBalanceValue,
         handleOpenModal,
         handleCloseModal,
+        handleSaveReturn24hAndPeoples,
         handleSaveBalance,
         handleBalanceChange,
         randomPeopleCount,
@@ -43,9 +44,14 @@ const TokenDetails = (props) => {
         totalVolume,
         refreshing,
         onRefresh,
+        totalPeoplesModalVisible, setTotalPeoplesModalVisible,
+        return24hModalVisible, setReturn24hModalVisible,
+        totalPeoplesValue, setTotalPeoplesValue,
+        return24hValue, setReturn24hValue,
     } = useTokenDetails(props);
 
-    console.log('tokenInfotokenInfotokenInfotokenInfo', tokenInfo);
+
+    console.log('tokenInfotokenInfotokenInfotokenInfo', previousTokenData);
 
     // REMOVE LATER ONLY FOR TESTINGGGGG /////////////
     const [livePrice, setLivePrice] = useState("0.00");
@@ -113,7 +119,13 @@ const TokenDetails = (props) => {
             <Spacer customHeight={Platform.OS == 'ios' ? hp(7) : hp(4)} />
             <View style={styles.mainView}>
                 <View style={styles.margin}>
-                    <TokenDetailsHeader leftImage={Images.backArrow} isFollowed={isFollowed} tokenLogo={{ uri: previousTokenData?.logoURI }} tokenName={previousTokenData?.tokenName ?? ''} status={`${randomPeopleCount ?? '0'} people here`} onPressBackArrow={() => props?.navigation.goBack()} onPressFollow={() => onPressFollow()} />
+                    <TokenDetailsHeader leftImage={Images.backArrow} isFollowed={isFollowed}
+                        onPressPeoples={() => setTotalPeoplesModalVisible(true)}
+                        tokenLogo={{ uri: previousTokenData?.logoURI }}
+                        tokenName={previousTokenData?.tokenName ?? ''}
+                        status={`${totalPeoplesValue ? totalPeoplesValue : randomPeopleCount} people here`}
+                        onPressBackArrow={() => props?.navigation.goBack()}
+                        onPressFollow={() => onPressFollow()} />
                     <Spacer />
                 </View>
                 <ScrollView
@@ -135,7 +147,7 @@ const TokenDetails = (props) => {
                             }}
                         >
                             <ActivityIndicator
-                                size="small"
+                                size="large"
                                 color={'#ffffff'}
                                 animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
                             />
@@ -150,18 +162,18 @@ const TokenDetails = (props) => {
                         {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
 
 
-                        {/* <View style={{ ...appStyles.rowBasic }}>
-                            <PoppinsText style={[styles.dollarPrice, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>{`$${formatValueTwoDigit(dailyPnl?.pnlAmount)}`}</PoppinsText>
-                            <View style={[styles.percentageRoundBox, { backgroundColor: previousTokenData?.change24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
-                                <PoppinsText style={[styles.percentageText, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#000' : '#e94f33' }]}>{`${formatValueTwoDigit(dailyPnl?.change24h)}%`}</PoppinsText>
-                            </View>
-                        </View> */}
                         <View style={{ ...appStyles.rowBasic }}>
+                            <PoppinsText style={[styles.dollarPrice, { color: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`$${formatValueTwoDigit(dailyPnl?.pnlAmount)}`}</PoppinsText>
+                            <View style={[styles.percentageRoundBox, { backgroundColor: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
+                                <PoppinsText style={[styles.percentageText, { color: '#000' }]}>{`${formatValueTwoDigit(dailyPnl?.change24h)}%`}</PoppinsText>
+                            </View>
+                        </View>
+                        {/* <View style={{ ...appStyles.rowBasic }}>
                             <PoppinsText style={[styles.dollarPrice, { color: '#4AA46C' }]}>{`$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
                             <View style={[styles.percentageRoundBox, { backgroundColor: '#4AA46C' }]}>
                                 <PoppinsText style={[styles.percentageText, { color: '#111111' }]}>{`${formatValueTwoDigit(Math.abs(Number(dailyPnl?.change24h)))}%`}</PoppinsText>
                             </View>
-                        </View>
+                        </View> */}
                     </View>
 
                     <Spacer customHeight={hp(3)} />
@@ -196,7 +208,7 @@ const TokenDetails = (props) => {
                             onPressTab={(item) => item?.id == 4 ? stakeOptionBottomSheet?.current?.open() : null}
                             tabAnimationMap={tabAnimationMap}
                             balanceValue={balanceValue}
-                        chainName={previousTokenData?.tokenName}
+                            chainName={previousTokenData?.tokenName}
                         />
 
                         <Spacer />
@@ -210,7 +222,7 @@ const TokenDetails = (props) => {
                             <TouchableOpacity onPress={handleOpenModal} activeOpacity={0.8} style={styles.bgView}>
                                 <PoppinsText style={styles.balanceText}>Balance</PoppinsText>
                                 <Spacer customHeight={hp(0.5)} />
-                                <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? balanceValue : '0'}</PoppinsText>
+                                <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? convertBigValues(Number(balanceValue)) : '0'}</PoppinsText>
                             </TouchableOpacity>
 
                             <View style={styles.bgView}>
@@ -221,11 +233,11 @@ const TokenDetails = (props) => {
                         </View>
 
                         <Spacer customHeight={hp(2)} />
-                        <View style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => setReturn24hModalVisible(true)} style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
                             <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
 
-                            <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`$${NumberRoundFunction(dailyPnl?.pnlAmount)}`}</PoppinsText>
-                        </View>
+                            <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>${Number(return24hValue)?.toFixed(2)}</PoppinsText>
+                        </TouchableOpacity>
 
                         {previousTokenData?.chainName == 'Solana' || previousTokenData?.chainName == 'bitcoin' || previousTokenData?.chainName == 'Bitcoin' || previousTokenData?.chainName == 'Sui' ?
                             <>
@@ -402,6 +414,7 @@ const TokenDetails = (props) => {
                     }
                 }}
             />
+
             <CustomModal
                 visible={balanceModalVisible}
                 onRequestClose={handleCloseModal}
@@ -433,6 +446,89 @@ const TokenDetails = (props) => {
                         <HorizontalSpacer customWidth={wp(3)} />
                         <TouchableOpacity
                             onPress={handleSaveBalance}
+                            activeOpacity={0.8}
+                            style={[styles.modalButton, styles.saveButton]}
+                        >
+                            <PoppinsText style={styles.saveButtonText}>Save</PoppinsText>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </CustomModal>
+
+
+            <CustomModal
+                visible={totalPeoplesModalVisible}
+                onRequestClose={handleCloseModal}
+                secondViewStyles={styles.modalContainer}>
+                <View style={styles.modalContent}>
+                    <PoppinsText style={styles.modalTitle}>Enter Total Peoples</PoppinsText>
+                    <Spacer customHeight={hp(2)} />
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            value={totalPeoplesValue}
+                            onChangeText={setTotalPeoplesValue}
+                            keyboardType="decimal-pad"
+                            placeholder="Enter peoples"
+                            placeholderTextColor={colors.gray1}
+                            style={styles.modalInput}
+                            autoFocus={true}
+                            cursorColor={colors.white}
+                        />
+                    </View>
+                    <Spacer customHeight={hp(3)} />
+                    <View style={appStyles.row}>
+                        <TouchableOpacity
+                            onPress={handleCloseModal}
+                            activeOpacity={0.8}
+                            style={[styles.modalButton, styles.cancelButton]}
+                        >
+                            <PoppinsText style={styles.cancelButtonText}>Cancel</PoppinsText>
+                        </TouchableOpacity>
+                        <HorizontalSpacer customWidth={wp(3)} />
+                        <TouchableOpacity
+                            onPress={handleSaveReturn24hAndPeoples}
+                            activeOpacity={0.8}
+                            style={[styles.modalButton, styles.saveButton]}
+                        >
+                            <PoppinsText style={styles.saveButtonText}>Save</PoppinsText>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </CustomModal>
+
+
+
+            <CustomModal
+                visible={return24hModalVisible}
+                onRequestClose={handleCloseModal}
+                secondViewStyles={styles.modalContainer}>
+                <View style={styles.modalContent}>
+                    <PoppinsText style={styles.modalTitle}>Enter Return 24h</PoppinsText>
+                    <Spacer customHeight={hp(2)} />
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            value={return24hValue}
+                            onChangeText={setReturn24hValue}
+                            keyboardType="decimal-pad"
+                            placeholder="Enter Return 24h"
+                            placeholderTextColor={colors.gray1}
+                            style={styles.modalInput}
+                            autoFocus={true}
+                            cursorColor={colors.white}
+                        />
+                    </View>
+                    <Spacer customHeight={hp(3)} />
+                    <View style={appStyles.row}>
+                        <TouchableOpacity
+                            onPress={handleCloseModal}
+                            activeOpacity={0.8}
+                            style={[styles.modalButton, styles.cancelButton]}
+                        >
+                            <PoppinsText style={styles.cancelButtonText}>Cancel</PoppinsText>
+                        </TouchableOpacity>
+                        <HorizontalSpacer customWidth={wp(3)} />
+                        <TouchableOpacity
+                            onPress={handleSaveReturn24hAndPeoples}
                             activeOpacity={0.8}
                             style={[styles.modalButton, styles.saveButton]}
                         >

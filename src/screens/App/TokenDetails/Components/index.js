@@ -11,14 +11,14 @@ import { Images } from '../../../../Images'
 import { SimpleRBSheet } from '../../../../components/SImpleBottomSheet'
 import { usePressAnimation } from '../../../../components/EnterAmount/AnimatedView'
 
-export const TokenDetailsHeader = ({ leftImage, tokenLogo, tokenName, status, isFollowed, onPressBackArrow, onPressFollow }) => {
+export const TokenDetailsHeader = ({ onPressPeoples, leftImage, tokenLogo, tokenName, status, isFollowed, onPressBackArrow, onPressFollow }) => {
     return (
         <View style={appStyles.row}>
             <View style={appStyles.rowBasic}>
                 <TouchableOpacity activeOpacity={0.8} onPress={onPressBackArrow} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                     <Image source={leftImage} resizeMode='contain' style={styles.backArrow} />
                 </TouchableOpacity>
-                <TouchableOpacity style={appStyles.rowBasic}>
+                <TouchableOpacity onPress={onPressPeoples} style={appStyles.rowBasic}>
                     {tokenName == 'Ethereum' ?
                         <View style={{ backgroundColor: colors.white, borderRadius: 100 }}>
                             <Image source={tokenLogo} resizeMode='contain' style={styles.tokenLogo} />
@@ -183,7 +183,7 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
                 style={[styles.tab, selectedTab === '1D' && styles.selectedTab]}
                 onPress={() => {
                     setSelectedTab('1D')
-                    getGraphData(4)
+                    getGraphData(1)
                 }}
             >
                 <PoppinsText style={{
@@ -251,13 +251,13 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
     )
 }
 
-export const RowTabs = ({ onPressTab, tabAnimationMap,balanceValue,chainName }) => {
-   
+export const RowTabs = ({ onPressTab, tabAnimationMap, balanceValue, chainName }) => {
+
     console.log('chainNamechainNamechainNamechainName', chainName);
 
     return (
         <FlatList
-            data={chainName == 'Bitcoin' || chainName == 'Solana' ||chainName == 'Fartcoin'  || chainName == 'OFFICIAL TRUMP' || chainName == 'Sui'?TokenDetailsRowTabs : TokenDetailsRowTabsBalance }
+            data={chainName == 'Bitcoin' || chainName == 'Solana' || chainName == 'Fartcoin' || chainName == 'OFFICIAL TRUMP' || chainName == 'Sui' ? TokenDetailsRowTabs : TokenDetailsRowTabsBalance}
             keyExtractor={(item) => item.id.toString()}
             horizontal
             removeClippedSubviews={false}
@@ -280,7 +280,7 @@ export const RowTabs = ({ onPressTab, tabAnimationMap,balanceValue,chainName }) 
                             // disabled={true}
                             onPress={() => onPressTab(item)}>
                             <ImageBackground source={Images.cardbg} resizeMode='stretch' style={{
-                                width: wp(chainName == 'Bitcoin' || chainName == 'Solana' ||chainName == 'Fartcoin'  || chainName == 'OFFICIAL TRUMP' || chainName == 'Sui'? 22: 29.3 ),
+                                width: wp(chainName == 'Bitcoin' || chainName == 'Solana' || chainName == 'Fartcoin' || chainName == 'OFFICIAL TRUMP' || chainName == 'Sui' ? 22 : 29.3),
                                 height: wp(22),
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -465,18 +465,19 @@ export const ChatBox = () => {
     }, []);
 
     useEffect(() => {
-        let time = chatNumber == 0 ? 10000 : 5000;
+        // let time = chatNumber == 0 ? 10000 : 5000;
 
-        const interval = setInterval(() => {
-            const newNumber = getRandom(0, 5);
-            setChatNumber(newNumber);
+        // const interval = setInterval(() => {
+        const newNumber = getRandom(0, 5);
+        setChatNumber(newNumber);
 
-            // Shuffle dummy array whenever chatNumber changes
-            setShuffledDummy(shuffleArray(dummy));
-        }, time);
+        // Shuffle dummy array whenever chatNumber changes
+        setShuffledDummy(shuffleArray(dummy));
+        // }, time);
 
-        return () => clearInterval(interval);
-    }, [chatNumber]);
+        //     return () => clearInterval(interval);
+        // }, [chatNumber]);
+    }, []);
 
     return (
         <Animated.View style={{ transform: [{ scale }] }}>
@@ -502,8 +503,8 @@ export const ChatBox = () => {
                         </View>
                     }
 
-                    <PoppinsText style={styles.randomNumber}>{chatNumber}
-                        <PoppinsText style={styles.chatBoxTitle}>{chatNumber > 0 ? ' chatting...' : ' chatting'}</PoppinsText>
+                    <PoppinsText style={styles.randomNumber}>{chatNumber > 0 ? chatNumber : ''}
+                        <PoppinsText style={styles.chatBoxTitle}>{chatNumber > 0 ? ' chatting...' : 'Start a conversation!'}</PoppinsText>
                     </PoppinsText>
                 </View>
 
