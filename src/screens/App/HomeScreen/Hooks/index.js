@@ -40,18 +40,18 @@ const useHomeScreen = (props) => {
         // setActiveWalletWithTokens(wallet1);
     }
 
-    const wait = timeout => {
-        return new Promise(resolve => setTimeout(resolve, timeout));
-    };
+    
 
     const onRefresh = useCallback(() => {
+        console.log("Refreshing started");
         setRefreshing(true);
-        getWallet();
         setIsSkeltonLoading(true);
+        getWallet();
         setTimeout(() => {
+            console.log("Refreshing stopped");
             setIsSkeltonLoading(false);
+            setRefreshing(false);
         }, 2000);
-        wait(2000).then(() => setRefreshing(false));
     }, []);
 
     return {

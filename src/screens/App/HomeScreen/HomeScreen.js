@@ -90,10 +90,9 @@ const HomeScreen = (props) => {
                 scrollEventThrottle={16}
                 refreshControl={
                     <RefreshControl
-                        tintColor={'transparent'}
-                        colors={['transparent']}
+                    
                         refreshing={refreshing}
-                        progressBackgroundColor={'transparent'}
+                      
                         onRefresh={onRefresh}
                     />
                 }>
@@ -113,8 +112,8 @@ const HomeScreen = (props) => {
                         }}
                     >
                         <ActivityIndicator 
-                            size="large" 
-                            color={colors.white} 
+                            size="small" 
+                            color={'#ffffff'} 
                             animating={pullDistance > 30 || refreshing}
                         />
                     </View>

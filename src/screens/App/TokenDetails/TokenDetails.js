@@ -110,11 +110,8 @@ const TokenDetails = (props) => {
                     scrollEventThrottle={16}
                     refreshControl={
                         <RefreshControl
-                            tintColor={'transparent'}
-                            colors={['transparent']}
                             refreshing={refreshing}
                             onRefresh={onRefresh}
-                            progressBackgroundColor={'transparent'}
                         />
                     }>
                     {/* Custom centered loader overlay - stays in center of pull space */}
@@ -133,8 +130,8 @@ const TokenDetails = (props) => {
                             }}
                         >
                             <ActivityIndicator
-                                size="large"
-                                color={colors.white}
+                                size="small"
+                                color={'#ffffff'}
                                 animating={pullDistance > 30 || refreshing}
                             />
                         </View>
@@ -194,6 +191,7 @@ const TokenDetails = (props) => {
                             onPressTab={(item) => item?.id == 4 ? stakeOptionBottomSheet?.current?.open() : null}
                             tabAnimationMap={tabAnimationMap}
                             balanceValue={balanceValue}
+                        chainName={previousTokenData?.tokenName}
                         />
 
                         <Spacer />

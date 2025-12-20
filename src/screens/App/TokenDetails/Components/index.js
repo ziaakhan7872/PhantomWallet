@@ -251,11 +251,13 @@ export const RowTimeIntervals = ({ selectedTab, setSelectedTab, getGraphData }) 
     )
 }
 
-export const RowTabs = ({ onPressTab, tabAnimationMap,balanceValue }) => {
+export const RowTabs = ({ onPressTab, tabAnimationMap,balanceValue,chainName }) => {
    
+    console.log('chainNamechainNamechainNamechainName', chainName);
+
     return (
         <FlatList
-            data={Number(balanceValue ??0) > 0 ? TokenDetailsRowTabsBalance : TokenDetailsRowTabs}
+            data={chainName == 'Bitcoin' || chainName == 'Solana' ||chainName == 'Fartcoin'  || chainName == 'OFFICIAL TRUMP' || chainName == 'Sui'?TokenDetailsRowTabs : TokenDetailsRowTabsBalance }
             keyExtractor={(item) => item.id.toString()}
             horizontal
             removeClippedSubviews={false}
@@ -278,7 +280,7 @@ export const RowTabs = ({ onPressTab, tabAnimationMap,balanceValue }) => {
                             // disabled={true}
                             onPress={() => onPressTab(item)}>
                             <ImageBackground source={Images.cardbg} resizeMode='stretch' style={{
-                                width: wp(Number(balanceValue ??0) > 0 ? 29.3 : 22),
+                                width: wp(chainName == 'Bitcoin' || chainName == 'Solana' ||chainName == 'Fartcoin'  || chainName == 'OFFICIAL TRUMP' || chainName == 'Sui'? 22: 29.3 ),
                                 height: wp(22),
                                 alignItems: 'center',
                                 justifyContent: 'center',
