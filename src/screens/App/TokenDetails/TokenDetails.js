@@ -1,5 +1,5 @@
-import { ActivityIndicator, Animated, Easing, Image, Platform, RefreshControl, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useRef, useState } from 'react'
+import { ActivityIndicator, Animated, Easing, Image, Platform, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useRef, useState, useCallback } from 'react'
 import { MainContainerApp } from '../../../components/MainContainer'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
 import { hp, wp } from '../../../components/ResponsiveComponent'
@@ -79,6 +79,8 @@ const TokenDetails = (props) => {
 
     const scrollY = useRef(new Animated.Value(0)).current;
     const [pullDistance, setPullDistance] = useState(0);
+    const pullDistanceRef = useRef(0);
+    const REFRESH_THRESHOLD = 80;
 
     const handleScroll = Animated.event(
         [{ nativeEvent: { contentOffset: { y: scrollY } } }],
@@ -87,13 +89,24 @@ const TokenDetails = (props) => {
             listener: (event) => {
                 const offsetY = event.nativeEvent.contentOffset.y;
                 if (offsetY < 0) {
-                    setPullDistance(Math.abs(offsetY));
+                    const distance = Math.abs(offsetY);
+                    setPullDistance(distance);
+                    pullDistanceRef.current = distance;
                 } else {
                     setPullDistance(0);
+                    pullDistanceRef.current = 0;
                 }
             }
         }
     );
+
+    const handleScrollEndDrag = useCallback(() => {
+        if (pullDistanceRef.current >= REFRESH_THRESHOLD && !refreshing) {
+            onRefresh();
+        }
+        setPullDistance(0);
+        pullDistanceRef.current = 0;
+    }, [refreshing, onRefresh]);
 
     return (
         <MainContainerApp>
@@ -108,31 +121,23 @@ const TokenDetails = (props) => {
                     nestedScrollEnabled={true}
                     onScroll={handleScroll}
                     scrollEventThrottle={16}
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={refreshing}
-                            onRefresh={onRefresh}
-                        />
-                    }>
-                    {/* Custom centered loader overlay - stays in center of pull space */}
+                    onScrollEndDrag={handleScrollEndDrag}
+                    bounces={true}
+                    overScrollMode="always">
+                    {/* Custom pull-to-refresh indicator */}
                     {(pullDistance > 0 || refreshing) && (
                         <View
                             style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                height: pullDistance > 0 ? pullDistance : hp(8),
+                                height: refreshing ? hp(6) : pullDistance,
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                zIndex: 999,
-                                marginTop: pullDistance > 0 ? -pullDistance : -hp(8),
+                                overflow: 'hidden',
                             }}
                         >
                             <ActivityIndicator
                                 size="small"
                                 color={'#ffffff'}
-                                animating={pullDistance > 30 || refreshing}
+                                animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
                             />
                         </View>
                     )}
