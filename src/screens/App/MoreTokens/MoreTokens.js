@@ -62,7 +62,7 @@ const MoreTokens = (props) => {
                 <Image source={Images.setting} resizeMode='contain' style={{ width: wp(5), height: wp(5) }} />
             </View>
 
-            <Animated.ScrollView 
+            <ScrollView
                 showsVerticalScrollIndicator={false} 
                 nestedScrollEnabled={true} 
                 contentContainerStyle={{ paddingBottom: hp(8) }}
@@ -131,7 +131,7 @@ const MoreTokens = (props) => {
                     isSkeltonLoading={isSkeltonLoading}
                     onPressToken={(item) => props?.navigation.navigate(routes.tokenDetails, { tokenData: item })}
                 />
-            </Animated.ScrollView>
+            </ScrollView>
 
         </MainContainerApp>
     )

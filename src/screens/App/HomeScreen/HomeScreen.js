@@ -1,4 +1,4 @@
-import { ActivityIndicator, Animated, FlatList, Image, Platform, RefreshControl, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Animated, FlatList, Image, Platform, RefreshControl, ScrollView, TouchableOpacity, View } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { styles } from './styles'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
@@ -83,7 +83,7 @@ const HomeScreen = (props) => {
                 onPressRightImage2={() => props?.navigation.navigate(routes.MainTabs, { screen: routes.searchScreen })}
                 onPressAccount={() => props?.navigation.navigate(routes.accountDetails, { activeWalletWithTokens })}
             />
-            <Animated.ScrollView 
+            <ScrollView 
                 showsVerticalScrollIndicator={false} 
                 nestedScrollEnabled={true}
                 onScroll={handleScroll}
@@ -218,7 +218,7 @@ const HomeScreen = (props) => {
                 </View>
                 <Spacer customHeight={hp(2)} />
 
-            </Animated.ScrollView>
+            </ScrollView>
 
         </MainContainerApp>
     )

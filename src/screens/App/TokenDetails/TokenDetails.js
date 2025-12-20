@@ -103,7 +103,7 @@ const TokenDetails = (props) => {
                     <TokenDetailsHeader leftImage={Images.backArrow} isFollowed={isFollowed} tokenLogo={{ uri: previousTokenData?.logoURI }} tokenName={previousTokenData?.tokenName ?? ''} status={`${randomPeopleCount ?? '0'} people here`} onPressBackArrow={() => props?.navigation.goBack()} onPressFollow={() => onPressFollow()} />
                     <Spacer />
                 </View>
-                <Animated.ScrollView
+                <ScrollView
                     showsVerticalScrollIndicator={false}
                     nestedScrollEnabled={true}
                     onScroll={handleScroll}
@@ -368,7 +368,7 @@ const TokenDetails = (props) => {
 
                         <Spacer customHeight={hp(5)} />
                     </View>
-                </Animated.ScrollView>
+                </ScrollView>
             </View>
             <View style={{ paddingBottom: hp(3), justifyContent: 'center', alignSelf: 'center', backgroundColor: colors.bgColor }}>
                 <Spacer customHeight={hp(1)} />
