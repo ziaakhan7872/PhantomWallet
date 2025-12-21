@@ -163,7 +163,7 @@ const TokenDetails = (props) => {
 
 
                         <View style={{ ...appStyles.rowBasic }}>
-                            <PoppinsText style={[styles.dollarPrice, { color: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`$${formatValueTwoDigit(dailyPnl?.pnlAmount)}`}</PoppinsText>
+                            <PoppinsText style={[styles.dollarPrice, { color: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`${Number(dailyPnl?.pnlAmount) < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
                             <View style={[styles.percentageRoundBox, { backgroundColor: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
                                 <PoppinsText style={[styles.percentageText, { color: '#000' }]}>{`${formatValueTwoDigit(dailyPnl?.change24h)}%`}</PoppinsText>
                             </View>
