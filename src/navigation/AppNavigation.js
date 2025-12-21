@@ -98,7 +98,29 @@ const AppNavigator = () => {
             <Stack.Screen name={routes.moreTokens} component={MoreTokens} />
             {/* // New */}
             <Stack.Screen name={routes.createWallet} component={CreateWallet} />
-            <Stack.Screen options={{ animation: 'slide_from_bottom' }} name={routes.accountDetails} component={AccountDetails} />
+            <Stack.Screen 
+                options={{ 
+                    presentation: 'transparentModal',
+                    gestureEnabled: true,
+                    headerShown: false,
+                    cardStyle: { backgroundColor: 'transparent' },
+                    cardOverlayEnabled: true,
+                    animation: 'slide_from_bottom',
+                    // cardStyleInterpolator: ({ current: { progress } }) => ({
+                    //     cardStyle: {
+                    //         opacity: progress,
+                    //     },
+                    //     overlayStyle: {
+                    //         opacity: progress.interpolate({
+                    //             inputRange: [0, 1],
+                    //             outputRange: [0, 0.5],
+                    //         }),
+                    //     },
+                    // }),
+                }} 
+                name={routes.accountDetails} 
+                component={AccountDetails} 
+            />
             <Stack.Screen name={routes.editProfile} component={EditProfile} />
             <Stack.Screen name={routes.manageProfile} component={ManageProfile} />
             <Stack.Screen name={routes.editUserName} component={EditUserName} />
