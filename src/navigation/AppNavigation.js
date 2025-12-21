@@ -63,11 +63,14 @@ import {
     ActiveNetworks,
 } from '../screens/App';
 import BottomTabBarNav from './BottomTabNavigator';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, CardStyleInterpolators, TransitionPresets } from '@react-navigation/stack';
 import { CreateWallet, ImportPrivateKey, PinScreen, SeedPhrase } from '../screens/Auth';
 import ResetApp from '../screens/App/ResetApp/ResetApp';
 import MoreTokens from '../screens/App/MoreTokens/MoreTokens';
+import { colors } from '../constants/colors';
+import { Dimensions } from 'react-native';
 
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
@@ -78,7 +81,10 @@ const AppNavigator = () => {
                 headerShown: false,
             }}
         >
-            <Stack.Screen name={routes.MainTabs} component={BottomTabBarNav} />
+            <Stack.Screen 
+                name={routes.MainTabs} 
+                component={BottomTabBarNav}
+            />
             <Stack.Screen name={routes.historyDetails} component={HistoryDetails} />
             <Stack.Screen name={routes.rewardInfoScreen} component={RewardInfo} />
             <Stack.Screen name={routes.security} component={Security} />
@@ -100,23 +106,11 @@ const AppNavigator = () => {
             <Stack.Screen name={routes.createWallet} component={CreateWallet} />
             <Stack.Screen 
                 options={{ 
-                    presentation: 'transparentModal',
+                    ...TransitionPresets.ModalPresentationIOS,
                     gestureEnabled: true,
                     headerShown: false,
-                    cardStyle: { backgroundColor: 'transparent' },
                     cardOverlayEnabled: true,
-                    animation: 'slide_from_bottom',
-                    // cardStyleInterpolator: ({ current: { progress } }) => ({
-                    //     cardStyle: {
-                    //         opacity: progress,
-                    //     },
-                    //     overlayStyle: {
-                    //         opacity: progress.interpolate({
-                    //             inputRange: [0, 1],
-                    //             outputRange: [0, 0.5],
-                    //         }),
-                    //     },
-                    // }),
+                    cardStyle: { backgroundColor: colors.bgColor },
                 }} 
                 name={routes.accountDetails} 
                 component={AccountDetails} 
