@@ -3,17 +3,40 @@ import { EvmAddressValidation } from "../../services/Helpers/EVMHelper";
 import { solanaAddresValidation } from "../../services/Helpers/SolanaHelper";
 
 
+// export const convertBigValues = (value) => {
+//     if (value >= 1e12) {
+//         return (value / 1e12).toFixed(2) + 'T';
+//     } else if (value >= 1e9) {
+//         return (value / 1e9).toFixed(2) + 'B';
+//     } else if (value >= 1e6) {
+//         return (value / 1e6).toFixed(2) + 'M';
+//     } else {
+//         return  value?.toFixed(2)
+//     }
+// }
+
 export const convertBigValues = (value) => {
-    if (value >= 1e12) {
-        return (value / 1e12).toFixed(2) + 'T';
-    } else if (value >= 1e9) {
-        return (value / 1e9).toFixed(2) + 'B';
-    } else if (value >= 1e6) {
-        return (value / 1e6).toFixed(2) + 'M';
+    if (value == null || isNaN(value)) return '0.00';
+  
+    const absValue = Math.abs(value);
+    const sign = value < 0 ? '-' : '';
+  
+    if (absValue >= 1e12) {
+      return sign + (absValue / 1e12).toFixed(2) + 'T';
+    } else if (absValue >= 1e9) {
+      return sign + (absValue / 1e9).toFixed(2) + 'B';
+    } else if (absValue >= 1e6) {
+      return sign + (absValue / 1e6).toFixed(2) + 'M';
+    } else if (absValue >= 1e3) {
+      return sign + (absValue / 1e3).toFixed(2) + 'K';
     } else {
-        return '$' + value?.toFixed(2)
+      return sign + absValue.toFixed(2);
     }
-}
+  };
+  
+
+
+
 
 export function formatBalance(balance) {
     const numString = balance?.toString();

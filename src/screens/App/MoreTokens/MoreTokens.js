@@ -92,12 +92,16 @@ const MoreTokens = (props) => {
                             justifyContent: 'center',
                             alignItems: 'center',
                             overflow: 'hidden',
+                            
                         }}
                     >
                         <ActivityIndicator
                             size="large"
                             color={'#ffffff'}
                             animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
+                            style={{
+                                transform: [{ scale: 0.8 }], // 👈 increase / decrease size
+                              }}
                         />
                     </View>
                 )}

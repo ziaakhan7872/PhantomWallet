@@ -14,7 +14,7 @@ import { RowButtons } from '../../../components/RowButtons'
 import { colors } from '../../../constants/colors'
 import { routes } from '../../../constants/routes'
 import { CustomModal } from '../../../components/CustomModal'
-import { convertBigValues, formatBalancetwoDigit, formatValueTwoDigit, NumberRoundFunction } from '../../../constants/commonHelperFunctions/commonHelperFunction'
+import { convertBigValues, convertBigValuesWithSign, formatBalancetwoDigit, formatValueTwoDigit, NumberRoundFunction } from '../../../constants/commonHelperFunctions/commonHelperFunction'
 import AnimatedView, { usePressAnimation } from '../../../components/EnterAmount/AnimatedView'
 
 const TokenDetails = (props) => {
@@ -150,6 +150,9 @@ const TokenDetails = (props) => {
                                 size="large"
                                 color={'#ffffff'}
                                 animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
+                                style={{
+                                    transform: [{ scale: 0.8 }], // 👈 increase / decrease size
+                                  }}
                             />
                         </View>
                     )}
@@ -236,7 +239,9 @@ const TokenDetails = (props) => {
                         <TouchableOpacity activeOpacity={0.8} onPress={() => setReturn24hModalVisible(true)} style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
                             <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
 
-                            <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>${Number(return24hValue)?.toFixed(2)}</PoppinsText>
+                            {/* <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>${Number(return24hValue)?.toFixed(2)}</PoppinsText> */}
+                            <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>${previousTokenData?.change24h?.toString()?.includes('-') ? '-' : '+'}${formatValueTwoDigit(Math.abs(Number(previousTokenData?.change24h)))}%</PoppinsText>
+                         
                         </TouchableOpacity>
 
                         {previousTokenData?.chainName == 'Solana' || previousTokenData?.chainName == 'bitcoin' || previousTokenData?.chainName == 'Bitcoin' || previousTokenData?.chainName == 'Sui' ?
