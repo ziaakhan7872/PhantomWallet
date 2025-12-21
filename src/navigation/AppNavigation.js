@@ -110,8 +110,29 @@ const AppNavigator = () => {
                     ...TransitionPresets.ModalPresentationIOS,
                     gestureEnabled: true,
                     headerShown: false,
+                    cardStyle: { backgroundColor: colors.bgColor },
                     cardOverlayEnabled: true,
-                    cardStyle: {borderTopLeftRadius: 12, borderTopRightRadius: 12, overflow: 'hidden',marginTop: hp(1) },
+                    cardStyle: {borderTopLeftRadius: 15, borderTopRightRadius: 15 },
+                    cardStyleInterpolator: (props) => {
+                        const { current, layouts } = props;
+                        // Get the default ModalPresentationIOS interpolation
+                        const defaultInterpolation = TransitionPresets.ModalPresentationIOS.cardStyleInterpolator(props);
+                        
+                        return {
+                            ...defaultInterpolation,
+                            overlayStyle: {
+                                backgroundColor: colors.gray6,
+                                opacity: current.progress.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [0, 0.1],
+                                    extrapolate: 'clamp',
+                                }),
+                                top: 55, // StatusBar ke neeche se start
+                                borderTopLeftRadius: 15,
+                                borderTopRightRadius: 15,
+                            },
+                        };
+                    },
                 }} 
                 name={routes.accountDetails} 
                 component={AccountDetails} 
