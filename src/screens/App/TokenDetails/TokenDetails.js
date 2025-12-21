@@ -240,7 +240,7 @@ const TokenDetails = (props) => {
                             <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
 
                             {/* <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>${Number(return24hValue)?.toFixed(2)}</PoppinsText> */}
-                            <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>${previousTokenData?.change24h?.toString()?.includes('-') ? '-' : '+'}${formatValueTwoDigit(Math.abs(Number(previousTokenData?.change24h)))}%</PoppinsText>
+                            <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{previousTokenData?.change24h?.toString()?.includes('-') ? '-' : '+'}${formatValueTwoDigit(Math.abs(Number(previousTokenData?.change24h)))}</PoppinsText>
                          
                         </TouchableOpacity>
 
