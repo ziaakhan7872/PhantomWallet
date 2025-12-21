@@ -152,7 +152,7 @@ const TokenDetails = (props) => {
                                 animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
                                 style={{
                                     transform: [{ scale: 0.8 }], // 👈 increase / decrease size
-                                  }}
+                                }}
                             />
                         </View>
                     )}
@@ -225,7 +225,7 @@ const TokenDetails = (props) => {
                             <TouchableOpacity onPress={handleOpenModal} activeOpacity={0.8} style={styles.bgView}>
                                 <PoppinsText style={styles.balanceText}>Balance</PoppinsText>
                                 <Spacer customHeight={hp(0.5)} />
-                                <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? convertBigValues(Number(balanceValue)) : '0'}</PoppinsText>
+                                <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? Number(balanceValue) : '0'}</PoppinsText>
                             </TouchableOpacity>
 
                             <View style={styles.bgView}>
@@ -240,8 +240,19 @@ const TokenDetails = (props) => {
                             <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
 
                             {/* <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>${Number(return24hValue)?.toFixed(2)}</PoppinsText> */}
-                            <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{previousTokenData?.change24h?.toString()?.includes('-') ? '-' : '+'}${formatValueTwoDigit(Math.abs(Number(previousTokenData?.change24h)))}</PoppinsText>
-                         
+                            {Number(balanceValue) == 0 || balanceValue == '' ?
+                                <PoppinsText style={[styles.changeAmount, { color: '#B4B4B4' }]}>$0.00</PoppinsText>
+                                :
+                                <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
+                                    {previousTokenData?.change24h?.toString()?.includes('-') ? '-' : '+'}
+                                    ${formatValueTwoDigit(Math.abs(Number(Number(previousTokenData?.currentPriceUsd) * Number(balanceValue)) * (Number(previousTokenData?.change24h) / 100)))}
+                                </PoppinsText>
+                            }
+                            {/* <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
+                                {previousTokenData?.change24h?.toString()?.includes('-') ? '-' : '+'}
+                                ${formatValueTwoDigit(Math.abs(Number(previousTokenData?.change24h)))}
+                            </PoppinsText> */}
+
                         </TouchableOpacity>
 
                         {previousTokenData?.chainName == 'Solana' || previousTokenData?.chainName == 'bitcoin' || previousTokenData?.chainName == 'Bitcoin' || previousTokenData?.chainName == 'Sui' ?

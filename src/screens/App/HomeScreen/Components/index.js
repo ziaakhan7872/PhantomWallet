@@ -190,6 +190,8 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
     };
 
 
+
+
     return (
         <FlatList
             data={data ?? []}
@@ -202,6 +204,8 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                     // Ensure scale value exists for this item
                     scaleValues[item.id] = new Animated.Value(1);
                 }
+
+                let totalValue = String(Number(item?.currentPriceUsd) * Number(item?.balance)) * (Number(item?.change24h) / 100)
                 return (
                     <>
                         {isSkeltonLoading ?
@@ -307,9 +311,19 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                                                 maximumFractionDigits: 2,
                                             })}</PoppinsText>
                                             <Spacer customHeight={hp(0.3)} />
-                                            <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
+
+                                            {totalValue == 0 || totalValue == '' ?
+                                                <PoppinsText style={[styles.dollarPrice, { color: '#B4B4B4' }]}>{'$0.00'}</PoppinsText>
+                                                :
+                                                <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
+                                                    {`${totalValue < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(totalValue ?? 0))}`}
+                                                </PoppinsText>
+                                            }
+
+                                            {/* <PoppinsText style={[styles.dollarPrice, { color: item?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
                                                 {`${item?.change24h < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(item?.change24h))}`}
-                                            </PoppinsText>
+                                            </PoppinsText> */}
+
                                         </View>
                                     </View>
                                 </TouchableOpacity>
