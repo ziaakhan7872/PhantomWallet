@@ -69,6 +69,7 @@ import ResetApp from '../screens/App/ResetApp/ResetApp';
 import MoreTokens from '../screens/App/MoreTokens/MoreTokens';
 import { colors } from '../constants/colors';
 import { Dimensions } from 'react-native';
+import { hp } from '../components/ResponsiveComponent';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 const Stack = createStackNavigator();
@@ -110,7 +111,7 @@ const AppNavigator = () => {
                     gestureEnabled: true,
                     headerShown: false,
                     cardOverlayEnabled: true,
-                    cardStyle: { backgroundColor: colors.bgColor },
+                    cardStyle: {borderTopLeftRadius: 12, borderTopRightRadius: 12, overflow: 'hidden',marginTop: hp(1) },
                 }} 
                 name={routes.accountDetails} 
                 component={AccountDetails} 

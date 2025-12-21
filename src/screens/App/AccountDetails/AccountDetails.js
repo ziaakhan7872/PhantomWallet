@@ -20,7 +20,7 @@ const AccountDetails = (props) => {
     } = useAccountDetails(props)
 
     return (
-        <View style={{ flex: 1, backgroundColor: colors.bgColor, borderTopLeftRadius: 12, borderTopRightRadius: 12, overflow: 'hidden' }}>
+        <View style={{ flex: 1, backgroundColor: colors.bgColor, }}>
             <StatusBar backgroundColor={'transparent'} translucent barStyle={'light-content'} />
             
             
