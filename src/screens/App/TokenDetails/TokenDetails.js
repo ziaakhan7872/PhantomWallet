@@ -225,7 +225,7 @@ const TokenDetails = (props) => {
                             <TouchableOpacity onPress={handleOpenModal} activeOpacity={0.8} style={styles.bgView}>
                                 <PoppinsText style={styles.balanceText}>Balance</PoppinsText>
                                 <Spacer customHeight={hp(0.5)} />
-                                <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? Number(balanceValue) : '0'}</PoppinsText>
+                                <PoppinsText style={styles.balance}>{Number(balanceValue) > 0 ? convertBigValues(balanceValue) : '0'}</PoppinsText>
                             </TouchableOpacity>
 
                             <View style={styles.bgView}>
@@ -238,14 +238,14 @@ const TokenDetails = (props) => {
                         <Spacer customHeight={hp(2)} />
                         <TouchableOpacity activeOpacity={0.8} onPress={() => setReturn24hModalVisible(true)} style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
                             <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
-
+{/* TODO: */}
                             {/* <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>${Number(return24hValue)?.toFixed(2)}</PoppinsText> */}
                             {Number(balanceValue) == 0 || balanceValue == '' ?
                                 <PoppinsText style={[styles.changeAmount, { color: '#B4B4B4' }]}>$0.00</PoppinsText>
                                 :
                                 <PoppinsText style={[styles.changeAmount, { color: previousTokenData?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
                                     {previousTokenData?.change24h?.toString()?.includes('-') ? '-' : '+'}
-                                    ${formatValueTwoDigit(Math.abs(Number(Number(previousTokenData?.currentPriceUsd) * Number(balanceValue)) * (Number(previousTokenData?.change24h) / 100)))}
+                                    ${NumberRoundFunction(Math.abs(Number(Number(previousTokenData?.currentPriceUsd) * Number(balanceValue)) * (Number(previousTokenData?.change24h) / 100)))}
                                 </PoppinsText>
                             }
                             {/* <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
