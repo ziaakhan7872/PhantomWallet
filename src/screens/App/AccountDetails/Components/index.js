@@ -59,8 +59,11 @@ export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
         <FlatList
             data={allAccounts}
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
+            
             renderItem={({ item, index }) => (
                 <TouchableOpacity activeOpacity={0.8} onPress={() => onPressAccount(item)} style={[styles.accountsCardBgView, appStyles.row]}>
+
+{console.log('allAccounts', item)}
                     <View style={appStyles.rowBasic}>
                         <View style={{ marginRight: wp(3) }}>
                             {/* <Image source={Images.profile1} resizeMode='contain' style={styles.accountLogo} /> */}

@@ -159,7 +159,7 @@ export const InsertAllChains = async (waletid, chainsarray) => {
             await db.executeSql(
                 'INSERT INTO ChainsTbl(totalPeoples, return24h, isFollowed, chainName, tokenName, type, tokenAddress, symbol, decimals, cmcId, rpcUrl, logoURI, isActive, isEvm, walletId, change24h, currentPriceUsd, balanceUsd, balance) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                 [
-                    0,
+                item.totalPeoples??1,
                     0,
                     0,
                     item.chainName,
