@@ -138,54 +138,35 @@ export function transformArray(array) {
 
 //     return totalBalance;
 // };
-export const calculateTotalBalance = (arrayOfObjects) => {
-    if (!Array.isArray(arrayOfObjects)) {
-        throw new Error("Input must be an array of objects");
-    }
-
+export const calculateTotalBalance = (assets) => {
     let totalBalance = 0;
-    let totalBalance24hAgo = 0;
-
-    arrayOfObjects.forEach(obj => {
-        const { currentPriceUsd, balance, change24h } = obj;
-
-        if (
-            currentPriceUsd !== undefined &&
-            balance !== undefined &&
-            change24h !== undefined
-        ) {
-            const currentValue = Number(currentPriceUsd) * Number(balance);
-            totalBalance += currentValue;
-
-            // Reconstruct price 24h ago:
-            // price24hAgo = currentPrice / (1 + percent/100)
-            const price24hAgo =
-                Number(currentPriceUsd) / (1 + Number(change24h) / 100);
-
-            const value24hAgo = Number(balance) * price24hAgo;
-            totalBalance24hAgo += value24hAgo;
-        }
+    let totalPnl = 0;
+  
+    assets.forEach(asset => {
+      const price = Number(asset.currentPriceUsd);
+      const balance = Number(asset.balance);
+      const change24h = Number(asset.change24h);
+  
+      if (!price || !balance) return;
+  
+      const currentValue = price * balance;
+      totalBalance += currentValue;
+  
+      // Coin-level PnL (correct way)
+      const coinPnl = (change24h / 100) * currentValue;
+      totalPnl += coinPnl;
     });
-
-    // PnL amount
-    const pnlAmount = totalBalance - totalBalance24hAgo;
-
-    // 24h percent change (portfolio-wide)
+  
     const percentChange =
-        totalBalance24hAgo > 0
-            ? (pnlAmount / totalBalance24hAgo) * 100
-            : 0;
-
-    console.log("💰 Total Balance:", totalBalance);
-    console.log("📈 PnL 24h:", pnlAmount);
-    console.log("📊 Percent Change 24h:", percentChange);
-
+      totalBalance > 0 ? (totalPnl / (totalBalance - totalPnl)) * 100 : 0;
+  
     return {
-        totalBalance,
-        pnlAmount,
-        percentChange24h: percentChange,
+      totalBalance,
+      pnlAmount: totalPnl,
+      percentChange24h: percentChange,
     };
-};
+  };
+  
 
 
 export const handleAlltokenChainFee = (recipientAddress, activeWallet, selectedToken, enteredAmount, isDolorValue) => {
