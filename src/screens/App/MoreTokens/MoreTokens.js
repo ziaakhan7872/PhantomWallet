@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, Platform, Animated, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, Platform, Animated, ActivityIndicator, RefreshControl } from 'react-native'
 import React, { useRef, useState, useCallback } from 'react'
 import useMoreTokens from './Hook';
 import { MainContainerApp } from '../../../components/MainContainer';
@@ -30,37 +30,6 @@ const MoreTokens = (props) => {
         return valueB - valueA; // high → low
     });
 
-    const scrollY = useRef(new Animated.Value(0)).current;
-    const [pullDistance, setPullDistance] = useState(0);
-    const pullDistanceRef = useRef(0);
-    const REFRESH_THRESHOLD = 80;
-
-    const handleScroll = Animated.event(
-        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-        {
-            useNativeDriver: false,
-            listener: (event) => {
-                const offsetY = event.nativeEvent.contentOffset.y;
-                if (offsetY < 0) {
-                    const distance = Math.abs(offsetY);
-                    setPullDistance(distance);
-                    pullDistanceRef.current = distance;
-                } else {
-                    setPullDistance(0);
-                    pullDistanceRef.current = 0;
-                }
-            }
-        }
-    );
-
-    const handleScrollEndDrag = useCallback(() => {
-        if (pullDistanceRef.current >= REFRESH_THRESHOLD && !refreshing) {
-            onRefresh();
-        }
-        setPullDistance(0);
-        pullDistanceRef.current = 0;
-    }, [refreshing, onRefresh]);
-
     return (
         <MainContainerApp style={{ paddingHorizontal: wp(4) }}>
             <Spacer customHeight={hp(Platform.OS === 'ios' ? 7 : 4)} />
@@ -79,32 +48,14 @@ const MoreTokens = (props) => {
                 showsVerticalScrollIndicator={false}
                 nestedScrollEnabled={true}
                 contentContainerStyle={{ paddingBottom: hp(8) }}
-                onScroll={handleScroll}
-                scrollEventThrottle={16}
-                onScrollEndDrag={handleScrollEndDrag}
-                bounces={true}
-                overScrollMode="always">
-                {/* Custom pull-to-refresh indicator */}
-                {(pullDistance > 0 || refreshing) && (
-                    <View
-                        style={{
-                            height: refreshing ? hp(6) : pullDistance,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            overflow: 'hidden',
-                            
-                        }}
-                    >
-                        <ActivityIndicator
-                            size="large"
-                            color={'#ffffff'}
-                            animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
-                            style={{
-                                transform: [{ scale: 0.8 }], // 👈 increase / decrease size
-                              }}
-                        />
-                    </View>
-                )}
+                refreshControl={
+                    <RefreshControl
+                        tintColor={'#fff'}
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }>
+
                 <View>
                     <Spacer customHeight={hp(1)} />
                     <BalanceCard totalBalance={totalBalance} dailyPnl={dailyPnl} />

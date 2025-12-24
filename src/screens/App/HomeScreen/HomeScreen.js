@@ -4,6 +4,7 @@ import {
   FlatList,
   Image,
   Platform,
+  RefreshControl,
   ScrollView,
   TouchableOpacity,
   View,
@@ -59,37 +60,6 @@ const HomeScreen = props => {
     setIsSkeltonLoading,
   } = useHomeScreen(props);
 
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const [pullDistance, setPullDistance] = useState(0);
-  const pullDistanceRef = useRef(0);
-  const REFRESH_THRESHOLD = 80;
-
-  const handleScroll = Animated.event(
-    [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-    {
-      useNativeDriver: false,
-      listener: event => {
-        const offsetY = event.nativeEvent.contentOffset.y;
-        if (offsetY < 0) {
-          const distance = Math.abs(offsetY);
-          setPullDistance(distance);
-          pullDistanceRef.current = distance;
-        } else {
-          setPullDistance(0);
-          pullDistanceRef.current = 0;
-        }
-      },
-    },
-  );
-
-  const handleScrollEndDrag = useCallback(() => {
-    if (pullDistanceRef.current >= REFRESH_THRESHOLD && !refreshing) {
-      onRefresh();
-    }
-    setPullDistance(0);
-    pullDistanceRef.current = 0;
-  }, [refreshing, onRefresh]);
-
   const sorted = activeWalletWithTokens?.tokens?.sort((a, b) => {
     const valueA = Number(a.balance) * Number(a.currentPriceUsd);
     const valueB = Number(b.balance) * Number(b.currentPriceUsd);
@@ -127,32 +97,15 @@ const HomeScreen = props => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-        onScrollEndDrag={handleScrollEndDrag}
-        bounces={true}
-        overScrollMode="always"
+        refreshControl={
+          <RefreshControl
+            tintColor={'#fff'}
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
       >
-        {/* Custom pull-to-refresh indicator with more height */}
-        {(pullDistance > 0 || refreshing) && (
-          <View
-            style={{
-              height: refreshing ? hp(20) : Math.min(pullDistance * 1.5, hp(25)),
-              justifyContent: 'center',
-              alignItems: 'center',
-              overflow: 'hidden',
-            }}
-          >
-            <ActivityIndicator
-              size="large"
-              color={colors.gray6}
-              animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
-              style={{
-                transform: [{ scale: 0.9 }],
-              }}
-            />
-          </View>
-        )}
+
         <View>
           <Spacer customHeight={hp(1)} />
           <BalanceCard totalBalance={totalBalance} dailyPnl={dailyPnl} />

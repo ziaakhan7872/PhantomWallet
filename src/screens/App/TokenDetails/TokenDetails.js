@@ -1,4 +1,4 @@
-import { ActivityIndicator, Animated, Easing, Image, Platform, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Animated, Easing, Image, Platform, RefreshControl, ScrollView, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useRef, useState, useCallback } from 'react'
 import { MainContainerApp } from '../../../components/MainContainer'
 import Spacer, { HorizontalSpacer } from '../../../components/Spacer'
@@ -83,37 +83,6 @@ const TokenDetails = (props) => {
         4: tab4
     };
 
-    const scrollY = useRef(new Animated.Value(0)).current;
-    const [pullDistance, setPullDistance] = useState(0);
-    const pullDistanceRef = useRef(0);
-    const REFRESH_THRESHOLD = 80;
-
-    const handleScroll = Animated.event(
-        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-        {
-            useNativeDriver: false,
-            listener: (event) => {
-                const offsetY = event.nativeEvent.contentOffset.y;
-                if (offsetY < 0) {
-                    const distance = Math.abs(offsetY);
-                    setPullDistance(distance);
-                    pullDistanceRef.current = distance;
-                } else {
-                    setPullDistance(0);
-                    pullDistanceRef.current = 0;
-                }
-            }
-        }
-    );
-
-    const handleScrollEndDrag = useCallback(() => {
-        if (pullDistanceRef.current >= REFRESH_THRESHOLD && !refreshing) {
-            onRefresh();
-        }
-        setPullDistance(0);
-        pullDistanceRef.current = 0;
-    }, [refreshing, onRefresh]);
-
     return (
         <MainContainerApp>
             <Spacer customHeight={Platform.OS == 'ios' ? hp(7) : hp(4)} />
@@ -131,31 +100,14 @@ const TokenDetails = (props) => {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     nestedScrollEnabled={true}
-                    onScroll={handleScroll}
-                    scrollEventThrottle={16}
-                    onScrollEndDrag={handleScrollEndDrag}
-                    bounces={true}
-                    overScrollMode="always">
-                    {/* Custom pull-to-refresh indicator */}
-                    {(pullDistance > 0 || refreshing) && (
-                        <View
-                            style={{
-                                height: refreshing ? hp(6) : pullDistance,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                overflow: 'hidden',
-                            }}
-                        >
-                            <ActivityIndicator
-                                size="large"
-                                color={'#ffffff'}
-                                animating={pullDistance >= REFRESH_THRESHOLD || refreshing}
-                                style={{
-                                    transform: [{ scale: 0.8 }], // 👈 increase / decrease size
-                                }}
-                            />
-                        </View>
-                    )}
+                    refreshControl={
+                        <RefreshControl
+                            tintColor={'#fff'}
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
+                        />
+                    }>
+
                     <View style={styles.margin} pointerEvents='box-none'>
                         <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(livePrice ?? 0))}</PoppinsText>
 
