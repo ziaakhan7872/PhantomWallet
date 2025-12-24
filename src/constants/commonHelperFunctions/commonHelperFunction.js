@@ -18,8 +18,15 @@ import { solanaAddresValidation } from "../../services/Helpers/SolanaHelper";
 export const convertBigValues = (value) => {
     if (value == null || isNaN(value)) return '0.00';
 
-    const absValue = Math.abs(Number(value));
-    const sign = value < 0 ? '-' : '';
+    const num = Number(value);
+    const absValue = Math.abs(num);
+    const sign = num < 0 ? '-' : '';
+
+    const formatWithCommas = (n) =>
+        new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        }).format(n);
 
     if (absValue >= 1e12) {
         return sign + (absValue / 1e12).toFixed(2) + 'T';
@@ -30,9 +37,11 @@ export const convertBigValues = (value) => {
     } else if (absValue >= 1e5) {
         return sign + (absValue / 1e3).toFixed(2) + 'K';
     } else {
-        return sign + absValue.toFixed(2);
+        // ✅ comma formatting for normal numbers
+        return sign + formatWithCommas(absValue);
     }
 };
+
 
 
 
@@ -71,13 +80,16 @@ export function formatBalancetwoDigit(balance) {
     return numString
 }
 
-export function formatValueTwoDigit(balance) {
+export function formatValueTwoDigit(balance, locale = "en-US") {
     const num = Number(balance);
-
     if (!num || Math.abs(num) < 0.0000005) return "0.00";
 
-    return num.toFixed(2); // ALWAYS keeps 2 digits
+    return new Intl.NumberFormat(locale, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(num);
 }
+
 
 export function formatValueFourDigit(balance) {
     const num = Number(balance);
