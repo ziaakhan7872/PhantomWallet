@@ -189,7 +189,7 @@ export const MultiChainChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/polygon_1766508480214_2dtm1a.png',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/sui_1766508505636_9jg0tl.png',
         chainId: 101
     },
     {
