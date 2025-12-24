@@ -20,6 +20,7 @@ const useAccountDetails = (props) => {
         const updateres = await database.switchActiveWallet(item?.id)
         if (updateres) {
             getAllAccounts();
+            props?.navigation?.goBack();
         }
     }
 
