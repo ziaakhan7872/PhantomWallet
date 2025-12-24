@@ -26,7 +26,15 @@ const EditAccount = (props) => {
                     <Image source={Images.pencilWithBlackRound1} resizeMode='contain' style={styles.pencilWithBlackRound1} />
                 </TouchableOpacity>
                 <Spacer customHeight={hp(3)} />
-                <EditAccountCard leftText={'Account Name'} leftText1={'Account Addresses'} rightText={item?.name} onPressTitle={() => props?.navigation.navigate(routes.accountName, { item })} onPressDesc={() => props?.navigation.navigate(routes.receive, { activeWalletWithTokens })} />
+                <EditAccountCard
+                    leftText={'Account Name'}
+                    leftText1={'Account Addresses'}
+                    username={item?.username ?? ''}
+                    rightText={item?.name}
+                    onPressUsername={() => props?.navigation.navigate(routes.accountName, { item, username: 'username' })}
+                    onPressTitle={() => props?.navigation.navigate(routes.accountName, { item })}
+                    onPressDesc={() => props?.navigation.navigate(routes.receive, { activeWalletWithTokens })}
+                />
                 <Spacer />
                 <TouchableOpacity activeOpacity={0.8} onPress={() => props?.navigation.navigate(routes.notifications)} style={[styles.notificationCard, appStyles.row]}>
                     <PoppinsText style={styles.notificationText}>Notifications</PoppinsText>

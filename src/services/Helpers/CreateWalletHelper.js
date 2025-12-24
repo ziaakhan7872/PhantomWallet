@@ -1,6 +1,6 @@
 import Web3 from "web3";
 import { generateBitcoinWallet } from "./BitcoinHelper";
-import { generateEvmWallet } from "./EVMHelper";
+import { CreatePrivateKeyToWallet, generateEvmWallet } from "./EVMHelper";
 import { generateSolanaWallet } from "./SolanaHelper";
 
 
