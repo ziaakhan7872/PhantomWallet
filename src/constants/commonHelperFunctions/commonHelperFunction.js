@@ -79,6 +79,14 @@ export function formatValueTwoDigit(balance) {
     return num.toFixed(2); // ALWAYS keeps 2 digits
 }
 
+export function formatValueFourDigit(balance) {
+    const num = Number(balance);
+
+    if (!num || Math.abs(num) < 0.0000005) return "0.00";
+
+    return num.toFixed(4); // ALWAYS keeps 2 digits
+}
+
 
 // export const NumberRoundFunction = (number) => {
 //     const num = Number(number);

@@ -14,7 +14,7 @@ import { RowButtons } from '../../../components/RowButtons'
 import { colors } from '../../../constants/colors'
 import { routes } from '../../../constants/routes'
 import { CustomModal } from '../../../components/CustomModal'
-import { convertBigValues, convertBigValuesWithSign, formatBalancetwoDigit, formatValueTwoDigit, NumberRoundFunction } from '../../../constants/commonHelperFunctions/commonHelperFunction'
+import { convertBigValues, convertBigValuesWithSign, formatBalancetwoDigit, formatValueFourDigit, formatValueTwoDigit, NumberRoundFunction } from '../../../constants/commonHelperFunctions/commonHelperFunction'
 import AnimatedView, { usePressAnimation } from '../../../components/EnterAmount/AnimatedView'
 
 const TokenDetails = (props) => {
@@ -160,7 +160,11 @@ const TokenDetails = (props) => {
                         <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(livePrice ?? 0))}</PoppinsText>
 
                         <View style={{ ...appStyles.rowBasic }}>
-                            <PoppinsText style={[styles.dollarPrice, { color: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`${Number(dailyPnl?.pnlAmount) < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                            {previousTokenData?.tokenName == 'Polygon' || previousTokenData?.tokenName == 'Monad' || previousTokenData?.tokenName == 'Fartcoin' || previousTokenData?.tokenName == 'USDT' ?
+                                <PoppinsText style={[styles.dollarPrice, { color: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`${Number(dailyPnl?.pnlAmount) < 0 ? '-' : '+'}$${formatValueFourDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                                :
+                                <PoppinsText style={[styles.dollarPrice, { color: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`${Number(dailyPnl?.pnlAmount) < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                            }
                             <View style={[styles.percentageRoundBox, { backgroundColor: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
                                 <PoppinsText style={[styles.percentageText, { color: '#000' }]}>{`${formatValueTwoDigit(dailyPnl?.change24h)}%`}</PoppinsText>
                             </View>
