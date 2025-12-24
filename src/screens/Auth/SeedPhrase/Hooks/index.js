@@ -51,34 +51,31 @@ const useSeedPhrase = (props) => {
                                 setLoading(false)
                             } else {
 
-                                setLoading(false)
-                                if (isAddAccountFlow) {
-                                    props.navigation.replace(routes.pinScreen, { isSettingFlow: true })
-                                } else {
-                                    props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
+                                const waletresponse = await insertWallet(
+                                    'Account',
+                                    cleanedSeed,
+                                    allwallets?.evmWallet?.address,
+                                    allwallets?.evmWallet?.privateKey,
+                                    allwallets?.bitcoin?.address,
+                                    allwallets?.bitcoin?.privateKey,
+                                    allwallets?.solana?.address,
+                                    allwallets?.solana?.privateKey,
+                                )
+                                console.log('waletresponsewaletresponse', waletresponse);
+
+                                if (waletresponse) {
+
+                                    let responsechains = await InsertAllChains(waletresponse, MultiChainChainsArray)
+                                    console.log('responsechainsresponsechainsresponsechains', responsechains);
+                                    if (responsechains) {
+                                        setLoading(false)
+                                        if (isAddAccountFlow) {
+                                            props.navigation.replace(routes.pinScreen, { isSettingFlow: true })
+                                        } else {
+                                            props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
+                                        }
+                                    }
                                 }
-
-                                //         const waletresponse = await insertWallet(
-                                //             'Account',
-                                //             cleanedSeed,
-                                //             allwallets?.evmWallet?.address,
-                                //             allwallets?.evmWallet?.privateKey,
-                                //             allwallets?.bitcoin?.address,
-                                //             allwallets?.bitcoin?.privateKey,
-                                //             allwallets?.solana?.address,
-                                //             allwallets?.solana?.privateKey,
-                                //         )
-                                //         console.log('waletresponsewaletresponse', waletresponse);
-
-                                //         if (waletresponse) {
-
-                                //             let responsechains = await InsertAllChains(waletresponse, MultiChainChainsArray)
-                                //             console.log('responsechainsresponsechainsresponsechains', responsechains);
-                                //             if (responsechains) {
-                                //                 setLoading(false)
-                                //                 props.navigation.replace(routes.pinScreen)
-                                //             }
-                                //         }
                             }
                         }, 2)
                     }
@@ -98,6 +95,8 @@ const useSeedPhrase = (props) => {
                         try {
 
                             let privateKey = formatPrivateKey(mnemonic.trim())
+                            console.log(privateKey, 'privateKeyprivateKeyprivateKey');
+
                             const allwallets = await generaEvmWalletUsingPrivatekey(privateKey.trim())
                             console.log('allwalletsallwallets private key', allwallets);
                             const checkIsexist = await getWalletByAddress(allwallets?.evmWallet?.address)
@@ -108,35 +107,32 @@ const useSeedPhrase = (props) => {
                                 setLoading(false)
                             } else {
 
-                                setLoading(false)
-                                if (isAddAccountFlow) {
-                                    props.navigation.replace(routes.pinScreen, { isSettingFlow: true })
-                                } else {
-                                    props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
+                                const waletresponse = await insertWallet(
+                                    'Account',
+                                    '',
+                                    allwallets?.evmWallet?.address,
+                                    allwallets?.evmWallet?.privateKey,
+                                    '',
+                                    '',
+                                    '',
+                                    '',
+                                )
+                                console.log('waletresponsewaletresponse', waletresponse);
+
+                                if (waletresponse) {
+
+                                    let responsechains = await InsertAllChains(waletresponse, EvmChainsArray)
+
+                                    console.log('responsechainsresponsechainsresponsechains', responsechains);
+                                    if (responsechains) {
+                                        setLoading(false)
+                                        if (isAddAccountFlow) {
+                                            props.navigation.replace(routes.pinScreen, { isSettingFlow: true })
+                                        } else {
+                                            props.navigation.replace(routes.importAccounts, { isSeedPhrase, cleanedSeed, allwallets })
+                                        }
+                                    }
                                 }
-
-                                // const waletresponse = await insertWallet(
-                                //     'Account',
-                                //     '',
-                                //     allwallets?.evmWallet?.address,
-                                //     allwallets?.evmWallet?.privateKey,
-                                //     '',
-                                //     '',
-                                //     '',
-                                //     '',
-                                // )
-                                // console.log('waletresponsewaletresponse', waletresponse);
-
-                                // if (waletresponse) {
-
-                                //     let responsechains = await InsertAllChains(waletresponse, EvmChainsArray)
-
-                                //     console.log('responsechainsresponsechainsresponsechains', responsechains);
-                                //     if (responsechains) {
-                                //         setLoading(false)
-                                //         props.navigation.replace(routes.pin)
-                                //     }
-                                // }
                             }
                         } catch (error) {
                             console.log('errorerrorerror', error);

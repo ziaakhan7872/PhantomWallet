@@ -13,20 +13,26 @@ import { routes } from '../../../constants/routes'
 
 const AccountName = (props) => {
     const item = props?.route?.params?.item
+    const username = props?.route?.params?.username ?? ''
 
-    const [accountName, setAccountName] = useState(item?.name ?? '')
+    const [accountName, setAccountName] = useState(username ? item?.username : item?.name)
 
     useEffect(() => {
         if (item?.name)
-            setAccountName(item?.name ?? '')
+            setAccountName(username ? item?.username : item?.name ?? '')
     }, [item])
 
     const onPressSave = async () => {
         console.log('accountName', accountName);
         try {
             if (accountName?.trim()?.length > 0) {
-                const updateres = await database.updateWalletAccountName(item?.id, accountName)
-                props?.navigation.replace(routes.MainTabs)
+                if (username) {
+                    await database.updateWalletName(item.id, accountName?.trim());
+                    props?.navigation.replace(routes.MainTabs)
+                } else {
+                    const updateres = await database.updateWalletAccountName(item?.id, accountName?.trim())
+                    props?.navigation.replace(routes.MainTabs)
+                }
             }
         } catch (error) {
             console.log('catch error in onPressSave:', error);
@@ -38,10 +44,10 @@ const AccountName = (props) => {
             <Spacer customHeight={hp(6)} />
             <ScrollView scrollEnabled={false}>
                 <View style={styles.mainView}>
-                    <NewCustomHeader title={'Account Name'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
+                    <NewCustomHeader title={username ? 'Edit User Name' : 'Edit Account Name'} leftImage={Images.backArrow} onPressLeftImage={() => props?.navigation.goBack()} />
                     <Spacer customHeight={hp(2.5)} />
                     <CustomTextInput5
-                        placeholder={'Account Name'}
+                        placeholder={username ? 'Enter User Name' : 'Enter Account Name'}
                         value={accountName}
                         onChangeText={(text) => setAccountName(text)}
                         inputStyle={styles.textInputStyle}

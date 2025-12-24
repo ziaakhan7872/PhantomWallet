@@ -124,8 +124,9 @@ export const insertWallet = async (
 
         // Insert the new active wallet
         const [insertResult] = await db.executeSql(
-            'INSERT INTO WalletTbl(name, logo, account, isActive, seedPhrase, walletAddress, privateKey, btcWalletAddress, btcPrivateKey, solanaWalletAddress, solanaPrivateKey) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+            'INSERT INTO WalletTbl(username,name, logo, account, isActive, seedPhrase, walletAddress, privateKey, btcWalletAddress, btcPrivateKey, solanaWalletAddress, solanaPrivateKey) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
             [
+                'Account',
                 name,
                 '😍',
                 0,

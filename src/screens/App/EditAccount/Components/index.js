@@ -8,7 +8,7 @@ import { colors } from "../../../../constants/colors"
 import { Fonts } from "../../../../constants/fonts"
 
 
-export const EditAccountCard = ({ leftText, leftText1, rightText, onPressTitle, onPressDesc }) => {
+export const EditAccountCard = ({ leftText, leftText1, rightText, onPressTitle, onPressDesc, username, onPressUsername }) => {
     return (
         <View>
             <TouchableOpacity activeOpacity={0.8} onPress={onPressTitle} style={styles.cardContainer}>
@@ -18,6 +18,14 @@ export const EditAccountCard = ({ leftText, leftText1, rightText, onPressTitle, 
                         <PoppinsText style={styles.rightText}>{rightText}</PoppinsText>
                         <Image source={Images.arrowRight} resizeMode='contain' style={styles.arrowRight} />
                     </View>
+                </View>
+            </TouchableOpacity>
+            <Spacer customHeight={hp(0.2)} />
+            <TouchableOpacity activeOpacity={0.8} onPress={onPressUsername} style={[appStyles.row, styles.cardContainer3]}>
+                <PoppinsText style={styles.leftText}>{'User Name'}</PoppinsText>
+                <View style={appStyles.rowBasic}>
+                    <PoppinsText style={styles.rightText}>{username}</PoppinsText>
+                    <Image source={Images.arrowRight} resizeMode='contain' style={styles.arrowRight} />
                 </View>
             </TouchableOpacity>
             <Spacer customHeight={hp(0.2)} />
@@ -46,6 +54,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
+        backgroundColor: colors.gray23,
+        padding: wp(5)
+    },
+    cardContainer3: {
+        width: wp(92),
+        alignSelf: 'center',
         backgroundColor: colors.gray23,
         padding: wp(5)
     },

@@ -22,8 +22,8 @@ const AccountDetails = (props) => {
     return (
         <View style={{ flex: 1, backgroundColor: colors.bgColor, }}>
             <StatusBar backgroundColor={'transparent'} translucent barStyle={'light-content'} />
-            
-            
+
+
             <View style={styles.mainView}>
                 <Spacer customHeight={hp(1.5)} />
                 <AddAccountHeader logo={activeWalletWithTokens?.logo} activeWalletWithTokens={activeWalletWithTokens} onPressCross={() => props?.navigation.goBack()} />

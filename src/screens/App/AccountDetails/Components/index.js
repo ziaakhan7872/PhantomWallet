@@ -59,6 +59,7 @@ export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
         <FlatList
             data={allAccounts}
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
+            contentContainerStyle={{ paddingBottom: hp(5) }}
             renderItem={({ item, index }) => (
                 <TouchableOpacity activeOpacity={0.8} onPress={() => onPressAccount(item)} style={[styles.accountsCardBgView, appStyles.row]}>
                     <View style={appStyles.rowBasic}>
