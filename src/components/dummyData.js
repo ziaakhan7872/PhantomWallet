@@ -21,7 +21,7 @@ export const MultiChainChainsArray = [
         isEvm: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/eth_1766508306619_ewd27u.png',
         chainId: 1,
     },
     // {
@@ -77,7 +77,7 @@ export const MultiChainChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/polygon_1766508480214_2dtm1a.png',
         chainId: 137,
     },
     // {
@@ -133,7 +133,7 @@ export const MultiChainChainsArray = [
         type: 'chain',
         tokenAddress: 0,
         isActive: 1,
-        tokenImage: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/bitcoin_1766508338922_tmc9dt.png',
         chainId: "bitcoin",
     },
     {
@@ -147,7 +147,7 @@ export const MultiChainChainsArray = [
         type: 'chain',
         tokenAddress: 0,
         isActive: 1,
-        tokenImage: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/bitcoin_1766508338922_tmc9dt.png',
         chainId: "bitcoin",
     },
     {
@@ -161,7 +161,7 @@ export const MultiChainChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/solana_1766508266249_we0n96.png',
         chainId: 'solana',
     },
     // {
@@ -189,7 +189,7 @@ export const MultiChainChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/26375/standard/sui-ocean-square.png?1727791290',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/polygon_1766508480214_2dtm1a.png',
         chainId: 101
     },
     {
@@ -203,7 +203,7 @@ export const MultiChainChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/38927/standard/monad.png?1764042736',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/monad_1766508454437_s6dfic.png',
         chainId: 143
     },
     {
@@ -217,7 +217,7 @@ export const MultiChainChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://cdn.dexscreener.com/cms/images/c4528ba2506121f3f2a1f3db2ef5d27907f8305ebe2088319c2de50effaa76e4?width=64&height=64&fit=crop&quality=95&format=auto',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/hype_1766508430124_ebb9h1.png',
         chainId: 999
     },
     {
@@ -231,7 +231,7 @@ export const MultiChainChainsArray = [
         "isActive": 1,
         "type": "token",
         "tokenAddress": "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",  // Official TRUMP token address on Solana
-        "tokenImage": "https://cdn.dexscreener.com/cms/images/85a2613c51c8ded8e51b1b3910487ab66691cb60fecec7d0905481a603bba899?width=64&height=64&fit=crop&quality=95&format=auto",  // Replace with the actual token image URL
+        "tokenImage": "https://dubnxt.s3.eu-north-1.amazonaws.com/string/trump_1766508529935_zndj6h.png",  // Replace with the actual token image URL
         "chainId": "solana"
     },
     {
@@ -245,7 +245,7 @@ export const MultiChainChainsArray = [
         "isActive": 1,
         "type": "token",
         "tokenAddress": "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",  // Official TRUMP token address on Solana
-        "tokenImage": "https://cdn.dexscreener.com/cms/images/9af5672845c89585e9ff1e3b26a640090324aa4d92222052d1043e60ef8182de?width=64&height=64&fit=crop&quality=95&format=auto",  // Replace with the actual token image URL
+        "tokenImage": "https://dubnxt.s3.eu-north-1.amazonaws.com/string/fartcoin_1766508370666_ighwki.png",  // Replace with the actual token image URL
         "chainId": "solana"
     },
     {
@@ -259,7 +259,7 @@ export const MultiChainChainsArray = [
         "isActive": 1,
         "type": "token",
         "tokenAddress": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",  // Official TRUMP token address on Solana
-        "tokenImage": "https://cdn.dexscreener.com/cms/images/ad986e3ebe668b0c5ed2ecec0f6bcdc2f4cda3ad8a424a252d33f730c75364a7?width=64&height=64&fit=crop&quality=95&format=auto",  // Replace with the actual token image URL
+        "tokenImage": "https://dubnxt.s3.eu-north-1.amazonaws.com/string/usdt_1766508587187_6uerwl.png",  // Replace with the actual token image URL
         "chainId": "solana"
     },
 
@@ -278,7 +278,7 @@ export const EvmChainsArray = [
         isEvm: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/eth_1766508306619_ewd27u.png',
         chainId: 1,
     },
     // {
@@ -334,7 +334,7 @@ export const EvmChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png?1624446912',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/polygon_1766508480214_2dtm1a.png',
         chainId: 137,
     },
     // {
@@ -362,7 +362,7 @@ export const EvmChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://assets.coingecko.com/coins/images/38927/standard/monad.png?1764042736',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/monad_1766508454437_s6dfic.png',
         chainId: 143
     },
     {
@@ -376,7 +376,7 @@ export const EvmChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://cdn.dexscreener.com/cms/images/c4528ba2506121f3f2a1f3db2ef5d27907f8305ebe2088319c2de50effaa76e4?width=64&height=64&fit=crop&quality=95&format=auto',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/hype_1766508430124_ebb9h1.png',
         chainId: 999
     },
     // {

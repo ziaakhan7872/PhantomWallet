@@ -17,23 +17,24 @@ import { solanaAddresValidation } from "../../services/Helpers/SolanaHelper";
 
 export const convertBigValues = (value) => {
     if (value == null || isNaN(value)) return '0.00';
-  
-    const absValue = Math.abs(value);
+
+    const absValue = Math.abs(Number(value));
     const sign = value < 0 ? '-' : '';
-  
+
     if (absValue >= 1e12) {
-      return sign + (absValue / 1e12).toFixed(2) + 'T';
+        return sign + (absValue / 1e12).toFixed(2) + 'T';
     } else if (absValue >= 1e9) {
-      return sign + (absValue / 1e9).toFixed(2) + 'B';
+        return sign + (absValue / 1e9).toFixed(2) + 'B';
     } else if (absValue >= 1e6) {
-      return sign + (absValue / 1e6).toFixed(2) + 'M';
-    } else if (absValue >= 1e3) {
-      return sign + (absValue / 1e3).toFixed(2) + 'K';
+        return sign + (absValue / 1e6).toFixed(2) + 'M';
+    } else if (absValue >= 1e5) {
+        return sign + (absValue / 1e3).toFixed(2) + 'K';
     } else {
-      return sign + absValue.toFixed(2);
+        return sign + absValue.toFixed(2);
     }
-  };
-  
+};
+
+
 
 
 

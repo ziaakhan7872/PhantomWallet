@@ -159,12 +159,6 @@ const TokenDetails = (props) => {
                     <View style={styles.margin} pointerEvents='box-none'>
                         <PoppinsText style={styles.tokenCurentPrice}>${NumberRoundFunction(Number(livePrice ?? 0))}</PoppinsText>
 
-                        {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
-                        {/* <PoppinsText style={styles.tokenCurentPrice}>${dailyPnl?.totalValue}</PoppinsText> */}
-                        {/* <PoppinsText style={[styles.tokenCurentPrice, { color: '#ffffff' }]}>-{liveTime}</PoppinsText> */}
-                        {/* // REMOVE LATER ONLY FOR TESTINGGGGG ///////////// */}
-
-
                         <View style={{ ...appStyles.rowBasic }}>
                             <PoppinsText style={[styles.dollarPrice, { color: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`${Number(dailyPnl?.pnlAmount) < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
                             <View style={[styles.percentageRoundBox, { backgroundColor: dailyPnl?.change24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
@@ -238,7 +232,7 @@ const TokenDetails = (props) => {
                         <Spacer customHeight={hp(2)} />
                         <TouchableOpacity activeOpacity={0.8} onPress={() => setReturn24hModalVisible(true)} style={[styles.hourBgView, appStyles.row, { paddingVertical: wp(4) }]}>
                             <PoppinsText style={styles.changeReturn}>24h Return</PoppinsText>
-{/* TODO: */}
+                            {/* TODO: */}
                             {/* <PoppinsText style={[styles.changeAmount, { color: return24hValue?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>${Number(return24hValue)?.toFixed(2)}</PoppinsText> */}
                             {Number(balanceValue) == 0 || balanceValue == '' ?
                                 <PoppinsText style={[styles.changeAmount, { color: '#B4B4B4' }]}>$0.00</PoppinsText>

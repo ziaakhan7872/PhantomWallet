@@ -9,7 +9,7 @@ import { appStyles } from '../../../../utilities/appStyles/index'
 import { HomeTabs, HorizontalSrcollList, tokensData } from '../../../../components/dummyData'
 import Spacer, { HorizontalSpacer } from '../../../../components/Spacer'
 import { formatBalancetwoDigit, formatValueTwoDigit, NumberRoundFunction } from '../../../../constants/commonHelperFunctions/commonHelperFunction'
-import { getTokenLogo } from '../../Receive/Components'
+import { getTokenLogo, getTokenLogoUrlWithChain } from '../../Receive/Components'
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 export const AccountCard = ({ profile, logo, accountName, accountNumber, rightImage1, rightImage2, onPressRightImage1, onPressRightImage2, onPressAccount }) => {
@@ -47,14 +47,15 @@ export const BalanceCard = ({ totalBalance, dailyPnl }) => {
         <View>
             <PoppinsText style={styles.balanceText}>${NumberRoundFunction(totalBalance)}</PoppinsText>
             <View style={{ ...appStyles.rowBasic }}>
-                {/* <PoppinsText style={[styles.amount, { color: dailyPnl?.pnlAmount?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>{`$${formatValueTwoDigit(dailyPnl?.pnlAmount)}`}</PoppinsText>
-                <View style={[styles.dollarAmountBox, { backgroundColor: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#e94f33' : '#29a16b' }]}>
-                    <PoppinsText style={[styles.dollarAmount, { color: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#000' : '#e94f33' }]}>{`${formatValueTwoDigit(dailyPnl?.percentChange24h)}%`}</PoppinsText>
-                </View> */}
-                <PoppinsText style={[styles.amount, { color: '#4AA46C' }]}>{`+$${NumberRoundFunction(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                <PoppinsText style={[styles.amount, { color: dailyPnl?.pnlAmount?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>{`${Number(dailyPnl?.pnlAmount) < 0 ? '-' : '+'}$${formatValueTwoDigit(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
+                <View style={[styles.dollarAmountBox, { backgroundColor: dailyPnl?.percentChange24h?.toString()?.includes('-') ? '#E54D2E' : '#4AA46C' }]}>
+                    <PoppinsText style={[styles.dollarAmount, { color: '#000' }]}>{`${formatValueTwoDigit(dailyPnl?.percentChange24h)}%`}</PoppinsText>
+                </View>
+
+                {/* <PoppinsText style={[styles.amount, { color: '#4AA46C' }]}>{`+$${NumberRoundFunction(Math.abs(Number(dailyPnl?.pnlAmount)))}`}</PoppinsText>
                 <View style={[styles.dollarAmountBox, { backgroundColor: '#4AA46C' }]}>
                     <PoppinsText style={[styles.dollarAmount, { color: '#111111' }]}>{`+${formatValueTwoDigit(Math.abs(Number(dailyPnl?.percentChange24h)))}%`}</PoppinsText>
-                </View>
+                </View> */}
             </View>
         </View>
     )
@@ -266,16 +267,11 @@ export const TokensCard = ({ tokenData, onPressToken, isSkeltonLoading }) => {
                                             {/* <Image source={{ uri: String(item?.tokenLogo) }} resizeMode='contain' style={styles.tokenLogo} /> */}
                                             {item?.logoURI ?
                                                 <View>
-                                                    {item?.tokenName == 'Ethereum' ?
-                                                        <View style={[styles.tokenLogo2, { backgroundColor: colors.white }]}>
-                                                            <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
-                                                        </View>
+                                                    {item?.type == 'token' ?
+                                                        <Image source={{ uri: getTokenLogoUrlWithChain(item?.tokenName) }} resizeMode='contain' style={styles.tokenLogo} />
                                                         :
-                                                        <View>
-                                                            <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
-                                                        </View>
+                                                        <Image source={{ uri: item?.logoURI }} resizeMode='contain' style={styles.tokenLogo} />
                                                     }
-                                                    {item?.type == 'token' && <Image source={getTokenLogo(item?.chainName)} resizeMode='contain' style={styles.tokenLogoChain} />}
                                                 </View>
                                                 :
                                                 <View style={styles.tokenLogo1}>
@@ -569,7 +565,7 @@ const styles = StyleSheet.create({
         width: wp(11.5),
         height: wp(11.5),
         // marginRight: wp(3),
-        borderRadius: 100
+        // borderRadius: 100
     },
     tokenLogo2: {
         width: wp(12),

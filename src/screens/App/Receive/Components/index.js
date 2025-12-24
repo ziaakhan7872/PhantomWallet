@@ -85,8 +85,8 @@ export const getTokenLogo = (chainName) => {
             return Images.btcLogo;
         case 'Solana':
             return Images.solLogo;
-        // case 'Sui':
-        //     return Images.suiLogo;
+        case 'Sui':
+            return Images.suiLogo;
         case 'Polygon':
             return Images.polygonLogo;
         case 'Base':
@@ -97,6 +97,19 @@ export const getTokenLogo = (chainName) => {
             return Images.bnbColorFullLogo;
         case 'Avalanche':
             return Images.avalancheColorFullLogo;
+
+        default: return null;
+    }
+}
+
+export const getTokenLogoUrlWithChain = (chainName) => {
+    switch (chainName) {
+        case 'OFFICIAL TRUMP':
+            return 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/trumpsol_1766508561159_oz5amo.png';
+        case 'Fartcoin':
+            return 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/fasrtconsol_1766508398296_adrs2o.png';
+        case 'USDT':
+            return 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/usdtsol_1766508610243_3cz04m.png';
 
         default: return null;
     }
