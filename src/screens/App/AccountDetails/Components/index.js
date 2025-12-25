@@ -1,5 +1,5 @@
-import { FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { FlatList, Image, StyleSheet, TouchableOpacity, View, Animated, Easing } from 'react-native'
+import React, { useRef } from 'react'
 import { appStyles } from '../../../../utilities/appStyles'
 import { Images } from '../../../../Images'
 import PoppinsText from '../../../../components/PoppinsText'
@@ -55,6 +55,46 @@ export const RowTabs = ({ onPressProfile, onPressSettings }) => {
 export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
     console.log('allAccountsallAccounts', allAccounts);
 
+    const scaleValues = useRef({}).current;
+
+    const getScaleValue = (id) => {
+        if (!scaleValues[id]) {
+            scaleValues[id] = new Animated.Value(1);
+        }
+        return scaleValues[id];
+    };
+
+    const handlePressIn = (id) => {
+        Animated.timing(getScaleValue(id), {
+            toValue: 0.95,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
+    const handlePressOut = (id) => {
+        Animated.timing(getScaleValue(id), {
+            toValue: 1,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+    };
+
+    const handlePress = (id, item) => {
+        Animated.timing(getScaleValue(id), {
+            toValue: 0.95,
+            duration: 200,
+            useNativeDriver: true,
+            easing: Easing.ease,
+        }).start();
+
+        onPressAccount(item);
+
+        handlePressOut(id);
+    };
+
     return (
         <FlatList
             data={allAccounts}
@@ -62,40 +102,36 @@ export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
             contentContainerStyle={{ paddingBottom: hp(5) }}
             renderItem={({ item, index }) => (
-                <TouchableOpacity activeOpacity={0.8} onPress={() => onPressAccount(item)} style={[styles.accountsCardBgView, appStyles.row]}>
+                <Animated.View style={{ transform: [{ scale: getScaleValue(index) }] }}>
+                    <TouchableOpacity 
+                        activeOpacity={0.8} 
+                        onPressIn={() => handlePressIn(index)}
+                        onPressOut={() => handlePressOut(index)}
+                        onPress={() => handlePress(index, item)} 
+                        style={[styles.accountsCardBgView, appStyles.row]}
+                    >
 
-                    {console.log('allAccounts', item)}
-                    <View style={appStyles.rowBasic}>
-                        <View style={{ marginRight: wp(3) }}>
-                            {/* <Image source={Images.profile1} resizeMode='contain' style={styles.accountLogo} /> */}
-                            {/* <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{item?.logo ?? '😍'}</PoppinsText> */}
-                            <View style={{ width: wp(11.5), height: wp(11.5), borderRadius: 100, backgroundColor: '#2A2A2A', alignItems: 'center', justifyContent: 'center' }}>
-                                <PoppinsText style={{ fontSize: 16, fontFamily: Fonts.Poppins.SemiBold, color: colors.white }}>{`A${index + 1}`}</PoppinsText>
+                        {console.log('allAccounts', item)}
+                        <View style={appStyles.rowBasic}>
+                            <View style={{ marginRight: wp(3) }}>
+                                {/* <Image source={Images.profile1} resizeMode='contain' style={styles.accountLogo} /> */}
+                                {/* <PoppinsText style={{ fontSize: 36, marginRight: wp(2) }}>{item?.logo ?? '😍'}</PoppinsText> */}
+                                <View style={{ width: wp(11.5), height: wp(11.5), borderRadius: 100, backgroundColor: '#2A2A2A', alignItems: 'center', justifyContent: 'center' }}>
+                                    <PoppinsText style={{ fontSize: 16, fontFamily: Fonts.Poppins.SemiBold, color: colors.white }}>{`A${index + 1}`}</PoppinsText>
+                                </View>
+                                {item?.isActive == 1 ? <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} /> : null}
                             </View>
-                            {item?.isActive == 1 ? <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} /> : null}
-                        </View>
 
-                        <View>
-                            <PoppinsText style={styles.accountName}>{item?.name}</PoppinsText>
-                            <PoppinsText style={styles.accountBalance}>${NumberRoundFunction(item?.totalBalance ?? 0)}</PoppinsText>
+                            <View>
+                                <PoppinsText style={styles.accountName}>{item?.name}</PoppinsText>
+                                <PoppinsText style={styles.accountBalance}>${NumberRoundFunction(item?.totalBalance ?? 0)}</PoppinsText>
+                            </View>
                         </View>
-                    </View>
-                    <TouchableOpacity activeOpacity={0.8} onPress={() => onPressEdit(item)}>
-                        <Image source={Images.pencilWithRound} resizeMode='contain' style={styles.pencilWithRound} />
+                        <TouchableOpacity activeOpacity={0.8} onPress={() => onPressEdit(item)}>
+                            <Image source={Images.pencilWithRound} resizeMode='contain' style={styles.pencilWithRound} />
+                        </TouchableOpacity>
                     </TouchableOpacity>
-                </TouchableOpacity>
-                // <View style={[styles.accountsCardBgView, appStyles.row]}>
-                //     <View style={appStyles.rowBasic}>
-                //         <View style={{ marginRight: wp(3) }}>
-                //             <Image source={Images.accountLogo} resizeMode='contain' style={styles.accountLogo} />
-                //             <Image source={Images.tickWithRound} resizeMode='contain' style={styles.tickWithRound} />
-                //         </View>
-                //         <PoppinsText style={styles.accountName}>Account 1</PoppinsText>
-                //     </View>
-                //     <TouchableOpacity activeOpacity={0.8} onPress={onPressEdit}>
-                //         <Image source={Images.pencilWithRound} resizeMode='contain' style={styles.pencilWithRound} />
-                //     </TouchableOpacity>
-                // </View>
+                </Animated.View>
             )} />
     )
 }
