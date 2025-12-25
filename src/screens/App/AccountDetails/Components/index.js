@@ -103,11 +103,11 @@ export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
             contentContainerStyle={{ paddingBottom: hp(5) }}
             renderItem={({ item, index }) => (
                 <Animated.View style={{ transform: [{ scale: getScaleValue(index) }] }}>
-                    <TouchableOpacity 
-                        activeOpacity={0.8} 
+                    <TouchableOpacity
+                        activeOpacity={1}
                         onPressIn={() => handlePressIn(index)}
                         onPressOut={() => handlePressOut(index)}
-                        onPress={() => handlePress(index, item)} 
+                        onPress={() => handlePress(index, item)}
                         style={[styles.accountsCardBgView, appStyles.row]}
                     >
 
