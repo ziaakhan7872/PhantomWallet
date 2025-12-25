@@ -1,4 +1,4 @@
-import { View, StatusBar } from 'react-native'
+import { View, StatusBar, ScrollView } from 'react-native'
 import React from 'react'
 import { AppContainer, MainContainerApp } from '../../../components/MainContainer'
 import { styles } from './styles'
@@ -28,11 +28,13 @@ const AccountDetails = (props) => {
                 <Spacer customHeight={hp(1.5)} />
                 <AddAccountHeader logo={activeWalletWithTokens?.logo} activeWalletWithTokens={activeWalletWithTokens} onPressCross={() => props?.navigation.goBack()} />
                 <Spacer />
+                <ScrollView showsVerticalScrollIndicator={false} nestedScrollEnabled={true}>
                 <RowTabs onPressProfile={() => props?.navigation.navigate(routes.editProfile, { item: activeWalletWithTokens })} onPressSettings={() => props?.navigation.navigate(routes.accountSettings, { item: activeWalletWithTokens })} />
                 <Spacer customHeight={hp(1)} />
                 <PoppinsText style={styles.title}>Your Accounts</PoppinsText>
                 <Spacer customHeight={hp(1)} />
                 <AccountsCard allAccounts={allAccounts} onPressAccount={(item) => onPressAccount(item)} onPressEdit={(item) => props?.navigation.navigate(routes.editAccount, { item, activeWalletWithTokens })} />
+                </ScrollView>
             </View>
             <View style={{ paddingBottom: hp(4) }}>
                 <CustomButton title={'Add Account'} onPressBtn={() => props?.navigation.navigate(routes.addAccounts)}

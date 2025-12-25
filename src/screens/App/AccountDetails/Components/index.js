@@ -58,6 +58,7 @@ export const AccountsCard = ({ allAccounts, onPressEdit, onPressAccount }) => {
     return (
         <FlatList
             data={allAccounts}
+            scrollEnabled={false}
             ItemSeparatorComponent={() => <Spacer customHeight={hp(1)} />}
             contentContainerStyle={{ paddingBottom: hp(5) }}
             renderItem={({ item, index }) => (
