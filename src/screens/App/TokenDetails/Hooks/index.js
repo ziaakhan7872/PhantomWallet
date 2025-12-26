@@ -71,6 +71,8 @@ const useTokenDetails = (props) => {
 
             const data = await getGraphDataById(previousTokenData?.cmcId, days);
 
+            console.log('data::data::data::data', data);
+
             setGraphData(data?.prices ?? []);
 
             const lastValue = data?.total_volumes[data?.total_volumes.length - 1][1];
