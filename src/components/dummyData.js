@@ -161,7 +161,7 @@ export const MultiChainChainsArray = [
         isActive: 1,
         type: 'chain',
         tokenAddress: 0,
-        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/IMG_9808_1766767466543_mqamct.PNG',
+        tokenImage: 'https://dubnxt.s3.eu-north-1.amazonaws.com/string/newlogo3_1767023950878_qf1xss.png',
         chainId: 'solana',
     },
     // {
